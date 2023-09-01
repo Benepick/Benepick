@@ -1,14 +1,12 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import Router from './src/router/Router';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Start from './src/pages/Start/Start';
-import Home from './src/pages/Home/Home';
+
+import Home from '../pages/Home/Home';
+import Start from '../pages/Start/Start';
 
 const Stack = createNativeStackNavigator();
 
-function App(): JSX.Element {
+const Router = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Start">
@@ -17,6 +15,6 @@ function App(): JSX.Element {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-export default App;
+export default Router;
