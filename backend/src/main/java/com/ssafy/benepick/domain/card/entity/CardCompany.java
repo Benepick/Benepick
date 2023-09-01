@@ -31,9 +31,9 @@ public class CardCompany {
 	@Column(nullable = false)
 	private String cardCompanyName;
 
-	@OneToMany(mappedBy = "CardCompany", cascade = CascadeType.ALL , orphanRemoval = true)
+	@OneToMany(mappedBy = "cardCompany", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<MyDataCard> myDataCardList;
 
-	@OneToMany(mappedBy = "CardCompany", cascade = CascadeType.ALL , orphanRemoval = true)
+	@OneToMany(mappedBy = "cardCompany", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<Card> cardList;
 }

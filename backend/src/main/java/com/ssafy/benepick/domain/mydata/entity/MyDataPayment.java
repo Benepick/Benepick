@@ -41,6 +41,6 @@ public class MyDataPayment {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "my_data_card_id" , nullable = false)
-	private MyDataUser myDataCard;
+	private MyDataCard myDataCard;
 }
 
