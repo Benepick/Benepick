@@ -9,14 +9,7 @@ import Home from './src/pages/Home/Home';
 const Stack = createNativeStackNavigator();
 
 function App(): JSX.Element {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Start">
-        <Stack.Screen name="Start" component={Start} />
-        <Stack.Screen name="Home" component={Home} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  return <Router />;
 }
 
 export default App;

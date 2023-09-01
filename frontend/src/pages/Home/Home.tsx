@@ -1,10 +1,14 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
 
-function Home() {
+import Consumption from './Container/Consumption';
+import Recommendation from './Container/Recommendation';
+
+function Home({ navigation }) {
   return (
     <View>
-      <Text>홈이에요 홈!!</Text>
+      <Recommendation />
+      <Consumption />
     </View>
   );
 }

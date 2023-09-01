@@ -1,10 +1,10 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import { Text, View } from 'react-native';
 
 function Consumption() {
   return (
     <View>
-      <Text>베네픽 앱</Text>
+      <Text>이달의 소비</Text>
     </View>
   );
 }
