@@ -1,15 +1,14 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import Router from './src/router/Router';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Start from './src/pages/Start/Start';
-import Home from './src/pages/Home/Home';
-
-const Stack = createNativeStackNavigator();
+import { Provider } from 'react-redux';
+import store from './src/store/store';
 
 function App(): JSX.Element {
-  return <Router />;
+  return (
+    <Provider store={store}>
+      <Router />
+    </Provider>
+  );
 }
 
 export default App;
