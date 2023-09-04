@@ -8,6 +8,8 @@ import lombok.Getter;
 @Getter
 public enum ExceptionCode {
 
+	NOT_EXIST_USER_CI_EXCEPTION(460,"일치하는 CI를 가진 유저가 존재하지 않습니다."),
+	NOT_EXIST_ACCESS_TOKEN_EXCEPTION(461,"Access Token 이 존재하지 않습니다."),
 	EXIST_USER_EXCEPTION(470,"이미 존재하는 사용자 입니다."),
 	SERVER_EXCEPTION(500, "서버에서 예측하지 못한 에러가 발생했습니다.");
 
