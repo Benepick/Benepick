@@ -6,11 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.ssafy.benepick.global.exception.NotExistAccessTokenException;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -67,13 +70,18 @@ public class JwtService {
 		return Keys.hmacShaKeyFor(SECRET_KEY.getBytes()).getEncoded();
 	}
 
-	public String extractUserIdFromAccessToken(String accessToken) {
+	public String extractUserIdFromAccessToken(HttpServletRequest request) {
 		log.info("JwtService_extractUserIdFromAccessToken | Access Token 에서 userCI 추출");
+		String accessToken = request.getHeader("Authorization");
+
+		if(accessToken == null)
+			throw new NotExistAccessTokenException();
+
 		try {
 			// setSigningKey : JWS 서명 검증을 위한  secret key 세팅
 			// parseClaimsJws : 파싱하여 원본 jws 만들기
 			// Claims 는 Map의 구현체 형태
-			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(this.generateKey()).build().parseClaimsJws(accessToken);
+			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(this.generateKey()).build().parseClaimsJws(accessToken.split(" ")[1]);
 			return claims.getBody().get("userId", String.class);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
