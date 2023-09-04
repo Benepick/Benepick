@@ -1,5 +1,12 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@common/*": ["common/*"],
+      "@navigator/*": ["navigator/*"],
+      "@pages/*": ["pages/*"],
+      "@store/*": ["store/*"]
+    },
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
@@ -12,5 +19,6 @@
     "target": "esnext",
     "skipLibCheck": true
   },
-  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"],
+  "extends": "@tsconfig/react-native/tsconfig.json"
 }

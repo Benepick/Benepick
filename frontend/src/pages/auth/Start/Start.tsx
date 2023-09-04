@@ -1,12 +1,13 @@
 import React from 'react';
 import { Text, View, Button } from 'react-native';
-import { StartNavigationProps } from '../../common/interface';
+
+import { StartNavigationProps } from '@common/interfaces/navigation';
 
 function Start({ navigation }: StartNavigationProps) {
   return (
     <View>
-      <Text>스타트</Text>
-      <Button title="홈열기" onPress={() => navigation.push('BottomTab')} />
+      <Text>BenePick</Text>
+      <Button title="BenePick 시작하기" onPress={() => navigation.push('Terms')} />
     </View>
   );
 }

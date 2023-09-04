@@ -5,8 +5,9 @@ import { Button } from 'react-native';
 
 import Start from '../pages/Start/Start';
 import Alarm from '../pages/Alarm/Alarm';
-import BottomTab from './BottomTab';
+import BottomTab from './stacks/BottomTab';
 import Test from '../pages/Test/Test';
+import AuthStack from './stacks/AuthStack';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,8 +16,8 @@ const RootStack = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Start"
-          component={Start}
+          name="AuthStack"
+          component={AuthStack}
           options={{
             headerShown: false,
           }}
