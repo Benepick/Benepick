@@ -3,10 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button } from 'react-native';
 
-import Start from '../pages/Start/Start';
-import Alarm from '../pages/Alarm/Alarm';
+import Start from '@pages/auth/Start/Start';
+import Alarm from '@pages/Alarm/Alarm';
 import BottomTab from './stacks/BottomTab';
-import Test from '../pages/Test/Test';
+import Test from '@pages/Test/Test';
 import AuthStack from './stacks/AuthStack';
 
 const Stack = createNativeStackNavigator();

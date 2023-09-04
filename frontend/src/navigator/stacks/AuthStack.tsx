@@ -2,15 +2,15 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Start from '../../pages/Start/Start';
-import Terms from '../../pages/Terms/Terms';
-import PersonalAuth from '../../pages/PersonalAuth/PersonalAuth';
-import PhoneAuth from '../../pages/PhoneAuth/PhoneAuth';
-import PasswordSetting from '../../pages/auth/PasswordSetting/PasswordSetting';
-import SelectCompany from '../../pages/SelectCompany/SelectCompany';
-import SelectCard from '../../pages/SelectCard/SelectCard';
-import LogIn from '../../pages/LogIn/LogIn';
-import RegistrationComplete from '../../pages/RegistrationComplete/RegistrationComplete';
+import Start from '@pages/auth/Start/Start';
+import Terms from '@pages/auth/Terms/Terms';
+import PersonalAuth from '@pages/auth/PersonalAuth/PersonalAuth';
+import PhoneAuth from '@pages/auth/PhoneAuth/PhoneAuth';
+import PasswordSetting from '@pages/auth/PasswordSetting/PasswordSetting';
+import SelectCompany from '@pages/auth/SelectCompany/SelectCompany';
+import SelectCard from '@pages/auth/SelectCard/SelectCard';
+import LogIn from '@pages/auth/LogIn/LogIn';
+import RegistrationComplete from '@pages/auth/RegistrationComplete/RegistrationComplete';
 
 const Stack = createNativeStackNavigator();
 
