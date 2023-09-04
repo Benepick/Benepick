@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text, View, Button } from 'react-native';
+import { StartNavigationProps } from '../../common/interface';
 
-function Start({ navigation }: any) {
+function Start({ navigation }: StartNavigationProps) {
   return (
     <View>
       <Text>스타트</Text>

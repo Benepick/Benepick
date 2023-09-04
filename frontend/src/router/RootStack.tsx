@@ -6,10 +6,11 @@ import { Button } from 'react-native';
 import Start from '../pages/Start/Start';
 import Alarm from '../pages/Alarm/Alarm';
 import BottomTab from './BottomTab';
+import Test from '../pages/Test/Test';
 
 const Stack = createNativeStackNavigator();
 
-const Router = () => {
+const RootStack = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -37,9 +38,10 @@ const Router = () => {
             ),
           })}
         />
+        <Stack.Screen name="Test" component={Test} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
-export default Router;
+export default RootStack;
