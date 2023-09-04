@@ -2,8 +2,8 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Button } from 'react-native';
 
-import Home from '../pages/Home/Home';
-import CreditCard from '../pages/CreditCard/CreditCard';
+import Home from '../../pages/main/Home/Home';
+import CreditCardStack from './CreditCardStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,8 +23,8 @@ const BottomTab = () => {
         })}
       />
       <Tab.Screen
-        name="CreditCard"
-        component={CreditCard}
+        name="CreditCardStack"
+        component={CreditCardStack}
         options={({ navigation }) => ({
           headerLeft: () => (
             <Button onPress={() => navigation.push('BottomTab')} title="Go Home" color="#000000" />

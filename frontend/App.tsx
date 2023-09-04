@@ -1,5 +1,5 @@
 import React from 'react';
-import RootStack from './src/router/RootStack';
+import RootStack from './src/navigator/RootStack';
 import { Provider } from 'react-redux';
 import store from './src/store/store';
 

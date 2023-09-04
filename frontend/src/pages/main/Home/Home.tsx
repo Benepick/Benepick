@@ -3,7 +3,7 @@ import { Text, View, Button } from 'react-native';
 
 import Consumption from './Container/Consumption';
 import Recommendation from './Container/Recommendation';
-import { HomeNavigationProps } from '../../common/interfaces/navigation';
+import { HomeNavigationProps } from '@common/interfaces/navigation';
 
 function Home({ navigation }: HomeNavigationProps) {
   return (
