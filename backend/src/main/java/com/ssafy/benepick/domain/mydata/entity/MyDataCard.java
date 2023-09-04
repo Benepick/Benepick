@@ -1,5 +1,6 @@
 package com.ssafy.benepick.domain.mydata.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.ssafy.benepick.domain.card.entity.CardCompany;
@@ -31,7 +32,7 @@ public class MyDataCard {
 	private String myDataCardName;
 
 	@Column(nullable = false)
-	private String myDataCardExpirationDate;
+	private LocalDate myDataCardExpirationDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "my_data_user_id" , nullable = false)

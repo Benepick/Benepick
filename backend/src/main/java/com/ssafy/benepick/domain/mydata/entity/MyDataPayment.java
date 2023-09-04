@@ -1,5 +1,7 @@
 package com.ssafy.benepick.domain.mydata.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,7 +24,7 @@ public class MyDataPayment {
 	private Long myDataPaymentId;
 
 	@Column(nullable = false)
-	private String myDataPaymentDate;
+	private LocalDate myDataPaymentDate;
 
 	@Column(nullable = false)
 	private String myDataPaymentCategory;
@@ -34,10 +36,10 @@ public class MyDataPayment {
 	private String myDataPaymentMerchantName;
 
 	@Column(nullable = false)
-	private String myDataPaymentMerchantX;
+	private double myDataPaymentMerchantX;
 
 	@Column(nullable = false)
-	private String myDataPaymentMerchantY;
+	private double myDataPaymentMerchantY;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "my_data_card_id" , nullable = false)
