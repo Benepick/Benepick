@@ -3,6 +3,7 @@ package com.ssafy.benepick.domain.user.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.benepick.domain.user.dto.request.ChangePasswordRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.CreateUserAccountRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.LoginRequestDto;
 import com.ssafy.benepick.domain.user.entity.User;
@@ -52,15 +53,25 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean login(LoginRequestDto loginRequestDto, HttpServletRequest request) {
 		log.info("UserServiceImpl_login | 유저 간편 비밀번호를 이용한 로그인");
-		String accessToken = request.getHeader("Authorization");
-		if(accessToken == null)
-			throw new NotExistAccessTokenException();
-
-		String userCi = jwtService.extractUserIdFromAccessToken(accessToken.split(" ")[1]);
-		User loginUser = userRepository.findById(userCi).orElseThrow(NotExistUserCiException::new);;
+		User loginUser = getUserFromRequest(request);
 
 		if(loginUser.getUserSimplePassword().equals(loginRequestDto.getUserSimplePassword()))
 			return true;
 		return false;
+	}
+
+	@Override
+	@Transactional
+	public void changeSimplePassword(ChangePasswordRequestDto changePasswordRequestDto, HttpServletRequest request) {
+		log.info("UserServiceImpl_changeSimplePassword | 사용자의 간편 비밀번호 변경 서비스");
+		User loginUser = getUserFromRequest(request);
+		loginUser.changeSimplePassword(changePasswordRequestDto.getUserSimplePassword());
+	}
+
+	@Override
+	public User getUserFromRequest(HttpServletRequest request) {
+		log.info("UserServiceImpl_getUserFromRequest | Request의 토큰 값을 바탕으로 유저를 찾아옴");
+		String userCi = jwtService.extractUserIdFromAccessToken(request);
+		return userRepository.findById(userCi).orElseThrow(NotExistUserCiException::new);
 	}
 }

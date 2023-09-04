@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.benepick.domain.user.dto.request.ChangePasswordRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.CreateUserAccountRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.LoginRequestDto;
 import com.ssafy.benepick.domain.user.service.UserService;
@@ -62,5 +63,18 @@ public class UserController {
 		if(userService.login(loginRequestDto , request))
 			return ResponseResult.successResponse;
 		return ResponseResult.failResponse;
+	}
+
+	@Operation(summary = "간편 비밀번호 변경", description = "사용자가 간편 비밀번호를 변경 합니다.")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "간편 비밀번호 변경 성공"),
+		@ApiResponse(responseCode = "400", description = "간편 비밀번호 변경 실패"),
+	})
+	@PostMapping("/password")
+	public ResponseResult changeSimplePassword(
+		@Valid @RequestBody ChangePasswordRequestDto changePasswordRequestDto , HttpServletRequest request) {
+		log.info("UserController_changeSimplePassword | 사용자의 간편 비밀번호 변경");
+		userService.changeSimplePassword(changePasswordRequestDto , request);
+		return ResponseResult.successResponse;
 	}
 }
