@@ -7,4 +7,5 @@ import com.ssafy.benepick.domain.user.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
+	boolean existsByUserNameAndUserPhoneNumberAndUserSocialNumber(String userName,String userPhoneNumber,String userSocialNumber);
 }
