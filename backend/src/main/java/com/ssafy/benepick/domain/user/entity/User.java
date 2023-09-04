@@ -47,4 +47,8 @@ public class User {
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<UserCardCompany> userCardCompanyList;
+
+	public void changeSimplePassword(String userSimplePassword){
+		this.userSimplePassword = userSimplePassword;
+	}
 }
