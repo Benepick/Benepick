@@ -8,6 +8,7 @@ import lombok.Getter;
 @Getter
 public enum ExceptionCode {
 
+	EXIST_USER_EXCEPTION(470,"이미 존재하는 사용자 입니다."),
 	SERVER_EXCEPTION(500, "서버에서 예측하지 못한 에러가 발생했습니다.");
 
 	private final int errorCode;
