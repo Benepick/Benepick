@@ -1,6 +1,7 @@
 package com.ssafy.benepick.domain.user.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,9 +13,10 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "샘플 요청 DTO")
-public class SampleRequestDto {
+@Schema(description = "로그인 요청 DTO")
+public class LoginRequestDto {
 
-	@Schema(description = "값에 대한 설명", example = "값의 예시")
-	private String sample;
+	@NotBlank
+	@Schema(description = "사용자 간편 비밀번호", example = "123456")
+	private String userSimplePassword;
 }

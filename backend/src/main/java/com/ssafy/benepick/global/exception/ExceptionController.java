@@ -11,10 +11,24 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice(basePackages = "com.ssafy.benepick")
 public class ExceptionController {
 
-	// @ExceptionHandler(IncorrectLanguageCodeException.class)
-	// public ResponseResult incorrectLanguageCodeException(IncorrectLanguageCodeException err) {
-	// 	log.info("Error : {}", err.getClass());
-	// 	log.info("Error Message : {}", err.getMessage());
-	// 	return ResponseResult.exceptionResponse(ExceptionCode.INCORRECT_LANGUAGE_CODE_EXCEPTION);
-	// }
+	@ExceptionHandler(ExistUserException.class)
+	public ResponseResult ExistUserException(ExistUserException err) {
+		log.info("Error : {}", err.getClass());
+		log.info("Error Message : {}", err.getMessage());
+		return ResponseResult.exceptionResponse(ExceptionCode.EXIST_USER_EXCEPTION);
+	}
+
+	@ExceptionHandler(NotExistUserCiException.class)
+	public ResponseResult NotExistUserCiException(NotExistUserCiException err) {
+		log.info("Error : {}", err.getClass());
+		log.info("Error Message : {}", err.getMessage());
+		return ResponseResult.exceptionResponse(ExceptionCode.NOT_EXIST_USER_CI_EXCEPTION);
+	}
+
+	@ExceptionHandler(NotExistAccessTokenException.class)
+	public ResponseResult NotExistAccessTokenException(NotExistAccessTokenException err) {
+		log.info("Error : {}", err.getClass());
+		log.info("Error Message : {}", err.getMessage());
+		return ResponseResult.exceptionResponse(ExceptionCode.NOT_EXIST_ACCESS_TOKEN_EXCEPTION);
+	}
 }
