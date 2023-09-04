@@ -2,8 +2,8 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import CreditCard from '../../pages/CreditCard/CreditCard';
-import CreditCardDetail from '../../pages/CreditCard/CreditCardDetail';
+import CreditCard from '@pages/main/CreditCard/CreditCard';
+import CreditCardDetail from '@pages/main/CreditCard/CreditCardDetail';
 
 const Stack = createNativeStackNavigator();
 
