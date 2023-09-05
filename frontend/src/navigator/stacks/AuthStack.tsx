@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Start from '@pages/auth/Start/Start';
@@ -17,7 +16,7 @@ const Stack = createNativeStackNavigator();
 
 const AuthStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerTitle: '' }}>
       <Stack.Screen
         name="Start"
         component={Start}
@@ -36,9 +35,17 @@ const AuthStack = () => {
       <Stack.Screen name="PersonalAuth" component={PersonalAuth} />
       <Stack.Screen name="PhoneAuth" component={PhoneAuth} />
       <Stack.Screen name="SetPassword" component={SetPassword} />
-      <Stack.Screen name="SelectCompany" component={SelectCompany} />
-      <Stack.Screen name="SelectCard" component={SelectCard} />
-      <Stack.Screen name="RegistrationComplete" component={RegistrationComplete} />
+      <Stack.Screen
+        name="SelectCompany"
+        component={SelectCompany}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="SelectCard" component={SelectCard} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="RegistrationComplete"
+        component={RegistrationComplete}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen name="LogIn" component={LogIn} />
     </Stack.Navigator>
   );

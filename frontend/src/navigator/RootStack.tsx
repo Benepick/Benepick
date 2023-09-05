@@ -9,7 +9,11 @@ import BottomTab from './stacks/BottomTab';
 import Test from '@pages/Test/Test';
 import AuthStack from './stacks/AuthStack';
 import SettingStack from './stacks/SettingStack';
+
+import colors from '@common/design/colors';
+
 import CreditCardDetail from '@pages/main/CreditCardDetail/CreditCardDetail';
+import IconButton from '@common/components/IconButton';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +26,14 @@ const BTheme = {
 };
 
 const RootStack = () => {
+  const theme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: colors.backgroundColor,
+    },
+  };
+
   return (
     <NavigationContainer theme={BTheme}>
       <Stack.Navigator>
@@ -51,19 +63,14 @@ const RootStack = () => {
           component={Alarm}
           options={({ navigation }) => ({
             headerBackVisible: false,
-            headerRight: () => (
-              <Button onPress={() => navigation.goBack()} title="뒤로가기" color="#000000" />
-            ),
+            headerRight: () => <IconButton onPress={() => navigation.goBack()} name="Close" />,
           })}
         />
         <Stack.Screen
           name="SettingStack"
           component={SettingStack}
           options={({ navigation }) => ({
-            headerBackVisible: false,
-            headerRight: () => (
-              <Button onPress={() => navigation.goBack()} title="뒤로가기" color="#000000" />
-            ),
+            headerShown: false,
           })}
         />
         <Stack.Screen name="Test" component={Test} />
