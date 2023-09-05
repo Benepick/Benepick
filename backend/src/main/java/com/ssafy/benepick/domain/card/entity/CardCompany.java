@@ -32,8 +32,5 @@ public class CardCompany {
 	private String cardCompanyName;
 
 	@OneToMany(mappedBy = "cardCompany", cascade = CascadeType.ALL , orphanRemoval = true)
-	private List<MyDataCard> myDataCardList;
-
-	@OneToMany(mappedBy = "cardCompany", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<Card> cardList;
 }
