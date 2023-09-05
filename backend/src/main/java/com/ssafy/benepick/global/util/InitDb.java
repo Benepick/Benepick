@@ -164,6 +164,30 @@ public class InitDb {
 				.myDataPaymentMerchantName("설입성형외과").myDataCard(myDataCard4).myDataPaymentBenefit(800)
 				.build();
 
+			MyDataPayment myDataPayment10 = MyDataPayment.builder().myDataPaymentId(9L)
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDate.parse("2023-06-01"))
+				.myDataPaymentMerchantX(10).myDataPaymentMerchantY(10).myDataPaymentAmount(10000)
+				.myDataPaymentMerchantName("바나프레소").myDataCard(myDataCard1).myDataPaymentBenefit(200)
+				.build();
+
+			MyDataPayment myDataPayment11 = MyDataPayment.builder().myDataPaymentId(10L)
+				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDate.parse("2023-07-02"))
+				.myDataPaymentMerchantX(11).myDataPaymentMerchantY(11).myDataPaymentAmount(20000)
+				.myDataPaymentMerchantName("맥도날드").myDataCard(myDataCard1).myDataPaymentBenefit(500)
+				.build();
+
+			MyDataPayment myDataPayment12 = MyDataPayment.builder().myDataPaymentId(11L)
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDate.parse("2023-08-03"))
+				.myDataPaymentMerchantX(13).myDataPaymentMerchantY(13).myDataPaymentAmount(30000)
+				.myDataPaymentMerchantName("스타벅스").myDataCard(myDataCard2).myDataPaymentBenefit(800)
+				.build();
+
+			MyDataPayment myDataPayment13 = MyDataPayment.builder().myDataPaymentId(12L)
+				.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDate.parse("2023-08-04"))
+				.myDataPaymentMerchantX(14).myDataPaymentMerchantY(14).myDataPaymentAmount(40000)
+				.myDataPaymentMerchantName("ABC마트").myDataCard(myDataCard2).myDataPaymentBenefit(1000)
+				.build();
+
 			em.persist(myDataPayment1);
 			em.persist(myDataPayment2);
 			em.persist(myDataPayment3);
@@ -172,6 +196,10 @@ public class InitDb {
 			em.persist(myDataPayment6);
 			em.persist(myDataPayment7);
 			em.persist(myDataPayment8);
+			em.persist(myDataPayment10);
+			em.persist(myDataPayment11);
+			em.persist(myDataPayment12);
+			em.persist(myDataPayment13);
 
 
 		}
