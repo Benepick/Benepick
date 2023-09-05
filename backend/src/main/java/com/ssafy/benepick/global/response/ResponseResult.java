@@ -51,14 +51,6 @@ public class ResponseResult {
 			.timestamp(LocalDateTime.now()).build();
 	}
 
-	public static final ResponseResult customExceptionResponse(ExceptionCode exceptionCode, String message) {
-		return ResponseResult.builder()
-				.statusCode(exceptionCode.getErrorCode())
-				.messages(message)
-				.developerMessage(exceptionCode.getErrorMessage())
-				.timestamp(LocalDateTime.now()).build();
-	}
-
 }
 
 
