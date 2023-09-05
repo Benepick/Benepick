@@ -23,3 +23,20 @@ export interface BTextProps {
   type?: 'h1' | 'h2' | 'h3' | 'bold' | 'p';
   color?: string;
 }
+
+export interface NodeProps {
+  size: number;
+  color: string;
+  num: number;
+}
+
+export interface BranchProps {
+  size: number;
+  color: string;
+}
+
+export interface ProgressNodeProps {
+  page: number;
+  size: number;
+  current: number;
+}
