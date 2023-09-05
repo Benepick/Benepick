@@ -8,3 +8,5 @@ export { default as Notification } from './Notification.svg';
 export { default as User } from './User.svg';
 export { default as Lock } from './Lock.svg';
 export { default as FingerPrint } from './FingerPrint.svg';
+export { default as Back } from './Back.svg';
+export { default as Close } from './Close.svg';

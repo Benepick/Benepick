@@ -1,18 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { View, Text, TextInput, StyleSheet, Animated } from 'react-native';
+import colors from '@common/design/colors';
 import { BInputProps } from '@common/interfaces/components';
-import { TextInput, StyleSheet } from 'react-native';
 
-function BInput({ ...rest }: BInputProps) {
-  return <TextInput style={styles.input} {...rest} />;
+function BInput({ label, ...rest }: BInputProps) {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.label}>{label}</Text>
+      <TextInput {...rest} style={styles.input} placeholder={label} />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.disabled,
+    minHeight: 40,
+    padding: 8,
+    fontSize: 15,
+  },
+  label: {
+    fontSize: 10,
+    paddingLeft: 8,
+  },
+  container: {
+    margin: 5,
   },
 });
 

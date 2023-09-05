@@ -22,4 +22,6 @@ export interface BTextProps {
   color?: string;
 }
 
-export interface BInputProps extends TextInputProps {}
+export interface BInputProps extends TextInputProps {
+  label?: string;
+}
