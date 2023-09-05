@@ -1,8 +1,8 @@
-import { PasswordSettingNavigationProps } from '@common/interfaces/navigation';
+import { SetPasswordNavigationProps } from '@common/interfaces/navigation';
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 
-function PasswordSetting({ navigation }: PasswordSettingNavigationProps) {
+function SetPassword({ navigation }: SetPasswordNavigationProps) {
   return (
     <View>
       <Text>간편 비밀번호 설정 페이지입니다.</Text>
@@ -11,4 +11,4 @@ function PasswordSetting({ navigation }: PasswordSettingNavigationProps) {
   );
 }
 
-export default PasswordSetting;
+export default SetPassword;

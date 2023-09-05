@@ -7,6 +7,7 @@ function CreditCard({ navigation }: CreditCardNavigationProps) {
   return (
     <View>
       <Text>내 카드</Text>
+      <Button title="카드 상세" onPress={() => navigation.push('CreditCardDetail')} />
     </View>
   );
 }

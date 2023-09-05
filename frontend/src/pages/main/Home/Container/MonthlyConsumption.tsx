@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-function Consumption() {
+function MonthlyConsumption() {
   return (
     <View>
       <Text>이달의 소비</Text>
@@ -9,4 +9,4 @@ function Consumption() {
   );
 }
 
-export default Consumption;
+export default MonthlyConsumption;
