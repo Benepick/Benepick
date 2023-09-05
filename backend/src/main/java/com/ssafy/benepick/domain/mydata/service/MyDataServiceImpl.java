@@ -44,8 +44,12 @@ public class MyDataServiceImpl implements MyDataService {
 				cardPayAmount += myDataPayment.getMyDataPaymentAmount();
 				cardBenefitAmount += myDataPayment.getMyDataPaymentBenefit();
 			}
-			if(cardMaxPayAmount < cardPayAmount)
+
+			if (cardMaxPayAmount < cardPayAmount) {
+				cardMaxPayAmount = cardPayAmount;
 				imgUrl = myDataCard.getCard().getCardImgUrl();
+			}
+
 			payAmount += cardPayAmount;
 			benefitAmount += cardBenefitAmount;
 		}
