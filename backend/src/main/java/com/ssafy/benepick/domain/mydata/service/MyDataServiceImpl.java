@@ -1,6 +1,8 @@
 package com.ssafy.benepick.domain.mydata.service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.ssafy.benepick.domain.mydata.dto.response.CategoryPayResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.MonthCategoryResultResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.MonthResultResponseDto;
+import com.ssafy.benepick.domain.mydata.dto.response.RecentMonthResponseDto;
 import com.ssafy.benepick.domain.mydata.entity.MyDataCard;
 import com.ssafy.benepick.domain.mydata.entity.MyDataPayment;
 import com.ssafy.benepick.domain.mydata.entity.MyDataUser;
@@ -42,9 +45,9 @@ public class MyDataServiceImpl implements MyDataService {
 		int benefitAmount = 0;
 		int cardMaxPayAmount = 0;
 		String imgUrl = "";
-		
+
 		for (MyDataCard myDataCard : myDataUser.getMyDataCardList()) {
-			int[] cardPayAmountAndBenefitAmount = calculateCardPayAmountAndBenefitAmount(myDataCard);
+			int[] cardPayAmountAndBenefitAmount = calculateCardPayAmountAndBenefitAmount(myDataCard , LocalDate.now());
 
 			// 사용자의 사용금액이 가장 큰 카드의 이미지 찾기
 			if (cardMaxPayAmount < cardPayAmountAndBenefitAmount[0]) {
@@ -59,11 +62,11 @@ public class MyDataServiceImpl implements MyDataService {
 		return MonthResultResponseDto.createMonthResultResponseDto(payAmount , benefitAmount , imgUrl);
 	}
 
-	private int[] calculateCardPayAmountAndBenefitAmount(MyDataCard myDataCard){
+	private int[] calculateCardPayAmountAndBenefitAmount(MyDataCard myDataCard , LocalDate now){
 		log.info("사용자의 한달동안 특정 카드의 사용금액,받은혜택 계산");
 		int cardPayAmount = 0;
 		int cardBenefitAmount = 0;
-		for (MyDataPayment myDataPayment : myDataPaymentRepository.findByMyDataCardAndMonth(myDataCard.getMyDataCardId(), LocalDate.now().getMonthValue(), LocalDate.now().getYear())) {
+		for (MyDataPayment myDataPayment : myDataPaymentRepository.findByMyDataCardAndMonth(myDataCard.getMyDataCardId(), now.getMonthValue(), now.getYear())) {
 			cardPayAmount += myDataPayment.getMyDataPaymentAmount();
 			cardBenefitAmount += myDataPayment.getMyDataPaymentBenefit();
 		}
@@ -84,6 +87,33 @@ public class MyDataServiceImpl implements MyDataService {
 			totalAmount(amount.get()).
 			categoryResultResponseDtoList(getCategoryPayResponseDtoList(categoryMap))
 			.build();
+	}
+
+	@Override
+	public List<RecentMonthResponseDto> getRecentFourMonthResult(HttpServletRequest request) {
+		log.info("MyDataServiceImpl_getRecentFourMonthResult || 최근 4달의 사용금액,받은혜택 조회");
+		// MyDataUser myDataUser = myDataUserRepository.findById(userService.getUserFromRequest(request).getUserId()).get();
+		MyDataUser myDataUser = myDataUserRepository.findById("ex1").get();
+		LocalDate now = LocalDate.now();
+		List<RecentMonthResponseDto> result = new ArrayList<>();
+
+		for (int i = 0; i < 4; i++) {
+			int payAmount = 0;
+			int benefitAmount = 0;
+
+			// 특정 달의 특정 사용자의 여러개의 카드에 대해 사용금액 받은혜택 조회
+			for (MyDataCard myDataCard : myDataUser.getMyDataCardList()) {
+				int[] cardPayAmountAndBenefitAmount = calculateCardPayAmountAndBenefitAmount(myDataCard , now);
+
+				payAmount += cardPayAmountAndBenefitAmount[0];
+				benefitAmount += cardPayAmountAndBenefitAmount[1];
+			}
+
+			result.add(RecentMonthResponseDto.builder().year(now.getYear()).month(now.getMonthValue()).payAmount(payAmount).benefitAmount(benefitAmount).build());
+			now = now.minusMonths(1);  // 이전 달로 이동
+		}
+
+		return result;
 	}
 
 	private List<CategoryPayResponseDto> getCategoryPayResponseDtoList(HashMap<String, Integer> categoryMap) {

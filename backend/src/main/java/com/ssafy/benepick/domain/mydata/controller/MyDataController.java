@@ -46,7 +46,18 @@ public class MyDataController {
 		return new SingleResponseResult<>(myDataService.getMonthResult(request));
 	}
 
-	@Operation(summary = "카테고리별 전체 소비금액 조회", description = "사용자의 카테고리별 전체 소비금액 조회")
+	@Operation(summary = "사용자의 최근 4달 소비금액,받은혜택 조회", description = "사용자의 최근 4달 소비금액,받은혜택 조회")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "최근 4달 소비금액,받은혜택 조회 성공"),
+		@ApiResponse(responseCode = "400", description = "최근 4달 소비금액,받은혜택 조회 실패"),
+	})
+	@GetMapping("/card/payment/recent")
+	public ResponseResult getRecentFourMonthResult(HttpServletRequest request) {
+		log.info("MyDataController_getRecentFourMonthResult");
+		return new SingleResponseResult<>(myDataService.getRecentFourMonthResult(request));
+	}
+
+	@Operation(summary = "이번달 카테고리별 전체 소비금액 조회", description = "이번달 사용자의 카테고리별 전체 소비금액 조회")
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "200", description = "카테고리별 전체 소비금액 조회 성공"),
 		@ApiResponse(responseCode = "400", description = "카테고리별 전체 소비금액 조회 실패"),
