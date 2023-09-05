@@ -6,6 +6,7 @@ type RootStackParamList = {
   // Auth Stack
   Start: undefined;
   Terms: undefined;
+  ReadTerms: undefined;
   PersonalAuth: undefined;
   PhoneAuth: undefined;
   SetPassword: undefined;
@@ -45,6 +46,10 @@ export interface StartNavigationProps {
 
 export interface TermsNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Terms'>;
+}
+
+export interface ReadTermsNavigationProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'ReadTerms'>;
 }
 
 export interface PersonalAuthNavigationProps {

@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Start from '@pages/auth/Start/Start';
 import Terms from '@pages/auth/Terms/Terms';
+import ReadTerms from '@pages/auth/ReadTerms/ReadTerms';
 import PersonalAuth from '@pages/auth/PersonalAuth/PersonalAuth';
 import PhoneAuth from '@pages/auth/PhoneAuth/PhoneAuth';
 import SetPassword from '@pages/auth/SetPassword/SetPassword';
@@ -25,6 +26,13 @@ const AuthStack = () => {
         }}
       />
       <Stack.Screen name="Terms" component={Terms} />
+      <Stack.Screen
+        name="ReadTerms"
+        component={ReadTerms}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen name="PersonalAuth" component={PersonalAuth} />
       <Stack.Screen name="PhoneAuth" component={PhoneAuth} />
       <Stack.Screen name="SetPassword" component={SetPassword} />
