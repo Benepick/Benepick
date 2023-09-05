@@ -4,7 +4,7 @@ import SvgIcons from '@common/assets/SvgIcons';
 import { IconButtonProps } from '../interfaces/components';
 import colors from '@common/design/colors';
 
-function IconButton({ onPress, name, size }: IconButtonProps) {
+function IconButton({ name, size, onPress, ...rest }: IconButtonProps) {
   const [iconColor, setIconColor] = useState(colors.disabled);
   const handlePress = () => {
     setIconColor(iconColor === colors.disabled ? colors.main : colors.disabled);
