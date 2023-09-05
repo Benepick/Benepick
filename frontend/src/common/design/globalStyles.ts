@@ -1,9 +1,8 @@
 import { StyleSheet } from 'react-native';
+import colors from './colors';
 
 export const globalStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  whiteBackground: { backgroundColor: colors.white, minHeight: '100%' },
   h1: {
     fontSize: 30,
     fontFamily: 'IBMPlexSansKR-Bold',
