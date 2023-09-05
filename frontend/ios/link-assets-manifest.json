@@ -1,0 +1,33 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/common/assets/fonts/IBMPlexSansKR-Bold.ttf",
+      "sha1": "e8094c7d7900b342db63a6f0fac492584c31486e"
+    },
+    {
+      "path": "src/common/assets/fonts/IBMPlexSansKR-ExtraLight.ttf",
+      "sha1": "e895fda3a78530cb8a3b050cf02fb6aa3219c6b6"
+    },
+    {
+      "path": "src/common/assets/fonts/IBMPlexSansKR-Light.ttf",
+      "sha1": "d5be82b3ede435597cb264612e29506a77d1a430"
+    },
+    {
+      "path": "src/common/assets/fonts/IBMPlexSansKR-Medium.ttf",
+      "sha1": "5d96cb48a96b2313b8cd73bb0fffe1a1aef1845e"
+    },
+    {
+      "path": "src/common/assets/fonts/IBMPlexSansKR-Regular.ttf",
+      "sha1": "e764d4cebfff540b195f01d7c1842b703383e8ff"
+    },
+    {
+      "path": "src/common/assets/fonts/IBMPlexSansKR-SemiBold.ttf",
+      "sha1": "7e790541bd2f6f52330d97b61a506f9f014cb0ff"
+    },
+    {
+      "path": "src/common/assets/fonts/IBMPlexSansKR-Thin.ttf",
+      "sha1": "441187ca64b0c5864c77fe1ea9709bfec6224291"
+    }
+  ]
+}
