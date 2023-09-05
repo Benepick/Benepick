@@ -24,21 +24,15 @@ export interface BTextProps {
   color?: string;
 }
 
-export interface NodeSize {
+export interface NodeProps {
   size: number;
   color: string;
   num: number;
 }
 
-export interface BranchSize {
+export interface BranchProps {
   size: number;
   color: string;
-}
-
-export interface NodeSetProps {
-  size: number;
-  active: boolean;
-  num: number;
 }
 
 export interface ProgressNodeProps {
