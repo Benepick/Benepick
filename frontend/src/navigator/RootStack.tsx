@@ -2,7 +2,6 @@ import React from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button } from 'react-native';
-import colors from '@common/design/colors';
 
 import Alarm from '@pages/Alarm/Alarm';
 import BottomTab from './stacks/BottomTab';
