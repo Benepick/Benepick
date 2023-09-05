@@ -1,7 +1,8 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Button } from 'react-native';
+import colors from '@common/design/colors';
 
 import Alarm from '@pages/Alarm/Alarm';
 import BottomTab from './stacks/BottomTab';
@@ -12,9 +13,17 @@ import CreditCardDetail from '@pages/main/CreditCardDetail/CreditCardDetail';
 
 const Stack = createNativeStackNavigator();
 
+const BTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: colors.backgroundColor,
+  },
+};
+
 const RootStack = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={BTheme}>
       <Stack.Navigator>
         <Stack.Screen
           name="AuthStack"

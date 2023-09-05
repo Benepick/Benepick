@@ -5,12 +5,16 @@ import AlarmButton from '../../common/components/AlarmButton';
 import IconButton from '@common/components/IconButton';
 import SubmitButton from '@common/components/SubmitButton';
 import BText from '@common/components/BText';
+import { Spacing } from '@common/components/Spacing';
 
 function Test() {
   return (
     <View>
-      <AlarmButton isAlarmed={false} onPress={() => console.log('알람크릭')} />
-      <IconButton name="ChatBot" size={100} />
+      <View style={{ display: 'flex', flexDirection: 'row' }}>
+        <AlarmButton isAlarmed={false} onPress={() => console.log('알람크릭')} />
+        <Spacing rem="5" dir="row" />
+        <IconButton name="ChatBot" />
+      </View>
       <SubmitButton title="제출버튼입니다" />
       <BText type="h1">제목입니다.</BText>
       <BText type="h2">부제목입니다.</BText>
