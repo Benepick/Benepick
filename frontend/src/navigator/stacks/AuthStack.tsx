@@ -6,7 +6,7 @@ import Start from '@pages/auth/Start/Start';
 import Terms from '@pages/auth/Terms/Terms';
 import PersonalAuth from '@pages/auth/PersonalAuth/PersonalAuth';
 import PhoneAuth from '@pages/auth/PhoneAuth/PhoneAuth';
-import PasswordSetting from '@pages/auth/PasswordSetting/PasswordSetting';
+import SetPassword from '@pages/auth/SetPassword/SetPassword';
 import SelectCompany from '@pages/auth/SelectCompany/SelectCompany';
 import SelectCard from '@pages/auth/SelectCard/SelectCard';
 import LogIn from '@pages/auth/LogIn/LogIn';
@@ -27,7 +27,7 @@ const AuthStack = () => {
       <Stack.Screen name="Terms" component={Terms} />
       <Stack.Screen name="PersonalAuth" component={PersonalAuth} />
       <Stack.Screen name="PhoneAuth" component={PhoneAuth} />
-      <Stack.Screen name="PasswordSetting" component={PasswordSetting} />
+      <Stack.Screen name="SetPassword" component={SetPassword} />
       <Stack.Screen name="SelectCompany" component={SelectCompany} />
       <Stack.Screen name="SelectCard" component={SelectCard} />
       <Stack.Screen name="RegistrationComplete" component={RegistrationComplete} />

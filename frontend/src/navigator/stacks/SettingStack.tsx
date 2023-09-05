@@ -1,17 +1,32 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Start from '../../pages/Start/Start';
+import Setting from '@pages/setting/Setting/Setting';
+import CompanyStack from './CompanyStack';
+import PasswordStack from './PasswordStack';
 
 const Stack = createNativeStackNavigator();
 
-const AuthStack = () => {
+const SettingStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Start"
-        component={Start}
+        name="Setting"
+        component={Setting}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CompanyStack"
+        component={CompanyStack}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="PasswordStack"
+        component={PasswordStack}
         options={{
           headerShown: false,
         }}
@@ -20,4 +35,4 @@ const AuthStack = () => {
   );
 };
 
-export default AuthStack;
+export default SettingStack;

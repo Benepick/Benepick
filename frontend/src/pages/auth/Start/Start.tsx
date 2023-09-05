@@ -8,6 +8,9 @@ function Start({ navigation }: StartNavigationProps) {
     <View>
       <Text>BenePick</Text>
       <Button title="BenePick 시작하기" onPress={() => navigation.push('Terms')} />
+      <Button title="간편 로그인 페이지로 이동하기" onPress={() => navigation.push('LogIn')} />
+      <Button title="홈페이지로 이동하기" onPress={() => navigation.push('BottomTab')} />
+      <Button title="테스트 페이지로 이동하기" onPress={() => navigation.push('Test')} />
     </View>
   );
 }
