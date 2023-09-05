@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 
-import { CreditCardNavigationProps } from '../../common/interfaces/navigation';
+import { CreditCardNavigationProps } from '@common/interfaces/navigation';
 
 function CreditCard({ navigation }: CreditCardNavigationProps) {
   return (

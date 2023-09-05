@@ -4,8 +4,8 @@ const colors = {
   main3: '#C1EAF2',
   backgroundColor: '#ECF0F3',
   disabled: '#C5C7CB',
-  black: '#00000',
-  white: '#FFFFF',
+  black: '#000000',
+  white: '#FFFFFF',
 };
 
 export default colors;
