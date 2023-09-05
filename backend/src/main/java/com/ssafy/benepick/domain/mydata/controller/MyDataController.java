@@ -45,4 +45,15 @@ public class MyDataController {
 		log.info("MyDataController_getUserCardInMyData");
 		return new SingleResponseResult<>(myDataService.getMonthResult(request));
 	}
+
+	@Operation(summary = "카테고리별 전체 소비금액 조회", description = "사용자의 카테고리별 전체 소비금액 조회")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "카테고리별 전체 소비금액 조회 성공"),
+		@ApiResponse(responseCode = "400", description = "카테고리별 전체 소비금액 조회 실패"),
+	})
+	@GetMapping("/card/payment/category")
+	public ResponseResult getMonthCategoryResult(HttpServletRequest request) {
+		log.info("MyDataController_getMonthCategoryResult");
+		return new SingleResponseResult<>(myDataService.getMonthCategoryResult(request));
+	}
 }

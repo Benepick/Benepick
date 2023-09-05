@@ -135,15 +135,15 @@ public class InitDb {
 				.build();
 
 			MyDataPayment myDataPayment4 = MyDataPayment.builder().myDataPaymentId(4L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDate.parse("2023-09-04"))
+				.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDate.parse("2023-09-04"))
 				.myDataPaymentMerchantX(14).myDataPaymentMerchantY(14).myDataPaymentAmount(40000)
-				.myDataPaymentMerchantName("매머드").myDataCard(myDataCard2).myDataPaymentBenefit(400)
+				.myDataPaymentMerchantName("ABC마트").myDataCard(myDataCard2).myDataPaymentBenefit(400)
 				.build();
 
 			MyDataPayment myDataPayment5 = MyDataPayment.builder().myDataPaymentId(5L)
-				.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDate.parse("2023-09-05"))
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDate.parse("2023-09-05"))
 				.myDataPaymentMerchantX(15).myDataPaymentMerchantY(15).myDataPaymentAmount(50000)
-				.myDataPaymentMerchantName("ABC마트").myDataCard(myDataCard3).myDataPaymentBenefit(500)
+				.myDataPaymentMerchantName("매머드").myDataCard(myDataCard3).myDataPaymentBenefit(500)
 				.build();
 
 			MyDataPayment myDataPayment6 = MyDataPayment.builder().myDataPaymentId(6L)
@@ -159,9 +159,9 @@ public class InitDb {
 				.build();
 
 			MyDataPayment myDataPayment8 = MyDataPayment.builder().myDataPaymentId(8L)
-				.myDataPaymentCategory("편의점").myDataPaymentDate(LocalDate.parse("2023-09-08"))
+				.myDataPaymentCategory("의료").myDataPaymentDate(LocalDate.parse("2023-09-08"))
 				.myDataPaymentMerchantX(18).myDataPaymentMerchantY(18).myDataPaymentAmount(80000)
-				.myDataPaymentMerchantName("CU").myDataCard(myDataCard4).myDataPaymentBenefit(800)
+				.myDataPaymentMerchantName("설입성형외과").myDataCard(myDataCard4).myDataPaymentBenefit(800)
 				.build();
 
 			em.persist(myDataPayment1);
