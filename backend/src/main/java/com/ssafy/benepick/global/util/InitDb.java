@@ -1,6 +1,7 @@
 package com.ssafy.benepick.global.util;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import com.ssafy.benepick.domain.mydata.entity.MyDataPayment;
 import com.ssafy.benepick.domain.mydata.entity.MyDataUser;
 import com.ssafy.benepick.domain.mydata.repository.MyDataUserRepository;
 import com.ssafy.benepick.domain.user.entity.User;
+import com.ssafy.benepick.domain.user.entity.UserCardCompany;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
@@ -68,11 +70,26 @@ public class InitDb {
 			em.persist(user1);
 			em.persist(user2);
 
+			UserCardCompany userCardCompany1 = UserCardCompany.builder().user(user1)
+				.userCardCompanyId(1L).userCardCompanyRequestDate(LocalDateTime.now())
+				.userCardCompanyExpirationDate(LocalDateTime.now()).build();
+
+			UserCardCompany userCardCompany2 = UserCardCompany.builder().user(user1)
+				.userCardCompanyId(2L).userCardCompanyRequestDate(LocalDateTime.now())
+				.userCardCompanyExpirationDate(LocalDateTime.now()).build();
+
+			em.persist(userCardCompany1);
+			em.persist(userCardCompany2);
+
 			CardCompany cardCompany1 = CardCompany.builder().cardCompanyId(1L).cardCompanyName("신한").cardCompanyImgUrl("신한이미지").build();
 			CardCompany cardCompany2 = CardCompany.builder().cardCompanyId(2L).cardCompanyName("기업").cardCompanyImgUrl("기업이미지").build();
+			CardCompany cardCompany3 = CardCompany.builder().cardCompanyId(3L).cardCompanyName("농협").cardCompanyImgUrl("농협이미지").build();
+			CardCompany cardCompany4 = CardCompany.builder().cardCompanyId(4L).cardCompanyName("국민").cardCompanyImgUrl("국민이미지").build();
 
 			em.persist(cardCompany1);
 			em.persist(cardCompany2);
+			em.persist(cardCompany3);
+			em.persist(cardCompany4);
 
 			Card card1 = Card.builder().cardCode(1L).cardCompany(cardCompany1).cardName("신한카드1").cardImgUrl("신한카드1이미지").build();
 			Card card2 = Card.builder().cardCode(2L).cardCompany(cardCompany1).cardName("신한카드2").cardImgUrl("신한카드2이미지").build();

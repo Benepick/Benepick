@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.benepick.domain.mydata.service.MyDataService;
 import com.ssafy.benepick.domain.user.dto.request.ChangePasswordRequestDto;
+import com.ssafy.benepick.global.response.ListResponseResult;
 import com.ssafy.benepick.global.response.ResponseResult;
 import com.ssafy.benepick.global.response.SingleResponseResult;
 
@@ -54,7 +55,7 @@ public class MyDataController {
 	@GetMapping("/card/payment/recent")
 	public ResponseResult getRecentFourMonthResult(HttpServletRequest request) {
 		log.info("MyDataController_getRecentFourMonthResult");
-		return new SingleResponseResult<>(myDataService.getRecentFourMonthResult(request));
+		return new ListResponseResult<>(myDataService.getRecentFourMonthResult(request));
 	}
 
 	@Operation(summary = "이번달 카테고리별 전체 소비금액 조회", description = "이번달 사용자의 카테고리별 전체 소비금액 조회")
