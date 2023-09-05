@@ -1,5 +1,6 @@
 package com.ssafy.benepick.domain.user.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,7 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ssafy.benepick.domain.user.dto.request.ChangePasswordRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.CreateUserAccountRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.LoginRequestDto;
+import com.ssafy.benepick.domain.user.service.UserCardCompanyService;
 import com.ssafy.benepick.domain.user.service.UserService;
+import com.ssafy.benepick.global.response.ListResponseResult;
 import com.ssafy.benepick.global.response.ResponseResult;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,6 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController {
 
 	private final UserService userService;
+	private final UserCardCompanyService userCardCompanyService;
 
 	@Operation(summary = "회원가입", description = "사용자가 회원가입 합니다.")
 	@ApiResponses(value = {
@@ -76,5 +80,16 @@ public class UserController {
 		log.info("UserController_changeSimplePassword | 사용자의 간편 비밀번호 변경");
 		userService.changeSimplePassword(changePasswordRequestDto , request);
 		return ResponseResult.successResponse;
+	}
+
+	@Operation(summary = "사용자와 연동된 카드사 조회", description = "사용자와 연동된 카드사 조회")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "사용자와 연동된 카드사 조회 성공"),
+		@ApiResponse(responseCode = "400", description = "사용자와 연동된 카드사 조회 실패"),
+	})
+	@GetMapping("/card-company")
+	public ResponseResult getUserCardCompany(HttpServletRequest request) {
+		log.info("UserController_getUserCardCompany");
+		return new ListResponseResult<>(userCardCompanyService.getUserCardCompany(request));
 	}
 }
