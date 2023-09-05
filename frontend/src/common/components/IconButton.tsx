@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import SvgIcons from '@common/assets/SvgIcons';
-import { IconButtonProps } from '../interfaces/commonComponents';
+import { IconButtonProps } from '../interfaces/components';
 import colors from '@common/design/colors';
 
 function IconButton({ onPress, name, size }: IconButtonProps) {
