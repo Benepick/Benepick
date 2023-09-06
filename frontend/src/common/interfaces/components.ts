@@ -6,6 +6,7 @@ import {
   TextProps,
   StyleProp,
   TextStyle,
+  TouchableHighlightProps,
 } from 'react-native';
 import * as Icons from '@common/assets/icons/iconIndex';
 
@@ -59,4 +60,14 @@ export interface CompanySelectBoxProps {
   size: number;
   state: string;
   image: string;
+}
+
+export interface BSwitchProps extends TouchableHighlightProps {
+  size: number;
+  value: boolean;
+}
+
+export interface BCheckBoxProps extends TouchableHighlightProps {
+  size: number;
+  value: boolean;
 }

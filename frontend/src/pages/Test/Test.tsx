@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Text, TextInput, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import AlarmButton from '../../common/components/AlarmButton';
 
 import IconButton from '@common/components/IconButton';
@@ -10,11 +11,26 @@ import BInput from '@common/components/BInput';
 import ProgressNode from '@common/components/progress/ProgressNode';
 import RequestButton from '@common/components/RequestButton';
 import CompanySelectBox from '@common/components/CompanySelectBox';
+import BSwitch from '@common/components/BSwitch';
+import BCheckBox from '@common/components/BCheckBox';
 
 function Test() {
   const [text, setText] = useState('글씨를 입력하세요');
+
+  const [value, setValue] = useState(false);
+
+  const [checkValue, setCheckValue] = useState(false);
+
+  const onPress = () => {
+    setValue(!value);
+  };
+
+  const checkPress = () => {
+    setCheckValue(!checkValue);
+  };
+
   return (
-    <View>
+    <ScrollView>
       <View style={{ display: 'flex', flexDirection: 'row' }}>
         <AlarmButton isAlarmed={false} onPress={() => console.log('알람크릭')} />
         <Spacing rem="5" dir="row" />
@@ -49,7 +65,12 @@ function Test() {
         state="linked"
         image="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434"
       />
-    </View>
+      <Spacing rem="1" />
+      <BSwitch size={1} onPress={onPress} value={value} />
+      <Spacing rem="1" />
+      <Spacing rem="1" />
+      <BCheckBox size={1} onPress={checkPress} value={checkValue} />
+    </ScrollView>
   );
 }
 
