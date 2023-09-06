@@ -6,7 +6,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import { Spacing } from '../../../../common/components/Spacing';
 import colors from '@common/design/colors';
 
-function MonthlyConsumption({ image }: MonthlyConsumptionProps) {
+function MonthlyConsumption({ image, money, benefit }: MonthlyConsumptionProps) {
   const styles = StyleSheet.create({
     container: {
       margin: 10,
@@ -51,12 +51,12 @@ function MonthlyConsumption({ image }: MonthlyConsumptionProps) {
         <View style={{ width: '75%', justifyContent: 'center' }}>
           <View style={styles.description}>
             <BText type="bold">사용금액</BText>
-            <BText>10000원</BText>
+            <BText>{money}</BText>
           </View>
           <Spacing rem="0.5" />
           <View style={styles.description}>
             <BText type="bold">받은혜택</BText>
-            <BText>10000원</BText>
+            <BText>{benefit}</BText>
           </View>
         </View>
       </View>
