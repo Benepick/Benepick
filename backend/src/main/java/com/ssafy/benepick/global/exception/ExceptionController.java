@@ -38,4 +38,11 @@ public class ExceptionController {
 		log.info("Error Message : {}", err.getMessage());
 		return ResponseResult.exceptionResponse(ExceptionCode.NOT_EXIST_CARD_COMPANY_EXCEPTION);
 	}
+
+	@ExceptionHandler(NotExistLinkCardCompanyException.class)
+	public ResponseResult NotExistLinkCardCompanyException(NotExistLinkCardCompanyException err) {
+		log.info("Error : {}", err.getClass());
+		log.info("Error Message : {}", err.getMessage());
+		return ResponseResult.exceptionResponse(ExceptionCode.NOT_EXIST_LINK_CARD_COMPANY_EXCEPTION);
+	}
 }
