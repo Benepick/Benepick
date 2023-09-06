@@ -67,3 +67,8 @@ export interface BSwitchProps extends TouchableHighlightProps {
   size: number;
   value: boolean;
 }
+
+export interface BCheckBoxProps extends TouchableHighlightProps {
+  size: number;
+  value: boolean;
+}

@@ -1,11 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, StyleSheet, Animated } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  Animated,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+} from 'react-native';
 import colors from '@common/design/colors';
 import { BInputProps } from '@common/interfaces/components';
 
 function BInput({ label, ...rest }: BInputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const animatedIsFocused = useRef(new Animated.Value(0)).current;
+  const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
     Animated.timing(animatedIsFocused, {
@@ -52,6 +61,12 @@ function BInput({ label, ...rest }: BInputProps) {
     },
   });
 
+  const handleBlur = (e: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    if (inputValue === '') {
+      setIsFocused(false);
+    }
+    rest.onBlur?.(e);
+  };
   return (
     <View style={styles.container}>
       {isFocused && <Animated.Text style={[styles.label, labelStyle]}>{label}</Animated.Text>}
@@ -60,6 +75,11 @@ function BInput({ label, ...rest }: BInputProps) {
         style={styles.input}
         placeholder={isFocused ? '' : label}
         onFocus={() => setIsFocused(true)}
+        onBlur={handleBlur}
+        onChangeText={(e) => {
+          setInputValue(e);
+          rest.onChangeText?.(e);
+        }}
       />
       <View style={styles.hr}></View>
     </View>

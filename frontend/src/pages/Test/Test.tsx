@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { ScrollView, View } from 'react-native';
 import AlarmButton from '../../common/components/AlarmButton';
 
@@ -11,6 +12,7 @@ import ProgressNode from '@common/components/progress/ProgressNode';
 import RequestButton from '@common/components/RequestButton';
 import CompanySelectBox from '@common/components/CompanySelectBox';
 import BSwitch from '@common/components/BSwitch';
+import BCheckBox from '@common/components/BCheckBox';
 
 function Test() {
   const [text, setText] = useState('글씨를 입력하세요');
@@ -21,9 +23,16 @@ function Test() {
   const handleSwitch = () => {
     setSwitchValue(!switchValue);
   };
+  const [value, setValue] = useState(false);
+
+  const [checkValue, setCheckValue] = useState(false);
 
   const handleSelectBox = () => {
     setSelectedBox(!selectedBox);
+  };
+
+  const checkPress = () => {
+    setCheckValue(!checkValue);
   };
 
   console.log(selectedBox);
@@ -68,6 +77,8 @@ function Test() {
       />
       <Spacing rem="1" />
       <BSwitch size={1} onPress={handleSwitch} value={switchValue} />
+      <Spacing rem="1" />
+      <BCheckBox size={1} onPress={checkPress} value={checkValue} />
     </ScrollView>
   );
 }
