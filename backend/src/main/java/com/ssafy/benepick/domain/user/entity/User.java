@@ -3,7 +3,12 @@ package com.ssafy.benepick.domain.user.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+
+import java.time.LocalDateTime;
 import java.util.*;
+
+import com.ssafy.benepick.domain.card.entity.CardCompany;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
@@ -50,5 +55,17 @@ public class User {
 
 	public void changeSimplePassword(String userSimplePassword){
 		this.userSimplePassword = userSimplePassword;
+	}
+
+	public void linkCardCompany(CardCompany cardCompany){
+		LocalDateTime now = LocalDateTime.now();
+
+		this.userCardCompanyList.add(
+			UserCardCompany.builder()
+				.user(this)
+				.userCardCompanyId(cardCompany.getCardCompanyId())
+				.userCardCompanyRequestDate(now)
+				.userCardCompanyExpirationDate(now.plusYears(1))
+				.build());
 	}
 }

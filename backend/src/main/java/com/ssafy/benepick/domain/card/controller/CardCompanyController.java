@@ -1,6 +1,10 @@
 package com.ssafy.benepick.domain.card.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,5 +45,17 @@ public class CardCompanyController {
 	public ResponseResult getAllCardCompany(HttpServletRequest request) {
 		log.info("CardCompanyController_getAllCardCompany");
 		return new ListResponseResult<>(cardCompanyService.getAllCardCompany());
+	}
+
+	@Operation(summary = "카드사 연동", description = "사용자가 카드사 연동 및 갱신")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "카드사 연동 및 갱신 성공"),
+		@ApiResponse(responseCode = "400", description = "카드사 연동 및 갱신 실패"),
+	})
+	@PostMapping
+	public ResponseResult linkAndRenewCardCompany(@RequestBody List<Long> cardIcardCompanyIdListdList , HttpServletRequest request) {
+		log.info("CardCompanyController_linkAndRenewCardCompany");
+		cardCompanyService.linkAndRenewCardCompany(cardIcardCompanyIdListdList , request);
+		return ResponseResult.successResponse;
 	}
 }
