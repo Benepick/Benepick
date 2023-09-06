@@ -9,7 +9,7 @@ function Home({ navigation }: HomeNavigationProps) {
   return (
     <View>
       <Recommendation />
-      <MonthlyConsumption />
+      <MonthlyConsumption image={require('@common/assets/images/cardImg.png')} />
     </View>
   );
 }
