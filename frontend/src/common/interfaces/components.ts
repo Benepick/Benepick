@@ -55,11 +55,12 @@ export interface ProgressNodeProps {
   current: number;
 }
 
-export interface CompanySelectBoxProps {
+export interface CompanySelectBoxProps extends TouchableHighlightProps {
   name: string;
   size: number;
   state: string;
   image: string;
+  isSelected: boolean;
 }
 
 export interface BSwitchProps extends TouchableHighlightProps {
