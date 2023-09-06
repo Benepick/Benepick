@@ -7,6 +7,7 @@ import SubmitButton from '@common/components/SubmitButton';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import BInput from '@common/components/BInput';
+import ProgressNode from '@common/components/ProgressNode/ProgressNode';
 
 function Test() {
   const [text, setText] = useState('글씨를 입력하세요');
@@ -27,6 +28,10 @@ function Test() {
 
       <BInput label="인풋입니다" onChangeText={(e) => setText(e)} />
       <BInput label="인풋2입니다" />
+      <BText type="p">볼드체입니다.</BText>
+      <ProgressNode size={30} page={3} current={1} />
+      <ProgressNode size={30} page={3} current={2} />
+      <ProgressNode size={30} page={3} current={3} />
     </View>
   );
 }

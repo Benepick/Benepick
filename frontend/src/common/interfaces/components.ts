@@ -25,3 +25,19 @@ export interface BTextProps {
 export interface BInputProps extends TextInputProps {
   label?: string;
 }
+export interface NodeProps {
+  size: number;
+  color: string;
+  num: number;
+}
+
+export interface BranchProps {
+  size: number;
+  color: string;
+}
+
+export interface ProgressNodeProps {
+  page: number;
+  size: number;
+  current: number;
+}
