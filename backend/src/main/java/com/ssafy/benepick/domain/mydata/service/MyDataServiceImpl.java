@@ -38,8 +38,8 @@ public class MyDataServiceImpl implements MyDataService {
 	@Override
 	public MonthResultResponseDto getMonthResult(HttpServletRequest request) {
 		log.info("MyDataServiceImpl_getMonthResult | 사용자 이번달 소비내역 , 받은 혜택 조회");
-		// MyDataUser myDataUser = myDataUserRepository.findById(userService.getUserFromRequest(request).getUserId()).get();
-		MyDataUser myDataUser = myDataUserRepository.findById("ex1").get();
+		MyDataUser myDataUser = myDataUserRepository.findById(userService.getUserFromRequest(request).getUserId()).get();
+		// MyDataUser myDataUser = myDataUserRepository.findById("ex1").get();
 
 		int payAmount = 0;
 		int benefitAmount = 0;
@@ -76,8 +76,8 @@ public class MyDataServiceImpl implements MyDataService {
 	@Override
 	public MonthCategoryResultResponseDto getMonthCategoryResult(HttpServletRequest request) {
 		log.info("MyDataServiceImpl_getMonthCategoryResult | 사용자 이번달 카테고리별 사용 금액 조회");
-		// MyDataUser myDataUser = myDataUserRepository.findById(userService.getUserFromRequest(request).getUserId()).get();
-		MyDataUser myDataUser = myDataUserRepository.findById("ex1").get();
+		MyDataUser myDataUser = myDataUserRepository.findById(userService.getUserFromRequest(request).getUserId()).get();
+		// MyDataUser myDataUser = myDataUserRepository.findById("ex1").get();
 
 		HashMap<String , Integer> categoryMap = new HashMap<>();
 		AtomicInteger amount = new AtomicInteger(0);
@@ -92,8 +92,8 @@ public class MyDataServiceImpl implements MyDataService {
 	@Override
 	public List<RecentMonthResponseDto> getRecentFourMonthResult(HttpServletRequest request) {
 		log.info("MyDataServiceImpl_getRecentFourMonthResult || 최근 4달의 사용금액,받은혜택 조회");
-		// MyDataUser myDataUser = myDataUserRepository.findById(userService.getUserFromRequest(request).getUserId()).get();
-		MyDataUser myDataUser = myDataUserRepository.findById("ex1").get();
+		MyDataUser myDataUser = myDataUserRepository.findById(userService.getUserFromRequest(request).getUserId()).get();
+		// MyDataUser myDataUser = myDataUserRepository.findById("ex1").get();
 		LocalDate now = LocalDate.now();
 		List<RecentMonthResponseDto> result = new ArrayList<>();
 

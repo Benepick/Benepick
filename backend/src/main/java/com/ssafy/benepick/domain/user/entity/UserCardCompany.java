@@ -2,6 +2,8 @@ package com.ssafy.benepick.domain.user.entity;
 
 import java.time.LocalDateTime;
 
+import org.springframework.cglib.core.Local;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,4 +34,10 @@ public class UserCardCompany {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id" , nullable = false)
 	private User user;
+
+	public void renewDate(){
+		LocalDateTime now = LocalDateTime.now();
+		this.userCardCompanyRequestDate = now;
+		this.userCardCompanyExpirationDate = now.plusYears(1);
+	}
 }
