@@ -37,7 +37,7 @@ function BInput({ label, ...rest }: BInputProps) {
     label: {
       position: 'absolute',
       color: isFocused ? colors.main : colors.disabled,
-      fontWeight: 'bold',
+      fontFamily: 'IBMPlexSansKR-SemiBold',
     },
     container: {
       margin: 8,
