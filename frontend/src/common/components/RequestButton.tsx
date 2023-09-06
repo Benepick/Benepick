@@ -1,10 +1,10 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
-import { SubmitButtonProps } from '@common/interfaces/components';
+import { RequestButtonProps } from '@common/interfaces/components';
 import colors from '@common/design/colors';
 import BText from './BText';
 
-function SubmitButton({ title, ...rest }: SubmitButtonProps) {
+function RequestButton({ title, ...rest }: RequestButtonProps) {
   return (
     <TouchableOpacity style={styles.button} {...rest}>
       <BText type="bold" color={colors.white}>
@@ -16,12 +16,11 @@ function SubmitButton({ title, ...rest }: SubmitButtonProps) {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.main,
-    padding: 12,
+    padding: 7,
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 5,
   },
 });
 
-export default SubmitButton;
+export default RequestButton;

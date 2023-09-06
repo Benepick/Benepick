@@ -16,6 +16,10 @@ export interface SubmitButtonProps extends TouchableOpacityProps {
   title: string;
 }
 
+export interface RequestButtonProps extends TouchableOpacityProps {
+  title: string;
+}
+
 export interface BTextProps {
   children: ReactNode;
   type?: 'h1' | 'h2' | 'h3' | 'bold' | 'p';

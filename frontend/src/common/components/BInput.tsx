@@ -48,7 +48,7 @@ function BInput({ label, ...rest }: BInputProps) {
       width: '95%',
       position: 'absolute',
       bottom: 10,
-      left: 10,
+      alignSelf: 'center',
     },
   });
 
