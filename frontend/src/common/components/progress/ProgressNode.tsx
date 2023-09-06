@@ -20,8 +20,8 @@ function ProgressNode({ page, size, current }: ProgressNodeProps) {
   return <View style={styles.flexBox}>{nodes}</View>;
 }
 
-export default ProgressNode;
-
 const styles = StyleSheet.create({
   flexBox: { display: 'flex', flexDirection: 'row', alignItems: 'center' },
 });
+
+export default ProgressNode;
