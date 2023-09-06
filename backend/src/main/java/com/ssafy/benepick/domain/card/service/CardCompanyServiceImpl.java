@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.ssafy.benepick.domain.card.dto.request.LinkAndRenewCardCompanyRequestDto;
 import com.ssafy.benepick.domain.card.dto.response.CardCompanyResponseDto;
 import com.ssafy.benepick.domain.card.entity.CardCompany;
 import com.ssafy.benepick.domain.card.repository.CardCompanyRepository;
@@ -14,6 +15,7 @@ import com.ssafy.benepick.domain.user.entity.UserCardCompany;
 import com.ssafy.benepick.domain.user.repository.UserRepository;
 import com.ssafy.benepick.domain.user.service.UserService;
 import com.ssafy.benepick.global.exception.NotExistCardCompanyException;
+import com.ssafy.benepick.global.exception.NotExistLinkCardCompanyException;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -40,13 +42,13 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 
 	@Override
 	@Transactional
-	public void linkAndRenewCardCompany(List<Long> cardCompanyIdList, HttpServletRequest request) {
+	public void linkAndRenewCardCompany(LinkAndRenewCardCompanyRequestDto linkAndRenewCardCompanyRequestDto, HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_linkAndRenewCardCompany | 카드사 연동 및 연동 기간 갱신");
-		// User loginUser = userService.getUserFromRequest(request);
-		User loginUser = userRepository.findById("ex1").get();
+		User loginUser = userService.getUserFromRequest(request);
+		// User loginUser = userRepository.findById("ex1").get();
 		List<UserCardCompany> userCardCompanyList = loginUser.getUserCardCompanyList();
 
-		for (Long cardCompanyId : cardCompanyIdList) {
+		for (Long cardCompanyId : linkAndRenewCardCompanyRequestDto.getCardCompanyIdList()) {
 			boolean isExist = false;
 
 			for (UserCardCompany userCardCompany : userCardCompanyList){
@@ -62,5 +64,21 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 			if(!isExist)
 				loginUser.linkCardCompany(cardCompanyRepository.findById(cardCompanyId).orElseThrow(NotExistCardCompanyException::new));
 		}
+	}
+
+	@Override
+	@Transactional
+	public void cancelLinkCardCompany(Long cardCompanyId , HttpServletRequest request) {
+		log.info("CardCompanyServiceImpl_cancelLinkCardCompany | 카드사 연동 해제");
+		User loginUser = userService.getUserFromRequest(request);
+		// User loginUser = userRepository.findById("ex1").get();
+
+		loginUser.getUserCardCompanyList().stream()
+			.filter(userCardCompany -> userCardCompany.getUserCardCompanyId().equals(cardCompanyId))
+			.findFirst()
+			.ifPresentOrElse(
+				userCardCompany -> loginUser.cancelLinkCardCompany(userCardCompany),
+				() -> { throw new NotExistLinkCardCompanyException(); }
+			);
 	}
 }

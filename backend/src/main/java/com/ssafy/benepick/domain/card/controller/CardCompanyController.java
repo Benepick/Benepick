@@ -2,12 +2,15 @@ package com.ssafy.benepick.domain.card.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.benepick.domain.card.dto.request.LinkAndRenewCardCompanyRequestDto;
 import com.ssafy.benepick.domain.card.service.CardCompanyService;
 import com.ssafy.benepick.global.response.ListResponseResult;
 import com.ssafy.benepick.global.response.ResponseResult;
@@ -51,11 +54,25 @@ public class CardCompanyController {
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "200", description = "카드사 연동 및 갱신 성공"),
 		@ApiResponse(responseCode = "400", description = "카드사 연동 및 갱신 실패"),
+		@ApiResponse(responseCode = "450", description = "입력받은 카드사 ID와 일치하는 카드사가 존재하지 않음")
 	})
 	@PostMapping
-	public ResponseResult linkAndRenewCardCompany(@RequestBody List<Long> cardIcardCompanyIdListdList , HttpServletRequest request) {
+	public ResponseResult linkAndRenewCardCompany(@RequestBody LinkAndRenewCardCompanyRequestDto linkAndRenewCardCompanyRequestDto , HttpServletRequest request) {
 		log.info("CardCompanyController_linkAndRenewCardCompany");
-		cardCompanyService.linkAndRenewCardCompany(cardIcardCompanyIdListdList , request);
+		cardCompanyService.linkAndRenewCardCompany(linkAndRenewCardCompanyRequestDto , request);
+		return ResponseResult.successResponse;
+	}
+
+	@Operation(summary = "카드사 연동 해제", description = "카드사 연동 해제")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "카드사 연동 해제 성공"),
+		@ApiResponse(responseCode = "400", description = "카드사 연동 해제 실패"),
+		@ApiResponse(responseCode = "451", description = "연동 해제하려는 카드사가 연동되어있지 않음")
+	})
+	@DeleteMapping("/{cardCompanyId}")
+	public ResponseResult cancelCardCompanyLink(@PathVariable(value = "cardCompanyId") Long cardCompanyId, HttpServletRequest request) {
+		log.info("CardCompanyController_cancelCardCompanyLink");
+		cardCompanyService.cancelLinkCardCompany(cardCompanyId, request);
 		return ResponseResult.successResponse;
 	}
 }

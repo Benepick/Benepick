@@ -68,4 +68,8 @@ public class User {
 				.userCardCompanyExpirationDate(now.plusYears(1))
 				.build());
 	}
+
+	public void cancelLinkCardCompany(UserCardCompany userCardCompany){
+		this.userCardCompanyList.remove(userCardCompany);
+	}
 }
