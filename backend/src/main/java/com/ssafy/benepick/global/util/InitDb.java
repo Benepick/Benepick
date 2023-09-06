@@ -44,10 +44,10 @@ public class InitDb {
 
 		public void init() {
 			User user1 = User.builder()
-				.userId("ex1")
-				.userName("박싸피")
-				.userPhoneNumber("01011111111")
-				.userSocialNumber("000101")
+				.userId("f2a5b57c292a49374f1fa50262c76667fb4aacec3edd6c9f42abfbee58edf9f7")
+				.userName("김싸피")
+				.userPhoneNumber("01012345678")
+				.userSocialNumber("990101")
 				.userSimplePassword("123456")
 				.userGenderAndGenerationCode("1")
 				.isPushActive(false)
@@ -102,7 +102,7 @@ public class InitDb {
 			em.persist(card4);
 
 			MyDataUser myDataUser1 = MyDataUser.builder()
-				.myDataUserId("ex1").myDataUserName("박싸피")
+				.myDataUserId("f2a5b57c292a49374f1fa50262c76667fb4aacec3edd6c9f42abfbee58edf9f7").myDataUserName("박싸피")
 				.myDataUserPhoneNumber("01011111111").myDataUserSocialNumber("000101").build();
 
 			MyDataUser myDataUser2 = MyDataUser.builder()

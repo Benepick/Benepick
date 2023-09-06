@@ -26,9 +26,8 @@ public class UserCardCompanyServiceImpl implements UserCardCompanyService{
 	@Override
 	public List<CardCompanyResponseDto> getUserCardCompany(HttpServletRequest request) {
 		log.info("UserCardCompanyServiceImpl_getUserCardCompany | 사용자와 연동된 카드사 조회");
-		// User loginUser = userRepository.findById(userService.getUserFromRequest(request).getUserId()).get();
-		User loginUser = userRepository.findById("ex1").get();
-
+		User loginUser = userService.getUserFromRequest(request);
+		// User loginUser = userRepository.findById("ex1").get();
 
 		return loginUser.getUserCardCompanyList()
 			.stream().map(userCardCompany -> cardCompanyRepository.findById(userCardCompany.getUserCardCompanyId()).get().toCardCompanyResponseDto())
