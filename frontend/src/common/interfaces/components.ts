@@ -1,5 +1,12 @@
 import React, { ReactNode } from 'react';
-import { GestureResponderEvent, TextInputProps, TouchableOpacityProps } from 'react-native';
+import {
+  GestureResponderEvent,
+  TextInputProps,
+  TouchableOpacityProps,
+  TextProps,
+  StyleProp,
+  TextStyle,
+} from 'react-native';
 import * as Icons from '@common/assets/icons/iconIndex';
 
 export interface AlarmButtonProps extends TouchableOpacityProps {
@@ -20,10 +27,11 @@ export interface RequestButtonProps extends TouchableOpacityProps {
   title: string;
 }
 
-export interface BTextProps {
+export interface BTextProps extends TextProps {
   children: ReactNode;
   type?: 'h1' | 'h2' | 'h3' | 'bold' | 'p';
   color?: string;
+  style?: StyleProp<TextStyle>;
 }
 
 export interface BInputProps extends TextInputProps {

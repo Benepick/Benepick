@@ -36,7 +36,9 @@ function Test() {
           <RequestButton title="재요청" />
         </View>
       </View>
-      <BText type="p">볼드체입니다.</BText>
+      <BText type="p" style={{ alignSelf: 'center' }}>
+        볼드체입니다.
+      </BText>
       <ProgressNode size={30} page={3} current={1} />
       <ProgressNode size={30} page={3} current={2} />
       <ProgressNode size={30} page={3} current={3} />

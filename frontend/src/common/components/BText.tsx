@@ -4,7 +4,7 @@ import { BTextProps } from '@common/interfaces/components';
 import { globalStyles } from '@common/design/globalStyles';
 import colors from '@common/design/colors';
 
-function BText({ children, type, color = colors.black }: BTextProps) {
+function BText({ children, type, color = colors.black, style, ...rest }: BTextProps) {
   const stylesMap = {
     h1: globalStyles.h1,
     h2: globalStyles.h2,
@@ -13,9 +13,13 @@ function BText({ children, type, color = colors.black }: BTextProps) {
     p: globalStyles.p,
   };
 
-  const textStyle = [stylesMap[type || 'p'], color ? { color } : null];
+  const textStyle = [stylesMap[type || 'p'], color ? { color } : null, style];
 
-  return <Text style={textStyle}>{children}</Text>;
+  return (
+    <Text style={textStyle} {...rest}>
+      {children}
+    </Text>
+  );
 }
 
 export default BText;
