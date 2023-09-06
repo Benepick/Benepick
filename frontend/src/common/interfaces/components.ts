@@ -45,3 +45,10 @@ export interface ProgressNodeProps {
   size: number;
   current: number;
 }
+
+export interface CompanySelectBoxProps {
+  name: string;
+  size: number;
+  state: string;
+  image: string;
+}
