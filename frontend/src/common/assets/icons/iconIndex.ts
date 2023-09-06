@@ -10,3 +10,6 @@ export { default as Lock } from './Lock.svg';
 export { default as FingerPrint } from './FingerPrint.svg';
 export { default as Back } from './Back.svg';
 export { default as Close } from './Close.svg';
+export { default as Check } from './Check.svg';
+export { default as Link } from './Link.svg';
+export { default as Add } from './Add.svg';

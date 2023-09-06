@@ -8,12 +8,12 @@ import Branch from './childs/Branch';
 
 function ProgressNode({ page, size, current }: ProgressNodeProps) {
   const nodes = [];
-  nodes.push(<Node size={size} color={colors.main} num={1} />);
-  for (let i = 0; i < page - 1; i++) {
+  nodes.push(<Node size={size} color={colors.main} num={1} key={0} />);
+  for (let i = 1; i < page; i++) {
     nodes.push(
       <View style={styles.flexBox} key={i}>
-        <Branch size={size} color={current >= i + 2 ? colors.main : colors.disabled} />
-        <Node size={size} color={current >= i + 2 ? colors.main : colors.disabled} num={i + 2} />
+        <Branch size={size} color={current >= i + 1 ? colors.main : colors.disabled} />
+        <Node size={size} color={current >= i + 1 ? colors.main : colors.disabled} num={i + 1} />
       </View>,
     );
   }

@@ -7,6 +7,7 @@ import SubmitButton from '@common/components/SubmitButton';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import ProgressNode from '@common/components/progress/ProgressNode';
+import CompanySelectBox from '@common/components/CompanySelectBox';
 
 function Test() {
   return (
@@ -25,6 +26,12 @@ function Test() {
       <ProgressNode size={30} page={3} current={1} />
       <ProgressNode size={30} page={3} current={2} />
       <ProgressNode size={30} page={3} current={3} />
+      <CompanySelectBox
+        name="카카오뱅크"
+        size={30}
+        state="linked"
+        image="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434"
+      />
     </View>
   );
 }
