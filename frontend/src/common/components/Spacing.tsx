@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { View, ViewStyle } from 'react-native';
 
 interface SpacingProps {
-  rem: '0.25' | '0.5' | '1' | '1.5' | '2' | '3' | '4' | '5';
+  rem?: '0.25' | '0.5' | '1' | '1.5' | '2' | '3' | '4' | '5';
   dir?: 'row' | 'col';
 }
 
