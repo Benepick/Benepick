@@ -31,4 +31,11 @@ public class ExceptionController {
 		log.info("Error Message : {}", err.getMessage());
 		return ResponseResult.exceptionResponse(ExceptionCode.NOT_EXIST_ACCESS_TOKEN_EXCEPTION);
 	}
+
+	@ExceptionHandler(NotExistCardCompanyException.class)
+	public ResponseResult NotExistCardCompanyException(NotExistCardCompanyException err) {
+		log.info("Error : {}", err.getClass());
+		log.info("Error Message : {}", err.getMessage());
+		return ResponseResult.exceptionResponse(ExceptionCode.NOT_EXIST_CARD_COMPANY_EXCEPTION);
+	}
 }
