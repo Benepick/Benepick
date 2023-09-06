@@ -4,9 +4,9 @@ import { SubmitButtonProps } from '@common/interfaces/components';
 import colors from '@common/design/colors';
 import BText from './BText';
 
-function SubmitButton({ title, onPress }: SubmitButtonProps) {
+function SubmitButton({ title, ...rest }: SubmitButtonProps) {
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
+    <TouchableOpacity style={styles.button} {...rest}>
       <BText type="p" color={colors.white}>
         {title}
       </BText>
