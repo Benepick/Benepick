@@ -17,17 +17,25 @@ import BCheckBox from '@common/components/BCheckBox';
 function Test() {
   const [text, setText] = useState('글씨를 입력하세요');
 
+  const [switchValue, setSwitchValue] = useState(false);
+  const [selectedBox, setSelectedBox] = useState(false);
+
+  const handleSwitch = () => {
+    setSwitchValue(!switchValue);
+  };
   const [value, setValue] = useState(false);
 
   const [checkValue, setCheckValue] = useState(false);
 
-  const onPress = () => {
-    setValue(!value);
+  const handleSelectBox = () => {
+    setSelectedBox(!selectedBox);
   };
 
   const checkPress = () => {
     setCheckValue(!checkValue);
   };
+
+  console.log(selectedBox);
 
   return (
     <ScrollView>
@@ -64,10 +72,11 @@ function Test() {
         size={30}
         state="linked"
         image="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434"
+        isSelected={selectedBox}
+        onPress={handleSelectBox}
       />
       <Spacing rem="1" />
-      <BSwitch size={1} onPress={onPress} value={value} />
-      <Spacing rem="1" />
+      <BSwitch size={1} onPress={handleSwitch} value={switchValue} />
       <Spacing rem="1" />
       <BCheckBox size={1} onPress={checkPress} value={checkValue} />
     </ScrollView>
