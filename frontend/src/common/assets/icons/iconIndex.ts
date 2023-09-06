@@ -13,3 +13,4 @@ export { default as Close } from './Close.svg';
 export { default as Check } from './Check.svg';
 export { default as Link } from './Link.svg';
 export { default as Add } from './Add.svg';
+export { default as Search } from './Search.svg';
