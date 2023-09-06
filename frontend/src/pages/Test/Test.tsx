@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import AlarmButton from '../../common/components/AlarmButton';
 
@@ -6,10 +6,12 @@ import IconButton from '@common/components/IconButton';
 import SubmitButton from '@common/components/SubmitButton';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
+import BInput from '@common/components/BInput';
 import ProgressNode from '@common/components/progress/ProgressNode';
-import CompanySelectBox from '@common/components/CompanySelectBox';
+import RequestButton from '@common/components/RequestButton';
 
 function Test() {
+  const [text, setText] = useState('글씨를 입력하세요');
   return (
     <View>
       <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -17,11 +19,23 @@ function Test() {
         <Spacing rem="5" dir="row" />
         <IconButton name="ChatBot" />
       </View>
-      <SubmitButton title="제출버튼입니다" />
+      <SubmitButton title="제출버튼입니다" onPress={() => console.log('제출크릭')} />
       <BText type="h1">제목입니다.</BText>
       <BText type="h2">부제목입니다.</BText>
       <BText type="h3">부부제목입니다.</BText>
       <BText type="bold">볼드체입니다.</BText>
+      <BText type="p">{text}</BText>
+      <Spacing rem="1" />
+
+      <BInput label="인풋입니다" onChangeText={(e) => setText(e)} />
+      <View style={{ display: 'flex', flexDirection: 'row' }}>
+        <View style={{ width: '77%' }}>
+          <BInput label="인풋2입니다" />
+        </View>
+        <View style={{ width: '20%', alignSelf: 'center' }}>
+          <RequestButton title="재요청" />
+        </View>
+      </View>
       <BText type="p">볼드체입니다.</BText>
       <ProgressNode size={30} page={3} current={1} />
       <ProgressNode size={30} page={3} current={2} />
