@@ -6,14 +6,15 @@ import SvgIcons from '@common/assets/SvgIcons';
 import colors from '@common/design/colors';
 import { Spacing } from './Spacing';
 
-function CompanySelectBox({ name, size = 30, image, state }: CompanySelectBoxProps) {
-  const [isSelected, setIsSelected] = useState(false);
-
+function CompanySelectBox({
+  name,
+  size = 30,
+  image,
+  state,
+  isSelected,
+  onPress,
+}: CompanySelectBoxProps) {
   const icon = state === 'linked' ? 'Link' : state === 'selected' ? 'Check' : 'Add';
-
-  const onPress = () => {
-    setIsSelected(!isSelected);
-  };
 
   const styles = StyleSheet.create({
     defaultBox: {
