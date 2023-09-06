@@ -6,7 +6,7 @@ import IconButton from '@common/components/IconButton';
 import SubmitButton from '@common/components/SubmitButton';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
-import ProgressNode from '@common/components/ProgressNode/ProgressNode';
+import ProgressNode from '@common/components/progress/ProgressNode';
 
 function Test() {
   return (
