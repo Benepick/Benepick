@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
+import { Text, TextInput, View, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import AlarmButton from '../../common/components/AlarmButton';
 
 import IconButton from '@common/components/IconButton';
@@ -9,6 +9,7 @@ import { Spacing } from '@common/components/Spacing';
 import BInput from '@common/components/BInput';
 import ProgressNode from '@common/components/progress/ProgressNode';
 import RequestButton from '@common/components/RequestButton';
+import CompanySelectBox from '@common/components/CompanySelectBox';
 
 function Test() {
   const [text, setText] = useState('글씨를 입력하세요');
