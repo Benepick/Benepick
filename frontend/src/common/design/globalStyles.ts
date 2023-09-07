@@ -14,8 +14,8 @@ export const globalStyles = StyleSheet.create({
     includeFontPadding: false,
   },
   h3: {
-    fontSize: 20,
-    fontFamily: 'IBMPlexSansKR-SemiBold',
+    fontSize: 18,
+    fontFamily: 'IBMPlexSansKR-Bold',
     includeFontPadding: false,
   },
   bold: {
