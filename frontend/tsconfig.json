@@ -5,7 +5,9 @@
       "@common/*": ["common/*"],
       "@navigator/*": ["navigator/*"],
       "@pages/*": ["pages/*"],
-      "@store/*": ["store/*"]
+      "@store/*": ["store/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@api/*": ["api/*"]
     },
     "allowJs": true,
     "allowSyntheticDefaultImports": true,

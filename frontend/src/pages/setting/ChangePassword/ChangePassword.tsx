@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 
-import { ChangePasswordNavigationProps } from '@common/interfaces/navigation';
+import { ChangePasswordNavigationProps } from 'interfaces/navigation';
 
 function ChangePassword({ navigation }: ChangePasswordNavigationProps) {
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Text, View, TextInput } from 'react-native';
-import { PhoneAuthNavigationProps } from '@common/interfaces/navigation';
+import { PhoneAuthNavigationProps } from 'interfaces/navigation';
 
 function PhoneAuth({ navigation }: PhoneAuthNavigationProps) {
   const [text, onChangeText] = useState('');

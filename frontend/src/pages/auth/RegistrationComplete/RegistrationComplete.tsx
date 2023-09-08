@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
-import { RegistrationCompleteNavigationProps } from '@common/interfaces/navigation';
+import { RegistrationCompleteNavigationProps } from 'interfaces/navigation';
 
 function RegistrationComplete({ navigation }: RegistrationCompleteNavigationProps) {
   return (

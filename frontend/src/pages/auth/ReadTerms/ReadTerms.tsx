@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Alert, Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { ReadTermsNavigationProps } from '@common/interfaces/navigation';
+import { ReadTermsNavigationProps } from 'interfaces/navigation';
 
 function ReadTerms({ navigation }: ReadTermsNavigationProps) {
   const scrollRef = useRef<ScrollView>(null);

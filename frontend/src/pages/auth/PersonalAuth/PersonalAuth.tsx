@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
-import { PersonalAuthNavigationProps } from '@common/interfaces/navigation';
+import { PersonalAuthNavigationProps } from 'interfaces/navigation';
 
 function PersonalAuth({ navigation }: PersonalAuthNavigationProps) {
   return (

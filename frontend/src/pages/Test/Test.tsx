@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ScrollView, View } from 'react-native';
-import AlarmButton from '../../common/components/AlarmButton';
+import AlarmButton from '@common/components/AlarmButton';
 
 import IconButton from '@common/components/IconButton';
 import SubmitButton from '@common/components/SubmitButton';

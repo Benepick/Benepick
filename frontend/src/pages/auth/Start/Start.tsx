@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Button } from 'react-native';
 
-import { StartNavigationProps } from '@common/interfaces/navigation';
+import { StartNavigationProps } from 'interfaces/navigation';
 
 function Start({ navigation }: StartNavigationProps) {
   return (

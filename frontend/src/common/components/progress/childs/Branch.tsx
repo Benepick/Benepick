@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { BranchProps } from '@common/interfaces/components';
+import { BranchProps } from 'interfaces/common';
 
 function Branch({ size, color }: BranchProps) {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Text, StyleSheet, ScrollView } from 'react-native';
 
-import { BenefitNavigationProps } from '@common/interfaces/navigation';
+import { BenefitNavigationProps } from 'interfaces/navigation';
 
 import SearchInput from '@common/components/SearchInput';
 import BenfitCard from './Container/BenfitCard';

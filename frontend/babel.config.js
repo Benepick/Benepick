@@ -21,6 +21,8 @@ module.exports = {
           '@navigator': './src/navigator',
           '@pages': './src/pages',
           '@store': './src/store',
+          '@interfaces': './src/interfaces',
+          '@api': './src/api',
         },
       },
     ],

@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, TouchableHighlight } from 'react-native';
-import { AlarmButtonProps } from '../interfaces/components';
+import { AlarmButtonProps } from '@interfaces/common';
 import AlarmOn from '@common/assets/icons/AlarmOn.svg';
 import AlarmOff from '@common/assets/icons/AlarmOff.svg';
 

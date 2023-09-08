@@ -9,7 +9,7 @@ import {
   TextInputFocusEventData,
 } from 'react-native';
 import colors from '@common/design/colors';
-import { BInputProps } from '@common/interfaces/components';
+import { BInputProps } from 'interfaces/common';
 
 function BInput({ label, ...rest }: BInputProps) {
   const [isFocused, setIsFocused] = useState(false);

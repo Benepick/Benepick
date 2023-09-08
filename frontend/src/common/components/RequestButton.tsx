@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
-import { RequestButtonProps } from '@common/interfaces/components';
+import { RequestButtonProps } from 'interfaces/common';
 import colors from '@common/design/colors';
 import BText from './BText';
 

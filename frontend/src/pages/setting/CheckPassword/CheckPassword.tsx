@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 
-import { CheckPasswordNavigationProps } from '@common/interfaces/navigation';
+import { CheckPasswordNavigationProps } from 'interfaces/navigation';
 
 function CheckPassword({ navigation }: CheckPasswordNavigationProps) {
   return (

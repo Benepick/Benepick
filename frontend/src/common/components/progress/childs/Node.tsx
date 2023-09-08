@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { NodeProps } from '@common/interfaces/components';
+import { NodeProps } from 'interfaces/common';
 import BText from '@common/components/BText';
 import colors from '@common/design/colors';
 

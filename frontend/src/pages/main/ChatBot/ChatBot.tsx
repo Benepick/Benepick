@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 
-import { ChatBotNavigationProps } from '@common/interfaces/navigation';
+import { ChatBotNavigationProps } from 'interfaces/navigation';
 
 function ChatBot({ navigation }: ChatBotNavigationProps) {
   return (
