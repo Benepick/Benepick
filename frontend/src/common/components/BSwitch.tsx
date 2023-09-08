@@ -1,5 +1,5 @@
 import colors from '@common/design/colors';
-import { BSwitchProps } from '@common/interfaces/components';
+import { BSwitchProps } from 'interfaces/common';
 import React from 'react';
 import { StyleSheet, TouchableHighlight, View } from 'react-native';
 

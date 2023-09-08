@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 
-import { CompanyManagementNavigationProps } from '@common/interfaces/navigation';
+import { CompanyManagementNavigationProps } from 'interfaces/navigation';
 
 function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
   return (

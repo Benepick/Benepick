@@ -4,7 +4,7 @@ import colors from '@common/design/colors';
 
 import MonthlyConsumption from './Container/MonthlyConsumption';
 import Recommendation from './Container/Recommendation';
-import { HomeNavigationProps } from '@common/interfaces/navigation';
+import { HomeNavigationProps } from 'interfaces/navigation';
 import { Spacing } from '@common/components/Spacing';
 import { globalStyles } from '@common/design/globalStyles';
 import BText from '@common/components/BText';

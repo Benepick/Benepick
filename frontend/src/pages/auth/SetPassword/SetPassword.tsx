@@ -1,4 +1,4 @@
-import { SetPasswordNavigationProps } from '@common/interfaces/navigation';
+import { SetPasswordNavigationProps } from 'interfaces/navigation';
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 

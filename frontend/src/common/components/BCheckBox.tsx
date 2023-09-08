@@ -1,6 +1,6 @@
 import SvgIcons from '@common/assets/SvgIcons';
 import colors from '@common/design/colors';
-import { BCheckBoxProps } from '@common/interfaces/components';
+import { BCheckBoxProps } from 'interfaces/common';
 import React from 'react';
 import { StyleSheet, TouchableHighlight, View } from 'react-native';
 

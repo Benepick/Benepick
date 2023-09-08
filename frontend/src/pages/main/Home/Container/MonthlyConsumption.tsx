@@ -1,9 +1,9 @@
 import React from 'react';
-import { MonthlyConsumptionProps } from './interfaces';
+import { MonthlyConsumptionProps } from '@interfaces/home';
 
 import BText from '@common/components/BText';
 import { Image, StyleSheet, View } from 'react-native';
-import { Spacing } from '../../../../common/components/Spacing';
+import { Spacing } from '@common/components/Spacing';
 import colors from '@common/design/colors';
 
 function MonthlyConsumption({ image, money, benefit }: MonthlyConsumptionProps) {

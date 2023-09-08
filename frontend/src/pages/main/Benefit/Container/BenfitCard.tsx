@@ -6,7 +6,7 @@ import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import colors from '@common/design/colors';
 
-import { BenfitCardProps } from './interfaces';
+import { BenfitCardProps } from '@interfaces/benefit';
 
 function BenfitCard({ image }: BenfitCardProps) {
   const [showBenefit, setShowBenefit] = useState(false);

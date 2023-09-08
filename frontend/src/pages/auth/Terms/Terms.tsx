@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
 
-import { TermsNavigationProps } from '@common/interfaces/navigation';
+import { TermsNavigationProps } from 'interfaces/navigation';
 
 function Terms({ navigation }: TermsNavigationProps) {
   return (

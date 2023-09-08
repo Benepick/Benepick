@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
-import { SelectCardNavigationProps } from '@common/interfaces/navigation';
+import { SelectCardNavigationProps } from 'interfaces/navigation';
 
 function SelectCard({ navigation }: SelectCardNavigationProps) {
   return (

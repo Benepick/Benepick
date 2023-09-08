@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { BTextProps } from '@common/interfaces/components';
+import { BTextProps } from 'interfaces/common';
 import { globalStyles } from '@common/design/globalStyles';
 import colors from '@common/design/colors';
 

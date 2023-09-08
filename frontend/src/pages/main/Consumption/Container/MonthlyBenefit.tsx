@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { ConsumptionNavigationProps } from '@common/interfaces/navigation';
+import { ConsumptionNavigationProps } from 'interfaces/navigation';
 import BText from '@common/components/BText';
 import colors from '@common/design/colors';
 import { Spacing } from '@common/components/Spacing';

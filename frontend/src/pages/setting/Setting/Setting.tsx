@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button, Text } from 'react-native';
 
-import { SettingNavigationProps } from '@common/interfaces/navigation';
+import { SettingNavigationProps } from 'interfaces/navigation';
 
 function Setting({ navigation }: SettingNavigationProps) {
   return (

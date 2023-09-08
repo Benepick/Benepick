@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Text, View } from 'react-native';
-import { SelectCompanyNavigationProps } from '@common/interfaces/navigation';
+import { SelectCompanyNavigationProps } from 'interfaces/navigation';
 
 function SelectCompany({ navigation }: SelectCompanyNavigationProps) {
   return (

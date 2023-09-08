@@ -2,7 +2,7 @@ import colors from '@common/design/colors';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { ProgressNodeProps } from '@common/interfaces/components';
+import { ProgressNodeProps } from 'interfaces/common';
 import Node from './childs/Node';
 import Branch from './childs/Branch';
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
-import { CompanySelectBoxProps } from '@common/interfaces/components';
+import { CompanySelectBoxProps } from 'interfaces/common';
 import SvgIcons from '@common/assets/SvgIcons';
 import colors from '@common/design/colors';
 import { Spacing } from './Spacing';

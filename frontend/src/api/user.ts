@@ -2,10 +2,10 @@ import { http } from './http';
 
 export default {
   login: (userSimplePassword: string) =>
-    http.post<LoginResponce>('/api/user/login', { userSimplePassword }),
+    http.post<LoginResponse>('/api/user/login', { userSimplePassword }),
 };
 
-interface LoginResponce {
+interface LoginResponse {
   statusCode: number;
   messages: string;
   developerMessage: string;
