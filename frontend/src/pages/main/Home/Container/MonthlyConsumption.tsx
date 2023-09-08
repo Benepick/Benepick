@@ -9,14 +9,6 @@ import colors from '@common/design/colors';
 function MonthlyConsumption({ image, money, benefit }: MonthlyConsumptionProps) {
   return (
     <View>
-      <View style={styles.title}>
-        <BText type="h2">이번달</BText>
-        <BText type="h2" color={colors.main}>
-          {' '}
-          소비
-        </BText>
-      </View>
-      <Spacing rem="0.25" />
       <View style={styles.box}>
         <Image style={styles.image} source={image} />
         <Spacing rem="1.5" dir="row" />
