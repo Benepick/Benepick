@@ -3,6 +3,10 @@ import colors from './colors';
 
 export const globalStyles = StyleSheet.create({
   whiteBackground: { backgroundColor: colors.white, minHeight: '100%' },
+  container: {
+    padding: 10,
+    justifyContent: 'center',
+  },
   h1: {
     fontSize: 30,
     fontFamily: 'IBMPlexSansKR-Bold',

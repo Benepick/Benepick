@@ -8,7 +8,7 @@ import colors from '@common/design/colors';
 
 function MonthlyConsumption({ image, money, benefit }: MonthlyConsumptionProps) {
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.title}>
         <BText type="h2">이번달</BText>
         <BText type="h2" color={colors.main}>
@@ -36,10 +36,6 @@ function MonthlyConsumption({ image, money, benefit }: MonthlyConsumptionProps) 
   );
 }
 const styles = StyleSheet.create({
-  container: {
-    margin: 10,
-    justifyContent: 'center',
-  },
   title: {
     display: 'flex',
     flexDirection: 'row',

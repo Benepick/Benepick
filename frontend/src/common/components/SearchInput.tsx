@@ -26,7 +26,7 @@ function SearchInput({ ...rest }: TextInputProps) {
       borderStyle: 'solid',
       borderColor: colors.main2,
       borderWidth: 1,
-      margin: 10,
+
       borderRadius: 10,
     },
     icon: {

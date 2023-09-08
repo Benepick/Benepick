@@ -15,3 +15,5 @@ export { default as Link } from './Link.svg';
 export { default as Add } from './Add.svg';
 export { default as Search } from './Search.svg';
 export { default as Refresh } from './Refresh.svg';
+export { default as Up } from './Up.svg';
+export { default as Down } from './Down.svg';
