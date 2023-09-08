@@ -34,7 +34,6 @@ public class EventListenerModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void sendTrigger(String trigger) {
-      Toast.makeText(reactContext, "트리거 발동", Toast.LENGTH_SHORT).show();
       reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTrigger", trigger);
   }
 

@@ -12,6 +12,7 @@ import RequestButton from '@common/components/RequestButton';
 import CompanySelectBox from '@common/components/CompanySelectBox';
 import BSwitch from '@common/components/BSwitch';
 import SearchInput from '@common/components/SearchInput';
+import PushAlert from '@common/utils/PushAlert';
 
 function Test() {
   const [text, setText] = useState('글씨를 입력하세요');
@@ -37,7 +38,10 @@ function Test() {
         <Spacing rem="5" dir="row" />
         <IconButton name="ChatBot" />
       </View>
-      <SubmitButton title="제출버튼입니다" onPress={() => console.log('제출크릭')} />
+      <SubmitButton
+        title="제출버튼입니다"
+        onPress={() => PushAlert({ channelId: 'shakePick', message: 'Message' })}
+      />
       <BText type="h1">제목입니다.</BText>
       <BText type="h2">부제목입니다.</BText>
       <BText type="h3">부부제목입니다.</BText>
