@@ -7,7 +7,7 @@ import IconButton from '@common/components/IconButton';
 
 function Recommendation() {
   return (
-    <View style={styles.container}>
+    <View>
       <View style={styles.title}>
         <BText type="h2" color={colors.main}>
           김성용님
@@ -70,10 +70,6 @@ function Recommendation() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    margin: 10,
-    justifyContent: 'center',
-  },
   title: {
     display: 'flex',
     flexDirection: 'row',
