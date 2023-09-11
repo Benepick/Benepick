@@ -29,17 +29,16 @@ public class UserServiceImpl implements UserService{
 	private final CIService ciService;
 
 	@Override
-	@Transactional
+	@Transactional(transactionManager = "benepickTransactionManager")
 	public void createUserAccount(CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) {
 		log.info("UserServiceImpl_createUserAccount | 유저 회원 가입");
 
-		if(userRepository.existsByUserNameAndUserPhoneNumberAndUserSocialNumber(
+		String userId = ciService.generateUserCI(createUserAccountRequestDto);
+		if(!userRepository.existsByUserNameAndUserPhoneNumberAndUserSocialNumber(
 			createUserAccountRequestDto.getUserName(), createUserAccountRequestDto.getUserPhoneNumber(),
 			createUserAccountRequestDto.getUserSocialNumber()))
-			throw new ExistUserException();
+			userRepository.save(createUserAccountRequestDto.toUserEntity(userId));
 
-		String userId = ciService.generateUserCI(createUserAccountRequestDto);
-		userRepository.save(createUserAccountRequestDto.toUserEntity(userId));
 		setToken(userId , response);
 	}
 
@@ -61,7 +60,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	@Transactional
+	@Transactional(transactionManager = "benepickTransactionManager")
 	public void changeSimplePassword(ChangePasswordRequestDto changePasswordRequestDto, HttpServletRequest request) {
 		log.info("UserServiceImpl_changeSimplePassword | 사용자의 간편 비밀번호 변경 서비스");
 		User loginUser = getUserFromRequest(request);

@@ -11,6 +11,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,15 +22,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "card_company" , schema = "benepick_bank")
 public class CardCompany {
 
 	@Id
+	@Column(name = "card_company_id")
 	private Long cardCompanyId;
 
-	@Column(nullable = false)
+	@Column(nullable = false , name = "card_company_img_url")
 	private String cardCompanyImgUrl;
 
-	@Column(nullable = false)
+	@Column(nullable = false , name = "card_company_name")
 	private String cardCompanyName;
 
 	@OneToMany(mappedBy = "cardCompany", cascade = CascadeType.ALL , orphanRemoval = true)

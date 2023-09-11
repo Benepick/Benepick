@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,15 +23,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "card" , schema = "benepick_bank")
 public class Card {
 
 	@Id
+	@Column(name = "card_code")
 	private Long cardCode;
 
-	@Column(nullable = false)
+	@Column(nullable = false , name = "card_name")
 	private String cardName;
 
-	@Column(nullable = false)
+	@Column(nullable = false , name = "card_img_url")
 	private String cardImgUrl;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -39,4 +42,7 @@ public class Card {
 
 	@OneToMany(mappedBy = "card", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<MyDataCard> myDataCardList;
+
+	@OneToMany(mappedBy = "card", cascade = CascadeType.ALL , orphanRemoval = true)
+	private List<Category1> category1List;
 }
