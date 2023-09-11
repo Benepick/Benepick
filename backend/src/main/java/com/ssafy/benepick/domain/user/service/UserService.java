@@ -1,8 +1,11 @@
 package com.ssafy.benepick.domain.user.service;
 
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+
 import com.ssafy.benepick.domain.user.dto.request.ChangePasswordRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.CreateUserAccountRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.LoginRequestDto;
+import com.ssafy.benepick.domain.user.dto.request.PhoneNumberRequestDto;
 import com.ssafy.benepick.domain.user.entity.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,4 +17,5 @@ public interface UserService {
 	boolean login(LoginRequestDto loginRequestDto , HttpServletRequest request);
 	void changeSimplePassword(ChangePasswordRequestDto changePasswordRequestDto , HttpServletRequest request);
 	User getUserFromRequest(HttpServletRequest request);
+	String sendMessage(PhoneNumberRequestDto phoneNumberRequestDto) throws CoolsmsException;
 }
