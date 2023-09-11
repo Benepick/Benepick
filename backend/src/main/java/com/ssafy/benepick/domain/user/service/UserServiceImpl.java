@@ -33,13 +33,12 @@ public class UserServiceImpl implements UserService{
 	public void createUserAccount(CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) {
 		log.info("UserServiceImpl_createUserAccount | 유저 회원 가입");
 
-		if(userRepository.existsByUserNameAndUserPhoneNumberAndUserSocialNumber(
+		String userId = ciService.generateUserCI(createUserAccountRequestDto);
+		if(!userRepository.existsByUserNameAndUserPhoneNumberAndUserSocialNumber(
 			createUserAccountRequestDto.getUserName(), createUserAccountRequestDto.getUserPhoneNumber(),
 			createUserAccountRequestDto.getUserSocialNumber()))
-			throw new ExistUserException();
+			userRepository.save(createUserAccountRequestDto.toUserEntity(userId));
 
-		String userId = ciService.generateUserCI(createUserAccountRequestDto);
-		userRepository.save(createUserAccountRequestDto.toUserEntity(userId));
 		setToken(userId , response);
 	}
 

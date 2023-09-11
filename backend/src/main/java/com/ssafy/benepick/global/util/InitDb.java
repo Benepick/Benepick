@@ -29,12 +29,12 @@ public class InitDb {
 
 	private final InitService initService;
 
-	// @PostConstruct
-	// public void init() {
-	// 	initService.userInit();
-	// 	initService.bankInit();
-	// 	// initService.test();
-	// }
+	@PostConstruct
+	public void init() {
+		initService.userInit();
+		// initService.bankInit();
+		// initService.test();
+	}
 
 	@Component
 	@RequiredArgsConstructor
