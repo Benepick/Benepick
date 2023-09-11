@@ -1,7 +1,9 @@
 package com.ssafy.benepick.domain.mydata.entity;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import com.ssafy.benepick.domain.card.entity.Card;
 import com.ssafy.benepick.domain.card.entity.CardCompany;
 
 import jakarta.persistence.CascadeType;
@@ -28,18 +30,15 @@ public class MyDataCard {
 	private String myDataCardId;
 
 	@Column(nullable = false)
-	private String myDataCardName;
-
-	@Column(nullable = false)
-	private String myDataCardExpirationDate;
+	private LocalDate myDataCardExpirationDate;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "my_data_user_id" , nullable = false)
 	private MyDataUser myDataUser;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "card_company_id" , nullable = false)
-	private CardCompany cardCompany;
+	@JoinColumn(name = "card_code" , nullable = false)
+	private Card card;
 
 	@OneToMany(mappedBy = "myDataCard", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<MyDataPayment> myDataPaymentList;

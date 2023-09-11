@@ -1,19 +1,29 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface UserState {
-  name: string;
-}
-
-const initialState: UserState = {
-  name: '',
+const initialState = {
+  token: '',
+  autoLogIn: false,
 };
 
-export const user = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
+    setAutoLogIn: (state) => {
+      state.autoLogIn = true;
+    },
+    clearToken: (state) => {
+      state.token = '';
+    },
+    cancleAutoLogin: (state) => {
+      state.autoLogIn = false;
+    },
+  },
 });
 
-export const {} = user.actions;
+export const { setToken, setAutoLogIn, clearToken, cancleAutoLogin } = userSlice.actions;
 
-export default user.reducer;
+export default userSlice.reducer;

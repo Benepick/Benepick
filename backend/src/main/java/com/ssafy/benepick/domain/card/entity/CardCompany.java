@@ -2,6 +2,7 @@ package com.ssafy.benepick.domain.card.entity;
 
 import java.util.List;
 
+import com.ssafy.benepick.domain.card.dto.response.CardCompanyResponseDto;
 import com.ssafy.benepick.domain.mydata.entity.MyDataCard;
 import com.ssafy.benepick.domain.mydata.entity.MyDataPayment;
 
@@ -32,8 +33,13 @@ public class CardCompany {
 	private String cardCompanyName;
 
 	@OneToMany(mappedBy = "cardCompany", cascade = CascadeType.ALL , orphanRemoval = true)
-	private List<MyDataCard> myDataCardList;
-
-	@OneToMany(mappedBy = "cardCompany", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<Card> cardList;
+
+	public CardCompanyResponseDto toCardCompanyResponseDto(){
+		return CardCompanyResponseDto.builder()
+			.cardCompanyId(cardCompanyId)
+			.cardCompanyImgUrl(cardCompanyImgUrl)
+			.cardCompanyName(cardCompanyName)
+			.build();
+	}
 }
