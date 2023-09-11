@@ -8,7 +8,7 @@ interface BenefitChartProps {
 }
 
 function BenefitChart({ benefits }: BenefitChartProps) {
-  const max = Math.max(...benefits) * 1.5;
+  const max = Math.max(...benefits) * 1.35;
 
   const start = 10;
   const end = 90;
@@ -23,34 +23,34 @@ function BenefitChart({ benefits }: BenefitChartProps) {
   return (
     <View style={styles.box}>
       <Svg width="100%" height="200">
-        <Circle cx={Coordinates.d1.x} cy={Coordinates.d1.y} r="5" fill={colors.main2} />
+        <Circle cx={Coordinates.d1.x} cy={Coordinates.d1.y} r="5" fill={colors.main} />
         <Line
           x1={Coordinates.d1.x}
           y1={Coordinates.d1.y}
           x2={Coordinates.d2.x}
           y2={Coordinates.d2.y}
-          stroke={colors.main2}
+          stroke={colors.main}
           strokeWidth="4"
         />
-        <Circle cx={Coordinates.d2.x} cy={Coordinates.d2.y} r="5" fill={colors.main2} />
+        <Circle cx={Coordinates.d2.x} cy={Coordinates.d2.y} r="5" fill={colors.main} />
         <Line
           x1={Coordinates.d2.x}
           y1={Coordinates.d2.y}
           x2={Coordinates.d3.x}
           y2={Coordinates.d3.y}
-          stroke={colors.main2}
+          stroke={colors.main}
           strokeWidth="4"
         />
-        <Circle cx={Coordinates.d3.x} cy={Coordinates.d3.y} r="5" fill={colors.main2} />
+        <Circle cx={Coordinates.d3.x} cy={Coordinates.d3.y} r="5" fill={colors.main} />
         <Line
           x1={Coordinates.d3.x}
           y1={Coordinates.d3.y}
           x2={Coordinates.d4.x}
           y2={Coordinates.d4.y}
-          stroke={colors.main2}
+          stroke={colors.main}
           strokeWidth="4"
         />
-        <Circle cx={Coordinates.d4.x} cy={Coordinates.d4.y} r="5" fill={colors.main2} />
+        <Circle cx={Coordinates.d4.x} cy={Coordinates.d4.y} r="5" fill={colors.main} />
       </Svg>
     </View>
   );
@@ -62,12 +62,6 @@ const styles = StyleSheet.create({
     height: 200,
     flexDirection: 'column',
     justifyContent: 'center',
-  },
-  dot: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: colors.main2,
   },
   text: {
     flexDirection: 'row',

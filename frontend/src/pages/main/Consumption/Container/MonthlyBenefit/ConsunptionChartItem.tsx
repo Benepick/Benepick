@@ -27,6 +27,7 @@ function ConsunptionChartItem({ stickHeight }: ConsunptionChartItemProps) {
   return (
     <View style={styles.box}>
       <View style={styles.stick}></View>
+      <Spacing rem="0.3" />
     </View>
   );
 }
