@@ -17,3 +17,4 @@ export { default as Search } from './Search.svg';
 export { default as Refresh } from './Refresh.svg';
 export { default as Up } from './Up.svg';
 export { default as Down } from './Down.svg';
+export { default as Right } from './Right.svg';
