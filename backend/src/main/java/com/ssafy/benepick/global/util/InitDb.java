@@ -32,7 +32,7 @@ public class InitDb {
 	@PostConstruct
 	public void init() {
 		initService.userInit();
-		// initService.bankInit();
+		initService.bankInit();
 		// initService.test();
 	}
 
@@ -67,11 +67,13 @@ public class InitDb {
 			Card card2 = Card.builder().cardCode(2L).cardCompany(cardCompany1).cardName("신한카드2").cardImgUrl("신한카드2이미지").build();
 			Card card3 = Card.builder().cardCode(3L).cardCompany(cardCompany2).cardName("기업카드1").cardImgUrl("기업카드1이미지").build();
 			Card card4 = Card.builder().cardCode(4L).cardCompany(cardCompany2).cardName("기업카드2").cardImgUrl("기업카드2이미지").build();
+			Card card5 = Card.builder().cardCode(5L).cardCompany(cardCompany4).cardName("국민카드1").cardImgUrl("국민카드1이미지").build();
 
 			bankBenepickEntityManager.persist(card1);
 			bankBenepickEntityManager.persist(card2);
 			bankBenepickEntityManager.persist(card3);
 			bankBenepickEntityManager.persist(card4);
+			bankBenepickEntityManager.persist(card5);
 
 			MyDataUser myDataUser1 = MyDataUser.builder()
 				.myDataUserId("f2a5b57c292a49374f1fa50262c76667fb4aacec3edd6c9f42abfbee58edf9f7").myDataUserName("박싸피")
@@ -100,81 +102,86 @@ public class InitDb {
 				.myDataCardId("myDataCard4").myDataUser(myDataUser2)
 				.card(card4).myDataCardExpirationDate(LocalDate.parse("2024-04-04")).build();
 
+			MyDataCard myDataCard5 = MyDataCard.builder()
+				.myDataCardId("myDataCard5").myDataUser(myDataUser1)
+				.card(card5).myDataCardExpirationDate(LocalDate.parse("2024-04-04")).build();
+
 			bankBenepickEntityManager.persist(myDataCard1);
 			bankBenepickEntityManager.persist(myDataCard2);
 			bankBenepickEntityManager.persist(myDataCard3);
 			bankBenepickEntityManager.persist(myDataCard4);
+			bankBenepickEntityManager.persist(myDataCard5);
 
 			MyDataPayment myDataPayment1 = MyDataPayment.builder().myDataPaymentId(1L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDate.parse("2023-09-01"))
-				.myDataPaymentAmount(10000)
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(10000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("바나프레소").myDataCard(myDataCard1).myDataPaymentBenefit(100)
 				.build();
 
 			MyDataPayment myDataPayment2 = MyDataPayment.builder().myDataPaymentId(2L)
-				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDate.parse("2023-09-02"))
-				.myDataPaymentAmount(20000)
+				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(20000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("맥도날드").myDataCard(myDataCard1).myDataPaymentBenefit(200)
 				.build();
 
 			MyDataPayment myDataPayment3 = MyDataPayment.builder().myDataPaymentId(3L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDate.parse("2023-09-03"))
-				.myDataPaymentAmount(30000)
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(30000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("스타벅스").myDataCard(myDataCard2).myDataPaymentBenefit(300)
 				.build();
 
 			MyDataPayment myDataPayment4 = MyDataPayment.builder().myDataPaymentId(4L)
-				.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDate.parse("2023-09-04"))
-				.myDataPaymentAmount(40000)
+				.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(40000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("ABC마트").myDataCard(myDataCard2).myDataPaymentBenefit(400)
 				.build();
 
 			MyDataPayment myDataPayment5 = MyDataPayment.builder().myDataPaymentId(5L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDate.parse("2023-09-05"))
-				.myDataPaymentAmount(50000)
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(50000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("매머드").myDataCard(myDataCard3).myDataPaymentBenefit(500)
 				.build();
 
 			MyDataPayment myDataPayment6 = MyDataPayment.builder().myDataPaymentId(6L)
-				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDate.parse("2023-09-06"))
-				.myDataPaymentAmount(60000)
+				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(60000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("탕후루").myDataCard(myDataCard3).myDataPaymentBenefit(600)
 				.build();
 
 			MyDataPayment myDataPayment7 = MyDataPayment.builder().myDataPaymentId(7L)
-				.myDataPaymentCategory("의료").myDataPaymentDate(LocalDate.parse("2023-09-07"))
-				.myDataPaymentAmount(70000)
+				.myDataPaymentCategory("의료").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(70000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("역삼안과").myDataCard(myDataCard4).myDataPaymentBenefit(700)
 				.build();
 
 			MyDataPayment myDataPayment8 = MyDataPayment.builder().myDataPaymentId(8L)
-				.myDataPaymentCategory("의료").myDataPaymentDate(LocalDate.parse("2023-09-08"))
-				.myDataPaymentAmount(80000)
+				.myDataPaymentCategory("의료").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(80000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("설입성형외과").myDataCard(myDataCard4).myDataPaymentBenefit(800)
 				.build();
 
 			MyDataPayment myDataPayment10 = MyDataPayment.builder().myDataPaymentId(9L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDate.parse("2023-06-01"))
-				.myDataPaymentAmount(10000)
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(10000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("바나프레소").myDataCard(myDataCard1).myDataPaymentBenefit(200)
 				.build();
 
 			MyDataPayment myDataPayment11 = MyDataPayment.builder().myDataPaymentId(10L)
-				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDate.parse("2023-07-02"))
-				.myDataPaymentAmount(20000)
+				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(20000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("맥도날드").myDataCard(myDataCard1).myDataPaymentBenefit(500)
 				.build();
 
 			MyDataPayment myDataPayment12 = MyDataPayment.builder().myDataPaymentId(11L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDate.parse("2023-08-03"))
-				.myDataPaymentAmount(30000)
-				.myDataPaymentMerchantName("스타벅스").myDataCard(myDataCard2).myDataPaymentBenefit(800)
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(30000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
+				.myDataPaymentMerchantName("스타벅스").myDataCard(myDataCard5).myDataPaymentBenefit(800)
 				.build();
 
 			MyDataPayment myDataPayment13 = MyDataPayment.builder().myDataPaymentId(12L)
-				.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDate.parse("2023-08-04"))
-				.myDataPaymentAmount(40000)
-				.myDataPaymentMerchantName("ABC마트").myDataCard(myDataCard2).myDataPaymentBenefit(1000)
+				.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentAmount(40000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
+				.myDataPaymentMerchantName("ABC마트").myDataCard(myDataCard5).myDataPaymentBenefit(1000)
 				.build();
 
 			bankBenepickEntityManager.persist(myDataPayment1);

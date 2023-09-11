@@ -1,5 +1,6 @@
 package com.ssafy.benepick.domain.user.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,13 +34,13 @@ public class UserCard {
 	private Long userCardId;
 
 	@Column(nullable = false , name = "user_card_code")
-	private int userCardCode;
+	private Long userCardCode;
 
 	@Column(nullable = false , name = "user_card_name")
 	private String userCardName;
 
 	@Column(nullable = false , name = "user_card_expiration_date")
-	private LocalDateTime userCardExpirationDate;
+	private LocalDate userCardExpirationDate;
 
 	@Column(nullable = false , name = "user_card_company_name")
 	private String userCardCompanyName;
@@ -54,10 +55,10 @@ public class UserCard {
 	private String userCardSerialNumber;
 
 	@Column(nullable = false , name = "user_card_current_performance")
-	private String userCardCurrentPerformance;
+	private int userCardCurrentPerformance;
 
 	@Column(nullable = false , name = "user_card_prev_performance")
-	private String userCardPrevPerformance;
+	private int userCardPrevPerformance;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id" , nullable = false)
@@ -65,5 +66,6 @@ public class UserCard {
 
 	@OneToMany(mappedBy = "userCard", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<UserPayment> userPaymentList;
+
 
 }

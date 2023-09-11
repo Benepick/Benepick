@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.ssafy.benepick.domain.card.entity.Card;
 import com.ssafy.benepick.domain.card.entity.CardCompany;
+import com.ssafy.benepick.domain.user.entity.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -48,4 +49,5 @@ public class MyDataCard {
 
 	@OneToMany(mappedBy = "myDataCard", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<MyDataPayment> myDataPaymentList;
+
 }
