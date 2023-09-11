@@ -1,9 +1,8 @@
 import React from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Button } from 'react-native';
 
-import Alarm from '@pages/Alarm/Alarm';
+import Notification from '@pages/Notification/Notification';
 import BottomTab from './stacks/BottomTab';
 import Test from '@pages/Test/Test';
 import AuthStack from './stacks/AuthStack';
@@ -25,14 +24,6 @@ const BTheme = {
 };
 
 const RootStack = () => {
-  const theme = {
-    ...DefaultTheme,
-    colors: {
-      ...DefaultTheme.colors,
-      background: colors.backgroundColor,
-    },
-  };
-
   return (
     <NavigationContainer theme={BTheme}>
       <Stack.Navigator>
@@ -58,8 +49,8 @@ const RootStack = () => {
           }}
         />
         <Stack.Screen
-          name="Alarm"
-          component={Alarm}
+          name="Notification"
+          component={Notification}
           options={({ navigation }) => ({
             headerBackVisible: false,
             headerRight: () => <IconButton onPress={() => navigation.goBack()} name="Close" />,

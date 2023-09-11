@@ -1,15 +1,15 @@
 import React from 'react';
 import { Text, View, Button } from 'react-native';
 
-import AlarmItem from './Container/AlarmItem';
+import NotificationItem from './Container/NotificationItem';
 
-function Alarm() {
+function Notification() {
   return (
     <View>
       <Text>알람 페이지</Text>
-      <AlarmItem />
+      <NotificationItem />
     </View>
   );
 }
 
-export default Alarm;
+export default Notification;

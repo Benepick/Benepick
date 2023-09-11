@@ -12,6 +12,7 @@ import colors from '@common/design/colors';
 import IconButton from '@common/components/IconButton';
 import AlarmButton from '@common/components/AlarmButton';
 import SvgIcons from '@common/assets/SvgIcons';
+import { Spacing } from '@common/components/Spacing';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,8 +25,10 @@ const BottomTab = () => {
         ),
         headerRight: () => (
           <View style={{ display: 'flex', flexDirection: 'row' }}>
-            <AlarmButton onPress={() => navigation.push('Alarm')} isAlarmed={false} />
+            <AlarmButton onPress={() => navigation.push('Notification')} isAlarmed={false} />
+            <Spacing rem="0.5" dir="row" />
             <IconButton onPress={() => navigation.push('SettingStack')} name="Menu" />
+            <Spacing rem="0.5" dir="row" />
           </View>
         ),
         tabBarStyle: {
