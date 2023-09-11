@@ -2,8 +2,6 @@ package com.ssafy.benepick.domain.card.entity;
 
 import java.util.List;
 
-import com.ssafy.benepick.domain.mydata.entity.MyDataCard;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,19 +22,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Category1 {
+public class Category2 {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long category1Id;
+	private Long category2Id;
 
 	@Column(nullable = false)
-	private String category1Name;
+	private String category2Name;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "card_code" , nullable = false)
-	private Card card;
+	@JoinColumn(name = "category1_id" , nullable = false)
+	private Category1 category1;
 
-	@OneToMany(mappedBy = "category1", cascade = CascadeType.ALL , orphanRemoval = true)
-	private List<Category2> category2List;
+	@OneToMany(mappedBy = "category2", cascade = CascadeType.ALL , orphanRemoval = true)
+	private List<Category3> category3List;
 }
