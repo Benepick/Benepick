@@ -3,12 +3,13 @@ import { View, StyleSheet, LayoutRectangle, LayoutChangeEvent } from 'react-nati
 
 import BText from '@common/components/BText';
 import colors from '@common/design/colors';
+import { Spacing } from '@common/components/Spacing';
 
-interface MonthlyStickProps {
+interface ConsunptionChartItemProps {
   stickHeight: number;
 }
 
-function MonthlyConsumption({ stickHeight }: MonthlyStickProps) {
+function ConsunptionChartItem({ stickHeight }: ConsunptionChartItemProps) {
   const styles = StyleSheet.create({
     box: {
       width: '15%',
@@ -17,24 +18,17 @@ function MonthlyConsumption({ stickHeight }: MonthlyStickProps) {
     stick: {
       width: '100%',
       height: stickHeight,
-      backgroundColor: colors.main3,
+      backgroundColor: colors.main2,
       alignItems: 'center',
-      justifyContent: 'flex-end',
+      borderTopLeftRadius: 4,
+      borderTopRightRadius: 4,
     },
-    // dot: {
-    //   width: '20%',
-    //   height: layout?.width,
-    //   borderRadius: layout ? layout?.width / 2 : 0,
-    //   backgroundColor: colors.main,
-    // },
   });
-
   return (
     <View style={styles.box}>
       <View style={styles.stick}></View>
-      <BText type="bold">{} 월</BText>
     </View>
   );
 }
 
-export default MonthlyConsumption;
+export default ConsunptionChartItem;
