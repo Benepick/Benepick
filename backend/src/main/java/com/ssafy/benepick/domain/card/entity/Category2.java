@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,13 +23,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "category2" , schema = "benepick_bank")
 public class Category2 {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "category2_id")
 	private Long category2Id;
 
-	@Column(nullable = false)
+	@Column(nullable = false ,name = "category2_name")
 	private String category2Name;
 
 	@ManyToOne(fetch = FetchType.LAZY)

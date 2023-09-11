@@ -33,7 +33,7 @@ public class BankDataSourceConfig {
 		em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		Properties jpaProperties = new Properties();
 		jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-		jpaProperties.put("hibernate.hbm2ddl.auto", "create-drop"); // 여기에 ddl-auto 설정을 추가합니다.
+		jpaProperties.put("hibernate.hbm2ddl.auto", "create"); // 여기에 ddl-auto 설정을 추가합니다.
 		jpaProperties.put("hibernate.format_sql", "true"); // SQL 포맷팅 설정
 		jpaProperties.put("hibernate.physical_naming_strategy", "org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl");
 		em.setJpaProperties(jpaProperties);
