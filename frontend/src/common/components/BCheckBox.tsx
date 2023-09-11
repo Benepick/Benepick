@@ -9,7 +9,9 @@ function BCheckBox({ size, value, ...rest }: BCheckBoxProps) {
     check: {
       width: size * 25,
       height: size * 25,
-      backgroundColor: value ? colors.main : colors.disabled,
+      backgroundColor: value ? colors.main : colors.white,
+      borderWidth: 2,
+      borderColor: colors.disabled,
       display: 'flex',
       justifyContent: 'center',
       borderRadius: size * 5,
@@ -20,7 +22,7 @@ function BCheckBox({ size, value, ...rest }: BCheckBoxProps) {
       style={styles.check}
       {...rest}
       activeOpacity={0}
-      underlayColor={colors.disabled}
+      underlayColor={colors.white}
     >
       {value ? <SvgIcons name="Check" fill={colors.white} /> : <View />}
     </TouchableHighlight>

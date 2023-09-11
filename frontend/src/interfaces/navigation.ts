@@ -1,14 +1,17 @@
+import { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // Navigation Interface
 
-type RootStackParamList = {
+export type RootStackParamList = {
   // Auth Stack
   Start: undefined;
-  Terms: undefined;
+  Terms: { isRead: boolean };
   ReadTerms: undefined;
   PersonalAuth: undefined;
-  PhoneAuth: undefined;
+  PhoneAuth: {
+    userData: PhoneAuthParams;
+  };
   SetPassword: undefined;
   SelectCompany: undefined;
   SelectCard: undefined;
@@ -46,6 +49,7 @@ export interface StartNavigationProps {
 
 export interface TermsNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Terms'>;
+  route: RouteProp<RootStackParamList, 'Terms'>;
 }
 
 export interface ReadTermsNavigationProps {
@@ -58,6 +62,7 @@ export interface PersonalAuthNavigationProps {
 
 export interface PhoneAuthNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'PhoneAuth'>;
+  route: RouteProp<RootStackParamList, 'PhoneAuth'>;
 }
 
 export interface SetPasswordNavigationProps {
@@ -126,4 +131,12 @@ export interface CheckPasswordNavigationProps {
 
 export interface ChangePasswordNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'ChangePassword'>;
+}
+
+// prop data
+
+interface PhoneAuthParams {
+  userName: string;
+  userSocialNumber: string;
+  userGenderAndGenerationCode: string;
 }

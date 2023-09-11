@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
-  Text,
   TextInput,
   StyleSheet,
   Animated,
@@ -11,7 +10,7 @@ import {
 import colors from '@common/design/colors';
 import { BInputProps } from 'interfaces/common';
 
-function BInput({ label, ...rest }: BInputProps) {
+function BInput({ label, style, ...rest }: BInputProps) {
   const [isFocused, setIsFocused] = useState(false);
   const animatedIsFocused = useRef(new Animated.Value(0)).current;
   const [inputValue, setInputValue] = useState('');
@@ -50,6 +49,7 @@ function BInput({ label, ...rest }: BInputProps) {
     },
     container: {
       margin: 8,
+      width: '95%',
     },
     hr: {
       borderBottomWidth: 1,
@@ -68,7 +68,7 @@ function BInput({ label, ...rest }: BInputProps) {
     rest.onBlur?.(e);
   };
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       {isFocused && <Animated.Text style={[styles.label, labelStyle]}>{label}</Animated.Text>}
       <TextInput
         {...rest}

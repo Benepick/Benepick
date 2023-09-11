@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { globalStyles } from '@common/design/globalStyles';
+import WhitePage from '@common/components/WhitePage';
 
 function LogIn() {
   return (
-    <View style={globalStyles.whiteBackground}>
+    <WhitePage>
       <Text>로그인페이지입니다.</Text>
-    </View>
+    </WhitePage>
   );
 }
 

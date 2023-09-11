@@ -2,9 +2,13 @@ import { StyleSheet } from 'react-native';
 import colors from './colors';
 
 export const globalStyles = StyleSheet.create({
-  whiteBackground: { backgroundColor: colors.white, minHeight: '100%' },
   page: {
     paddingHorizontal: 10,
+  },
+  whitePage: {
+    paddingHorizontal: 10,
+    backgroundColor: colors.white,
+    minHeight: '100%',
   },
   container: {
     borderRadius: 12,
