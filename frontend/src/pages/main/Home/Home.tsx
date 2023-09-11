@@ -8,10 +8,22 @@ import { HomeNavigationProps } from 'interfaces/navigation';
 import { Spacing } from '@common/components/Spacing';
 import { globalStyles } from '@common/design/globalStyles';
 import BText from '@common/components/BText';
+import Page from '@common/components/Page';
 
 function Home({ navigation }: HomeNavigationProps) {
   return (
-    <View style={globalStyles.container}>
+    <Page>
+      <View style={styles.title}>
+        <BText type="h2" color={colors.main}>
+          김성용님
+        </BText>
+        <BText type="h2"> 위치에서</BText>
+      </View>
+      <View>
+        <Spacing rem="0.5" dir="row" />
+        <BText type="h2">사용할 카드를 추천해드려요</BText>
+      </View>
+      <Spacing rem="0.25" />
       <Recommendation />
       <Spacing />
       <View style={styles.title}>
@@ -27,7 +39,7 @@ function Home({ navigation }: HomeNavigationProps) {
         money="10000원"
         benefit="10000원"
       />
-    </View>
+    </Page>
   );
 }
 

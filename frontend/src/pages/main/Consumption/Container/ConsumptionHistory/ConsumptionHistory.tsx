@@ -7,11 +7,14 @@ import colors from '@common/design/colors';
 import { Spacing } from '@common/components/Spacing';
 import CircleChart from './CircleChart';
 import CategoryText from './CategoryText';
+import WhiteBox from '@common/components/WhiteBox';
 
 function ConsumptionHistory() {
   return (
-    <View style={styles.box}>
-      <BText type="h3">8월 소비내역</BText>
+    <WhiteBox>
+      <BText style={{ alignSelf: 'flex-start' }} type="h3">
+        8월 소비내역
+      </BText>
       <Spacing />
       <View style={styles.chart}>
         <CircleChart
@@ -36,16 +39,11 @@ function ConsumptionHistory() {
         <CategoryText category="카페" value="10,000원(10. 0%)" />
         <CategoryText category="온라인" value="10,000원(10. 0%)" />
       </View>
-    </View>
+    </WhiteBox>
   );
 }
 
 const styles = StyleSheet.create({
-  box: {
-    borderRadius: 12,
-    backgroundColor: colors.white,
-    padding: 20,
-  },
   chart: {
     alignSelf: 'center',
   },

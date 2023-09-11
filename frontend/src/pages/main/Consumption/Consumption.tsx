@@ -9,10 +9,11 @@ import { Spacing } from '@common/components/Spacing';
 import { globalStyles } from '@common/design/globalStyles';
 import MonthlyBenefit from './Container/MonthlyBenefit';
 import ConsumptionHistory from './Container/ConsumptionHistory/ConsumptionHistory';
+import Page from '@common/components/Page';
 
 function Consumption({ navigation }: ConsumptionNavigationProps) {
   return (
-    <View style={globalStyles.container}>
+    <Page>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.title}>
           <BText type="h2" color={colors.main}>
@@ -35,7 +36,7 @@ function Consumption({ navigation }: ConsumptionNavigationProps) {
         <Spacing />
         <ConsumptionHistory />
       </ScrollView>
-    </View>
+    </Page>
   );
 }
 

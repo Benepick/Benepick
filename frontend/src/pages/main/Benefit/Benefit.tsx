@@ -9,15 +9,19 @@ import { globalStyles } from '@common/design/globalStyles';
 import BText from '@common/components/BText';
 import colors from '@common/design/colors';
 import { Spacing } from '@common/components/Spacing';
+import Page from '@common/components/Page';
+import WhiteBox from '@common/components/WhiteBox';
 
 function Benefit({ navigation }: BenefitNavigationProps) {
   return (
-    <View style={globalStyles.container}>
+    <Page>
       <ScrollView showsVerticalScrollIndicator={false}>
         <SearchInput />
         <Spacing />
-        <View style={styles.box}>
-          <BText type="h3">스타벅스에서 사용할 카드 추천드려요</BText>
+        <WhiteBox>
+          <BText style={{ alignSelf: 'flex-start' }} type="h3">
+            스타벅스에서 사용할 카드 추천드려요
+          </BText>
           <Spacing />
           <BenfitCard image={require('@common/assets/images/cardImg.png')} />
           <Spacing />
@@ -25,10 +29,12 @@ function Benefit({ navigation }: BenefitNavigationProps) {
           <Spacing />
           <BenfitCard image={require('@common/assets/images/cardImg.png')} />
           <Spacing />
-        </View>
+        </WhiteBox>
         <Spacing />
-        <View style={styles.box}>
-          <BText type="h3">이런 카드는 어때요?</BText>
+        <WhiteBox>
+          <BText style={{ alignSelf: 'flex-start' }} type="h3">
+            이런 카드는 어때요?
+          </BText>
           <Spacing />
           <BenfitCard image={require('@common/assets/images/cardImg.png')} />
           <Spacing />
@@ -36,19 +42,10 @@ function Benefit({ navigation }: BenefitNavigationProps) {
           <Spacing />
           <BenfitCard image={require('@common/assets/images/cardImg.png')} />
           <Spacing />
-        </View>
+        </WhiteBox>
       </ScrollView>
-    </View>
+    </Page>
   );
 }
-
-const styles = StyleSheet.create({
-  box: {
-    display: 'flex',
-    borderRadius: 12,
-    padding: 20,
-    backgroundColor: colors.white,
-  },
-});
 
 export default Benefit;

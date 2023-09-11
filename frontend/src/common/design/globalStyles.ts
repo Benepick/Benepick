@@ -3,9 +3,14 @@ import colors from './colors';
 
 export const globalStyles = StyleSheet.create({
   whiteBackground: { backgroundColor: colors.white, minHeight: '100%' },
+  page: {
+    paddingHorizontal: 10,
+  },
   container: {
-    padding: 10,
-    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: colors.white,
+    padding: 20,
   },
   h1: {
     fontSize: 30,

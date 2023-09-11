@@ -5,11 +5,12 @@ import BText from '@common/components/BText';
 import { Image, StyleSheet, View } from 'react-native';
 import { Spacing } from '@common/components/Spacing';
 import colors from '@common/design/colors';
+import WhiteBox from '@common/components/WhiteBox';
 
 function MonthlyConsumption({ image, money, benefit }: MonthlyConsumptionProps) {
   return (
-    <View>
-      <View style={styles.box}>
+    <WhiteBox>
+      <View style={{ flexDirection: 'row' }}>
         <Image style={styles.image} source={image} />
         <Spacing rem="1.5" dir="row" />
         <View style={{ width: '75%', justifyContent: 'center' }}>
@@ -24,7 +25,7 @@ function MonthlyConsumption({ image, money, benefit }: MonthlyConsumptionProps) 
           </View>
         </View>
       </View>
-    </View>
+    </WhiteBox>
   );
 }
 const styles = StyleSheet.create({
@@ -37,14 +38,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
-  box: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: colors.white,
-    padding: 20,
   },
   image: {
     maxWidth: '15%',
