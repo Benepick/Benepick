@@ -1,9 +1,8 @@
 package com.ssafy.benepick.domain.user.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,44 +21,35 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class UserCard {
+public class UserPayment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userCardId;
+	private Long userPaymentId;
+
+	@Column(nullable = false)
+	private String userPaymentCategory1;
+
+	@Column(nullable = false)
+	private int userPaymentCategory2;
+
+	@Column(nullable = false)
+	private LocalDateTime userPaymentDateTime;
+
+	@Column(nullable = false)
+	private int userPaymentAmount;
+
+	@Column(nullable = false)
+	private String userPaymentMerchantInfo;
+
+	@Column(nullable = false)
+	private int userPaymentReceivedBenefitAmount;
 
 	@Column(nullable = false)
 	private int userCardCode;
 
-	@Column(nullable = false)
-	private String userCardName;
-
-	@Column(nullable = false)
-	private LocalDateTime userCardExpirationDate;
-
-	@Column(nullable = false)
-	private String userCardCompanyName;
-
-	@Column(nullable = false)
-	private String userCardImgUrl;
-
-	@Column(nullable = false)
-	private String userCardCompanyImgUrl;
-
-	@Column(nullable = false)
-	private String userCardSerialNumber;
-
-	@Column(nullable = false)
-	private String userCardCurrentPerformance;
-
-	@Column(nullable = false)
-	private String userCardPrevPerformance;
-
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id" , nullable = false)
-	private User user;
-
-	@OneToMany(mappedBy = "userCard", cascade = CascadeType.ALL , orphanRemoval = true)
-	private List<UserPayment> userPaymentList;
+	@JoinColumn(name = "user_card_id" , nullable = false)
+	private UserCard userCard;
 
 }
