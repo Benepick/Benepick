@@ -39,4 +39,7 @@ public class Card {
 
 	@OneToMany(mappedBy = "card", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<MyDataCard> myDataCardList;
+
+	@OneToMany(mappedBy = "card", cascade = CascadeType.ALL , orphanRemoval = true)
+	private List<Category1> category1List;
 }
