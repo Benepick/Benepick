@@ -1,6 +1,7 @@
 package com.ssafy.benepick.domain.mydata.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +28,7 @@ public class MyDataPayment {
 	private Long myDataPaymentId;
 
 	@Column(nullable = false , name = "mydata_payment_date")
-	private LocalDate myDataPaymentDate;
+	private LocalDateTime myDataPaymentDate;
 
 	@Column(nullable = false , name = "mydata_payment_category")
 	private String myDataPaymentCategory;

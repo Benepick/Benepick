@@ -34,7 +34,7 @@ public class UserPayment {
 	private String userPaymentCategory1;
 
 	@Column(nullable = false , name = "user_payment_category2")
-	private int userPaymentCategory2;
+	private String userPaymentCategory2;
 
 	@Column(nullable = false , name = "user_payment_date_time")
 	private LocalDateTime userPaymentDateTime;
