@@ -18,8 +18,10 @@ import com.ssafy.benepick.domain.mydata.entity.MyDataCard;
 import com.ssafy.benepick.domain.mydata.entity.MyDataPayment;
 import com.ssafy.benepick.domain.mydata.entity.MyDataUser;
 import com.ssafy.benepick.domain.mydata.entity.PaymentCategory;
+import com.ssafy.benepick.domain.mydata.repository.MyDataCardRepository;
 import com.ssafy.benepick.domain.mydata.repository.MyDataPaymentRepository;
 import com.ssafy.benepick.domain.mydata.repository.MyDataUserRepository;
+import com.ssafy.benepick.domain.user.service.UserCardService;
 import com.ssafy.benepick.domain.user.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,8 +34,10 @@ import lombok.extern.slf4j.Slf4j;
 public class MyDataServiceImpl implements MyDataService {
 
 	private final UserService userService;
+	private final UserCardService userCardService;
 	private final MyDataUserRepository myDataUserRepository;
 	private final MyDataPaymentRepository myDataPaymentRepository;
+	private final MyDataCardRepository myDataCardRepository;
 
 	@Override
 	public MonthResultResponseDto getMonthResult(HttpServletRequest request) {
@@ -114,6 +118,15 @@ public class MyDataServiceImpl implements MyDataService {
 		}
 
 		return result;
+	}
+
+	@Override
+	public void linkCard(Long cardCompanyId, String userId) {
+		log.info("MyDataServiceImpl_linkCard || 사용자의 카드중 넘겨받은 카드사와 일치하는 카드들 연결");
+		List<MyDataCard> myDataCardList = myDataCardRepository.findByUserIdAndCompanyId(userId, cardCompanyId);
+		System.out.println("myDataCardList = " + myDataCardList.size());
+		// 유저 카드, 결제 내역 연결
+		userCardService.linkUserCardAndUserPaymentByMyDataCard(myDataCardList);
 	}
 
 	private List<CategoryPayResponseDto> getCategoryPayResponseDtoList(HashMap<String, Integer> categoryMap) {

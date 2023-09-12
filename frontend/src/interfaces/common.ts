@@ -7,6 +7,7 @@ import {
   StyleProp,
   TextStyle,
   TouchableHighlightProps,
+  ViewStyle,
 } from 'react-native';
 import * as Icons from '@common/assets/icons/iconIndex';
 import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils';
@@ -23,6 +24,7 @@ export interface IconButtonProps {
 
 export interface SubmitButtonProps extends TouchableOpacityProps {
   title: string;
+  color?: string;
 }
 
 export interface RequestButtonProps extends TouchableOpacityProps {
@@ -38,7 +40,9 @@ export interface BTextProps extends TextProps {
 
 export interface BInputProps extends TextInputProps {
   label?: string;
+  style?: StyleProp<ViewStyle | TextStyle>;
 }
+
 export interface NodeProps {
   size: number;
   color: string;
@@ -76,10 +80,12 @@ export interface BCheckBoxProps extends TouchableHighlightProps {
 
 export interface PageProps extends ViewProps {
   children?: ReactNode;
+  style?: StyleProp<ViewStyle>;
 }
 
-export interface PageProps extends ViewProps {
-  children?: ReactNode;
+export interface CoveringPointsProps {
+  num: number;
+  size: number;
 }
 
 export interface CategoryTextProps {

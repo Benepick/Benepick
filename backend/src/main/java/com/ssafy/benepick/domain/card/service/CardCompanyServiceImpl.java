@@ -10,6 +10,7 @@ import com.ssafy.benepick.domain.card.dto.request.LinkAndRenewCardCompanyRequest
 import com.ssafy.benepick.domain.card.dto.response.CardCompanyResponseDto;
 import com.ssafy.benepick.domain.card.entity.CardCompany;
 import com.ssafy.benepick.domain.card.repository.CardCompanyRepository;
+import com.ssafy.benepick.domain.mydata.service.MyDataService;
 import com.ssafy.benepick.domain.user.entity.User;
 import com.ssafy.benepick.domain.user.entity.UserCardCompany;
 import com.ssafy.benepick.domain.user.repository.UserRepository;
@@ -27,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CardCompanyServiceImpl implements CardCompanyService {
 
 	private final CardCompanyRepository cardCompanyRepository;
+	private final MyDataService myDataService;
 	private final UserService userService;
 	private final UserRepository userRepository;
 
@@ -41,11 +43,11 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(transactionManager = "benepickTransactionManager")
 	public void linkAndRenewCardCompany(LinkAndRenewCardCompanyRequestDto linkAndRenewCardCompanyRequestDto, HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_linkAndRenewCardCompany | 카드사 연동 및 연동 기간 갱신");
-		User loginUser = userService.getUserFromRequest(request);
-		// User loginUser = userRepository.findById("ex1").get();
+		// User loginUser = userService.getUserFromRequest(request);
+		User loginUser = userRepository.findById("f2a5b57c292a49374f1fa50262c76667fb4aacec3edd6c9f42abfbee58edf9f7").get();
 		List<UserCardCompany> userCardCompanyList = loginUser.getUserCardCompanyList();
 
 		for (Long cardCompanyId : linkAndRenewCardCompanyRequestDto.getCardCompanyIdList()) {
@@ -61,13 +63,15 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 			}
 
 			// 카드사가 연동이 안된상태일경우 새로 연동
-			if(!isExist)
+			if(!isExist) {
 				loginUser.linkCardCompany(cardCompanyRepository.findById(cardCompanyId).orElseThrow(NotExistCardCompanyException::new));
+				myDataService.linkCard(cardCompanyId , loginUser.getUserId());
+			}
 		}
 	}
 
 	@Override
-	@Transactional
+	@Transactional(transactionManager = "benepickTransactionManager")
 	public void cancelLinkCardCompany(Long cardCompanyId , HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_cancelLinkCardCompany | 카드사 연동 해제");
 		User loginUser = userService.getUserFromRequest(request);

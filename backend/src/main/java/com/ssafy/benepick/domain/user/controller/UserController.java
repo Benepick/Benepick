@@ -6,13 +6,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+
 import com.ssafy.benepick.domain.user.dto.request.ChangePasswordRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.CreateUserAccountRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.LoginRequestDto;
+import com.ssafy.benepick.domain.user.dto.request.PhoneNumberRequestDto;
 import com.ssafy.benepick.domain.user.service.UserCardCompanyService;
 import com.ssafy.benepick.domain.user.service.UserService;
 import com.ssafy.benepick.global.response.ListResponseResult;
 import com.ssafy.benepick.global.response.ResponseResult;
+import com.ssafy.benepick.global.response.SingleResponseResult;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -91,5 +95,16 @@ public class UserController {
 	public ResponseResult getUserCardCompany(HttpServletRequest request) {
 		log.info("UserController_getUserCardCompany");
 		return new ListResponseResult<>(userCardCompanyService.getUserCardCompany(request));
+	}
+
+	@Operation(summary = "PhoneNumber Auth", description = "사용자 휴대폰 번호인증을 요청합니다.")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "휴대폰번호로 문자메시지 발송 성공")
+	})
+	@PostMapping("/phone")
+	public ResponseResult sendMessage(@Valid @RequestBody PhoneNumberRequestDto phoneNumberRequestDto) throws
+		CoolsmsException {
+		log.info("UserController_sendMessage -> 휴대폰 번호로 메시지 발송");
+		return new SingleResponseResult<String>(userService.sendMessage(phoneNumberRequestDto));
 	}
 }

@@ -3,9 +3,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import CompanyConnection from '@pages/setting/CompanyConnection/CompanyConnection';
 import CompanyManagement from '@pages/setting/CompanyConnection/CompanyManagement';
-import IconButton from '@common/components/IconButton';
 
-const Stack = createNativeStackNavigator();
+import IconButton from '@common/components/IconButton';
+import { RootStackParamList } from '@interfaces/navigation';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const CompanyStack = () => {
   return (
