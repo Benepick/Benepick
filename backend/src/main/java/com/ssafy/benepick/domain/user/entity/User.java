@@ -68,6 +68,8 @@ public class User {
 			UserCardCompany.builder()
 				.user(this)
 				.userCardCompanyId(cardCompany.getCardCompanyId())
+				.userCardCompanyName(cardCompany.getCardCompanyName())
+				.userCardCompanyImgUrl(cardCompany.getCardCompanyImgUrl())
 				.userCardCompanyRequestDate(now)
 				.userCardCompanyExpirationDate(now.plusYears(1))
 				.build());
