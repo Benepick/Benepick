@@ -7,6 +7,8 @@ import PasswordStack from './PasswordStack';
 
 import IconButton from '@common/components/IconButton';
 import { RootStackParamList } from '@interfaces/navigation';
+import BText from '@common/components/BText';
+import colors from '@common/design/colors';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -14,8 +16,12 @@ const SettingStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerTitle: '환경설정',
         headerTitleAlign: 'center',
+        headerTitle: () => (
+          <BText type="h3" color={colors.black}>
+            메뉴
+          </BText>
+        ),
       }}
     >
       <Stack.Screen

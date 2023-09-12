@@ -1,15 +1,30 @@
-import React from 'react';
-import { View, Button, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View, Button, Text, StyleSheet } from 'react-native';
 
 import { SettingNavigationProps } from 'interfaces/navigation';
+import WhitePage from '@common/components/WhitePage';
+import BText from '@common/components/BText';
+import { Spacing } from '@common/components/Spacing';
+import AuthSetting from './Container/AuthSetting';
+import CardSetting from './Container/CardSetting';
+import AppSetting from './Container/AppSetting';
 
 function Setting({ navigation }: SettingNavigationProps) {
   return (
-    <View>
-      <Text>환경 설정</Text>
-      <Button title="비밀번호 변경" onPress={() => navigation.push('PasswordStack')} />
-      <Button title="자산 연결 관리" onPress={() => navigation.push('CompanyStack')} />
-    </View>
+    <WhitePage>
+      <Spacing />
+      <BText type="h3">사용자 설정</BText>
+      <Spacing />
+      <AuthSetting navigation={navigation} />
+      <Spacing />
+      <BText type="h3">카드 설정</BText>
+      <Spacing />
+      <CardSetting navigation={navigation} />
+      <Spacing />
+      <BText type="h3">앱설정</BText>
+      <Spacing />
+      <AppSetting />
+    </WhitePage>
   );
 }
 
