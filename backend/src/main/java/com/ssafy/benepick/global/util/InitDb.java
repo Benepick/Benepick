@@ -227,16 +227,16 @@ public class InitDb {
 			benepickEntityManager.persist(user1);
 			benepickEntityManager.persist(user2);
 
-			UserCardCompany userCardCompany1 = UserCardCompany.builder().user(user1)
-				.userCardCompanyId(1L).userCardCompanyRequestDate(LocalDateTime.now())
-				.userCardCompanyExpirationDate(LocalDateTime.now()).build();
-
-			UserCardCompany userCardCompany2 = UserCardCompany.builder().user(user1)
-				.userCardCompanyId(2L).userCardCompanyRequestDate(LocalDateTime.now())
-				.userCardCompanyExpirationDate(LocalDateTime.now()).build();
-
-			benepickEntityManager.persist(userCardCompany1);
-			benepickEntityManager.persist(userCardCompany2);
+			// UserCardCompany userCardCompany1 = UserCardCompany.builder().user(user1)
+			// 	.userCardCompanyId(1L).userCardCompanyRequestDate(LocalDateTime.now())
+			// 	.userCardCompanyExpirationDate(LocalDateTime.now()).build();
+			//
+			// UserCardCompany userCardCompany2 = UserCardCompany.builder().user(user1)
+			// 	.userCardCompanyId(2L).userCardCompanyRequestDate(LocalDateTime.now())
+			// 	.userCardCompanyExpirationDate(LocalDateTime.now()).build();
+			//
+			// benepickEntityManager.persist(userCardCompany1);
+			// benepickEntityManager.persist(userCardCompany2);
 
 
 		}

@@ -28,10 +28,10 @@ public class UserCardCompany {
 	@Column(name = "user_card_company_id")
 	private Long userCardCompanyId;
 
-	@Column(name = "user_card_company_name")
+	@Column(nullable = false , name = "user_card_company_name")
 	private String userCardCompanyName;
 
-	@Column(name = "user_card_company_img_url")
+	@Column(nullable = false , name = "user_card_company_img_url")
 	private String userCardCompanyImgUrl;
 
 	@Column(nullable = false , name = "user_card_company_request_date")
