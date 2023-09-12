@@ -56,6 +56,7 @@ const RootStack = () => {
             headerStyle: {
               backgroundColor: colors.backgroundColor,
             },
+            headerShadowVisible: false,
           }}
         />
         <Stack.Screen

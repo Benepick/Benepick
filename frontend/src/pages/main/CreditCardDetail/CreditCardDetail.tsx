@@ -28,17 +28,7 @@ function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps
 
   return (
     <Page>
-      {(showModal || showCautionModal) && (
-        <View
-          style={{
-            width: '120%',
-            height: '120%',
-            position: 'absolute',
-            backgroundColor: 'rgba(0, 0, 0, 0.3)',
-            zIndex: 1000,
-          }}
-        />
-      )}
+      {(showModal || showCautionModal) && <View style={styles.overlay} />}
 
       <View style={styles.cardTitle}>
         <View>
@@ -91,12 +81,12 @@ const styles = StyleSheet.create({
     width: '95%',
   },
   overlay: {
+    width: '150%',
+    height: '150%',
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1000,
+    alignSelf: 'center',
   },
 });
 
