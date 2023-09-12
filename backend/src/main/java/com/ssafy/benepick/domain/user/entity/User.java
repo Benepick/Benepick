@@ -78,4 +78,8 @@ public class User {
 	public void cancelLinkCardCompany(UserCardCompany userCardCompany){
 		this.userCardCompanyList.remove(userCardCompany);
 	}
+
+	public void removeUserCard(UserCard userCard){
+		this.userCardList.remove(userCard);
+	}
 }
