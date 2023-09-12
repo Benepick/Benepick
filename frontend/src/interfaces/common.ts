@@ -29,6 +29,7 @@ export interface SubmitButtonProps extends TouchableOpacityProps {
 
 export interface RequestButtonProps extends TouchableOpacityProps {
   title: string;
+  color?: string;
 }
 
 export interface BTextProps extends TextProps {

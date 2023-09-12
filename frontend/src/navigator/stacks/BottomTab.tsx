@@ -45,6 +45,12 @@ const BottomTab = () => {
         name="Home"
         component={Home}
         options={{
+          title: '홈',
+          tabBarLabelStyle: {
+            fontFamily: 'IBMPlexSansKR-SemiBold',
+            marginTop: -5,
+            marginBottom: -5,
+          },
           tabBarIcon: ({ focused }) =>
             focused ? (
               <SvgIcons name="Home" fill={colors.main} size={30} />
@@ -57,6 +63,12 @@ const BottomTab = () => {
         name="CreditCard"
         component={CreditCard}
         options={{
+          title: '내 카드',
+          tabBarLabelStyle: {
+            fontFamily: 'IBMPlexSansKR-SemiBold',
+            marginTop: -5,
+            marginBottom: -5,
+          },
           tabBarIcon: ({ focused }) =>
             focused ? (
               <SvgIcons name="Card" fill={colors.main} size={30} />
@@ -69,6 +81,12 @@ const BottomTab = () => {
         name="Benefit"
         component={Benefit}
         options={{
+          title: '혜택 찾기',
+          tabBarLabelStyle: {
+            fontFamily: 'IBMPlexSansKR-SemiBold',
+            marginTop: -5,
+            marginBottom: -5,
+          },
           tabBarIcon: ({ focused }) =>
             focused ? (
               <SvgIcons name="Diamond" fill={colors.main} size={30} />
@@ -81,6 +99,12 @@ const BottomTab = () => {
         name="Consumption"
         component={Consumption}
         options={{
+          title: '내 소비',
+          tabBarLabelStyle: {
+            fontFamily: 'IBMPlexSansKR-SemiBold',
+            marginTop: -5,
+            marginBottom: -5,
+          },
           tabBarIcon: ({ focused }) =>
             focused ? (
               <SvgIcons name="Payment" fill={colors.main} size={30} />
@@ -93,11 +117,17 @@ const BottomTab = () => {
         name="ChatBot"
         component={ChatBot}
         options={{
+          title: '챗봇',
+          tabBarLabelStyle: {
+            fontFamily: 'IBMPlexSansKR-SemiBold',
+            marginTop: -5,
+            marginBottom: -5,
+          },
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <SvgIcons name="ChatBot" fill={colors.main} size={30} />
+              <SvgIcons name="Whale" fill={colors.main} size={30} />
             ) : (
-              <SvgIcons name="ChatBot" fill={colors.disabled} size={30} />
+              <SvgIcons name="Whale" fill={colors.disabled} size={30} />
             ),
         }}
       />

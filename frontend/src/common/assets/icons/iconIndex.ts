@@ -19,3 +19,5 @@ export { default as Up } from './Up.svg';
 export { default as Down } from './Down.svg';
 export { default as Right } from './Right.svg';
 export { default as Remove } from './Remove.svg';
+export { default as Whale } from './Whale.svg';
+export { default as ArrowBack } from './ArrowBack.svg';

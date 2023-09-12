@@ -12,7 +12,9 @@ import Test from '@pages/Test/Test';
 import colors from '@common/design/colors';
 import IconButton from '@common/components/IconButton';
 
-const Stack = createNativeStackNavigator();
+import { RootStackParamList } from '@interfaces/navigation';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const BTheme = {
   ...DefaultTheme,

@@ -51,7 +51,11 @@ const AuthStack = () => {
         component={PhoneAuth}
         options={{ headerRight: () => <ProgressNode page={3} size={22} current={3} /> }}
       />
-      <Stack.Screen name="SetPassword" component={SetPassword} />
+      <Stack.Screen
+        name="SetPassword"
+        component={SetPassword}
+        options={{ headerBackVisible: false }}
+      />
       <Stack.Screen
         name="SelectCompany"
         component={SelectCompany}

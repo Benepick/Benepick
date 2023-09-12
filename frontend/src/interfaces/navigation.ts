@@ -5,6 +5,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export type RootStackParamList = {
   // Auth Stack
+  AuthStack: undefined;
+
   Start: undefined;
   Terms: { isRead: boolean };
   ReadTerms: undefined;
@@ -12,7 +14,9 @@ export type RootStackParamList = {
   PhoneAuth: {
     userData: PhoneAuthParams;
   };
-  SetPassword: undefined;
+  SetPassword: {
+    userData: SetPasswordParams;
+  };
   SelectCompany: undefined;
   SelectCard: undefined;
   RegistrationComplete: undefined;
@@ -30,6 +34,8 @@ export type RootStackParamList = {
   ChatBot: undefined;
 
   // Setting Stack
+  SettingStack: undefined;
+
   Setting: undefined;
   CompanyStack: undefined;
   CompanyManagement: undefined;
@@ -37,6 +43,10 @@ export type RootStackParamList = {
   PasswordStack: undefined;
   CheckPassword: undefined;
   ChangePassword: undefined;
+
+  // 알림창
+
+  Notification: undefined;
 
   Test: undefined;
 };
@@ -67,6 +77,7 @@ export interface PhoneAuthNavigationProps {
 
 export interface SetPasswordNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'SetPassword'>;
+  route: RouteProp<RootStackParamList, 'SetPassword'>;
 }
 
 export interface SelectCompanyNavigationProps {
@@ -139,4 +150,11 @@ interface PhoneAuthParams {
   userName: string;
   userSocialNumber: string;
   userGenderAndGenerationCode: string;
+}
+
+interface SetPasswordParams {
+  userName: string;
+  userSocialNumber: string;
+  userGenderAndGenerationCode: string;
+  userPhoneNumber: string;
 }
