@@ -1,16 +1,21 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, TouchableHighlight } from 'react-native';
 import { RequestButtonProps } from 'interfaces/common';
 import colors from '@common/design/colors';
 import BText from './BText';
 
 function RequestButton({ title, ...rest }: RequestButtonProps) {
   return (
-    <TouchableOpacity style={styles.button} {...rest}>
+    <TouchableHighlight
+      style={styles.button}
+      underlayColor={colors.main}
+      activeOpacity={0.5}
+      {...rest}
+    >
       <BText type="bold" color={colors.white}>
         {title}
       </BText>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 }
 const styles = StyleSheet.create({

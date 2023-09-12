@@ -1,5 +1,6 @@
 import React from 'react';
-import { createBottomTabNavigator, useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import { Button, View } from 'react-native';
 
 import Home from '@pages/main/Home/Home';
@@ -13,8 +14,9 @@ import IconButton from '@common/components/IconButton';
 import AlarmButton from '@common/components/AlarmButton';
 import SvgIcons from '@common/assets/SvgIcons';
 import { Spacing } from '@common/components/Spacing';
+import { RootStackParamList } from '@interfaces/navigation';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootStackParamList>();
 
 const BottomTab = () => {
   return (
@@ -40,7 +42,7 @@ const BottomTab = () => {
       })}
     >
       <Tab.Screen
-        name="홈"
+        name="Home"
         component={Home}
         options={{
           tabBarIcon: ({ focused }) =>
@@ -52,7 +54,7 @@ const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="내 카드"
+        name="CreditCard"
         component={CreditCard}
         options={{
           tabBarIcon: ({ focused }) =>
@@ -64,7 +66,7 @@ const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="혜택찾기"
+        name="Benefit"
         component={Benefit}
         options={{
           tabBarIcon: ({ focused }) =>
@@ -76,7 +78,7 @@ const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="소비내역"
+        name="Consumption"
         component={Consumption}
         options={{
           tabBarIcon: ({ focused }) =>
@@ -88,7 +90,7 @@ const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="챗봇"
+        name="ChatBot"
         component={ChatBot}
         options={{
           tabBarIcon: ({ focused }) =>

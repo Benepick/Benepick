@@ -2,6 +2,9 @@ import React, { useRef, useState } from 'react';
 import { Alert, Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 import { ReadTermsNavigationProps } from 'interfaces/navigation';
+import SubmitButton from '@common/components/SubmitButton';
+import WhitePage from '@common/components/WhitePage';
+import colors from '@common/design/colors';
 
 function ReadTerms({ navigation }: ReadTermsNavigationProps) {
   const scrollRef = useRef<ScrollView>(null);
@@ -14,12 +17,12 @@ function ReadTerms({ navigation }: ReadTermsNavigationProps) {
       scrollRef.current.scrollTo({ x: 0, y: currentHeight + height, animated: true });
     }
     if (isEndOfPage) {
-      navigation.push('PersonalAuth');
+      navigation.push('Terms', { isRead: true });
     }
   };
 
   return (
-    <View
+    <WhitePage
       style={{ flex: 1 }}
       onLayout={(event) => {
         setHeight(event.nativeEvent.layout.height);
@@ -234,17 +237,9 @@ function ReadTerms({ navigation }: ReadTermsNavigationProps) {
           Aenean euismod nisi feugiat neque consectetur, id dictum massa sodales.
         </Text>
       </ScrollView>
-      <View>
-        <Button title="확인" onPress={onPress} />
-      </View>
-    </View>
+      <SubmitButton title="확인" onPress={onPress} />
+    </WhitePage>
   );
 }
 
 export default ReadTerms;
-
-// const styles = StyleSheet.create({
-//   button: {
-//     position: 'fixed',
-//   },
-// });
