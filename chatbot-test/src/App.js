@@ -17,7 +17,10 @@ function App() {
         queries: [
           {
             query: query,
-            top_k: 3,
+            // filter: {
+            //   document_id: "7be70c9c-14a1-445b-8ca4-4329a96db23d",
+            // },
+            top_k: 10,
           },
         ],
       })
@@ -35,9 +38,9 @@ function App() {
       </div>
       <div>
         {answer.map((item, index) => (
-          <li key={index}>
-            {item.text} | {item.score}
-          </li>
+          <span>
+            {item.text} <br></br>
+          </span>
         ))}
       </div>
     </div>
