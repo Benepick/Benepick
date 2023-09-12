@@ -118,25 +118,25 @@ public class InitDb {
 			bankBenepickEntityManager.persist(myDataCard6);
 
 			MyDataPayment myDataPayment1 = MyDataPayment.builder().myDataPaymentId(1L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 9, 12, 0, 0))
 				.myDataPaymentAmount(10000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("바나프레소").myDataCard(myDataCard1).myDataPaymentReceivedBenefitAmount(100)
 				.build();
 
 			MyDataPayment myDataPayment2 = MyDataPayment.builder().myDataPaymentId(2L)
-				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDateTime.of(2023, 9, 11, 0, 0))
 				.myDataPaymentAmount(20000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("맥도날드").myDataCard(myDataCard1).myDataPaymentReceivedBenefitAmount(200)
 				.build();
 
 			MyDataPayment myDataPayment3 = MyDataPayment.builder().myDataPaymentId(3L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 8, 12, 0, 0))
 				.myDataPaymentAmount(30000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("스타벅스").myDataCard(myDataCard2).myDataPaymentReceivedBenefitAmount(300)
 				.build();
 
 			MyDataPayment myDataPayment4 = MyDataPayment.builder().myDataPaymentId(4L)
-				.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDateTime.of(2023, 7, 12, 0, 0))
 				.myDataPaymentAmount(40000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("ABC마트").myDataCard(myDataCard2).myDataPaymentReceivedBenefitAmount(400)
 				.build();
@@ -166,7 +166,7 @@ public class InitDb {
 				.build();
 
 			MyDataPayment myDataPayment10 = MyDataPayment.builder().myDataPaymentId(9L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 6, 12, 0, 0))
 				.myDataPaymentAmount(10000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("바나프레소").myDataCard(myDataCard1).myDataPaymentReceivedBenefitAmount(200)
 				.build();
@@ -178,7 +178,7 @@ public class InitDb {
 				.build();
 
 			MyDataPayment myDataPayment12 = MyDataPayment.builder().myDataPaymentId(11L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
+				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 7, 15, 0, 0))
 				.myDataPaymentAmount(30000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
 				.myDataPaymentMerchantName("스타벅스").myDataCard(myDataCard5).myDataPaymentReceivedBenefitAmount(800)
 				.build();

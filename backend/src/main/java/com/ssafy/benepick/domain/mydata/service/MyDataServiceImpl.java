@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Service;
 
@@ -103,28 +104,28 @@ public class MyDataServiceImpl implements MyDataService {
 	@Override
 	public List<RecentMonthResponseDto> getRecentFourMonthResult(HttpServletRequest request) {
 		log.info("MyDataServiceImpl_getRecentFourMonthResult || 최근 4달의 사용금액,받은혜택 조회");
-		MyDataUser myDataUser = myDataUserRepository.findById(userService.getUserFromRequest(request).getUserId()).get();
-		// MyDataUser myDataUser = myDataUserRepository.findById("ex1").get();
+		User loginUser = userService.getUserFromRequest(request);
 		LocalDate now = LocalDate.now();
-		List<RecentMonthResponseDto> result = new ArrayList<>();
 
-		// for (int i = 0; i < 4; i++) {
-		// 	int payAmount = 0;
-		// 	int benefitAmount = 0;
-		//
-		// 	// 특정 달의 특정 사용자의 여러개의 카드에 대해 사용금액 받은혜택 조회
-		// 	for (MyDataCard myDataCard : myDataUser.getMyDataCardList()) {
-		// 		int[] cardPayAmountAndBenefitAmount = calculateCardPayAmountAndBenefitAmount(myDataCard , now);
-		//
-		// 		payAmount += cardPayAmountAndBenefitAmount[0];
-		// 		benefitAmount += cardPayAmountAndBenefitAmount[1];
-		// 	}
-		//
-		// 	result.add(RecentMonthResponseDto.builder().year(now.getYear()).month(now.getMonthValue()).payAmount(payAmount).benefitAmount(benefitAmount).build());
-		// 	now = now.minusMonths(1);  // 이전 달로 이동
-		// }
+		return IntStream.range(0, 4)
+			.mapToObj(i -> {
+				LocalDate currentMonth = now.minusMonths(i);
+				int[] totalAmounts = loginUser.getUserCardList().stream()
+					.map(userCard -> calculateCardPayAmountAndBenefitAmount(userCard, now))
+					.reduce((a, b) -> new int[]{a[0] + b[0], a[1] + b[1]})
+					.orElse(new int[]{0, 0});
 
-		return result;
+				RecentMonthResponseDto dto = RecentMonthResponseDto.builder()
+					.year(currentMonth.getYear())
+					.month(String.format("%02d", currentMonth.getMonthValue()))
+					.payAmount(totalAmounts[0])
+					.benefitAmount(totalAmounts[1])
+					.benefitRate(Math.round(((double) totalAmounts[1] / totalAmounts[0]) * 100 * 100.0) / 100.0)
+					.build();
+
+				return dto;
+			})
+			.collect(Collectors.toList());
 	}
 
 	@Override
