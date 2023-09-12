@@ -88,3 +88,8 @@ export interface CoveringPointsProps {
   num: number;
   size: number;
 }
+
+export interface CategoryTextProps {
+  category: string;
+  value: string;
+}

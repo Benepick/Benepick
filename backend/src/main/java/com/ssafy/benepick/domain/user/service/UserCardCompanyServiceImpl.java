@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.ssafy.benepick.domain.card.dto.response.CardCompanyResponseDto;
 import com.ssafy.benepick.domain.card.repository.CardCompanyRepository;
 import com.ssafy.benepick.domain.user.entity.User;
+import com.ssafy.benepick.domain.user.entity.UserCard;
+import com.ssafy.benepick.domain.user.entity.UserCardCompany;
 import com.ssafy.benepick.domain.user.repository.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,7 +32,19 @@ public class UserCardCompanyServiceImpl implements UserCardCompanyService{
 		// User loginUser = userRepository.findById("ex1").get();
 
 		return loginUser.getUserCardCompanyList()
-			.stream().map(userCardCompany -> cardCompanyRepository.findById(userCardCompany.getUserCardCompanyId()).get().toCardCompanyResponseDto())
+			.stream().map(userCardCompany -> userCardCompany.toCardCompanyResponseDto())
 			.collect(Collectors.toList());
+	}
+
+	@Override
+	public void cancelLinkCardCompany(User user, UserCardCompany userCardCompany) {
+		log.info("UserCardCompanyServiceImpl_getUserCardCompany | 카드사 연동 해제 및 관련 데이터 삭제");
+
+		List<UserCard> beRemoveUserCardList = user.getUserCardList().stream()
+			.filter(userCard -> userCardCompany.getUserCardCompanyName().equals(userCard.getUserCardCompanyName()))
+			.collect(Collectors.toList());
+
+		user.removeUserCardList(beRemoveUserCardList);
+		user.cancelLinkCardCompany(userCardCompany);
 	}
 }

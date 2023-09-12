@@ -36,9 +36,6 @@ public class MyDataPayment {
 	@Column(nullable = false , name = "mydata_payment_amount")
 	private int myDataPaymentAmount;
 
-	@Column(nullable = false , name = "mydata_payment_benefit")
-	private int myDataPaymentBenefit;
-
 	@Column(nullable = false , name = "mydata_payment_merchant_name")
 	private String myDataPaymentMerchantName;
 

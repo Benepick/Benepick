@@ -11,8 +11,10 @@ import com.ssafy.benepick.domain.user.entity.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.security.NoSuchAlgorithmException;
+
 public interface UserService {
-	void createUserAccount(CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response);
+	void createUserAccount(CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) throws NoSuchAlgorithmException;
 	void setToken(String userId ,HttpServletResponse response);
 	boolean login(LoginRequestDto loginRequestDto , HttpServletRequest request);
 	void changeSimplePassword(ChangePasswordRequestDto changePasswordRequestDto , HttpServletRequest request);

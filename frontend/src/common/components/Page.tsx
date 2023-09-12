@@ -1,14 +1,11 @@
 import React, { ReactNode } from 'react';
 import { View, ViewProps } from 'react-native';
 import { globalStyles } from '@common/design/globalStyles';
+import { PageProps } from '@interfaces/common';
 
-interface PageProps extends ViewProps {
-  children?: ReactNode;
-}
-
-function Page({ children, ...rest }: PageProps) {
+function Page({ children, style, ...rest }: PageProps) {
   return (
-    <View style={globalStyles.page} {...rest}>
+    <View style={[globalStyles.page, style]} {...rest}>
       {children}
     </View>
   );
