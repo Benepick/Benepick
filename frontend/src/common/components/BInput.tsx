@@ -74,6 +74,7 @@ function BInput({ label, style, ...rest }: BInputProps) {
         {...rest}
         style={styles.input}
         placeholder={isFocused ? '' : label}
+        placeholderTextColor={colors.placeholder}
         onFocus={() => setIsFocused(true)}
         onBlur={handleBlur}
         onChangeText={(e) => {

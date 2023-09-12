@@ -6,6 +6,7 @@ const colors = {
   disabled: '#C5C7CB',
   black: '#0D0F13',
   white: '#FFFDFB',
+  placeholder: '#696969',
 
   graphRed: '#EF3333',
   graphOrange: '#ED903B',

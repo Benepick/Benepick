@@ -14,7 +14,9 @@ import IconButton from '@common/components/IconButton';
 import BText from '@common/components/BText';
 import { View } from 'react-native';
 
-const Stack = createNativeStackNavigator();
+import { RootStackParamList } from '@interfaces/navigation';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const BTheme = {
   ...DefaultTheme,

@@ -17,6 +17,13 @@ function Terms({ navigation, route }: TermsNavigationProps) {
       navigation.push('PersonalAuth');
     }
   };
+
+  const cancleAgree = () => {
+    // if (isChecked) {
+    setIsChecked(!isChecked);
+    // }
+  };
+
   return (
     <WhitePage>
       <View style={styles.container}>
@@ -33,7 +40,7 @@ function Terms({ navigation, route }: TermsNavigationProps) {
           <SubmitButton title="이용약관 확인하기" onPress={() => navigation.push('ReadTerms')} />
           <Spacing rem="1" />
           <View style={styles.rowCenter}>
-            <BCheckBox size={1} value={isChecked} />
+            <BCheckBox size={1} value={isChecked} onPress={cancleAgree} />
             <Spacing dir="row" />
             <BText type="p">모든 사항에 동의합니다</BText>
           </View>
