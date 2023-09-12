@@ -6,11 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import com.ssafy.benepick.global.exception.NotExistAccessTokenException;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -20,12 +23,13 @@ public class JwtService {
 
 	private static final int KEY_SIZE_BITS = 256; // 키의 비트 수 (256비트 사용)
 
-	private static final int ACCESS_TOKEN_EXPIRE_MINUTES = 100; // weekend
+	private static final int ACCESS_TOKEN_EXPIRE_WEEKEND = 100; // weekend
+	private static final long ACCESS_TOKEN_VALID_TIME = 1000L * 60 * 60 * 24 * 7 * ACCESS_TOKEN_EXPIRE_WEEKEND;
 
 	private static final String SECRET_KEY = "SSAFY_A610_BENEPICK_BACKEND_SECRET_KEY";
 
 	public <T> String createAccessToken(String key, T data) {
-		return create("access-token", key, data, 1000 * 60 * 60 * 24 * 7 * ACCESS_TOKEN_EXPIRE_MINUTES); // ms
+		return create("access-token", key, data, ACCESS_TOKEN_VALID_TIME); // ms
 	}
 
 	/**
@@ -66,13 +70,18 @@ public class JwtService {
 		return Keys.hmacShaKeyFor(SECRET_KEY.getBytes()).getEncoded();
 	}
 
-	public String extractUserIdFromAccessToken(String accessToken) {
+	public String extractUserIdFromAccessToken(HttpServletRequest request) {
 		log.info("JwtService_extractUserIdFromAccessToken | Access Token 에서 userCI 추출");
+		String accessToken = request.getHeader("Authorization");
+
+		if(accessToken == null)
+			throw new NotExistAccessTokenException();
+
 		try {
 			// setSigningKey : JWS 서명 검증을 위한  secret key 세팅
 			// parseClaimsJws : 파싱하여 원본 jws 만들기
 			// Claims 는 Map의 구현체 형태
-			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(this.generateKey()).build().parseClaimsJws(accessToken);
+			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(this.generateKey()).build().parseClaimsJws(accessToken.split(" ")[1]);
 			return claims.getBody().get("userId", String.class);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -84,7 +93,7 @@ public class JwtService {
 		log.info("JwtService_validateToken | JWT토큰의 유효성 + 만료일자 확인");
 		try {
 			Jws<Claims> claims = Jwts.parserBuilder().setSigningKey(this.generateKey()).build().parseClaimsJws(accessToken);
-			if(claims.getBody().getExpiration().getTime() - claims.getBody().getIssuedAt().getTime() != 1000 * 60 * 60 * ACCESS_TOKEN_EXPIRE_MINUTES){
+			if(claims.getBody().getExpiration().getTime() - claims.getBody().getIssuedAt().getTime() != ACCESS_TOKEN_VALID_TIME){
 				log.info("토큰이 유효하지 않음");
 				return false;
 			}
