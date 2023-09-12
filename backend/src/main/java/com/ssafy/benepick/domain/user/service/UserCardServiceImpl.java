@@ -31,6 +31,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	@Transactional(transactionManager = "benepickTransactionManager")
 	public void linkUserCardAndUserPaymentByMyDataCard(List<MyDataCard> myDataCardList) {
 		log.info("UserCardServiceImpl_linkUserCardAndUserPaymentByMyDataCard || 마이데이터 유저 카드 데이터를 유저 카드데이터에 연동");
+
 		User user = userRepository.findById(myDataCardList.get(0).getMyDataUser().getMyDataUserId()).get();
 
 		myDataCardList.stream().forEach(myDataCard -> {

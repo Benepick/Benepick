@@ -68,6 +68,8 @@ public class User {
 			UserCardCompany.builder()
 				.user(this)
 				.userCardCompanyId(cardCompany.getCardCompanyId())
+				.userCardCompanyName(cardCompany.getCardCompanyName())
+				.userCardCompanyImgUrl(cardCompany.getCardCompanyImgUrl())
 				.userCardCompanyRequestDate(now)
 				.userCardCompanyExpirationDate(now.plusYears(1))
 				.build());
@@ -75,5 +77,15 @@ public class User {
 
 	public void cancelLinkCardCompany(UserCardCompany userCardCompany){
 		this.userCardCompanyList.remove(userCardCompany);
+	}
+
+	public void removeUserCardList(List<UserCard> userCardList){
+		Iterator<UserCard> iter = this.userCardList.iterator();
+		while (iter.hasNext()) {
+			UserCard card = iter.next();
+			if (userCardList.contains(card)) {
+				iter.remove();
+			}
+		}
 	}
 }
