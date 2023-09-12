@@ -2,15 +2,14 @@ import React from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Notification from '@pages/Notification/Notification';
 import BottomTab from './stacks/BottomTab';
-import Test from '@pages/Test/Test';
 import AuthStack from './stacks/AuthStack';
 import SettingStack from './stacks/SettingStack';
+import Notification from '@pages/Notification/Notification';
+import CreditCardDetail from '@pages/main/CreditCardDetail/CreditCardDetail';
+import Test from '@pages/Test/Test';
 
 import colors from '@common/design/colors';
-
-import CreditCardDetail from '@pages/main/CreditCardDetail/CreditCardDetail';
 import IconButton from '@common/components/IconButton';
 
 const Stack = createNativeStackNavigator();

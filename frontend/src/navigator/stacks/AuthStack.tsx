@@ -11,9 +11,10 @@ import SelectCompany from '@pages/auth/SelectCompany/SelectCompany';
 import SelectCard from '@pages/auth/SelectCard/SelectCard';
 import LogIn from '@pages/auth/LogIn/LogIn';
 import RegistrationComplete from '@pages/auth/RegistrationComplete/RegistrationComplete';
+
 import colors from '@common/design/colors';
-import { RootStackParamList } from '@interfaces/navigation';
 import ProgressNode from '@common/components/progress/ProgressNode';
+import { RootStackParamList } from '@interfaces/navigation';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
