@@ -106,11 +106,16 @@ public class InitDb {
 				.myDataCardId("myDataCard5").myDataUser(myDataUser1)
 				.card(card5).myDataCardExpirationDate(LocalDate.parse("2024-04-04")).build();
 
+			MyDataCard myDataCard6 = MyDataCard.builder()
+				.myDataCardId("myDataCard6").myDataUser(myDataUser1)
+				.card(card3).myDataCardExpirationDate(LocalDate.parse("2024-04-04")).build();
+
 			bankBenepickEntityManager.persist(myDataCard1);
 			bankBenepickEntityManager.persist(myDataCard2);
 			bankBenepickEntityManager.persist(myDataCard3);
 			bankBenepickEntityManager.persist(myDataCard4);
 			bankBenepickEntityManager.persist(myDataCard5);
+			bankBenepickEntityManager.persist(myDataCard6);
 
 			MyDataPayment myDataPayment1 = MyDataPayment.builder().myDataPaymentId(1L)
 				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
@@ -157,7 +162,7 @@ public class InitDb {
 			MyDataPayment myDataPayment8 = MyDataPayment.builder().myDataPaymentId(8L)
 				.myDataPaymentCategory("의료").myDataPaymentDate(LocalDateTime.now())
 				.myDataPaymentAmount(80000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테2")
-				.myDataPaymentMerchantName("설입성형외과").myDataCard(myDataCard4).myDataPaymentBenefit(800)
+				.myDataPaymentMerchantName("설입성형외과").myDataCard(myDataCard6).myDataPaymentBenefit(800)
 				.build();
 
 			MyDataPayment myDataPayment10 = MyDataPayment.builder().myDataPaymentId(9L)

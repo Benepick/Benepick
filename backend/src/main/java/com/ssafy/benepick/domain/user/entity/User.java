@@ -79,7 +79,13 @@ public class User {
 		this.userCardCompanyList.remove(userCardCompany);
 	}
 
-	public void removeUserCard(UserCard userCard){
-		this.userCardList.remove(userCard);
+	public void removeUserCardList(List<UserCard> userCardList){
+		Iterator<UserCard> iter = this.userCardList.iterator();
+		while (iter.hasNext()) {
+			UserCard card = iter.next();
+			if (userCardList.contains(card)) {
+				iter.remove();
+			}
+		}
 	}
 }

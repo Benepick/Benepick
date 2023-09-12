@@ -124,6 +124,10 @@ public class MyDataServiceImpl implements MyDataService {
 	public void linkCard(Long cardCompanyId, String userId) {
 		log.info("MyDataServiceImpl_linkCard || 사용자의 카드중 넘겨받은 카드사와 일치하는 카드들 연결");
 		List<MyDataCard> myDataCardList = myDataCardRepository.findByUserIdAndCompanyId(userId, cardCompanyId);
+
+		if(myDataCardList.size() == 0)
+			return;
+
 		// 유저 카드, 결제 내역 연결
 		userCardService.linkUserCardAndUserPaymentByMyDataCard(myDataCardList);
 	}
