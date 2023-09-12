@@ -11,6 +11,8 @@ import Test from '@pages/Test/Test';
 
 import colors from '@common/design/colors';
 import IconButton from '@common/components/IconButton';
+import BText from '@common/components/BText';
+import { View } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +47,15 @@ const RootStack = () => {
           component={CreditCardDetail}
           options={{
             headerShown: true,
+            headerTitle: () => (
+              <BText type="h3" color={colors.main}>
+                카드 상세보기
+              </BText>
+            ),
+            headerTitleAlign: 'center',
+            headerStyle: {
+              backgroundColor: colors.backgroundColor,
+            },
           }}
         />
         <Stack.Screen

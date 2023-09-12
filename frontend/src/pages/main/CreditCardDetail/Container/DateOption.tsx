@@ -9,8 +9,14 @@ import IconButton from '@common/components/IconButton';
 import useDateOption from 'hooks/useDateOption';
 import { DateOptionProps } from '@interfaces/creditCard';
 
-function DateOption({ selectedDate, setSelectedDate }: DateOptionProps) {
-  const { showModal, months, setShowModal, selectDate } = useDateOption();
+function DateOption({
+  selectedDate,
+  showModal,
+  setShowModal,
+  selectDate,
+  setSelectedDate,
+}: DateOptionProps) {
+  const { months } = useDateOption();
   return (
     <View>
       <TouchableHighlight underlayColor="transparent" onPress={() => setShowModal(true)}>

@@ -2,14 +2,15 @@ import React from 'react';
 import WhiteBox from '@common/components/WhiteBox';
 import CardConsumptionItem from './CardConsumption/CardConsumptionItem';
 import { Spacing } from '@common/components/Spacing';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { CardConsumptionItemProps } from '@interfaces/creditCard';
 
 // {}: CardConsumptionItemProps[]
-function CardConsumption() {
+interface CardConsumptionProps {}
+function CardConsumption({}: CardConsumptionProps) {
   return (
     <WhiteBox>
-      <ScrollView style={{ maxHeight: 500 }}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ maxHeight: 500 }}>
         <View>
           <CardConsumptionItem item="에이셉피자" price="100,000" benefit="1,000" />
           <Spacing />
@@ -46,5 +47,16 @@ function CardConsumption() {
     </WhiteBox>
   );
 }
+
+const styles = StyleSheet.create({
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+});
 
 export default CardConsumption;
