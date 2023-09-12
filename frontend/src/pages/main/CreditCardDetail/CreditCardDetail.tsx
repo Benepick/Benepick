@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Button, Text, Image, StyleSheet } from 'react-native';
 
 import Page from '@common/components/Page';
@@ -10,13 +10,12 @@ import DateOption from './Container/DateOption';
 import CardConsumption from './Container/CardConsumption';
 import useDateOption from 'hooks/useDateOption';
 import { CreditCardDetailNavigationProps } from 'interfaces/navigation';
+import CautionModal from './Container/CautionModal';
 
 function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps) {
   const { params } = route.params;
-  // selectedDate와 cardId 를 기반으로 Request 요청
-  const { selectedDate, setSelectedDate } = useDateOption();
-  // console.log(params.cardId);
-  // console.log(selectedDate);
+  const { selectedDate, showModal, setShowModal, selectDate, setSelectedDate } = useDateOption();
+  const [showCautionModal, setShowCautionModal] = useState(false);
 
   const sampleData = {
     cardName: '롯데카드',
@@ -29,19 +28,31 @@ function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps
 
   return (
     <Page>
+      {(showModal || showCautionModal) && <View style={styles.overlay} />}
+
       <View style={styles.cardTitle}>
         <View>
           <BText type="h3">{sampleData.cardName}</BText>
           <BText>{sampleData.cardType}</BText>
-          <View>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <BText type="h1">{`${sampleData.usedAmount}원`}</BText>
+            <CautionModal
+              showCautionModal={showCautionModal}
+              setShowCautionModal={setShowCautionModal}
+            />
           </View>
         </View>
         <Image style={styles.image} source={sampleData.image} />
       </View>
       <Spacing />
       <View style={styles.dateOption}>
-        <DateOption selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+        <DateOption
+          showModal={showModal}
+          setShowModal={setShowModal}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          selectDate={selectDate}
+        />
         <IconButton name="Refresh" />
       </View>
       <Spacing rem="0.5" />
@@ -68,6 +79,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-between',
     width: '95%',
+  },
+  overlay: {
+    width: '150%',
+    height: '150%',
+    position: 'absolute',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1000,
+    alignSelf: 'center',
   },
 });
 

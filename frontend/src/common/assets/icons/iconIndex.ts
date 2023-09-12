@@ -21,3 +21,4 @@ export { default as ArrowLeft } from './ArrowLeft.svg';
 export { default as ArrowRight } from './ArrowRight.svg';
 export { default as Right } from './Right.svg';
 export { default as Remove } from './Remove.svg';
+export { default as Error } from './Error.svg';

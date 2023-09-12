@@ -1,3 +1,4 @@
+import React, { Dispatch, SetStateAction } from 'react';
 import { ImageSourcePropType, TouchableHighlightProps } from 'react-native';
 
 export interface CreditCardItemProps extends TouchableHighlightProps {
@@ -20,7 +21,10 @@ export interface SelectedDate {
 
 export interface DateOptionProps {
   selectedDate: SelectedDate;
-  setSelectedDate: React.Dispatch<React.SetStateAction<SelectedDate>>;
+  setSelectedDate: Dispatch<SetStateAction<SelectedDate>>;
+  showModal: boolean;
+  setShowModal: Dispatch<SetStateAction<boolean>>;
+  selectDate: (month: number, year: number) => void;
 }
 
 export interface MonthButtonProps {
@@ -34,4 +38,9 @@ export interface CardConsumptionItemProps {
   item: string;
   price: string;
   benefit: string;
+}
+
+export interface CautionModalProps {
+  showCautionModal: boolean;
+  setShowCautionModal: Dispatch<SetStateAction<boolean>>;
 }

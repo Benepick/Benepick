@@ -3,9 +3,9 @@ import { View, ViewProps } from 'react-native';
 import { globalStyles } from '@common/design/globalStyles';
 import { PageProps } from '@interfaces/common';
 
-function WhiteBox({ children, ...rest }: PageProps) {
+function WhiteBox({ children, style, ...rest }: PageProps) {
   return (
-    <View style={globalStyles.container} {...rest}>
+    <View style={[globalStyles.container, style]} {...rest}>
       {children}
     </View>
   );
