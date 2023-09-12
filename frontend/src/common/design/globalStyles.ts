@@ -7,7 +7,6 @@ export const globalStyles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   container: {
-    alignItems: 'center',
     borderRadius: 12,
     backgroundColor: colors.white,
     padding: 20,

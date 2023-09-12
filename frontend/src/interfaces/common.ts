@@ -9,6 +9,7 @@ import {
   TouchableHighlightProps,
 } from 'react-native';
 import * as Icons from '@common/assets/icons/iconIndex';
+import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils';
 
 export interface AlarmButtonProps extends TouchableOpacityProps {
   isAlarmed: boolean;
@@ -71,4 +72,17 @@ export interface BSwitchProps extends TouchableHighlightProps {
 export interface BCheckBoxProps extends TouchableHighlightProps {
   size: number;
   value: boolean;
+}
+
+export interface PageProps extends ViewProps {
+  children?: ReactNode;
+}
+
+export interface PageProps extends ViewProps {
+  children?: ReactNode;
+}
+
+export interface CategoryTextProps {
+  category: string;
+  value: string;
 }

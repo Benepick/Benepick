@@ -21,12 +21,6 @@ function MonthlyConsumption({ stickHeight }: MonthlyStickProps) {
       alignItems: 'center',
       justifyContent: 'flex-end',
     },
-    // dot: {
-    //   width: '20%',
-    //   height: layout?.width,
-    //   borderRadius: layout ? layout?.width / 2 : 0,
-    //   backgroundColor: colors.main,
-    // },
   });
 
   return (

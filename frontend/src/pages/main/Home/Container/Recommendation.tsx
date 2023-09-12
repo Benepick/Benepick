@@ -36,7 +36,7 @@ function Recommendation() {
         이 카드를 사용하시면 실적 전체가 인정돼요
       </BText>
       <Spacing rem="1" />
-      <View style={{ width: '90%', alignSelf: 'center' }}>
+      <View style={{ width: '95%', alignSelf: 'center' }}>
         <View style={styles.benefit}>
           <BText type="bold">할인대상</BText>
           <BText>1000원</BText>
@@ -74,9 +74,15 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
   },
-  cardText: { backgroundColor: colors.main2, borderRadius: 5, padding: 7 },
+  cardText: {
+    width: '95%',
+    backgroundColor: colors.main2,
+    borderRadius: 5,
+    padding: 7,
+    textAlign: 'center',
+    alignSelf: 'center',
+  },
 });
 
 export default Recommendation;
