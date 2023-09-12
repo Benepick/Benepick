@@ -32,7 +32,7 @@ public class UserCardCompanyServiceImpl implements UserCardCompanyService{
 		// User loginUser = userRepository.findById("ex1").get();
 
 		return loginUser.getUserCardCompanyList()
-			.stream().map(userCardCompany -> cardCompanyRepository.findById(userCardCompany.getUserCardCompanyId()).get().toCardCompanyResponseDto())
+			.stream().map(userCardCompany -> userCardCompany.toCardCompanyResponseDto())
 			.collect(Collectors.toList());
 	}
 

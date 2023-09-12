@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import org.springframework.cglib.core.Local;
 
+import com.ssafy.benepick.domain.card.dto.response.CardCompanyResponseDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -48,5 +50,13 @@ public class UserCardCompany {
 		LocalDateTime now = LocalDateTime.now();
 		this.userCardCompanyRequestDate = now;
 		this.userCardCompanyExpirationDate = now.plusYears(1);
+	}
+
+	public CardCompanyResponseDto toCardCompanyResponseDto(){
+		return CardCompanyResponseDto.builder()
+			.cardCompanyId(userCardCompanyId)
+			.cardCompanyImgUrl(userCardCompanyImgUrl)
+			.cardCompanyName(userCardCompanyName)
+			.build();
 	}
 }
