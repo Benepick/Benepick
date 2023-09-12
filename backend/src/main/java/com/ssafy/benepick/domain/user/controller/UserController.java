@@ -1,5 +1,7 @@
 package com.ssafy.benepick.domain.user.controller;
 
+import java.security.NoSuchAlgorithmException;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,7 +53,8 @@ public class UserController {
 	})
 	@PostMapping("/signup")
 	public ResponseResult createUserAccount(
-		@Valid @RequestBody CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) {
+		@Valid @RequestBody CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) throws
+		NoSuchAlgorithmException {
 		log.info("UserController_createUserAccount | 사용자의 회원가입");
 		userService.createUserAccount(createUserAccountRequestDto , response);
 		return ResponseResult.successResponse;

@@ -43,8 +43,6 @@ public class MyDataServiceImpl implements MyDataService {
 	private final UserCardService userCardService;
 	private final UserPaymentRepository userPaymentRepository;
 	private final MyDataCardRepository myDataCardRepository;
-	private final MyDataUserRepository myDataUserRepository;
-	private final MyDataPaymentRepository myDataPaymentRepository;
 
 	@Override
 	public MonthResultResponseDto getMonthResult(HttpServletRequest request) {
@@ -88,16 +86,19 @@ public class MyDataServiceImpl implements MyDataService {
 	@Override
 	public MonthCategoryResultResponseDto getMonthCategoryResult(HttpServletRequest request) {
 		log.info("MyDataServiceImpl_getMonthCategoryResult | 사용자 이번달 카테고리별 사용 금액 조회");
-		MyDataUser myDataUser = myDataUserRepository.findById(userService.getUserFromRequest(request).getUserId()).get();
-		// MyDataUser myDataUser = myDataUserRepository.findById("ex1").get();
+		User loginUser = userService.getUserFromRequest(request);
 
 		HashMap<String , Integer> categoryMap = new HashMap<>();
 		AtomicInteger amount = new AtomicInteger(0);
-		calculateUserCategoryPaymentAmount(myDataUser, categoryMap, amount);
+		calculateUserCategoryPaymentAmount(loginUser, categoryMap, amount);
 
 		return MonthCategoryResultResponseDto.builder().
 			totalAmount(amount.get()).
-			categoryResultResponseDtoList(getCategoryPayResponseDtoList(categoryMap))
+			categoryResultResponseDtoList(
+				getCategoryPayResponseDtoList(categoryMap,amount.get())
+					.stream()
+					.sorted((o1, o2) -> Integer.compare(o2.getAmount(), o1.getAmount()))
+					.collect(Collectors.toList()))
 			.build();
 	}
 
@@ -140,28 +141,27 @@ public class MyDataServiceImpl implements MyDataService {
 		userCardService.linkUserCardAndUserPaymentByMyDataCard(myDataCardList);
 	}
 
-	private List<CategoryPayResponseDto> getCategoryPayResponseDtoList(HashMap<String, Integer> categoryMap) {
+	private List<CategoryPayResponseDto> getCategoryPayResponseDtoList(HashMap<String, Integer> categoryMap , int totalAmount) {
 		log.info("사용자의 카테고리별 이름,사용금액,이미지를 Grouping");
 		return categoryMap.entrySet()
 			.stream()
 			.map(entry -> CategoryPayResponseDto.builder()
 				.categoryName(entry.getKey())
 				.amount(entry.getValue())
-				.categoryImgUrl(PaymentCategory.getCategoryImgUrl(entry.getKey())).build())
+				.amountRate(Math.round(((double) entry.getValue() / totalAmount) * 100 * 10.0) / 10.0)
+				.build())
 			.collect(Collectors.toList());
 	}
 
-	private void calculateUserCategoryPaymentAmount(MyDataUser myDataUser, HashMap<String, Integer> categoryMap, AtomicInteger amount) {
+	private void calculateUserCategoryPaymentAmount(User user, HashMap<String, Integer> categoryMap, AtomicInteger amount) {
 		log.info("사용자의 카테고리별 사용금액 계산");
-		myDataUser.getMyDataCardList().stream()
-			.flatMap(myDataCard -> myDataPaymentRepository.findByMyDataCardAndMonth(
-				myDataCard.getMyDataCardId(),
+		user.getUserCardList().stream()
+			.flatMap(userCard -> userPaymentRepository.findByUserCardIdAndMonth(userCard.getUserCardId(),
 				LocalDate.now().getMonthValue(),
 				LocalDate.now().getYear()).stream())
-			.forEach(myDataPayment -> {
-					categoryMap.put(myDataPayment.getMyDataPaymentCategory(), categoryMap.getOrDefault(myDataPayment.getMyDataPaymentCategory(), 0) + myDataPayment.getMyDataPaymentAmount());
-					amount.addAndGet(myDataPayment.getMyDataPaymentAmount());
-				}
-			);
+			.forEach(userPayment -> {
+				categoryMap.put(userPayment.getUserPaymentCategory1(), categoryMap.getOrDefault(userPayment.getUserPaymentCategory1(), 0) + userPayment.getUserPaymentAmount());
+				amount.addAndGet(userPayment.getUserPaymentAmount());
+			});
 	}
 }
