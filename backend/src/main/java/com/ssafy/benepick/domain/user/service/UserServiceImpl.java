@@ -14,6 +14,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.security.NoSuchAlgorithmException;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -25,7 +27,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	@Transactional
-	public void createUserAccount(CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) {
+	public void createUserAccount(CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) throws NoSuchAlgorithmException {
 		log.info("UserServiceImpl_createUserAccount | 유저 회원 가입");
 
 		if(userRepository.existsByUserNameAndUserPhoneNumberAndUserSocialNumber(
