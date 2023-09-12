@@ -14,6 +14,7 @@ import com.ssafy.benepick.domain.mydata.service.MyDataService;
 import com.ssafy.benepick.domain.user.entity.User;
 import com.ssafy.benepick.domain.user.entity.UserCardCompany;
 import com.ssafy.benepick.domain.user.repository.UserRepository;
+import com.ssafy.benepick.domain.user.service.UserCardCompanyService;
 import com.ssafy.benepick.domain.user.service.UserService;
 import com.ssafy.benepick.global.exception.NotExistCardCompanyException;
 import com.ssafy.benepick.global.exception.NotExistLinkCardCompanyException;
@@ -30,6 +31,7 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	private final CardCompanyRepository cardCompanyRepository;
 	private final MyDataService myDataService;
 	private final UserService userService;
+	private final UserCardCompanyService userCardCompanyService;
 	private final UserRepository userRepository;
 
 	@Override
@@ -81,7 +83,7 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 			.filter(userCardCompany -> userCardCompany.getUserCardCompanyId().equals(cardCompanyId))
 			.findFirst()
 			.ifPresentOrElse(
-				userCardCompany -> loginUser.cancelLinkCardCompany(userCardCompany),
+				userCardCompany -> userCardCompanyService.cancelLinkCardCompany(loginUser,userCardCompany),
 				() -> { throw new NotExistLinkCardCompanyException(); }
 			);
 	}
