@@ -38,4 +38,11 @@ public class CardCompany {
 	@OneToMany(mappedBy = "cardCompany", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<Card> cardList;
 
+	public CardCompanyResponseDto toCardCompanyResponseDto(){
+		return CardCompanyResponseDto.builder()
+			.cardCompanyId(cardCompanyId)
+			.cardCompanyImgUrl(cardCompanyImgUrl)
+			.cardCompanyName(cardCompanyName)
+			.build();
+	}
 }

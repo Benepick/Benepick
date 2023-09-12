@@ -23,11 +23,15 @@ public class MonthResultResponseDto {
 	@Schema(description = "사용금액이 가장 큰 카드 이미지", example = "https://aws~~")
 	private String imgUrl;
 
+	@Schema(description = "받은 혜택", example = "1.23")
+	private double benefitRate;
+
 	public static MonthResultResponseDto createMonthResultResponseDto(int payAmount , int benefitAmount , String imgUrl){
 		return MonthResultResponseDto.builder()
 			.payAmount(payAmount)
 			.benefitAmount(benefitAmount)
 			.imgUrl(imgUrl)
+			.benefitRate(Math.round(((double) benefitAmount / payAmount) * 100 * 100.0) / 100.0)
 			.build();
 	}
 }
