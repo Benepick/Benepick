@@ -16,12 +16,10 @@ public class CategoryPayResponseDto {
 	@Schema(description = "카테고리 이름", example = "쇼핑")
 	private String categoryName;
 
-	@Schema(description = "카테고리 이미지", example = "https://aws~")
-	private String categoryImgUrl;
-
 	@Schema(description = "카테고리 소비 금액", example = "54500")
 	private int amount;
 
-
+	@Schema(description = "카테고리 소비 금액 비율", example = "15.3")
+	private double amountRate;
 
 }
