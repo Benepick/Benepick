@@ -42,11 +42,12 @@ function SetPassword({ navigation, route }: SetPasswordNavigationProps) {
             user
               .signup(userData)
               .then((response) => {
-                console.log(response.messages);
-                navigation.navigate('SelectCompany');
+                console.log('성공, Message: ', response.messages);
+                // navigation.navigate('SelectCompany');
               })
               .catch((error) => {
-                console.log(error);
+                console.log(userData);
+                console.log('Error, Message: ', error);
               });
           } else {
             setPassword([]);

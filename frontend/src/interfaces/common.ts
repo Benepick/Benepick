@@ -44,20 +44,17 @@ export interface BInputProps extends TextInputProps {
   style?: StyleProp<ViewStyle | TextStyle>;
 }
 
-export interface NodeProps {
-  size: number;
-  color: string;
-  num: number;
+export interface CardProgressSectionProps {
+  sectionCount: number;
+  currentSection: number;
 }
 
-export interface BranchProps {
-  size: number;
-  color: string;
+export interface CardProgressBarProps {
+  percent: number;
 }
 
-export interface ProgressNodeProps {
-  page: number;
-  size: number;
+export interface CardProgressProps {
+  sections: Array<number>;
   current: number;
 }
 
@@ -92,4 +89,9 @@ export interface CoveringPointsProps {
 export interface CategoryTextProps {
   category: string;
   value: string;
+}
+
+export interface LineProps {
+  size: number;
+  progress: number;
 }

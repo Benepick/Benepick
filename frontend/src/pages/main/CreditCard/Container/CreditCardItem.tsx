@@ -15,6 +15,7 @@ function CreditCardItem({
   image,
   benefitAmount,
   usedAmount,
+  currentSection,
   nextSection,
   ...rest
 }: CreditCardItemProps) {
@@ -31,12 +32,16 @@ function CreditCardItem({
             </View>
           </View>
           <Spacing />
-          <View style={styles.progress}>
-            <CardProgress current={3} page={3} size={25} />
-          </View>
+          <CardProgress current={3} sections={[3]} />
           <Spacing />
-          <CategoryText category="실적/사용금액" value={`${benefitAmount}원/${usedAmount}원`} />
-          <CategoryText category="다음 구간까지" value={`${nextSection}원 남음`} />
+          <CategoryText
+            category="사용/실적금액"
+            value={`${usedAmount.toLocaleString()}원 / ${nextSection.toLocaleString()}원`}
+          />
+          <CategoryText
+            category="다음 구간까지"
+            value={`${(nextSection - usedAmount).toLocaleString()}원 남음`}
+          />
         </View>
       </TouchableHighlight>
     </WhiteBox>
@@ -50,9 +55,6 @@ const styles = StyleSheet.create({
   image: {
     maxWidth: '15%',
     aspectRatio: 1 / 1.58,
-  },
-  progress: {
-    alignItems: 'center',
   },
 });
 
