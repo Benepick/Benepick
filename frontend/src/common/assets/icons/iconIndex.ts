@@ -24,3 +24,4 @@ export { default as Remove } from './Remove.svg';
 export { default as Whale } from './Whale.svg';
 export { default as ArrowBack } from './ArrowBack.svg';
 export { default as Error } from './Error.svg';
+export { default as Profile } from './Profile.svg';
