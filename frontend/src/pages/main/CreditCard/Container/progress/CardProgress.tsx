@@ -6,42 +6,54 @@ import colors from '@common/design/colors';
 import CardProgressSection from './childs/CardProgressSection';
 import CardProgressBar from './childs/CardProgressBar';
 
-function CardProgress({ sections, current }: CardProgressProps) {
-  const dummySections = [200000, 500000, 800000, 3000000, 5000000];
-  const dummyCurrent = 1804340;
+function CardProgress({
+  sections,
+  currentAmount,
+  currentSection,
+  nextSectionAmont,
+}: CardProgressProps) {
+  const styles = StyleSheet.create({
+    container: {
+      width: '100%',
+      height: '12%',
+      flexDirection: 'row',
+    },
+    group: {
+      width: `${100 / sections.length}%`,
+      height: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+  });
 
-  let index = 0;
-  let next = 0;
-
-  for (let i of dummySections) {
-    if (dummyCurrent > i) {
-      index = dummySections.indexOf(i) + 1;
-      next = dummySections[index];
-    }
-  }
+  const percent =
+    (100 / sections.length) * currentSection +
+    (((currentAmount - sections[currentSection - 1]) /
+      (nextSectionAmont - sections[currentSection - 1])) *
+      100) /
+      sections.length;
 
   return (
     <View style={styles.container}>
-      <CardProgressBar
-        percent={
-          (100 / dummySections.length) * index +
-          (((dummyCurrent - dummySections[index - 1]) / (next - dummySections[index - 1])) * 100) /
-            dummySections.length
-        }
-      />
-      <CardProgressSection sectionCount={dummySections.length} currentSection={index} />
+      {sections.map((section, index) => (
+        <View key={section} style={styles.group}>
+          <CardProgressBar
+            section={index}
+            percent={
+              currentSection >= index + 1
+                ? 100
+                : currentSection === index
+                ? ((currentAmount - sections[currentSection - 1]) /
+                    (nextSectionAmont - sections[currentSection - 1])) *
+                  100
+                : 0
+            }
+          />
+          <CardProgressSection section={index + 1} isFill={currentSection >= index + 1} />
+        </View>
+      ))}
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '12%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: '-2.5%',
-  },
-});
 
 export default CardProgress;

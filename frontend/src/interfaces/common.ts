@@ -45,17 +45,20 @@ export interface BInputProps extends TextInputProps {
 }
 
 export interface CardProgressSectionProps {
-  sectionCount: number;
-  currentSection: number;
+  section: number;
+  isFill: boolean;
 }
 
 export interface CardProgressBarProps {
   percent: number;
+  section: number;
 }
 
 export interface CardProgressProps {
   sections: Array<number>;
-  current: number;
+  currentAmount: number;
+  currentSection: number;
+  nextSectionAmont: number;
 }
 
 export interface CompanySelectBoxProps extends TouchableHighlightProps {

@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { StyleSheet, TouchableHighlight, View, Image } from 'react-native';
+import {
+  StyleSheet,
+  TouchableHighlight,
+  View,
+  Image,
+  LayoutChangeEvent,
+  LayoutRectangle,
+} from 'react-native';
 
 import WhiteBox from '@common/components/WhiteBox';
 import BText from '@common/components/BText';
@@ -32,7 +39,12 @@ function CreditCardItem({
             </View>
           </View>
           <Spacing />
-          <CardProgress current={3} sections={[3]} />
+          <CardProgress
+            sections={[500000, 1000000, 2000000, 3000000]}
+            currentAmount={1200000}
+            currentSection={2}
+            nextSectionAmont={2000000}
+          />
           <Spacing />
           <CategoryText
             category="사용/실적금액"
