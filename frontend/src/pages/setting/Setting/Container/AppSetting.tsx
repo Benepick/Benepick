@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import SvgIcons from '@common/assets/SvgIcons';
 import colors from '@common/design/colors';
 import BSwitch from '@common/components/BSwitch';
-import IconButton from '@common/components/IconButton';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { setShakePick } from '@store/slices/appSlice';
 
 function AppSetting() {
-  const [isNotifcationOn, setNotificationOff] = useState(false);
-  const changeNotification = () => {
-    setNotificationOff(!isNotifcationOn);
+  const notification = useAppSelector((state) => state.app.shakePick);
+  const dispatch = useAppDispatch();
+
+  const setNotification = () => {
+    dispatch(setShakePick());
   };
+
   return (
     <View>
       {/* 푸시 알림 설정 */}
@@ -23,7 +27,7 @@ function AppSetting() {
             <BText>푸시 알림 ON/OFF</BText>
           </View>
           <View>
-            <BSwitch size={1} value={isNotifcationOn} onPress={changeNotification} />
+            <BSwitch size={1} value={notification} onPress={setNotification} />
           </View>
         </View>
         <Spacing rem="0.5" />

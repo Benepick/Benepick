@@ -15,6 +15,7 @@ function Benefit({ navigation }: BenefitNavigationProps) {
   return (
     <Page>
       <ScrollView showsVerticalScrollIndicator={false}>
+        <Spacing rem="0.5" />
         <SearchInput />
         <Spacing />
         <WhiteBox>

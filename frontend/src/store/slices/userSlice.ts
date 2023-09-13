@@ -12,18 +12,15 @@ export const userSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
-    setAutoLogIn: (state) => {
-      state.autoLogIn = true;
-    },
     clearToken: (state) => {
       state.token = '';
     },
-    cancleAutoLogin: (state) => {
-      state.autoLogIn = false;
+    setAutoLogIn: (state) => {
+      state.autoLogIn = !state.autoLogIn;
     },
   },
 });
 
-export const { setToken, setAutoLogIn, clearToken, cancleAutoLogin } = userSlice.actions;
+export const { setToken, clearToken, setAutoLogIn } = userSlice.actions;
 
 export default userSlice.reducer;
