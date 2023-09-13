@@ -30,6 +30,7 @@ function Consumption({ navigation }: ConsumptionNavigationProps) {
         <MonthlyBenefit />
         <Spacing />
         <ConsumptionHistory />
+        <Spacing />
       </ScrollView>
     </Page>
   );

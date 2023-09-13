@@ -7,13 +7,16 @@ import colors from '@common/design/colors';
 import BSwitch from '@common/components/BSwitch';
 import IconButton from '@common/components/IconButton';
 import { SettingNavigationProps } from '@interfaces/navigation';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { setAutoLogIn } from '@store/slices/userSlice';
 
 function AuthSetting({ navigation }: SettingNavigationProps) {
-  const [isAutoLogined, setAutoLogined] = useState(false);
+  const isAutoLogined = useAppSelector((state) => state.user.autoLogIn);
   const [isBiometricAuthentication, setBiometricAuthentication] = useState(false);
+  const dispatch = useAppDispatch();
 
   const changeAutoLogin = () => {
-    setAutoLogined(!isAutoLogined);
+    dispatch(setAutoLogIn());
   };
 
   const changeBiometricAuthentication = () => {

@@ -21,7 +21,7 @@ function Setting({ navigation }: SettingNavigationProps) {
       <Spacing />
       <CardSetting navigation={navigation} />
       <Spacing />
-      <BText type="h3">앱설정</BText>
+      <BText type="h3">앱 설정</BText>
       <Spacing />
       <AppSetting />
     </WhitePage>
