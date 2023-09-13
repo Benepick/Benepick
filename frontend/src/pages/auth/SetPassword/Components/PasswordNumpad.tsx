@@ -2,6 +2,7 @@ import React from 'react';
 import BText from '@common/components/BText';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import SvgIcons from '@common/assets/SvgIcons';
+import colors from '@common/design/colors';
 
 interface PasswordNumpadProps {
   enterPassword: (pad: string) => void;

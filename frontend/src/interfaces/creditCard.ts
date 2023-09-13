@@ -5,9 +5,10 @@ export interface CreditCardItemProps extends TouchableHighlightProps {
   cardName: string;
   cardType: string;
   image: ImageSourcePropType;
-  benefitAmount: string;
-  usedAmount: string;
-  nextSection: string;
+  benefitAmount: Array<number>;
+  usedAmount: number;
+  currentSection: number;
+  nextSection: number;
 }
 
 export interface CardIdProps {

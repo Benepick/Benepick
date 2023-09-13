@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-export const ROOT = 'http://192.168.137.174:8080';
+export const ROOT = 'http://192.168.137.133:8080/';
 
 const httpAxios = Axios.create({
   baseURL: ROOT,
@@ -13,14 +13,14 @@ const getToken = () => {
 };
 
 // 토큰이 있을 때 httpAxios에 토큰을 집어넣는 로직
-httpAxios.interceptors.request.use((config) => {
-  const newConfig = { ...config };
-  // const token = getToken();
-  // if (token) {
-  // newConfig.headers.Authorization = `Bearer ${token}`;
-  // }
-  return newConfig;
-});
+// httpAxios.interceptors.request.use((config) => {
+//   const newConfig = { ...config };
+//   // const token = getToken();
+//   // if (token) {
+//   // newConfig.headers.Authorization = `Bearer ${token}`;
+//   // }
+//   return newConfig;
+// });
 
 export const http = {
   get: <Response = unknown>(url: string) =>

@@ -2,10 +2,10 @@ import { http } from './http';
 
 export default {
   login: (userSimplePassword: string) =>
-    http.post<CommonResponse>('/api/user/login', { userSimplePassword }),
+    http.post<CommonResponse>('api/user/login', { userSimplePassword }),
   phone: (phoneNumber: string) =>
     http.post<PhoneResponse>('api/user/phone', { phoneNumber: phoneNumber }),
-  signup: (userData: SignupRequest) => http.post<CommonResponse>('api/user/signup', { userData }),
+  signup: (userData: SignupRequest) => http.post<CommonResponse>('api/user/signup', userData),
 };
 
 interface CommonResponse {

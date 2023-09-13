@@ -40,6 +40,7 @@ function PhoneAuth({ navigation, route }: PhoneAuthNavigationProps) {
   const authComplete = () => {
     if (responseNumber === authenticationNumber) {
       setIsAuthenticated(true);
+      Alert.alert('인증이 완료되었습니다.');
       setAuthButtonTitle('인증완료');
     } else {
       console.log(responseNumber);
@@ -109,9 +110,10 @@ function PhoneAuth({ navigation, route }: PhoneAuthNavigationProps) {
         title={authButtonTitle}
         onPress={authComplete}
         color={
-          responseNumber &&
-          mobileCarrier &&
+          mobileCarrier.length >= 2 &&
           phoneNumber.length === 11 &&
+          responseNumber &&
+          authenticationNumber.length === 6 &&
           authButtonTitle === '인증하기'
             ? colors.main
             : colors.disabled

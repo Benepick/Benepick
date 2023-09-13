@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { StyleSheet, TouchableHighlight, View, Image } from 'react-native';
+import {
+  StyleSheet,
+  TouchableHighlight,
+  View,
+  Image,
+  LayoutChangeEvent,
+  LayoutRectangle,
+} from 'react-native';
 
 import WhiteBox from '@common/components/WhiteBox';
 import BText from '@common/components/BText';
@@ -15,6 +22,7 @@ function CreditCardItem({
   image,
   benefitAmount,
   usedAmount,
+  currentSection,
   nextSection,
   ...rest
 }: CreditCardItemProps) {
@@ -31,12 +39,21 @@ function CreditCardItem({
             </View>
           </View>
           <Spacing />
-          <View style={styles.progress}>
-            <CardProgress current={3} page={3} size={25} />
-          </View>
+          <CardProgress
+            sections={[500000, 1000000, 2000000, 3000000]}
+            currentAmount={1200000}
+            currentSection={2}
+            nextSectionAmont={2000000}
+          />
           <Spacing />
-          <CategoryText category="실적/사용금액" value={`${benefitAmount}원/${usedAmount}원`} />
-          <CategoryText category="다음 구간까지" value={`${nextSection}원 남음`} />
+          <CategoryText
+            category="사용/실적금액"
+            value={`${usedAmount.toLocaleString()}원 / ${nextSection.toLocaleString()}원`}
+          />
+          <CategoryText
+            category="다음 구간까지"
+            value={`${(nextSection - usedAmount).toLocaleString()}원 남음`}
+          />
         </View>
       </TouchableHighlight>
     </WhiteBox>
@@ -50,9 +67,6 @@ const styles = StyleSheet.create({
   image: {
     maxWidth: '15%',
     aspectRatio: 1 / 1.58,
-  },
-  progress: {
-    alignItems: 'center',
   },
 });
 

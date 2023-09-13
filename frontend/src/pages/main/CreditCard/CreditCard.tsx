@@ -12,10 +12,11 @@ function CreditCard({ navigation }: CreditCardNavigationProps) {
   const sampleData = {
     cardName: '롯데카드',
     cardType: 'LOCA 365 카드',
-    benefitAmount: '250,000',
-    usedAmount: '500,000',
-    nextSection: '0',
     image: require('@common/assets/images/cardImg.png'),
+    benefitAmount: [200000, 400000, 600000, 800000],
+    usedAmount: 500000,
+    currentSection: 2,
+    nextSection: 600000,
   };
 
   const params = {
@@ -39,6 +40,7 @@ function CreditCard({ navigation }: CreditCardNavigationProps) {
             cardType={sampleData.cardType}
             benefitAmount={sampleData.benefitAmount}
             usedAmount={sampleData.usedAmount}
+            currentSection={sampleData.currentSection}
             nextSection={sampleData.nextSection}
             // cardId를 바탕으로 카드 상세보기로 이동
             onPress={() => navigation.push('CreditCardDetail', { params })}
