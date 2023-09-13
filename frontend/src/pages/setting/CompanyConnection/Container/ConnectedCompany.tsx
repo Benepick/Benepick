@@ -5,12 +5,6 @@ import { Spacing } from '@common/components/Spacing';
 import BHr from '@common/components/BHr';
 import colors from '@common/design/colors';
 
-interface ConnectedCompanyProps {
-  image: string;
-  name: string;
-  cardId: number;
-}
-
 function ConnectedCompany({ image, name, cardId }: ConnectedCompanyProps) {
   return (
     <View>
