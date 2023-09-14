@@ -35,11 +35,9 @@ public class UserCardServiceImpl implements  UserCardService{
 		log.info("UserCardServiceImpl_linkUserCardAndUserPaymentByMyDataCard || 마이데이터 유저 카드 데이터를 유저 카드데이터에 연동");
 
 		User user = userRepository.findById(myDataCardList.get(0).getMyDataUser().getMyDataUserId()).get();
-
 		myDataCardList.stream().forEach(myDataCard -> {
 			UserCard userCard = myDataCardToUserCard(myDataCard, user);
 			userCardRepository.save(userCard);
-
 			List<UserPayment> userCardPaymentList = myDataCard.getMyDataPaymentList().stream()
 				.map(myDataPayment -> myDataPaymentToUserPayment(myDataPayment,userCard))
 				.collect(Collectors.toList());
@@ -49,15 +47,13 @@ public class UserCardServiceImpl implements  UserCardService{
 
 	@Override
 	public UserCard myDataCardToUserCard(MyDataCard myDataCard,User user) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
-
 		return UserCard.builder()
 			.user(user)
 			.userCardCompanyName(myDataCard.getCard().getCardCompany().getCardCompanyName())
 			.userCardSerialNumber(myDataCard.getMyDataCardId())
 			.userCardCode(myDataCard.getCard().getCardCode())
 			.userCardName(myDataCard.getCard().getCardName())
-			.userCardExpirationDate(LocalDate.parse("01/" + myDataCard.getMyDataCardExpirationDate(), formatter))
+			.userCardExpirationDate(myDataCard.getMyDataCardExpirationDate())
 			.userCardImgUrl(myDataCard.getCard().getCardImgUrl())
 			.userCardCompanyImgUrl(myDataCard.getCard().getCardCompany().getCardCompanyImgUrl())
 			.userCardCurrentPerformance(0)
@@ -69,7 +65,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	public UserPayment myDataPaymentToUserPayment(MyDataPayment myDataPayment , UserCard userCard) {
 		return UserPayment.builder()
 			.userCard(userCard)
-			.userPaymentCategory1(myDataPayment.getMyDataPaymentCategory())
+			.userPaymentCategory1(myDataPayment.getMyDataPaymentCategory1())
 			.userPaymentCategory2(myDataPayment.getMyDataPaymentCategory2())
 			.userPaymentDateTime(myDataPayment.getMyDataPaymentDate())
 			.userPaymentAmount(myDataPayment.getMyDataPaymentAmount())

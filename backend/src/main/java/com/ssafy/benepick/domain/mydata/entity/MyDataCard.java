@@ -40,7 +40,7 @@ public class MyDataCard {
 	private int myDataCardPrevMonthAmount;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "my_data_user_id" , nullable = false)
+	@JoinColumn(name = "mydata_user_id" , nullable = false)
 	private MyDataUser myDataUser;
 
 	@ManyToOne(fetch = FetchType.LAZY)

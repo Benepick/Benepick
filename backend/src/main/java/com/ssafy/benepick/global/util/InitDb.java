@@ -117,90 +117,90 @@ public class InitDb {
 			bankBenepickEntityManager.persist(myDataCard5);
 			bankBenepickEntityManager.persist(myDataCard6);
 
-			MyDataPayment myDataPayment1 = MyDataPayment.builder().myDataPaymentId(1L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 9, 12, 0, 0))
-				.myDataPaymentAmount(10000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테11")
-				.myDataPaymentMerchantName("바나프레소").myDataCard(myDataCard1).myDataPaymentReceivedBenefitAmount(100)
-				.build();
+			// MyDataPayment myDataPayment1 = MyDataPayment.builder().myDataPaymentId(1L)
+			// 	.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 9, 12, 0, 0))
+			// 	.myDataPaymentAmount(10000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테11")
+			// 	.myDataPaymentMerchantName("바나프레소").myDataCard(myDataCard1).myDataPaymentReceivedBenefitAmount(100)
+			// 	.build();
+			//
+			// MyDataPayment myDataPayment2 = MyDataPayment.builder().myDataPaymentId(2L)
+			// 	.myDataPaymentCategory("식당").myDataPaymentDate(LocalDateTime.of(2023, 9, 11, 0, 0))
+			// 	.myDataPaymentAmount(20000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테11")
+			// 	.myDataPaymentMerchantName("맥도날드").myDataCard(myDataCard1).myDataPaymentReceivedBenefitAmount(200)
+			// 	.build();
+			//
+			// MyDataPayment myDataPayment3 = MyDataPayment.builder().myDataPaymentId(3L)
+			// 	.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 8, 12, 0, 0))
+			// 	.myDataPaymentAmount(30000).myDataPaymentCategory("카테2").myDataPaymentCategory2("카테21")
+			// 	.myDataPaymentMerchantName("스타벅스").myDataCard(myDataCard2).myDataPaymentReceivedBenefitAmount(300)
+			// 	.build();
+			//
+			// MyDataPayment myDataPayment4 = MyDataPayment.builder().myDataPaymentId(4L)
+			// 	.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDateTime.of(2023, 7, 12, 0, 0))
+			// 	.myDataPaymentAmount(40000).myDataPaymentCategory("카테2").myDataPaymentCategory2("카테22")
+			// 	.myDataPaymentMerchantName("ABC마트").myDataCard(myDataCard2).myDataPaymentReceivedBenefitAmount(400)
+			// 	.build();
+			//
+			// MyDataPayment myDataPayment5 = MyDataPayment.builder().myDataPaymentId(5L)
+			// 	.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
+			// 	.myDataPaymentAmount(50000).myDataPaymentCategory("카테3").myDataPaymentCategory2("카테32")
+			// 	.myDataPaymentMerchantName("매머드").myDataCard(myDataCard3).myDataPaymentReceivedBenefitAmount(500)
+			// 	.build();
+			//
+			// MyDataPayment myDataPayment6 = MyDataPayment.builder().myDataPaymentId(6L)
+			// 	.myDataPaymentCategory("식당").myDataPaymentDate(LocalDateTime.now())
+			// 	.myDataPaymentAmount(60000).myDataPaymentCategory("카테3").myDataPaymentCategory2("카테32")
+			// 	.myDataPaymentMerchantName("탕후루").myDataCard(myDataCard3).myDataPaymentReceivedBenefitAmount(600)
+			// 	.build();
+			//
+			// MyDataPayment myDataPayment7 = MyDataPayment.builder().myDataPaymentId(7L)
+			// 	.myDataPaymentCategory("의료").myDataPaymentDate(LocalDateTime.now())
+			// 	.myDataPaymentAmount(70000).myDataPaymentCategory("카테4").myDataPaymentCategory2("카테41")
+			// 	.myDataPaymentMerchantName("역삼안과").myDataCard(myDataCard4).myDataPaymentReceivedBenefitAmount(700)
+			// 	.build();
+			//
+			// MyDataPayment myDataPayment8 = MyDataPayment.builder().myDataPaymentId(8L)
+			// 	.myDataPaymentCategory("의료").myDataPaymentDate(LocalDateTime.now())
+			// 	.myDataPaymentAmount(80000).myDataPaymentCategory("카테4").myDataPaymentCategory2("카테44")
+			// 	.myDataPaymentMerchantName("설입성형외과").myDataCard(myDataCard6).myDataPaymentReceivedBenefitAmount(800)
+			// 	.build();
+			//
+			// MyDataPayment myDataPayment10 = MyDataPayment.builder().myDataPaymentId(9L)
+			// 	.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 6, 12, 0, 0))
+			// 	.myDataPaymentAmount(10000).myDataPaymentCategory("카테2").myDataPaymentCategory2("카테22")
+			// 	.myDataPaymentMerchantName("바나프레소").myDataCard(myDataCard1).myDataPaymentReceivedBenefitAmount(200)
+			// 	.build();
+			//
+			// MyDataPayment myDataPayment11 = MyDataPayment.builder().myDataPaymentId(10L)
+			// 	.myDataPaymentCategory("식당").myDataPaymentDate(LocalDateTime.now())
+			// 	.myDataPaymentAmount(20000).myDataPaymentCategory("카테3").myDataPaymentCategory2("카테33")
+			// 	.myDataPaymentMerchantName("맥도날드").myDataCard(myDataCard1).myDataPaymentReceivedBenefitAmount(500)
+			// 	.build();
+			//
+			// MyDataPayment myDataPayment12 = MyDataPayment.builder().myDataPaymentId(11L)
+			// 	.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 7, 15, 0, 0))
+			// 	.myDataPaymentAmount(30000).myDataPaymentCategory("카테3").myDataPaymentCategory2("카테31")
+			// 	.myDataPaymentMerchantName("스타벅스").myDataCard(myDataCard5).myDataPaymentReceivedBenefitAmount(800)
+			// 	.build();
+			//
+			// MyDataPayment myDataPayment13 = MyDataPayment.builder().myDataPaymentId(12L)
+			// 	.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDateTime.now())
+			// 	.myDataPaymentAmount(40000).myDataPaymentCategory("카테2").myDataPaymentCategory2("카테23")
+			// 	.myDataPaymentMerchantName("ABC마트").myDataCard(myDataCard5).myDataPaymentReceivedBenefitAmount(1000)
+			// 	.build();
 
-			MyDataPayment myDataPayment2 = MyDataPayment.builder().myDataPaymentId(2L)
-				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDateTime.of(2023, 9, 11, 0, 0))
-				.myDataPaymentAmount(20000).myDataPaymentCategory("카테1").myDataPaymentCategory2("카테11")
-				.myDataPaymentMerchantName("맥도날드").myDataCard(myDataCard1).myDataPaymentReceivedBenefitAmount(200)
-				.build();
-
-			MyDataPayment myDataPayment3 = MyDataPayment.builder().myDataPaymentId(3L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 8, 12, 0, 0))
-				.myDataPaymentAmount(30000).myDataPaymentCategory("카테2").myDataPaymentCategory2("카테21")
-				.myDataPaymentMerchantName("스타벅스").myDataCard(myDataCard2).myDataPaymentReceivedBenefitAmount(300)
-				.build();
-
-			MyDataPayment myDataPayment4 = MyDataPayment.builder().myDataPaymentId(4L)
-				.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDateTime.of(2023, 7, 12, 0, 0))
-				.myDataPaymentAmount(40000).myDataPaymentCategory("카테2").myDataPaymentCategory2("카테22")
-				.myDataPaymentMerchantName("ABC마트").myDataCard(myDataCard2).myDataPaymentReceivedBenefitAmount(400)
-				.build();
-
-			MyDataPayment myDataPayment5 = MyDataPayment.builder().myDataPaymentId(5L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.now())
-				.myDataPaymentAmount(50000).myDataPaymentCategory("카테3").myDataPaymentCategory2("카테32")
-				.myDataPaymentMerchantName("매머드").myDataCard(myDataCard3).myDataPaymentReceivedBenefitAmount(500)
-				.build();
-
-			MyDataPayment myDataPayment6 = MyDataPayment.builder().myDataPaymentId(6L)
-				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDateTime.now())
-				.myDataPaymentAmount(60000).myDataPaymentCategory("카테3").myDataPaymentCategory2("카테32")
-				.myDataPaymentMerchantName("탕후루").myDataCard(myDataCard3).myDataPaymentReceivedBenefitAmount(600)
-				.build();
-
-			MyDataPayment myDataPayment7 = MyDataPayment.builder().myDataPaymentId(7L)
-				.myDataPaymentCategory("의료").myDataPaymentDate(LocalDateTime.now())
-				.myDataPaymentAmount(70000).myDataPaymentCategory("카테4").myDataPaymentCategory2("카테41")
-				.myDataPaymentMerchantName("역삼안과").myDataCard(myDataCard4).myDataPaymentReceivedBenefitAmount(700)
-				.build();
-
-			MyDataPayment myDataPayment8 = MyDataPayment.builder().myDataPaymentId(8L)
-				.myDataPaymentCategory("의료").myDataPaymentDate(LocalDateTime.now())
-				.myDataPaymentAmount(80000).myDataPaymentCategory("카테4").myDataPaymentCategory2("카테44")
-				.myDataPaymentMerchantName("설입성형외과").myDataCard(myDataCard6).myDataPaymentReceivedBenefitAmount(800)
-				.build();
-
-			MyDataPayment myDataPayment10 = MyDataPayment.builder().myDataPaymentId(9L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 6, 12, 0, 0))
-				.myDataPaymentAmount(10000).myDataPaymentCategory("카테2").myDataPaymentCategory2("카테22")
-				.myDataPaymentMerchantName("바나프레소").myDataCard(myDataCard1).myDataPaymentReceivedBenefitAmount(200)
-				.build();
-
-			MyDataPayment myDataPayment11 = MyDataPayment.builder().myDataPaymentId(10L)
-				.myDataPaymentCategory("식당").myDataPaymentDate(LocalDateTime.now())
-				.myDataPaymentAmount(20000).myDataPaymentCategory("카테3").myDataPaymentCategory2("카테33")
-				.myDataPaymentMerchantName("맥도날드").myDataCard(myDataCard1).myDataPaymentReceivedBenefitAmount(500)
-				.build();
-
-			MyDataPayment myDataPayment12 = MyDataPayment.builder().myDataPaymentId(11L)
-				.myDataPaymentCategory("카페").myDataPaymentDate(LocalDateTime.of(2023, 7, 15, 0, 0))
-				.myDataPaymentAmount(30000).myDataPaymentCategory("카테3").myDataPaymentCategory2("카테31")
-				.myDataPaymentMerchantName("스타벅스").myDataCard(myDataCard5).myDataPaymentReceivedBenefitAmount(800)
-				.build();
-
-			MyDataPayment myDataPayment13 = MyDataPayment.builder().myDataPaymentId(12L)
-				.myDataPaymentCategory("쇼핑").myDataPaymentDate(LocalDateTime.now())
-				.myDataPaymentAmount(40000).myDataPaymentCategory("카테2").myDataPaymentCategory2("카테23")
-				.myDataPaymentMerchantName("ABC마트").myDataCard(myDataCard5).myDataPaymentReceivedBenefitAmount(1000)
-				.build();
-
-			bankBenepickEntityManager.persist(myDataPayment1);
-			bankBenepickEntityManager.persist(myDataPayment2);
-			bankBenepickEntityManager.persist(myDataPayment3);
-			bankBenepickEntityManager.persist(myDataPayment4);
-			bankBenepickEntityManager.persist(myDataPayment5);
-			bankBenepickEntityManager.persist(myDataPayment6);
-			bankBenepickEntityManager.persist(myDataPayment7);
-			bankBenepickEntityManager.persist(myDataPayment8);
-			bankBenepickEntityManager.persist(myDataPayment10);
-			bankBenepickEntityManager.persist(myDataPayment11);
-			bankBenepickEntityManager.persist(myDataPayment12);
-			bankBenepickEntityManager.persist(myDataPayment13);
+			// bankBenepickEntityManager.persist(myDataPayment1);
+			// bankBenepickEntityManager.persist(myDataPayment2);
+			// bankBenepickEntityManager.persist(myDataPayment3);
+			// bankBenepickEntityManager.persist(myDataPayment4);
+			// bankBenepickEntityManager.persist(myDataPayment5);
+			// bankBenepickEntityManager.persist(myDataPayment6);
+			// bankBenepickEntityManager.persist(myDataPayment7);
+			// bankBenepickEntityManager.persist(myDataPayment8);
+			// bankBenepickEntityManager.persist(myDataPayment10);
+			// bankBenepickEntityManager.persist(myDataPayment11);
+			// bankBenepickEntityManager.persist(myDataPayment12);
+			// bankBenepickEntityManager.persist(myDataPayment13);
 		}
 
 		@Transactional(transactionManager = "benepickTransactionManager")
