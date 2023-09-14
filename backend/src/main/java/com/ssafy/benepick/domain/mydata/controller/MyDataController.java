@@ -1,9 +1,11 @@
 package com.ssafy.benepick.domain.mydata.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.benepick.domain.mydata.service.MyDataService;
@@ -66,6 +68,21 @@ public class MyDataController {
 	@GetMapping("/card/payment/category")
 	public ResponseResult getMonthCategoryResult(HttpServletRequest request) {
 		log.info("MyDataController_getMonthCategoryResult");
+		return new SingleResponseResult<>(myDataService.getMonthCategoryResult(request));
+	}
+
+	@Operation(summary = "사용자의 카드 상세 조회", description = "사용자의 카드 상세 조회")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "카드 상세 조회 성공"),
+		@ApiResponse(responseCode = "400", description = "카드 상세 조회 실패"),
+	})
+	@GetMapping("/card/payment/{cardId}")
+	public ResponseResult getUserCardInfo(
+				@PathVariable(name = "cardId") Long cardId,
+				@RequestParam(name = "year") int year,
+				@RequestParam(name = "month") int month,
+				HttpServletRequest request) {
+		log.info("MyDataController_getUserCardInfo");
 		return new SingleResponseResult<>(myDataService.getMonthCategoryResult(request));
 	}
 }

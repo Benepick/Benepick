@@ -25,13 +25,13 @@ public class MyDataPayment {
 
 	@Id
 	@Column(name = "mydata_payment_id")
-	private Long myDataPaymentId;
+	private String myDataPaymentId;
 
 	@Column(nullable = false , name = "mydata_payment_date")
 	private LocalDateTime myDataPaymentDate;
 
-	@Column(nullable = false , name = "mydata_payment_category")
-	private String myDataPaymentCategory;
+	@Column(nullable = false , name = "mydata_payment_category1")
+	private String myDataPaymentCategory1;
 
 	@Column(nullable = false , name = "mydata_payment_amount")
 	private int myDataPaymentAmount;
@@ -39,7 +39,7 @@ public class MyDataPayment {
 	@Column(nullable = false , name = "mydata_payment_merchant_name")
 	private String myDataPaymentMerchantName;
 
-	@Column(nullable = false , name = "mydata_payement_category2")
+	@Column(nullable = false , name = "mydata_payment_category2")
 	private String myDataPaymentCategory2;
 
 	@Column(nullable = false , name = "mydata_payment_card_code")
@@ -49,7 +49,7 @@ public class MyDataPayment {
 	private int myDataPaymentReceivedBenefitAmount;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "my_data_card_id" , nullable = false)
+	@JoinColumn(name = "mydata_card_id" , nullable = false)
 	private MyDataCard myDataCard;
 }
 

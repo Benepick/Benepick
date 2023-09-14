@@ -48,15 +48,14 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	@Transactional(transactionManager = "benepickTransactionManager")
 	public void linkAndRenewCardCompany(LinkAndRenewCardCompanyRequestDto linkAndRenewCardCompanyRequestDto, HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_linkAndRenewCardCompany | 카드사 연동 및 연동 기간 갱신");
-		// User loginUser = userService.getUserFromRequest(request);
-		User loginUser = userRepository.findById("f2a5b57c292a49374f1fa50262c76667fb4aacec3edd6c9f42abfbee58edf9f7").get();
+		User loginUser = userService.getUserFromRequest(request);
 		List<UserCardCompany> userCardCompanyList = loginUser.getUserCardCompanyList();
 
 		for (Long cardCompanyId : linkAndRenewCardCompanyRequestDto.getCardCompanyIdList()) {
 			boolean isExist = false;
 
 			for (UserCardCompany userCardCompany : userCardCompanyList){
-				// 카드사가 이미 연동 되어있다면 기간 갱신
+				log.info("카드사 유효기간 갱신");
 				if(userCardCompany.getUserCardCompanyId().equals(cardCompanyId)){
 					userCardCompany.renewDate();
 					isExist = true;
@@ -66,6 +65,7 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 
 			// 카드사가 연동이 안된상태일경우 새로 연동
 			if(!isExist) {
+				log.info("새로운 카드사 연동");
 				loginUser.linkCardCompany(cardCompanyRepository.findById(cardCompanyId).orElseThrow(NotExistCardCompanyException::new));
 				myDataService.linkCard(cardCompanyId , loginUser.getUserId());
 			}
@@ -77,7 +77,7 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	public void cancelLinkCardCompany(Long cardCompanyId , HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_cancelLinkCardCompany | 카드사 연동 해제");
 		User loginUser = userService.getUserFromRequest(request);
-		// User loginUser = userRepository.findById("ex1").get();
+		System.out.println("cardCompanyId = " + cardCompanyId);
 
 		loginUser.getUserCardCompanyList().stream()
 			.filter(userCardCompany -> userCardCompany.getUserCardCompanyId().equals(cardCompanyId))

@@ -112,7 +112,7 @@ public class MyDataServiceImpl implements MyDataService {
 			.mapToObj(i -> {
 				LocalDate currentMonth = now.minusMonths(i);
 				int[] totalAmounts = loginUser.getUserCardList().stream()
-					.map(userCard -> calculateCardPayAmountAndBenefitAmount(userCard, now))
+					.map(userCard -> calculateCardPayAmountAndBenefitAmount(userCard, currentMonth))
 					.reduce((a, b) -> new int[]{a[0] + b[0], a[1] + b[1]})
 					.orElse(new int[]{0, 0});
 

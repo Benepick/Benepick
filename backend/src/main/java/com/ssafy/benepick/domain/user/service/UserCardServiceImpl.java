@@ -1,5 +1,7 @@
 package com.ssafy.benepick.domain.user.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,11 +35,9 @@ public class UserCardServiceImpl implements  UserCardService{
 		log.info("UserCardServiceImpl_linkUserCardAndUserPaymentByMyDataCard || 마이데이터 유저 카드 데이터를 유저 카드데이터에 연동");
 
 		User user = userRepository.findById(myDataCardList.get(0).getMyDataUser().getMyDataUserId()).get();
-
 		myDataCardList.stream().forEach(myDataCard -> {
 			UserCard userCard = myDataCardToUserCard(myDataCard, user);
 			userCardRepository.save(userCard);
-
 			List<UserPayment> userCardPaymentList = myDataCard.getMyDataPaymentList().stream()
 				.map(myDataPayment -> myDataPaymentToUserPayment(myDataPayment,userCard))
 				.collect(Collectors.toList());
@@ -65,7 +65,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	public UserPayment myDataPaymentToUserPayment(MyDataPayment myDataPayment , UserCard userCard) {
 		return UserPayment.builder()
 			.userCard(userCard)
-			.userPaymentCategory1(myDataPayment.getMyDataPaymentCategory())
+			.userPaymentCategory1(myDataPayment.getMyDataPaymentCategory1())
 			.userPaymentCategory2(myDataPayment.getMyDataPaymentCategory2())
 			.userPaymentDateTime(myDataPayment.getMyDataPaymentDate())
 			.userPaymentAmount(myDataPayment.getMyDataPaymentAmount())
