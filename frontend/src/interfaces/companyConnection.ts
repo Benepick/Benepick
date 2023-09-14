@@ -7,7 +7,7 @@ export interface ConnectedCompanyProps {
 export interface CompanyBoxProps {
   id: number;
   name: string;
-  state: 'add' | 'linked' | 'selected';
+  isLinked: boolean;
   selected: boolean;
   img: string;
 }

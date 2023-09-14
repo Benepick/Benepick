@@ -10,11 +10,11 @@ function CompanySelectBox({
   name,
   size = 30,
   image,
-  state,
+  isLinked,
   isSelected,
   onPress,
 }: CompanySelectBoxProps) {
-  const icon = state === 'linked' ? 'Link' : state === 'selected' ? 'Check' : 'Add';
+  const icon = isLinked ? 'Link' : isSelected ? 'Check' : 'Add';
 
   const styles = StyleSheet.create({
     defaultBox: {

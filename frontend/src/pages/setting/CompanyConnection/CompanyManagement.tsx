@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import WhitePage from '@common/components/WhitePage';
 import BText from '@common/components/BText';
@@ -17,14 +17,21 @@ function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
     {
       id: 0,
       name: '카카오뱅크0',
-      state: 'add',
+      isLinked: false,
       selected: false,
       img: 'https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434',
     },
     {
       id: 1,
       name: '카카오뱅크1',
-      state: 'add',
+      isLinked: false,
+      selected: false,
+      img: 'https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434',
+    },
+    {
+      id: 2,
+      name: '카카오뱅크2',
+      isLinked: false,
       selected: false,
       img: 'https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434',
     },
@@ -36,15 +43,7 @@ function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
   const selectAll = () => {
     setBoxStates((prevBoxStates) =>
       prevBoxStates.map((box) => {
-        if (box.state === 'linked') {
-          return { ...box, selected: !isAllselected };
-        } else {
-          return {
-            ...box,
-            selected: !isAllselected,
-            state: !isAllselected ? 'selected' : 'add',
-          };
-        }
+        return { ...box, selected: !isAllselected };
       }),
     );
     setAllSelected(!isAllselected);
@@ -58,12 +57,6 @@ function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
   const handleSelectBox = (index: number) => {
     const newBoxStates = [...boxStates];
     newBoxStates[index].selected = !newBoxStates[index].selected;
-
-    // linked 상태일 경우 state는 'linked'로 유지
-    if (newBoxStates[index].state !== 'linked') {
-      newBoxStates[index].state = newBoxStates[index].selected ? 'selected' : 'add';
-    }
-
     setBoxStates(newBoxStates);
 
     // 전체 선택 체크박스의 상태를 업데이트
@@ -77,7 +70,8 @@ function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
   };
 
   const submitCompany = () => {
-    console.log('클릭');
+    const selectedCompanies = boxStates.filter((box) => box.selected);
+    console.log(selectedCompanies);
   };
 
   return (
@@ -99,7 +93,7 @@ function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
                 name={box.name}
                 image={box.img}
                 size={30}
-                state={box.state}
+                isLinked={box.isLinked}
                 isSelected={box.selected}
                 onPress={() => handleSelectBox(index)}
               />
