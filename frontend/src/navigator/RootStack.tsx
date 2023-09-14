@@ -29,7 +29,13 @@ const BTheme = {
 const RootStack = () => {
   return (
     <NavigationContainer theme={BTheme}>
-      <Stack.Navigator>
+      <Stack.Navigator
+        screenOptions={{
+          statusBarStyle: 'dark',
+          statusBarColor: 'transparent',
+          statusBarTranslucent: true,
+        }}
+      >
         <Stack.Screen
           name="AuthStack"
           component={AuthStack}

@@ -6,6 +6,8 @@ export default {
   phone: (phoneNumber: string) =>
     http.post<PhoneResponse>('api/user/phone', { phoneNumber: phoneNumber }),
   signup: (userData: SignupRequest) => http.post<CommonResponse>('api/user/signup', userData),
+  password: (userSimplePassword: string) =>
+    http.post<CommonResponse>('api/user/password', { userSimplePassword }),
 };
 
 interface CommonResponse {
