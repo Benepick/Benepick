@@ -64,7 +64,7 @@ export interface CardProgressProps {
 export interface CompanySelectBoxProps extends TouchableHighlightProps {
   name: string;
   size: number;
-  state: string;
+  isLinked: boolean;
   image: string;
   isSelected: boolean;
 }

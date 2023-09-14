@@ -5,7 +5,6 @@ import { CompanyConnectionNavigationProps } from 'interfaces/navigation';
 import { Spacing } from '@common/components/Spacing';
 import WhitePage from '@common/components/WhitePage';
 import ConnectedCompany from './Container/ConnectedCompany';
-import BHr from '@common/components/BHr';
 import SubmitButton from '@common/components/SubmitButton';
 
 function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
@@ -29,6 +28,7 @@ function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
             navigation.push('CompanyManagement');
           }}
         />
+        <Spacing />
       </View>
     </WhitePage>
   );

@@ -10,15 +10,15 @@ function CompanySelectBox({
   name,
   size = 30,
   image,
-  state,
+  isLinked,
   isSelected,
   onPress,
 }: CompanySelectBoxProps) {
-  const icon = state === 'linked' ? 'Link' : state === 'selected' ? 'Check' : 'Add';
+  const icon = isLinked ? 'Link' : isSelected ? 'Check' : 'Add';
 
   const styles = StyleSheet.create({
     defaultBox: {
-      width: `${size}%`,
+      width: '100%',
       aspectRatio: 1,
       borderStyle: 'solid',
       borderColor: colors.disabled,
@@ -27,7 +27,7 @@ function CompanySelectBox({
       backgroundColor: 'transparent',
     },
     selectedBox: {
-      width: `${size}%`,
+      width: '100%',
       aspectRatio: 1,
       borderStyle: 'solid',
       borderColor: colors.main2,
@@ -37,8 +37,8 @@ function CompanySelectBox({
     },
     icon: { alignSelf: 'flex-end', marginRight: size / 10 },
     image: {
-      width: `${size * 1.5}%`,
-      height: `${size * 1.5}%`,
+      width: '45%',
+      height: '45%',
       alignSelf: 'center',
     },
     text: { alignSelf: 'center' },

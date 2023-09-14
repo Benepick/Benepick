@@ -11,7 +11,6 @@ function Recommendation() {
     <WhiteBox>
       <View style={styles.title}>
         <BText type="h3">스타벅스 역삼점에서 추천드려요</BText>
-        <Spacing rem="3.5" dir="row" />
         <IconButton name="Refresh" />
       </View>
       <Spacing rem="1" />
@@ -61,6 +60,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   description: {
     display: 'flex',
