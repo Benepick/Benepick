@@ -15,7 +15,7 @@ function Start({ navigation }: StartNavigationProps) {
         title="BenePick 시작하기"
         onPress={() => navigation.push('Terms', { isRead: false })}
       />
-      <Spacing />
+      {/* <Spacing />
       <SubmitButton
         title="간편 로그인 페이지로 이동하기"
         onPress={() => navigation.push('LogIn')}
@@ -25,7 +25,7 @@ function Start({ navigation }: StartNavigationProps) {
       <SubmitButton title="홈페이지로 이동하기" onPress={() => navigation.push('BottomTab')} />
       <Spacing />
 
-      <SubmitButton title="테스트 페이지로 이동하기" onPress={() => navigation.push('Test')} />
+      <SubmitButton title="테스트 페이지로 이동하기" onPress={() => navigation.push('Test')} /> */}
     </WhitePage>
   );
 }
