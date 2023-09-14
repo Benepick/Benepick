@@ -32,7 +32,7 @@ public class InitDb {
 	@PostConstruct
 	public void init() {
 		initService.userInit();
-		initService.bankInit();
+		// initService.bankInit();
 		// initService.test();
 	}
 
@@ -218,12 +218,12 @@ public class InitDb {
 				.build();
 
 			User user2 = User.builder()
-				.userId("ex2")
-				.userName("김싸피")
-				.userPhoneNumber("01022222222")
+				.userId("0023d0b76401c484c123e9dcc603493f687fe4df8e96521e8e51aa2efd3fda0e")
+				.userName("최정수")
+				.userPhoneNumber("01051982656")
 				.userSocialNumber("000202")
-				.userSimplePassword("654321")
-				.userGenderAndGenerationCode("2")
+				.userSimplePassword("650122")
+				.userGenderAndGenerationCode("1")
 				.isPushActive(false)
 				.isAutoLoginActive(false)
 				.userCardList(new ArrayList<>())
