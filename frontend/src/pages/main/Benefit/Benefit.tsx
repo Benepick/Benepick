@@ -61,6 +61,7 @@ function Benefit({ navigation }: BenefitNavigationProps) {
             <BHr />
           </View>
         </WhiteBox>
+        <Spacing rem="1" />
       </ScrollView>
     </Page>
   );

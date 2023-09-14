@@ -13,8 +13,9 @@ const PasswordStack = () => {
   return (
     <Stack.Navigator
       screenOptions={({ navigation }) => ({
-        headerLeft: () => <IconButton onPress={() => navigation.goBack()} name="Back" />,
+        headerLeft: () => <IconButton onPress={() => navigation.pop()} name="Back" />,
         headerTitle: '',
+        headerShadowVisible: false,
       })}
     >
       <Stack.Screen name="CheckPassword" component={CheckPassword} />

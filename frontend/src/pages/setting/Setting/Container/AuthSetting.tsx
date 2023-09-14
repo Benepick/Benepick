@@ -37,7 +37,7 @@ function AuthSetting({ navigation }: SettingNavigationProps) {
             <BSwitch size={1} value={isAutoLogined} onPress={changeAutoLogin} />
           </View>
         </View>
-        <Spacing rem="0.5" />
+        <Spacing rem="1" />
       </View>
       {/* 생체 인증 사용 여부 */}
       <View style={styles.container}>
@@ -55,7 +55,7 @@ function AuthSetting({ navigation }: SettingNavigationProps) {
             />
           </View>
         </View>
-        <Spacing rem="0.5" />
+        <Spacing rem="1" />
       </View>
 
       <View style={styles.container}>

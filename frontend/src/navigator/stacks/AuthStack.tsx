@@ -15,6 +15,7 @@ import RegistrationComplete from '@pages/auth/RegistrationComplete/RegistrationC
 import colors from '@common/design/colors';
 import ProgressNode from '@common/components/progress/ProgressNode';
 import { RootStackParamList } from '@interfaces/navigation';
+import { StatusBar } from 'react-native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
