@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { Button, View } from 'react-native';
+import { TouchableHighlight, View, Image } from 'react-native';
 
 import Home from '@pages/main/Home/Home';
 import Consumption from '@pages/main/Consumption/Consumption';
@@ -23,7 +23,12 @@ const BottomTab = () => {
     <Tab.Navigator
       screenOptions={({ navigation }) => ({
         headerLeft: () => (
-          <Button onPress={() => navigation.push('BottomTab')} title="Go Home" color="#000000" />
+          <TouchableHighlight
+            onPress={() => navigation.push('BottomTab')}
+            underlayColor={'transparent'}
+          >
+            <Image source={require('@common/assets/images/logo/navLogo.png')} />
+          </TouchableHighlight>
         ),
         headerRight: () => (
           <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -33,6 +38,7 @@ const BottomTab = () => {
             <Spacing rem="0.5" dir="row" />
           </View>
         ),
+
         tabBarStyle: {
           backgroundColor: colors.white,
         },

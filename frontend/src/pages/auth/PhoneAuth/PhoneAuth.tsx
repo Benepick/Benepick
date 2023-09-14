@@ -119,6 +119,7 @@ function PhoneAuth({ navigation, route }: PhoneAuthNavigationProps) {
             : colors.disabled
         }
       />
+      <Spacing />
       <SubmitButton
         title="다음"
         onPress={moveToNext}

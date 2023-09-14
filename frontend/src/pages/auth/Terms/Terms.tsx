@@ -51,7 +51,7 @@ function Terms({ navigation, route }: TermsNavigationProps) {
             color={isChecked ? colors.main : colors.disabled}
             onPress={moveToNext}
           />
-          <Spacing rem="1" />
+          <Spacing />
         </View>
       </View>
     </WhitePage>
