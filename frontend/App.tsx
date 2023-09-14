@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NativeEventEmitter, NativeModules } from 'react-native';
+import { NativeEventEmitter, NativeModules, StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
 import RootStack from './src/navigator/RootStack';
 import store from './src/store/store';

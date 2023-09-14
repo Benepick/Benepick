@@ -1,12 +1,14 @@
 import React from 'react';
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, StatusBar } from 'react-native';
 
 import { StartNavigationProps } from 'interfaces/navigation';
+import colors from '@common/design/colors';
+import { Spacing } from '@common/components/Spacing';
 
 function Start({ navigation }: StartNavigationProps) {
   return (
     <View>
-      <Text>BenePick</Text>
+      {/* <Spacing rem="10" /> */}
       <Button
         title="BenePick 시작하기"
         onPress={() => navigation.push('Terms', { isRead: false })}

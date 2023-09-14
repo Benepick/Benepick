@@ -1,11 +1,13 @@
+import React, { useEffect, useState } from 'react';
+import { Alert, Button, StyleSheet, Text, View } from 'react-native';
+
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import WhitePage from '@common/components/WhitePage';
+import PasswordInput from '@common/components/PasswordInput';
+import PasswordNumpad from '@common/components/PasswordNumpad';
+
 import { SetPasswordNavigationProps } from 'interfaces/navigation';
-import React, { useEffect, useState } from 'react';
-import { Alert, Button, StyleSheet, Text, View } from 'react-native';
-import PasswordInput from './Components/PasswordInput';
-import PasswordNumpad from './Components/PasswordNumpad';
 import user from '@api/user';
 
 function SetPassword({ navigation, route }: SetPasswordNavigationProps) {
@@ -43,7 +45,9 @@ function SetPassword({ navigation, route }: SetPasswordNavigationProps) {
               .signup(userData)
               .then((response) => {
                 console.log('성공, Message: ', response.messages);
-                // navigation.navigate('SelectCompany');
+                setPassword([]);
+                setCheck([]);
+                navigation.navigate('SelectCompany');
               })
               .catch((error) => {
                 console.log(userData);
@@ -52,7 +56,7 @@ function SetPassword({ navigation, route }: SetPasswordNavigationProps) {
           } else {
             setPassword([]);
             setCheck([]);
-            Alert.alert('비밀번호를 확인해주세요');
+            Alert.alert('비밀번호를 확인해주세요.');
           }
         } else {
           setCheck(newPassword);
