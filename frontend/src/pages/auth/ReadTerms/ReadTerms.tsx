@@ -5,6 +5,7 @@ import { ReadTermsNavigationProps } from 'interfaces/navigation';
 import SubmitButton from '@common/components/SubmitButton';
 import WhitePage from '@common/components/WhitePage';
 import colors from '@common/design/colors';
+import { Spacing } from '@common/components/Spacing';
 
 function ReadTerms({ navigation }: ReadTermsNavigationProps) {
   const scrollRef = useRef<ScrollView>(null);
@@ -237,7 +238,9 @@ function ReadTerms({ navigation }: ReadTermsNavigationProps) {
           Aenean euismod nisi feugiat neque consectetur, id dictum massa sodales.
         </Text>
       </ScrollView>
+      <Spacing />
       <SubmitButton title="확인" onPress={onPress} />
+      <Spacing />
     </WhitePage>
   );
 }

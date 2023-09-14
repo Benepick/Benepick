@@ -1,24 +1,42 @@
 import React from 'react';
-import { Text, View, Button, StatusBar } from 'react-native';
+import { View, Button, StyleSheet, Image } from 'react-native';
 
 import { StartNavigationProps } from 'interfaces/navigation';
-import colors from '@common/design/colors';
+import WhitePage from '@common/components/WhitePage';
+import SubmitButton from '@common/components/SubmitButton';
 import { Spacing } from '@common/components/Spacing';
 
 function Start({ navigation }: StartNavigationProps) {
   return (
-    <View>
-      {/* <Spacing rem="10" /> */}
-      <Button
+    <WhitePage style={styles.layout}>
+      <Image style={styles.logo} source={require('@common/assets/images/logo/startLogo.png')} />
+      <Spacing />
+      <SubmitButton
         title="BenePick 시작하기"
         onPress={() => navigation.push('Terms', { isRead: false })}
       />
-      <Button title="간편 로그인 페이지로 이동하기" onPress={() => navigation.push('LogIn')} />
-      <Button title="홈페이지로 이동하기" onPress={() => navigation.push('BottomTab')} />
-      <Button title="테스트 페이지로 이동하기" onPress={() => navigation.push('Test')} />
-      <Button title="익근" />
-    </View>
+      <Spacing />
+      <SubmitButton
+        title="간편 로그인 페이지로 이동하기"
+        onPress={() => navigation.push('LogIn')}
+      />
+      <Spacing />
+
+      <SubmitButton title="홈페이지로 이동하기" onPress={() => navigation.push('BottomTab')} />
+      <Spacing />
+
+      <SubmitButton title="테스트 페이지로 이동하기" onPress={() => navigation.push('Test')} />
+    </WhitePage>
   );
 }
+
+const styles = StyleSheet.create({
+  logo: {
+    alignSelf: 'center',
+  },
+  layout: {
+    justifyContent: 'center',
+  },
+});
 
 export default Start;
