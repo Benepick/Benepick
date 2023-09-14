@@ -12,11 +12,11 @@ function SubmitButton({ title, color = colors.main, ...rest }: SubmitButtonProps
       borderRadius: 12,
       alignItems: 'center',
       justifyContent: 'center',
-      margin: 10,
     },
   });
   return (
     <TouchableHighlight
+      disabled={color === colors.disabled}
       style={styles.button}
       activeOpacity={color === colors.disabled ? 1 : 0.2}
       underlayColor={color}

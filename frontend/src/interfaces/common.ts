@@ -64,7 +64,7 @@ export interface ProgressNodeProps {
 export interface CompanySelectBoxProps extends TouchableHighlightProps {
   name: string;
   size: number;
-  state: string;
+  state: 'linked' | 'add' | 'selected';
   image: string;
   isSelected: boolean;
 }

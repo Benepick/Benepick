@@ -10,7 +10,7 @@ function BCheckBox({ size, value, ...rest }: BCheckBoxProps) {
       width: size * 25,
       height: size * 25,
       backgroundColor: value ? colors.main : colors.white,
-      borderWidth: 2,
+      borderWidth: 1,
       borderColor: colors.disabled,
       display: 'flex',
       justifyContent: 'center',
