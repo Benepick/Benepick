@@ -100,7 +100,7 @@ public class UserController {
 		return new ListResponseResult<>(userCardCompanyService.getUserCardCompany(request));
 	}
 
-	@Operation(summary = "PhoneNumber Auth", description = "사용자 휴대폰 번호인증을 요청합니다.")
+	@Operation(summary = "SMS 인증번호 발송", description = "사용자 휴대폰 번호인증을 요청합니다.")
 	@ApiResponses(value = {
 		@ApiResponse(responseCode = "200", description = "휴대폰번호로 문자메시지 발송 성공")
 	})

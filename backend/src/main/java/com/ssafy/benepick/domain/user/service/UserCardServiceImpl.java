@@ -1,5 +1,7 @@
 package com.ssafy.benepick.domain.user.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,13 +49,15 @@ public class UserCardServiceImpl implements  UserCardService{
 
 	@Override
 	public UserCard myDataCardToUserCard(MyDataCard myDataCard,User user) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yy");
+
 		return UserCard.builder()
 			.user(user)
 			.userCardCompanyName(myDataCard.getCard().getCardCompany().getCardCompanyName())
 			.userCardSerialNumber(myDataCard.getMyDataCardId())
 			.userCardCode(myDataCard.getCard().getCardCode())
 			.userCardName(myDataCard.getCard().getCardName())
-			.userCardExpirationDate(myDataCard.getMyDataCardExpirationDate())
+			.userCardExpirationDate(LocalDate.parse("01/" + myDataCard.getMyDataCardExpirationDate(), formatter))
 			.userCardImgUrl(myDataCard.getCard().getCardImgUrl())
 			.userCardCompanyImgUrl(myDataCard.getCard().getCardCompany().getCardCompanyImgUrl())
 			.userCardCurrentPerformance(0)
