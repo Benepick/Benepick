@@ -8,6 +8,7 @@ import colors from '@common/design/colors';
 import IconButton from '@common/components/IconButton';
 import useDateOption from 'hooks/useDateOption';
 import { DateOptionProps } from '@interfaces/creditCard';
+import { Spacing } from '@common/components/Spacing';
 
 function DateOption({
   selectedDate,
@@ -49,7 +50,7 @@ function DateOption({
             </View>
             <View style={styles.monthContainer}>
               {months.map((month) => (
-                <View key={month}>
+                <View key={month} style={{ width: '33.3%', padding: 10 }}>
                   <MonthButton
                     month={month}
                     isSelected={month === selectedDate.month}
@@ -59,6 +60,7 @@ function DateOption({
                 </View>
               ))}
             </View>
+            <Spacing />
             <View style={{ width: '100%' }}>
               <SubmitButton
                 title="선택"
