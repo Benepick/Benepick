@@ -8,7 +8,7 @@ function MonthButton({ month, isSelected, onSelect, isDisabled }: MonthButtonPro
   const styles = StyleSheet.create({
     box: {
       margin: 5,
-      width: 115,
+      width: 100,
       aspectRatio: 1.5,
       borderStyle: 'solid',
       borderColor: isSelected && !isDisabled ? colors.main : colors.disabled,

@@ -82,7 +82,7 @@ function PhoneAuth({ navigation, route }: PhoneAuthNavigationProps) {
       </TouchableWithoutFeedback>
       <Spacing />
       <View style={{ display: 'flex', flexDirection: 'row' }}>
-        <View style={{ width: '77%' }}>
+        <View style={{ width: '70%' }}>
           <BInput
             label="휴대폰번호"
             maxLength={11}
@@ -91,7 +91,7 @@ function PhoneAuth({ navigation, route }: PhoneAuthNavigationProps) {
             value={phoneNumber}
           />
         </View>
-        <View style={{ width: '20%', alignSelf: 'center' }}>
+        <View style={{ width: '30%', alignSelf: 'center' }}>
           <RequestButton
             title={requestButtonTitle}
             onPress={requestAuth}

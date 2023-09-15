@@ -8,6 +8,7 @@ import SubmitButton from '@common/components/SubmitButton';
 import BInput from '@common/components/BInput';
 import CoveringPoints from '@common/components/CoveringPoints';
 import SvgIcons from '@common/assets/SvgIcons';
+import { Spacing } from '@common/components/Spacing';
 
 function PersonalAuth({ navigation }: PersonalAuthNavigationProps) {
   const [userName, setUserName] = useState('');
@@ -31,6 +32,7 @@ function PersonalAuth({ navigation }: PersonalAuthNavigationProps) {
         </View>
         <BText type="h2">본인인증을 진행할게요</BText>
       </View>
+      <Spacing />
       <BInput label="이름" onChangeText={setUserName} value={userName} />
       <View style={styles.rowCenter}>
         <BInput
@@ -49,7 +51,7 @@ function PersonalAuth({ navigation }: PersonalAuthNavigationProps) {
           onChangeText={setUserGenderAndGenerationCode}
           value={userGenderAndGenerationCode}
         />
-        <CoveringPoints num={6} size={18} />
+        <CoveringPoints num={6} size={15} />
       </View>
       <SubmitButton
         title="다음"
