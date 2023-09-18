@@ -12,7 +12,7 @@ function Start({ navigation }: StartNavigationProps) {
       <Image style={styles.logo} source={require('@common/assets/images/logo/startLogo.png')} />
       <Spacing />
       <SubmitButton
-        title="BenePick 시작하기"
+        title="베네픽 시작하기"
         onPress={() => navigation.push('Terms', { isRead: false })}
       />
       <Spacing />

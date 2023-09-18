@@ -7,8 +7,6 @@ import { MonthButtonProps } from '@interfaces/creditCard';
 function MonthButton({ month, isSelected, onSelect, isDisabled }: MonthButtonProps) {
   const styles = StyleSheet.create({
     box: {
-      margin: 5,
-      width: 115,
       aspectRatio: 1.5,
       borderStyle: 'solid',
       borderColor: isSelected && !isDisabled ? colors.main : colors.disabled,

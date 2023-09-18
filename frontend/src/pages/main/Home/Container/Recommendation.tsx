@@ -34,6 +34,7 @@ function Recommendation() {
       <BText type="bold" color={colors.white} style={styles.cardText}>
         이 카드를 사용하시면 실적 전체가 인정돼요
       </BText>
+
       <Spacing rem="1" />
       <View style={{ width: '95%', alignSelf: 'center' }}>
         <View style={styles.benefit}>
@@ -82,6 +83,7 @@ const styles = StyleSheet.create({
     padding: 7,
     textAlign: 'center',
     alignSelf: 'center',
+    fontSize: 13,
   },
 });
 
