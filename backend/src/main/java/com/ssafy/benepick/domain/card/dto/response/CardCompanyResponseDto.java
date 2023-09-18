@@ -21,4 +21,11 @@ public class CardCompanyResponseDto {
 
 	@Schema(description = "카드사 이미지", example = "https://aws~")
 	private String cardCompanyImgUrl;
+
+	@Schema(description = "카드사와 연동 되어 있는지", example = "true")
+	private boolean isLinked;
+
+	@Schema(description = "카드사의 SELECT 상태", example = "false")
+	private boolean isSelected;
+
 }
