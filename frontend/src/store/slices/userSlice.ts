@@ -15,8 +15,8 @@ export const userSlice = createSlice({
     clearToken: (state) => {
       state.token = '';
     },
-    setAutoLogin: (state) => {
-      state.autoLogIn = !state.autoLogIn;
+    setAutoLogin: (state, action) => {
+      state.autoLogIn = action.payload;
     },
   },
 });
