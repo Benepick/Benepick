@@ -38,11 +38,23 @@ public class CardCompany {
 	@OneToMany(mappedBy = "cardCompany", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<Card> cardList;
 
-	public CardCompanyResponseDto toCardCompanyResponseDto(){
+	public CardCompanyResponseDto toCardCompanyResponseDtoForSignUp(){
 		return CardCompanyResponseDto.builder()
 			.cardCompanyId(cardCompanyId)
 			.cardCompanyImgUrl(cardCompanyImgUrl)
 			.cardCompanyName(cardCompanyName)
+			.isLinked(false)
+			.isSelected(true)
+			.build();
+	}
+
+	public CardCompanyResponseDto toCardCompanyResponseDto(boolean isLinked){
+		return CardCompanyResponseDto.builder()
+			.cardCompanyId(cardCompanyId)
+			.cardCompanyImgUrl(cardCompanyImgUrl)
+			.cardCompanyName(cardCompanyName)
+			.isLinked(isLinked)
+			.isSelected(isLinked ? true : false)
 			.build();
 	}
 }
