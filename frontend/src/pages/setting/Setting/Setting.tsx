@@ -77,12 +77,12 @@ function Setting({ navigation }: SettingNavigationProps) {
       <BText type="h3">앱 설정</BText>
       <Spacing />
       <AppSetting />
-      <Spacing rem="10" />
       <View style={styles.row}>
         <FlatButton title={'로그아웃'} onPress={logout} />
         <Spacing dir={'row'} />
         <FlatButton title={'회원탈퇴'} onPress={withdrawal} />
       </View>
+      <Spacing rem="1" />
     </WhitePage>
   );
 }
@@ -90,8 +90,9 @@ function Setting({ navigation }: SettingNavigationProps) {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'center',
+    flex: 1,
   },
 });
 
