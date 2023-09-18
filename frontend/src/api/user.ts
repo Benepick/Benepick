@@ -1,4 +1,5 @@
 import { http } from './http';
+import { CardCompanyGetResponse } from './cardCompany';
 
 export default {
   login: (userSimplePassword: string) =>
@@ -8,6 +9,7 @@ export default {
   signup: (userData: SignupRequest) => http.post<CommonResponse>('api/user/signup', userData),
   password: (userSimplePassword: string) =>
     http.post<CommonResponse>('api/user/password', { userSimplePassword }),
+  cardCompany: () => http.get<CardCompanyGetResponse>('api/user/card-company'),
 };
 
 interface CommonResponse {
