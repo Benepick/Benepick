@@ -1,5 +1,8 @@
 package com.ssafy.benepick.domain.card.entity;
 
+import com.ssafy.benepick.domain.user.entity.UserCardBenefit;
+import com.ssafy.benepick.domain.user.entity.UserCardCategory1;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,16 +30,25 @@ public class CardBenefit {
 	private Long cardBenefitPerformanceLevel;
 
 	@Column(nullable = false , name = "card_benefit_discount_percent")
-	private int careBenefitDiscountPercent;
+	private int cardBenefitDiscountPercent;
 
 	@Column(nullable = false , name = "card_benefit_performance_start")
-	private int careBenefitPerformanceStart;
+	private int cardBenefitPerformanceStart;
 
 	@Column(nullable = false , name = "card_benefit_performance_end")
-	private int careBenefitPerformanceEnd;
+	private int cardBenefitPerformanceEnd;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category1_id" , nullable = false)
 	private Category1 category1;
 
+	public UserCardBenefit toUserCardBenefit(UserCardCategory1 userCardCategory1){
+		return UserCardBenefit.builder()
+			.userCardBenefitPerformanceLevel(cardBenefitPerformanceLevel)
+			.userCardBenefitDiscountPercent(cardBenefitDiscountPercent)
+			.userCardBenefitPerformanceStart(cardBenefitPerformanceStart)
+			.userCardBenefitPerformanceEnd(cardBenefitPerformanceEnd)
+			.userCardCategory1(userCardCategory1)
+			.build();
+	}
 }

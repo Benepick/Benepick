@@ -1,6 +1,10 @@
 package com.ssafy.benepick.domain.card.entity;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import com.ssafy.benepick.domain.user.entity.UserCardCategory1;
+import com.ssafy.benepick.domain.user.entity.UserCardCategory2;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -39,4 +43,13 @@ public class Category2 {
 
 	@OneToMany(mappedBy = "category2", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<Category3> category3List;
+
+
+	public UserCardCategory2 toUserCardCategory2(){
+		return UserCardCategory2.builder()
+			.userCardCategory2Id(category2Id)
+			.userCardCategory2Name(category2Name)
+			.userCardCategory3List(new ArrayList<>())
+			.build();
+	}
 }

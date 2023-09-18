@@ -1,5 +1,8 @@
 package com.ssafy.benepick.domain.card.entity;
 
+import com.ssafy.benepick.domain.user.entity.UserCardCategory2;
+import com.ssafy.benepick.domain.user.entity.UserCardCategory3;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,4 +35,11 @@ public class Category3 {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category2_id" , nullable = false)
 	private Category2 category2;
+
+	public UserCardCategory3 toUserCardCategory3(){
+		return UserCardCategory3.builder()
+			.userCardCategory3Id(category3Id)
+			.userCardCategory3Name(category3Name)
+			.build();
+	}
 }

@@ -12,10 +12,16 @@ import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Service;
 
+import com.ssafy.benepick.domain.card.entity.Category1;
+import com.ssafy.benepick.domain.card.service.CardService;
+import com.ssafy.benepick.domain.mydata.dto.response.BenefitResponseDto;
+import com.ssafy.benepick.domain.mydata.dto.response.CardInfoResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.CategoryPayResponseDto;
+import com.ssafy.benepick.domain.mydata.dto.response.DayTransactionResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.MonthCategoryResultResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.MonthResultResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.RecentMonthResponseDto;
+import com.ssafy.benepick.domain.mydata.dto.response.TransactionInfoResponseDto;
 import com.ssafy.benepick.domain.mydata.entity.MyDataCard;
 import com.ssafy.benepick.domain.mydata.entity.MyDataPayment;
 import com.ssafy.benepick.domain.mydata.entity.MyDataUser;
@@ -28,6 +34,7 @@ import com.ssafy.benepick.domain.user.entity.UserCard;
 import com.ssafy.benepick.domain.user.entity.UserPayment;
 import com.ssafy.benepick.domain.user.repository.UserPaymentRepository;
 import com.ssafy.benepick.domain.user.service.UserCardService;
+import com.ssafy.benepick.domain.user.service.UserPaymentService;
 import com.ssafy.benepick.domain.user.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,6 +48,8 @@ public class MyDataServiceImpl implements MyDataService {
 
 	private final UserService userService;
 	private final UserCardService userCardService;
+	private final CardService cardService;
+	private final UserPaymentService userPaymentService;
 	private final UserPaymentRepository userPaymentRepository;
 	private final MyDataCardRepository myDataCardRepository;
 
@@ -75,7 +84,7 @@ public class MyDataServiceImpl implements MyDataService {
 		int cardPayAmount = 0;
 		int cardBenefitAmount = 0;
 
-		for (UserPayment userPayment : userPaymentRepository.findByUserCardIdAndMonth(userCard.getUserCardId(), now.getMonthValue(), now.getYear())) {
+		for (UserPayment userPayment : userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardId(), now.getYear(), now.getMonthValue()) ) {
 			cardPayAmount += userPayment.getUserPaymentAmount();
 			cardBenefitAmount += userPayment.getUserPaymentReceivedBenefitAmount();
 		}
@@ -137,12 +146,47 @@ public class MyDataServiceImpl implements MyDataService {
 		if(myDataCardList.size() == 0)
 			return;
 
-		// 유저 카드, 결제 내역 연결
+		// 유저 카드, 결제 내역 ,  연결
 		userCardService.linkUserCardAndUserPaymentByMyDataCard(myDataCardList);
 	}
 
+	@Override
+	public CardInfoResponseDto getUserCardInfo(Long cardId, int year, int month , HttpServletRequest request) {
+		log.info("MyDataServiceImpl_getUserCardInfo || 사용자의 카드 상세 정보 조회");
+		User loginUser = userService.getUserFromRequest(request);
+
+		UserCard userCard = loginUser.getUserCardList()
+			.stream()
+			.filter(u -> u.getUserCardId().equals(cardId))
+			.findFirst()
+			.get();
+
+		// 이번달 카드 사용 금액
+		// 이번달 카드 받은 혜택 금액
+		int[] cardPayAmountAndBenefitAmount = calculateCardPayAmountAndBenefitAmount(userCard, LocalDate.of(year,month,1));
+
+		// 거래내역 리스트
+		List<DayTransactionResponseDto> dayTransactionResponseDtoList = new ArrayList<>();
+		HashMap<LocalDate , List<TransactionInfoResponseDto>> dateMap = new HashMap();
+
+		userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardId() , year , month)
+			.stream()
+			.forEach(userPayment -> {
+				dateMap
+					.computeIfAbsent(LocalDate.from(userPayment.getUserPaymentDateTime()), k -> new ArrayList<>())
+					.add(userPayment.toTransactionInfoResponseDto());
+			});
+
+		for (LocalDate localDate : dateMap.keySet()) {
+			dayTransactionResponseDtoList.add(
+				DayTransactionResponseDto.createDayTransactionResponseDto(localDate , dateMap.get(localDate)));
+		}
+
+		return CardInfoResponseDto.createCardInfoResponseDto(userCard,cardPayAmountAndBenefitAmount,dayTransactionResponseDtoList);
+	}
+
 	private List<CategoryPayResponseDto> getCategoryPayResponseDtoList(HashMap<String, Integer> categoryMap , int totalAmount) {
-		log.info("사용자의 카테고리별 이름,사용금액,이미지를 Grouping");
+		log.info("MyDataServiceImpl_getCategoryPayResponseDtoList || 사용자의 카테고리별 이름,사용금액,이미지를 Grouping");
 		return categoryMap.entrySet()
 			.stream()
 			.map(entry -> CategoryPayResponseDto.builder()
@@ -154,7 +198,7 @@ public class MyDataServiceImpl implements MyDataService {
 	}
 
 	private void calculateUserCategoryPaymentAmount(User user, HashMap<String, Integer> categoryMap, AtomicInteger amount) {
-		log.info("사용자의 카테고리별 사용금액 계산");
+		log.info("MyDataServiceImpl_calculateUserCategoryPaymentAmount || 사용자의 카테고리별 사용금액 계산");
 		user.getUserCardList().stream()
 			.flatMap(userCard -> userPaymentRepository.findByUserCardIdAndMonth(userCard.getUserCardId(),
 				LocalDate.now().getMonthValue(),

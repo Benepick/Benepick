@@ -3,6 +3,8 @@ package com.ssafy.benepick.domain.user.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.ssafy.benepick.domain.mydata.dto.response.TransactionInfoResponseDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -54,5 +56,16 @@ public class UserPayment {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_card_id" , nullable = false)
 	private UserCard userCard;
+
+
+	public TransactionInfoResponseDto toTransactionInfoResponseDto(){
+		return TransactionInfoResponseDto.builder()
+			.category(userPaymentCategory1)
+			.merchantName(userPaymentMerchantInfo)
+			.payAmount(userPaymentAmount)
+			.benefitAmount(userPaymentReceivedBenefitAmount)
+			.transactionTime(userPaymentDateTime)
+			.build();
+	}
 
 }

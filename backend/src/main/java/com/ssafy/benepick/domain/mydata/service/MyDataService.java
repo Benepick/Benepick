@@ -2,6 +2,7 @@ package com.ssafy.benepick.domain.mydata.service;
 
 import java.util.List;
 
+import com.ssafy.benepick.domain.mydata.dto.response.CardInfoResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.MonthCategoryResultResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.MonthResultResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.RecentMonthResponseDto;
@@ -13,4 +14,5 @@ public interface MyDataService {
 	MonthCategoryResultResponseDto getMonthCategoryResult(HttpServletRequest request);
 	List<RecentMonthResponseDto> getRecentFourMonthResult(HttpServletRequest request);
 	void linkCard(Long cardCompanyId , String userId);
+	CardInfoResponseDto getUserCardInfo(Long cardId, int year, int month , HttpServletRequest request);
 }
