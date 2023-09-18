@@ -8,6 +8,7 @@ export default {
   signup: (userData: SignupRequest) => http.post<CommonResponse>('api/user/signup', userData),
   password: (userSimplePassword: string) =>
     http.post<CommonResponse>('api/user/password', { userSimplePassword }),
+  withdrawal: () => http.delete<CommonResponse>('api/user'),
 };
 
 interface CommonResponse {

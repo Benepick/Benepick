@@ -26,9 +26,12 @@ export const appSlice = createSlice({
     setLaunch: (state) => {
       state.isFirstLaunched = false;
     },
+    reset: (state) => {
+      state = initialState;
+    },
   },
 });
 
-export const { setShakePick, unsetShakePick, setLaunch } = appSlice.actions;
+export const { setShakePick, unsetShakePick, setLaunch, reset } = appSlice.actions;
 
 export default appSlice.reducer;
