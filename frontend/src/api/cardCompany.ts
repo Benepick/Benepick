@@ -4,6 +4,7 @@ export default {
   get: (isSignUp: number) =>
     http.get<CardCompanyGetResponse>(`api/card-company?isSignUp=${isSignUp}`),
   post: (cardCompanyIdList: number[]) => http.post('api/card-company', { cardCompanyIdList }),
+  delete: (cardCompanyId: number) => http.delete(`api/card-company/${cardCompanyId}`),
 };
 export interface CardCompanyGetResponse {
   statusCode: number;
