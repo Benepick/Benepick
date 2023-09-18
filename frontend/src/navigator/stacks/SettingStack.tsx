@@ -28,7 +28,9 @@ const SettingStack = () => {
         name="Setting"
         component={Setting}
         options={({ navigation }) => ({
-          headerRight: () => <IconButton onPress={() => navigation.goBack()} name="Close" />,
+          headerRight: () => (
+            <IconButton onPress={() => navigation.push('BottomTab')} name="Close" />
+          ),
           headerBackVisible: false,
         })}
       />

@@ -24,7 +24,7 @@ function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
 
   return (
     <WhitePage>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Spacing />
         {cardCompanys.map((cardCompany) => {
           return (

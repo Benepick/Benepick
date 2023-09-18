@@ -14,6 +14,8 @@ const getToken = () => {
 
 // 토큰이 있을 때 httpAxios에 토큰을 집어넣는 로직
 httpAxios.interceptors.request.use((config) => {
+  // Request URL 보는법
+  // console.log(config.url);
   const newConfig = { ...config };
   const token = getToken();
   if (token) {
