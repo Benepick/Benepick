@@ -2,6 +2,7 @@ package com.ssafy.benepick.mydata.domain.mydata.entity;
 
 import java.util.List;
 
+import com.ssafy.benepick.mydata.domain.mydata.dto.response.ApiMyDataUserResponseDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,4 +37,14 @@ public class MyDataUser {
 
 	@OneToMany(mappedBy = "myDataUser", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<MyDataCard> myDataCardList;
+
+	public ApiMyDataUserResponseDto toDto(){
+		return ApiMyDataUserResponseDto.builder()
+				.myDataUserId(myDataUserId)
+				.myDataUserName(myDataUserName)
+				.myDataUserSocialNumber(myDataUserSocialNumber)
+				.myDataUserPhoneNumber(myDataUserPhoneNumber)
+				.build();
+
+	}
 }

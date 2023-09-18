@@ -1,8 +1,10 @@
 package com.ssafy.benepick.mydata.domain.mydata.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import com.ssafy.benepick.mydata.domain.card.entity.Card;
+import com.ssafy.benepick.mydata.domain.mydata.dto.response.ApiMyDataCardResponseDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,4 +48,14 @@ public class MyDataCard {
 	@OneToMany(mappedBy = "myDataCard", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<MyDataPayment> myDataPaymentList;
 
+
+	public ApiMyDataCardResponseDto toDto(){
+		return ApiMyDataCardResponseDto.builder()
+				.myDataCardId(myDataCardId)
+				.myDataCardExpirationDate(myDataCardExpirationDate)
+				.myDataCardPrevMonthAmount(myDataCardPrevMonthAmount)
+				.apiMyDataPaymentResponseDtoList(new ArrayList<>())
+				.build();
+
+	}
 }

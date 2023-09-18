@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CardCompanyService {
 	List<ApiCardCompanyResponseDto> getAllCardCompany();
+	ApiCardCompanyResponseDto getCardCompany(Long cardId);
 }

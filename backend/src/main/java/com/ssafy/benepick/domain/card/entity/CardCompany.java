@@ -50,11 +50,11 @@ public class CardCompany {
 
 	public CardCompanyResponseDto toCardCompanyResponseDto(boolean isLinked){
 		return CardCompanyResponseDto.builder()
-			.cardCompanyId(cardCompanyId)
-			.cardCompanyImgUrl(cardCompanyImgUrl)
-			.cardCompanyName(cardCompanyName)
-			.isLinked(isLinked)
-			.isSelected(isLinked ? true : false)
-			.build();
+				.cardCompanyId(cardCompanyId)
+				.cardCompanyImgUrl(cardCompanyImgUrl)
+				.cardCompanyName(cardCompanyName)
+				.isLinked(isLinked)
+				.isSelected(isLinked ? true : false)
+				.build();
 	}
 }

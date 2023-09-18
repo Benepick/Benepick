@@ -2,6 +2,8 @@ package com.ssafy.benepick.mydata.domain.card.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ssafy.benepick.mydata.domain.card.dto.response.ApiCategory2ResponseDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,4 +40,13 @@ public class Category2 {
 	@OneToMany(mappedBy = "category2", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<Category3> category3List;
 
+
+	public ApiCategory2ResponseDto toDto(){
+		return ApiCategory2ResponseDto.builder()
+				.category2Id(category2Id)
+				.category3List(new ArrayList<>())
+				.category2Name(category2Name)
+				.build();
+
+	}
 }

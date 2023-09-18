@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
+import com.ssafy.benepick.global.api.dto.response.ApiMyDataPaymentResponseDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,23 +42,23 @@ public class UserCardServiceImpl implements  UserCardService{
 
 	@Override
 	@Transactional(transactionManager = "benepickTransactionManager")
-	public void linkUserCardAndUserPaymentByMyDataCard(List<MyDataCard> myDataCardList) {
+	public void linkUserCardAndUserPaymentByMyDataCard(List<ApiMyDataCardResponseDto> myDataCardList) {
 		log.info("UserCardServiceImpl_linkUserCardAndUserPaymentByMyDataCard || 마이데이터 유저 카드 데이터를 유저 카드데이터에 연동");
 
-		User user = userRepository.findById(myDataCardList.get(0).getMyDataUser().getMyDataUserId()).get();
+		User user = userRepository.findById(myDataCardList.get(0).getApiMyDataUserResponseDto().getMyDataUserId()).get();
 		myDataCardList.stream().forEach(myDataCard -> {
 			UserCard userCard = myDataCardToUserCard(myDataCard, user);
 			userCardRepository.save(userCard);
 
 			// 결제 내역 연동
-			List<UserPayment> userCardPaymentList = myDataCard.getMyDataPaymentList().stream()
+			List<UserPayment> userCardPaymentList = myDataCard.getApiMyDataPaymentResponseDtoList().stream()
 				.map(myDataPayment -> myDataPaymentToUserPayment(myDataPayment,userCard))
 				.collect(Collectors.toList());
 
 			List<UserCardCategory1> userCardCategory1List = new ArrayList<>();
 
 			// 카테고리1 연동
-			myDataCard.getCard().getCategory1List().stream().forEach(category1 -> {
+			myDataCard.getApiCardResponseDto().getCategory1List().stream().forEach(category1 -> {
 				UserCardCategory1 userCardCategory1 = category1.toUserCardCategory1(userCard);
 
 				category1.getCardBenefitList().stream().forEach(cardBenefit -> {
@@ -102,23 +104,23 @@ public class UserCardServiceImpl implements  UserCardService{
 
 
 	@Override
-	public UserCard myDataCardToUserCard(MyDataCard myDataCard,User user) {
+	public UserCard myDataCardToUserCard(ApiMyDataCardResponseDto myDataCard,User user) {
 		return UserCard.builder()
 			.user(user)
-			.userCardCompanyName(myDataCard.getCard().getCardCompany().getCardCompanyName())
+			.userCardCompanyName(myDataCard.getApiCardResponseDto().getApiCardCompanyResponseDto().getCardCompanyName())
 			.userCardSerialNumber(myDataCard.getMyDataCardId())
-			.userCardCode(myDataCard.getCard().getCardCode())
-			.userCardName(myDataCard.getCard().getCardName())
+			.userCardCode(myDataCard.getApiCardResponseDto().getCardCode())
+			.userCardName(myDataCard.getApiCardResponseDto().getCardName())
 			.userCardExpirationDate(myDataCard.getMyDataCardExpirationDate())
-			.userCardImgUrl(myDataCard.getCard().getCardImgUrl())
-			.userCardCompanyImgUrl(myDataCard.getCard().getCardCompany().getCardCompanyImgUrl())
+			.userCardImgUrl(myDataCard.getApiCardResponseDto().getCardImgUrl())
+			.userCardCompanyImgUrl(myDataCard.getApiCardResponseDto().getApiCardCompanyResponseDto().getCardCompanyImgUrl())
 			.userCardCurrentPerformance(0)
 			.userCardPrevPerformance(0)
 			.build();
 	}
 
 	@Override
-	public UserPayment myDataPaymentToUserPayment(MyDataPayment myDataPayment , UserCard userCard) {
+	public UserPayment myDataPaymentToUserPayment(ApiMyDataPaymentResponseDto myDataPayment , UserCard userCard) {
 		return UserPayment.builder()
 			.userCard(userCard)
 			.userPaymentCategory1(myDataPayment.getMyDataPaymentCategory1())

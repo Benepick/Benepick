@@ -1,5 +1,6 @@
 package com.ssafy.benepick.mydata.domain.card.entity;
 
+import com.ssafy.benepick.mydata.domain.card.dto.response.ApiCardBenefitResponseDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -37,4 +38,13 @@ public class CardBenefit {
 	@JoinColumn(name = "category1_id" , nullable = false)
 	private Category1 category1;
 
+	public ApiCardBenefitResponseDto toDto(){
+		return ApiCardBenefitResponseDto.builder()
+				.cardBenefitPerformanceLevel(cardBenefitPerformanceLevel)
+				.cardBenefitDiscountPercent(cardBenefitDiscountPercent)
+				.cardBenefitPerformanceStart(cardBenefitPerformanceStart)
+				.cardBenefitPerformanceEnd(cardBenefitPerformanceEnd)
+				.build();
+
+	}
 }

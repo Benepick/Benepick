@@ -26,5 +26,9 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 				.collect(Collectors.toList());
 	}
 
-
+	@Override
+	public ApiCardCompanyResponseDto getCardCompany(Long cardId) {
+		log.info("CardCompanyServiceImpl_getCardCompany | 카드사 조회");
+		return cardCompanyRepository.findById(cardId).get().toApiCardCompanyResponseDto();
+	}
 }

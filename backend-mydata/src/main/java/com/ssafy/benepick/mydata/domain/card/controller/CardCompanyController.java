@@ -3,10 +3,8 @@ package com.ssafy.benepick.mydata.domain.card.controller;
 import com.ssafy.benepick.mydata.domain.card.service.CardCompanyService;
 import com.ssafy.benepick.mydata.global.response.ListResponseResult;
 import com.ssafy.benepick.mydata.global.response.ResponseResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.ssafy.benepick.mydata.global.response.SingleResponseResult;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -40,6 +38,17 @@ public class CardCompanyController {
 	public ResponseResult getAllCardCompany() {
 		log.info("CardCompanyController_getAllCardCompany");
 		return new ListResponseResult<>(cardCompanyService.getAllCardCompany());
+	}
+
+	@Operation(summary = "카드사 조회", description = "카드사 조회 기능")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "카드사 조회 성공"),
+			@ApiResponse(responseCode = "400", description = "카드사 조회 실패"),
+	})
+	@GetMapping("/{cardId}")
+	public ResponseResult getCardCompany(@PathVariable Long cardId) {
+		log.info("CardCompanyController_getAllCardCompany");
+		return new SingleResponseResult<>(cardCompanyService.getCardCompany(cardId));
 	}
 
 }

@@ -10,6 +10,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
+import com.ssafy.benepick.global.api.service.ApiService;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.benepick.domain.card.entity.Category1;
@@ -51,6 +53,7 @@ public class MyDataServiceImpl implements MyDataService {
 	private final UserPaymentService userPaymentService;
 	private final UserPaymentRepository userPaymentRepository;
 	private final MyDataCardRepository myDataCardRepository;
+	private final ApiService apiService;
 
 	@Override
 	public MonthResultResponseDto getMonthResult(HttpServletRequest request) {
@@ -140,7 +143,12 @@ public class MyDataServiceImpl implements MyDataService {
 	@Override
 	public void linkCard(Long cardCompanyId, String userId) {
 		log.info("MyDataServiceImpl_linkCard || 사용자의 카드중 넘겨받은 카드사와 일치하는 카드들 연결");
-		List<MyDataCard> myDataCardList = myDataCardRepository.findByUserIdAndCompanyId(userId, cardCompanyId);
+		List<ApiMyDataCardResponseDto> myDataCardList = apiService.getMyDataCardList(cardCompanyId, userId);
+//		List<MyDataCard> myDataCardList = myDataCardRepository.findByUserIdAndCompanyId(userId, cardCompanyId);
+		for (ApiMyDataCardResponseDto apiMyDataCardResponseDto : myDataCardList)
+		{
+			System.out.println("apiMyDataCardResponseDto = " + apiMyDataCardResponseDto.getApiCardResponseDto().getApiCardCompanyResponseDto().getCardCompanyName());
+		}
 
 		if(myDataCardList.size() == 0)
 			return;

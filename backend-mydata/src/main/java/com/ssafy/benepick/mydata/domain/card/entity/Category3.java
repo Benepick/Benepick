@@ -1,5 +1,6 @@
 package com.ssafy.benepick.mydata.domain.card.entity;
 
+import com.ssafy.benepick.mydata.domain.card.dto.response.ApiCategory3ResponseDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,4 +32,11 @@ public class Category3 {
 	@JoinColumn(name = "category2_id" , nullable = false)
 	private Category2 category2;
 
+	public ApiCategory3ResponseDto toDto(){
+		return ApiCategory3ResponseDto.builder()
+				.category3Id(category3Id)
+				.category3Name(category3Name)
+				.build();
+
+	}
 }

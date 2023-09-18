@@ -1,10 +1,8 @@
 package com.ssafy.benepick.mydata.domain.card.dto.response;
 
+import com.ssafy.benepick.mydata.domain.mydata.dto.response.ApiMyDataCardResponseDto;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,6 +10,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
 @Schema(description = "카드 정보 DTO")
 public class ApiCardResponseDto {
 
@@ -19,5 +18,6 @@ public class ApiCardResponseDto {
     private String cardName;
     private String cardImgUrl;
 //    private List<ApiMyDataCardResponseDto> myDataCardList;
+    private ApiCardCompanyResponseDto apiCardCompanyResponseDto;
     private List<ApiCategory1ResponseDto> category1List;
 }

@@ -1,9 +1,11 @@
 package com.ssafy.benepick.mydata.domain.mydata.controller;
 
+import com.ssafy.benepick.mydata.domain.mydata.dto.request.ApiMyDataCardRequestDto;
 import com.ssafy.benepick.mydata.domain.mydata.service.MyDataService;
 import com.ssafy.benepick.mydata.global.response.ResponseResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.ssafy.benepick.mydata.global.response.SingleResponseResult;
+import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,9 +22,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/mydata")
+@RequestMapping(value = "/mydata")
 public class MyDataController {
 
 	private final MyDataService myDataService;
 
+	@Operation(summary = "마이 데이터 카드 조회", description = "마이 데이터 카드 조회 기능")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "마이 데이터 카드 조회 성공"),
+			@ApiResponse(responseCode = "400", description = "마이 데이터 카드 조회 실패"),
+	})
+	@GetMapping
+	public ResponseResult getMyDataCardList(@RequestParam Long cardCompanyId , @RequestParam String userId) {
+		log.info("MyDataController_getMyDataCardList");
+		return new SingleResponseResult<>(myDataService.getMyDataCard(cardCompanyId , userId));
+	}
 }

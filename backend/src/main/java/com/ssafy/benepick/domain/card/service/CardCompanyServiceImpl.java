@@ -85,7 +85,7 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 			// 카드사가 연동이 안된상태일경우 새로 연동
 			if(!isExist) {
 				log.info("새로운 카드사 연동");
-				loginUser.linkCardCompany(cardCompanyRepository.findById(cardCompanyId).orElseThrow(NotExistCardCompanyException::new));
+				loginUser.linkCardCompany(apiService.getCardCompanyFromMyDataServer(cardCompanyId));
 				myDataService.linkCard(cardCompanyId , loginUser.getUserId());
 			}
 		}

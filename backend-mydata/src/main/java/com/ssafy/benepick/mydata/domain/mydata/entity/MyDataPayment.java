@@ -2,6 +2,7 @@ package com.ssafy.benepick.mydata.domain.mydata.entity;
 
 import java.time.LocalDateTime;
 
+import com.ssafy.benepick.mydata.domain.mydata.dto.response.ApiMyDataPaymentResponseDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -50,5 +51,19 @@ public class MyDataPayment {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "mydata_card_id" , nullable = false)
 	private MyDataCard myDataCard;
+
+	public ApiMyDataPaymentResponseDto toDto(){
+		return ApiMyDataPaymentResponseDto.builder()
+				.myDataPaymentId(myDataPaymentId)
+				.myDataPaymentAmount(myDataPaymentAmount)
+				.myDataPaymentCardCode(myDataPaymentCardCode)
+				.myDataPaymentDate(myDataPaymentDate)
+				.myDataPaymentMerchantName(myDataPaymentMerchantName)
+				.myDataPaymentReceivedBenefitAmount(myDataPaymentReceivedBenefitAmount)
+				.myDataPaymentCategory1(myDataPaymentCategory1)
+				.myDataPaymentCategory2(myDataPaymentCategory2)
+				.build();
+
+	}
 }
 
