@@ -18,7 +18,7 @@ function Start({ navigation }: StartNavigationProps) {
       <Spacing />
       <SubmitButton
         title="간편 로그인 페이지로 이동하기"
-        onPress={() => navigation.push('LogIn')}
+        onPress={() => navigation.push('Login')}
       />
       <Spacing />
 

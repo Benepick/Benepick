@@ -3,6 +3,7 @@ import { checkNotifications, requestNotifications } from 'react-native-permissio
 
 const initialState = {
   shakePick: false,
+  isFirstLaunched: true,
 };
 
 export const appSlice = createSlice({
@@ -17,11 +18,17 @@ export const appSlice = createSlice({
           }
         });
       }
-      state.shakePick = !state.shakePick;
+      state.shakePick = true;
+    },
+    clearShakePick: (state) => {
+      state.shakePick = false;
+    },
+    setLaunch: (state) => {
+      state.isFirstLaunched = false;
     },
   },
 });
 
-export const { setShakePick } = appSlice.actions;
+export const { setShakePick, clearShakePick, setLaunch } = appSlice.actions;
 
 export default appSlice.reducer;

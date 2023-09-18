@@ -9,13 +9,12 @@ import PhoneAuth from '@pages/auth/PhoneAuth/PhoneAuth';
 import SetPassword from '@pages/auth/SetPassword/SetPassword';
 import SelectCompany from '@pages/auth/SelectCompany/SelectCompany';
 import SelectCard from '@pages/auth/SelectCard/SelectCard';
-import LogIn from '@pages/auth/LogIn/LogIn';
+import Login from '@pages/auth/Login/Login';
 import RegistrationComplete from '@pages/auth/RegistrationComplete/RegistrationComplete';
 
 import colors from '@common/design/colors';
 import ProgressNode from '@common/components/progress/ProgressNode';
 import { RootStackParamList } from '@interfaces/navigation';
-import { StatusBar } from 'react-native';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -68,7 +67,7 @@ const AuthStack = () => {
         component={RegistrationComplete}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="LogIn" component={LogIn} />
+      <Stack.Screen name="Login" component={Login} options={{ headerBackVisible: false }} />
     </Stack.Navigator>
   );
 };
