@@ -1,21 +1,16 @@
+import { store } from '@store/store';
 import Axios from 'axios';
 
-export const ROOT = 'http://192.168.137.163:8080/';
+export const ROOT = 'http://192.168.137.69:8080/';
 
 const httpAxios = Axios.create({
   baseURL: ROOT,
 });
 
-// 토큰을 받아옴
-// 현재는 김싸피 토큰임
-const getToken = () => {
-  return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE2OTM5Nzk0NDIsImV4cCI6MTc1NDQ1OTQ0MiwidXNlcklkIjoiZjJhNWI1N2MyOTJhNDkzNzRmMWZhNTAyNjJjNzY2NjdmYjRhYWNlYzNlZGQ2YzlmNDJhYmZiZWU1OGVkZjlmNyJ9.zuh5QQPIRjl9W7JXdmdOWa-YcRDQ5jCzT706dKk8KyQ';
-};
-
 // 토큰이 있을 때 httpAxios에 토큰을 집어넣는 로직
 httpAxios.interceptors.request.use((config) => {
   const newConfig = { ...config };
-  const token = getToken();
+  const token = store.getState().user.token;
   if (token) {
     newConfig.headers.Authorization = `Bearer ${token}`;
   }

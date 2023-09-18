@@ -14,4 +14,6 @@ public interface CardService {
 
     List<CardBenefit> getCardBenefits(Category1 category1);
     List<Integer> getCardBenefitsLevels(Category1 category1);
+    List<Category1> findCategory1ListByCardCode(Long cardCode);
+
 }

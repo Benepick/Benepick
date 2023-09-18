@@ -22,12 +22,12 @@ export interface IconButtonProps {
   size?: number;
 }
 
-export interface SubmitButtonProps extends TouchableOpacityProps {
+export interface SubmitButtonProps extends TouchableHighlightProps {
   title: string;
   color?: string;
 }
 
-export interface RequestButtonProps extends TouchableOpacityProps {
+export interface RequestButtonProps extends TouchableHighlightProps {
   title: string;
   color?: string;
 }

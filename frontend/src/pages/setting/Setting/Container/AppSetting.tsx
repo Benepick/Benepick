@@ -6,14 +6,18 @@ import SvgIcons from '@common/assets/SvgIcons';
 import colors from '@common/design/colors';
 import BSwitch from '@common/components/BSwitch';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { setShakePick } from '@store/slices/appSlice';
+import { unsetShakePick, setShakePick } from '@store/slices/appSlice';
 
 function AppSetting() {
   const notification = useAppSelector((state) => state.app.shakePick);
   const dispatch = useAppDispatch();
 
   const setNotification = () => {
-    dispatch(setShakePick());
+    if (notification) {
+      dispatch(unsetShakePick());
+    } else {
+      dispatch(setShakePick());
+    }
   };
 
   return (

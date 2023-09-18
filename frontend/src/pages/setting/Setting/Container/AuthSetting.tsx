@@ -8,7 +8,7 @@ import BSwitch from '@common/components/BSwitch';
 import IconButton from '@common/components/IconButton';
 import { SettingNavigationProps } from '@interfaces/navigation';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { setAutoLogIn } from '@store/slices/userSlice';
+import { setAutoLogin } from '@store/slices/userSlice';
 
 function AuthSetting({ navigation }: SettingNavigationProps) {
   const isAutoLogined = useAppSelector((state) => state.user.autoLogIn);
@@ -16,7 +16,7 @@ function AuthSetting({ navigation }: SettingNavigationProps) {
   const dispatch = useAppDispatch();
 
   const changeAutoLogin = () => {
-    dispatch(setAutoLogIn());
+    dispatch(setAutoLogin(!isAutoLogined));
   };
 
   const changeBiometricAuthentication = () => {

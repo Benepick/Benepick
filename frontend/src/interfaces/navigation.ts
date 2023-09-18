@@ -23,7 +23,7 @@ export type RootStackParamList = {
   SelectCard: undefined;
   RegistrationComplete: undefined;
 
-  LogIn: undefined;
+  Login: undefined;
 
   // Bottom Tab
   BottomTab: undefined;
@@ -94,8 +94,8 @@ export interface RegistrationCompleteNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'RegistrationComplete'>;
 }
 
-export interface LogInNavigationProps {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'LogIn'>;
+export interface LoginNavigationProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
 }
 
 // Bottom Tab
