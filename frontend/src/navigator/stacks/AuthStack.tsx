@@ -9,12 +9,12 @@ import PhoneAuth from '@pages/auth/PhoneAuth/PhoneAuth';
 import SetPassword from '@pages/auth/SetPassword/SetPassword';
 import SelectCompany from '@pages/auth/SelectCompany/SelectCompany';
 import SelectCard from '@pages/auth/SelectCard/SelectCard';
-import Login from '@pages/auth/Login/Login';
 import RegistrationComplete from '@pages/auth/RegistrationComplete/RegistrationComplete';
 
 import colors from '@common/design/colors';
 import ProgressNode from '@common/components/progress/ProgressNode';
 import { RootStackParamList } from '@interfaces/navigation';
+import Login from '@pages/auth/Login/Login';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

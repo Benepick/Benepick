@@ -11,8 +11,8 @@ import { LoginNavigationProps } from 'interfaces/navigation';
 import user from '@api/user';
 
 function Login({ navigation }: LoginNavigationProps) {
-  const [password, setPassword] = useState<Array<string>>([]);
-  const [len, setLen] = useState(0);
+  const [password, setPassword] = useState<string[]>([]);
+  const [len, setLen] = useState<number>(0);
 
   useEffect(() => {
     setLen(password.length);
@@ -21,7 +21,7 @@ function Login({ navigation }: LoginNavigationProps) {
   const enterPassword = (pad: string) => {
     if (pad === 'Clear') {
       setPassword([]);
-    } else if (pad === 'remove' && password.length >= 0) {
+    } else if (pad === 'remove' && password.length > 0) {
       const newPassword = [...password];
       newPassword.pop();
       setPassword(newPassword);
@@ -35,7 +35,7 @@ function Login({ navigation }: LoginNavigationProps) {
           .then((response) => {
             if (response.statusCode === 200) {
               console.log(response.messages);
-              navigation.navigate('Home');
+              navigation.navigate('BottomTab');
             } else {
               console.log('Error, Status Code: ', response.statusCode);
               if (response.statusCode === 400) {

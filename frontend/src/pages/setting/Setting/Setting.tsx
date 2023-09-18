@@ -8,6 +8,7 @@ import { Spacing } from '@common/components/Spacing';
 import AuthSetting from './Container/AuthSetting';
 import CardSetting from './Container/CardSetting';
 import AppSetting from './Container/AppSetting';
+import FlatButton from '@common/components/FlatButton';
 
 function Setting({ navigation }: SettingNavigationProps) {
   return (
@@ -24,6 +25,8 @@ function Setting({ navigation }: SettingNavigationProps) {
       <BText type="h3">앱 설정</BText>
       <Spacing />
       <AppSetting />
+      <Spacing />
+      <View>{/* <FlatButton text={''} onPress={onPress} /> */}</View>
     </WhitePage>
   );
 }
