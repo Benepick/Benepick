@@ -8,17 +8,10 @@ const httpAxios = Axios.create({
 });
 
 const token = useAppSelector((state) => state.user.token);
-// 토큰을 받아옴
-// 현재는 김싸피 토큰임
-
-const getToken = () => {
-  return token;
-};
 
 // 토큰이 있을 때 httpAxios에 토큰을 집어넣는 로직
 httpAxios.interceptors.request.use((config) => {
   const newConfig = { ...config };
-  const token = getToken();
   if (token) {
     newConfig.headers.Authorization = `Bearer ${token}`;
   }
