@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.benepick.domain.card.dto.request.LinkAndRenewCardCompanyRequestDto;
@@ -45,9 +46,9 @@ public class CardCompanyController {
 		@ApiResponse(responseCode = "400", description = "전체 카드사 조회 실패"),
 	})
 	@GetMapping
-	public ResponseResult getAllCardCompany(HttpServletRequest request) {
+	public ResponseResult getAllCardCompany(@RequestParam(value = "isSignUp") int isSignUp,HttpServletRequest request) {
 		log.info("CardCompanyController_getAllCardCompany");
-		return new ListResponseResult<>(cardCompanyService.getAllCardCompany());
+		return new ListResponseResult<>(cardCompanyService.getAllCardCompany(isSignUp , request));
 	}
 
 	@Operation(summary = "카드사 연동", description = "사용자가 카드사 연동 및 갱신")
