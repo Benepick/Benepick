@@ -20,7 +20,7 @@ export const appSlice = createSlice({
       }
       state.shakePick = true;
     },
-    clearShakePick: (state) => {
+    unsetShakePick: (state) => {
       state.shakePick = false;
     },
     setLaunch: (state) => {
@@ -29,6 +29,6 @@ export const appSlice = createSlice({
   },
 });
 
-export const { setShakePick, clearShakePick, setLaunch } = appSlice.actions;
+export const { setShakePick, unsetShakePick, setLaunch } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -4,9 +4,9 @@ import RootStack from './src/navigator/RootStack';
 import PushNotification, { Importance } from 'react-native-push-notification';
 import PushAlert from '@common/utils/PushAlert';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { setLaunch, setShakePick } from '@store/slices/appSlice';
+import { setShakePick, setLaunch } from '@store/slices/appSlice';
 
-function App(): JSX.Element {
+function App() {
   const { EventListener } = NativeModules;
 
   const app = useAppSelector((state) => state.app);
