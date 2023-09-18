@@ -48,7 +48,6 @@ public class MyDataServiceImpl implements MyDataService {
 
 	private final UserService userService;
 	private final UserCardService userCardService;
-	private final CardService cardService;
 	private final UserPaymentService userPaymentService;
 	private final UserPaymentRepository userPaymentRepository;
 	private final MyDataCardRepository myDataCardRepository;

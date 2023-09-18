@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.ssafy.benepick.global.api.dto.response.ApiCardCompanyResponseDto;
+import com.ssafy.benepick.global.api.service.ApiService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,28 +36,31 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	private final MyDataService myDataService;
 	private final UserService userService;
 	private final UserCardCompanyService userCardCompanyService;
+	private final ApiService apiService;
 
 	@Override
 	public List<CardCompanyResponseDto> getAllCardCompany(int isSignUp,HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_getAllCardCompany | 모든 카드사 조회");
 
+
 		if(isSignUp == 1){
-			return cardCompanyRepository.findAll()
-				.stream()
-				.map(cardCompany -> cardCompany.toCardCompanyResponseDtoForSignUp())
-				.collect(Collectors.toList());
+			return apiService.getCardCompanyListFromMyDataServer()
+					.stream()
+					.map(apiCardCompanyResponseDto -> apiCardCompanyResponseDto.toCardCompanyResponseDtoForSignUp())
+					.collect(Collectors.toList());
+
 		}
 
 		List<UserCardCompany> userCardCompanyList = userService.getUserFromRequest(request).getUserCardCompanyList();
-		List<CardCompany> cardCompanyList = cardCompanyRepository.findAll();
 
 		Set<Long> linkedCardCompanyIds = userCardCompanyList.stream()
 			.map(UserCardCompany::getUserCardCompanyId)
 			.collect(Collectors.toSet());
 
-		return cardCompanyList.stream()
-			.map(cardCompany -> cardCompany.toCardCompanyResponseDto(linkedCardCompanyIds.contains(cardCompany.getCardCompanyId())))
-			.collect(Collectors.toList());
+		return apiService.getCardCompanyListFromMyDataServer()
+				.stream()
+				.map(apiCardCompanyResponseDto -> apiCardCompanyResponseDto.toCardCompanyResponseDto(linkedCardCompanyIds.contains(apiCardCompanyResponseDto.getCardCompanyId())))
+				.collect(Collectors.toList());
 	}
 
 	@Override
