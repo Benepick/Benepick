@@ -1,4 +1,4 @@
-import { useAppSelector } from '@store/hooks';
+import { store } from '@store/store';
 import Axios from 'axios';
 
 export const ROOT = 'http://192.168.137.69:8080/';
@@ -7,13 +7,12 @@ const httpAxios = Axios.create({
   baseURL: ROOT,
 });
 
-const token = useAppSelector((state) => state.user.token);
-
 // 토큰이 있을 때 httpAxios에 토큰을 집어넣는 로직
 httpAxios.interceptors.request.use((config) => {
   // Request URL 보는법
   // console.log(config.url);
   const newConfig = { ...config };
+  const token = store.getState().user.token;
   if (token) {
     newConfig.headers.Authorization = `Bearer ${token}`;
   }
