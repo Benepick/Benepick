@@ -13,20 +13,17 @@ import CompanySelectBox from '@common/components/CompanySelectBox';
 import BSwitch from '@common/components/BSwitch';
 import SearchInput from '@common/components/SearchInput';
 import PushAlert from '@common/utils/PushAlert';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { setToken } from '@store/slices/userSlice';
 
 function Test() {
   const [text, setText] = useState('글씨를 입력하세요');
 
   const [switchValue, setSwitchValue] = useState(false);
-  const [selectedBox, setSelectedBox] = useState(false);
   const [search, setSearch] = useState('');
 
   const handleSwitch = () => {
     setSwitchValue(!switchValue);
-  };
-
-  const handleSelectBox = () => {
-    setSelectedBox(!selectedBox);
   };
 
   console.log(search);
@@ -65,14 +62,6 @@ function Test() {
       <ProgressNode size={30} page={3} current={1} />
       <ProgressNode size={30} page={3} current={2} />
       <ProgressNode size={30} page={3} current={3} />
-      <CompanySelectBox
-        name="카카오뱅크"
-        size={30}
-        state="linked"
-        image="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434"
-        isSelected={selectedBox}
-        onPress={handleSelectBox}
-      />
       <Spacing rem="1" />
       <BSwitch size={1} onPress={handleSwitch} value={switchValue} />
     </ScrollView>

@@ -1,3 +1,4 @@
+import { useAppSelector } from '@store/hooks';
 import Axios from 'axios';
 
 export const ROOT = 'http://192.168.137.69:8080/';
@@ -6,18 +7,13 @@ const httpAxios = Axios.create({
   baseURL: ROOT,
 });
 
-// 토큰을 받아옴
-// 현재는 김싸피 토큰임
-const getToken = () => {
-  return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE2OTQ2NTI3MDAsImV4cCI6MTc1NTEzMjcwMCwidXNlcklkIjoiMDAyM2QwYjc2NDAxYzQ4NGMxMjNlOWRjYzYwMzQ5M2Y2ODdmZTRkZjhlOTY1MjFlOGU1MWFhMmVmZDNmZGEwZSJ9.FOVWaHgmS8QjEJYEHzn0rSTZNRsx3MX57VSql2PHWRs';
-};
+const token = useAppSelector((state) => state.user.token);
 
 // 토큰이 있을 때 httpAxios에 토큰을 집어넣는 로직
 httpAxios.interceptors.request.use((config) => {
   // Request URL 보는법
   // console.log(config.url);
   const newConfig = { ...config };
-  const token = getToken();
   if (token) {
     newConfig.headers.Authorization = `Bearer ${token}`;
   }
