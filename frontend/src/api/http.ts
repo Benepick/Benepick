@@ -31,3 +31,10 @@ export const http = {
   token: <Response = unknown, Request = unknown>(url: string, body?: Request) =>
     httpAxios.post<Response>(url, body).then((response) => response),
 };
+
+export interface CommonResponse {
+  statusCode: number;
+  messages: string;
+  developerMessage: string;
+  timestamp: string;
+}
