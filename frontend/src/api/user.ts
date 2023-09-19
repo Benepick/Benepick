@@ -1,13 +1,15 @@
 import { http } from './http';
+import { CardCompanyGetResponse } from './cardCompany';
 
 export default {
   login: (userSimplePassword: string) =>
     http.post<CommonResponse>('api/user/login', { userSimplePassword }),
   phone: (phoneNumber: string) =>
     http.post<PhoneResponse>('api/user/phone', { phoneNumber: phoneNumber }),
-  signup: (userData: SignupRequest) => http.post<CommonResponse>('api/user/signup', userData),
+  signup: (userData: SignupRequest) => http.token<CommonResponse>('api/user/signup', userData),
   password: (userSimplePassword: string) =>
     http.post<CommonResponse>('api/user/password', { userSimplePassword }),
+  cardCompany: () => http.get<CardCompanyGetResponse>('api/user/card-company'),
   withdrawal: () => http.delete<CommonResponse>('api/user'),
 };
 

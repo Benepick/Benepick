@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Alert, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import WhitePage from '@common/components/WhitePage';
 import BText from '@common/components/BText';
@@ -10,50 +10,58 @@ import BCheckBox from '@common/components/BCheckBox';
 import colors from '@common/design/colors';
 
 import { CompanyManagementNavigationProps } from 'interfaces/navigation';
-import { CompanyBoxProps } from '@interfaces/companyConnection';
+import cardCompany, { CardCompany } from '@api/cardCompany';
 
 function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
-  const [boxStates, setBoxStates] = useState<CompanyBoxProps[]>([
-    {
-      id: 0,
-      name: '카카오뱅크0',
-      isLinked: false,
-      selected: false,
-      img: 'https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434',
-    },
-    {
-      id: 1,
-      name: '카카오뱅크1',
-      isLinked: false,
-      selected: false,
-      img: 'https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434',
-    },
-    {
-      id: 2,
-      name: '카카오뱅크2',
-      isLinked: false,
-      selected: false,
-      img: 'https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434',
-    },
-  ]);
-
+  const [boxStates, setBoxStates] = useState<CardCompany[] | []>([]);
   const [isAllselected, setAllSelected] = useState(false);
   const [visibleCount, setVisibleCount] = useState(9);
 
+  // 카드사 정보 가져오기
+  useEffect(() => {
+    cardCompany
+      .get(0)
+      .then((res) => {
+        if (res.statusCode === 200) {
+          setBoxStates(res.data);
+        } else {
+          Alert.alert('전체 카드사 조회에 실패하였습니다.');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (boxStates.length > 0 && getSelectedCount() === boxStates.length) {
+      setAllSelected(true);
+    } else {
+      setAllSelected(false);
+    }
+  }, [boxStates]);
+
+  // 전체 선택
   const selectAll = () => {
-    setBoxStates((prevBoxStates) =>
-      prevBoxStates.map((box) => {
-        return { ...box, selected: !isAllselected };
-      }),
-    );
-    setAllSelected(!isAllselected);
+    if (boxStates) {
+      setBoxStates((prevBoxStates) =>
+        prevBoxStates.map((box) => {
+          return { ...box, selected: !isAllselected };
+        }),
+      );
+      setAllSelected(!isAllselected);
+    }
   };
 
+  // 선택된 카드 갯수 가져오기
   const getSelectedCount = () => {
-    const selectedCount = boxStates.filter((box) => box.selected).length;
-    return selectedCount;
+    if (boxStates) {
+      const selectedCount = boxStates.filter((box) => box.selected).length;
+      return selectedCount;
+    }
   };
 
+  // 박스 선택
   const handleSelectBox = (index: number) => {
     const newBoxStates = [...boxStates];
     newBoxStates[index].selected = !newBoxStates[index].selected;
@@ -69,9 +77,24 @@ function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
     setVisibleCount((prevCount) => prevCount + 3);
   };
 
+  // 카드사 연동 수정
   const submitCompany = () => {
-    const selectedCompanies = boxStates.filter((box) => box.selected);
-    console.log(selectedCompanies);
+    if (boxStates) {
+      const selectedCompanies = boxStates.filter((box) => box.selected);
+      const selectedCompaniesId = selectedCompanies.map((company) => company.cardCompanyId);
+      cardCompany
+        .post(selectedCompaniesId)
+        .then((res) => {
+          if (res.statusCode === 200) {
+            navigation.push('Setting');
+          } else {
+            Alert.alert('카드사 조회에 실패하였습니다');
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -83,32 +106,37 @@ function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
         <View style={styles.checkBox}>
           <BCheckBox value={isAllselected} size={1} onPress={selectAll} />
           <Spacing rem="0.5" dir="row" />
-          <BText>{getSelectedCount() === boxStates.length ? '전체해제' : '전체선택'}</BText>
+          <BText>
+            {boxStates && getSelectedCount() === boxStates.length ? '전체해제' : '전체선택'}
+          </BText>
         </View>
         <Spacing />
         <View style={styles.container}>
-          {boxStates.slice(0, visibleCount).map((box, index) => (
-            <View key={box.id} style={styles.box}>
-              <CompanySelectBox
-                name={box.name}
-                image={box.img}
-                size={30}
-                isLinked={box.isLinked}
-                isSelected={box.selected}
-                onPress={() => handleSelectBox(index)}
-              />
-            </View>
-          ))}
+          {boxStates &&
+            boxStates.slice(0, visibleCount).map((box, index) => (
+              <View key={box.cardCompanyId} style={styles.box}>
+                <CompanySelectBox
+                  name={box.cardCompanyName}
+                  // image={box.cardCompanyImgUrl}
+                  image="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434"
+                  size={30}
+                  isLinked={box.linked}
+                  isSelected={box.selected}
+                  onPress={() => handleSelectBox(index)}
+                />
+              </View>
+            ))}
         </View>
 
-        {visibleCount < boxStates.length && ( // 더 볼 회사가 있으면 "더보기" 버튼을 표시
-          <View>
-            <Spacing />
-            <TouchableOpacity onPress={loadMore} style={{ alignSelf: 'center' }}>
-              <BText type="bold">더보기</BText>
-            </TouchableOpacity>
-          </View>
-        )}
+        {boxStates &&
+          visibleCount < boxStates.length && ( // 더 볼 회사가 있으면 "더보기" 버튼을 표시
+            <View>
+              <Spacing />
+              <TouchableOpacity onPress={loadMore} style={{ alignSelf: 'center' }}>
+                <BText type="bold">더보기</BText>
+              </TouchableOpacity>
+            </View>
+          )}
 
         <Spacing />
         <View style={styles.button}>
