@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.ssafy.benepick.global.api.service.ApiService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.benepick.domain.card.dto.request.LinkAndRenewCardCompanyRequestDto;
 import com.ssafy.benepick.domain.card.dto.response.CardCompanyResponseDto;
@@ -55,6 +56,7 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	}
 
 	@Override
+	@Transactional
 	public void linkAndRenewCardCompany(LinkAndRenewCardCompanyRequestDto linkAndRenewCardCompanyRequestDto, HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_linkAndRenewCardCompany | 카드사 연동 및 연동 기간 갱신");
 		User loginUser = userService.getUserFromRequest(request);
@@ -82,6 +84,7 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	}
 
 	@Override
+	@Transactional
 	public void cancelLinkCardCompany(Long cardCompanyId , HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_cancelLinkCardCompany | 카드사 연동 해제");
 		User loginUser = userService.getUserFromRequest(request);

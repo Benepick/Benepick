@@ -60,14 +60,9 @@ public class MyDataServiceImpl implements MyDataService {
                 category1.getCardBenefitList().stream().forEach(cardBenefit -> apiCategory1ResponseDto.getCardBenefitList().add(cardBenefit.toDto()));
                 apiCardResponseDto.getCategory1List().add(apiCategory1ResponseDto);
             });
-            System.out.println("apiCardResponseDto = " + apiCardResponseDto.getApiCardCompanyResponseDto().getCardCompanyName());
             apiMyDataCardResponseDto.setApiCardResponseDto(apiCardResponseDto);
             apiMyDataCardResponseDtoList.add(apiMyDataCardResponseDto);
         });
-
-        for (ApiMyDataCardResponseDto apiMyDataCardResponseDto : apiMyDataCardResponseDtoList) {
-            System.out.println("apiMyDataCardResponseDto = " + apiMyDataCardResponseDto.getApiCardResponseDto().getApiCardCompanyResponseDto().getCardCompanyName());
-        }
 
         return apiMyDataCardResponseDtoList;
     }
