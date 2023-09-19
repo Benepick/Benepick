@@ -20,7 +20,7 @@ function Start({ navigation }: StartNavigationProps) {
         navigation.push('Login');
       }
     }
-  }, [user.token, user.autoLogIn, navigation]);
+  }, []);
 
   return (
     <WhitePage style={styles.layout}>
