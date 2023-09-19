@@ -1,23 +1,16 @@
 package com.ssafy.benepick.domain.user.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import com.ssafy.benepick.domain.user.entity.*;
+import com.ssafy.benepick.domain.user.repository.*;
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataPaymentResponseDto;
 import com.ssafy.benepick.domain.card.service.CardService;
 import com.ssafy.benepick.domain.user.dto.response.UserCardResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
-import com.ssafy.benepick.domain.user.entity.User;
-import com.ssafy.benepick.domain.user.entity.UserCard;
-import com.ssafy.benepick.domain.user.entity.UserCardCategory1;
-import com.ssafy.benepick.domain.user.entity.UserCardCategory2;
-import com.ssafy.benepick.domain.user.entity.UserPayment;
-import com.ssafy.benepick.domain.user.repository.UserCardCategory1Repository;
-import com.ssafy.benepick.domain.user.repository.UserCardRepository;
-import com.ssafy.benepick.domain.user.repository.UserPaymentRepository;
-import com.ssafy.benepick.domain.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +24,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	private final UserRepository userRepository;
 	private final UserPaymentRepository userPaymentRepository;
 	private final UserCardCategory1Repository userCardCategory1Repository;
-	private final CardService cardService;
+	private final UserCardBenefitRepository userCardBenefitRepository;
 	private final UserService userService;
 	@Override
 	public void linkUserCardAndUserPaymentByMyDataCard(List<ApiMyDataCardResponseDto> myDataCardList) {
@@ -125,28 +118,56 @@ public class UserCardServiceImpl implements  UserCardService{
 			.build();
 	}
 
-	// @Override
-	// public List<UserCardResponseDto> getUserCards(HttpServletRequest request) {
-	// 	User user = userService.getUserFromRequest(request);
-	// 	List<UserCard> userCardList = userCardRepository.findByUser(user);
-	// 	List<UserCardResponseDto> userCardResponseDtos = new ArrayList<>();
-	// 	for (UserCard userCard : userCardList) {
-	// 		int curPerform = userCard.getUserCardCurrentPerformance();
-	// 		Card card = cardRepository.findByCardCode(userCard.getUserCardCode());
-	// 		List<Category1> category1s = cardService.getCardCategory1(card);
-	// 		List<Integer> cardPerformLevelList = cardService.getCardBenefitsLevels(category1s.get(0));
-	// 		int currentLevel = 0, nextLevelAmount = 0;
-	//
-	// 		for (int i = 0; i < cardPerformLevelList.size() - 1; i++) {
-	// 			if (curPerform >= cardPerformLevelList.get(i) && curPerform < cardPerformLevelList.get(i+1)) {
-	// 				currentLevel = i;
-	// 				nextLevelAmount = cardPerformLevelList.get(i+1);
-	// 				break;
-	// 			}
-	// 		}
-	// 		UserCardResponseDto userCardResponseDto = userCard.toUserCardResponseDto(cardPerformLevelList, currentLevel, nextLevelAmount);
-	// 		userCardResponseDtos.add(userCardResponseDto);
-	// 	}
-	// 	return userCardResponseDtos;
-	// }
+	 @Override
+	 public List<UserCardResponseDto> getUserCards(HttpServletRequest request) {
+	 	User user = userService.getUserFromRequest(request);
+	 	List<UserCard> userCardList = userCardRepository.findByUser(user);
+	 	List<UserCardResponseDto> userCardResponseDtos = new ArrayList<>();
+	 	for (UserCard userCard : userCardList) {
+	 		int curPerform = userCard.getUserCardCurrentPerformance();
+	 		List<UserCardCategory1> category1s = getUserCardCategory1(userCard); //cardService.getCardCategory1(card);
+	 		List<Integer> cardPerformLevelList = getCardBenefitsLevels(category1s.get(0));
+	 		int currentLevel = 0, nextLevelAmount = 0;
+
+	 		for (int i = 0; i < cardPerformLevelList.size() - 1; i++) {
+	 			if (curPerform >= cardPerformLevelList.get(i) && curPerform < cardPerformLevelList.get(i+1)) {
+	 				currentLevel = i;
+	 				nextLevelAmount = cardPerformLevelList.get(i+1);
+	 				break;
+	 			}
+	 		}
+	 		UserCardResponseDto userCardResponseDto = userCard.toUserCardResponseDto(cardPerformLevelList, currentLevel, nextLevelAmount);
+	 		userCardResponseDtos.add(userCardResponseDto);
+	 	}
+	 	return userCardResponseDtos;
+	 }
+
+	private List<UserCardBenefit> getCardBenefits(UserCardCategory1 userCardCategory1) {
+		List<UserCardBenefit> cardBenefitList = userCardBenefitRepository.findByUserCardCategory1(userCardCategory1);
+		log.info("CardServiceImpl_getCardBenefits| 해당 카드 카테고리 별 혜택 정보를 받아옴");
+		return cardBenefitList;
+	}
+
+	 @Override
+	 public List<Integer> getCardBenefitsLevels(UserCardCategory1 userCardCategory1) {
+		 List<UserCardBenefit> cardBenefitList = getCardBenefits(userCardCategory1);
+		 log.info("CardServiceImpl_getCardBenefits| 카드 혜택 실적 구간 정보를 받아옴");
+		 Set<Integer> performLevelSet = new HashSet<>();
+		 performLevelSet.add(0);
+		 for (UserCardBenefit userCardBenefit : cardBenefitList) {
+			 performLevelSet.add(userCardBenefit.getUserCardBenefitPerformanceStart());
+			 performLevelSet.add(userCardBenefit.getUserCardBenefitPerformanceEnd());
+		 }
+		 List<Integer> performLevelList = new ArrayList<>(performLevelSet);
+		 Collections.sort(performLevelList);
+		 return performLevelList;
+	 }
+	@Override
+	public List<UserCardCategory1> getUserCardCategory1(UserCard userCard) {
+		List<UserCardCategory1> category1s = userCardCategory1Repository.findByUserCard(userCard);
+		 for (UserCardCategory1 cate1 : category1s) {
+			 System.out.println(cate1.getUserCardCategory1Name());
+		 }
+		 return category1s;
+	}
 }
