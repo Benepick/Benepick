@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService{
 	private final SmsService smsService;
 
 	@Override
-	@Transactional(transactionManager = "benepickTransactionManager")
 	public void createUserAccount(CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) throws NoSuchAlgorithmException {
 		log.info("UserServiceImpl_createUserAccount | 유저 회원 가입");
 
@@ -67,7 +66,6 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	@Transactional(transactionManager = "benepickTransactionManager")
 	public void changeSimplePassword(ChangePasswordRequestDto changePasswordRequestDto, HttpServletRequest request) {
 		log.info("UserServiceImpl_changeSimplePassword | 사용자의 간편 비밀번호 변경 서비스");
 		User loginUser = getUserFromRequest(request);

@@ -41,7 +41,6 @@ public class UserCardServiceImpl implements  UserCardService{
 	private final CardService cardService;
 
 	@Override
-	@Transactional(transactionManager = "benepickTransactionManager")
 	public void linkUserCardAndUserPaymentByMyDataCard(List<ApiMyDataCardResponseDto> myDataCardList) {
 		log.info("UserCardServiceImpl_linkUserCardAndUserPaymentByMyDataCard || 마이데이터 유저 카드 데이터를 유저 카드데이터에 연동");
 

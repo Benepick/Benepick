@@ -25,6 +25,7 @@ public class ApiService {
     }
 
     public List<ApiCardCompanyResponseDto> getCardCompanyListFromMyDataServer(){
+        log.info("BANK API : 뱅킹 서버에서 전체 카드사 정보 조회");
         return getDefaultWebClient().get()
                 .uri("/mydata/card-company")
                 .retrieve()
@@ -34,6 +35,7 @@ public class ApiService {
     }
 
     public ApiCardCompanyResponseDto getCardCompanyFromMyDataServer(Long cardId){
+        log.info("BANK API : 뱅킹 서버에서 카드사 정보 조회");
         return getDefaultWebClient().get()
                 .uri("/mydata/card-company/{cardId}",cardId)
                 .retrieve()
@@ -43,7 +45,7 @@ public class ApiService {
     }
 
     public List<ApiMyDataCardResponseDto> getMyDataCardList(Long cardCompanyId,String userId){
-
+        log.info("BANK API : 뱅킹 서버에서 마이데이터 가져와서 갱신해주기");
         return getDefaultWebClient().get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/mydata")

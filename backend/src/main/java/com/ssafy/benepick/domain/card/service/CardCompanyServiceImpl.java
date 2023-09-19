@@ -64,7 +64,6 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	}
 
 	@Override
-	@Transactional(transactionManager = "benepickTransactionManager")
 	public void linkAndRenewCardCompany(LinkAndRenewCardCompanyRequestDto linkAndRenewCardCompanyRequestDto, HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_linkAndRenewCardCompany | 카드사 연동 및 연동 기간 갱신");
 		User loginUser = userService.getUserFromRequest(request);
@@ -92,7 +91,6 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	}
 
 	@Override
-	@Transactional(transactionManager = "benepickTransactionManager")
 	public void cancelLinkCardCompany(Long cardCompanyId , HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_cancelLinkCardCompany | 카드사 연동 해제");
 		User loginUser = userService.getUserFromRequest(request);

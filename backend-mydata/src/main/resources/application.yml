@@ -2,6 +2,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none #create update none
+    properties: # property 사용 설정
+      hibernate: # hibernate property 설정
+        format_sql: true # 보여지는 쿼리를 예쁘게 포맷팅 -> 사용하지않으면 긴 줄 형태로 출력됌
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://j9a610.p.ssafy.io:3306/benepick_bank?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
