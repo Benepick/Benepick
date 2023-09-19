@@ -3,12 +3,12 @@ package com.ssafy.benepick.domain.user.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataPaymentResponseDto;
-import org.springframework.stereotype.Service;
-
 import com.ssafy.benepick.domain.card.service.CardService;
+import com.ssafy.benepick.domain.user.dto.response.UserCardResponseDto;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.stereotype.Service;
 import com.ssafy.benepick.domain.user.entity.User;
 import com.ssafy.benepick.domain.user.entity.UserCard;
 import com.ssafy.benepick.domain.user.entity.UserCardCategory1;
@@ -32,7 +32,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	private final UserPaymentRepository userPaymentRepository;
 	private final UserCardCategory1Repository userCardCategory1Repository;
 	private final CardService cardService;
-
+	private final UserService userService;
 	@Override
 	public void linkUserCardAndUserPaymentByMyDataCard(List<ApiMyDataCardResponseDto> myDataCardList) {
 		log.info("UserCardServiceImpl_linkUserCardAndUserPaymentByMyDataCard || 마이데이터 유저 카드 데이터를 유저 카드데이터에 연동");
@@ -124,4 +124,29 @@ public class UserCardServiceImpl implements  UserCardService{
 			.userPaymentCardCode(myDataPayment.getMyDataPaymentCardCode())
 			.build();
 	}
+
+	// @Override
+	// public List<UserCardResponseDto> getUserCards(HttpServletRequest request) {
+	// 	User user = userService.getUserFromRequest(request);
+	// 	List<UserCard> userCardList = userCardRepository.findByUser(user);
+	// 	List<UserCardResponseDto> userCardResponseDtos = new ArrayList<>();
+	// 	for (UserCard userCard : userCardList) {
+	// 		int curPerform = userCard.getUserCardCurrentPerformance();
+	// 		Card card = cardRepository.findByCardCode(userCard.getUserCardCode());
+	// 		List<Category1> category1s = cardService.getCardCategory1(card);
+	// 		List<Integer> cardPerformLevelList = cardService.getCardBenefitsLevels(category1s.get(0));
+	// 		int currentLevel = 0, nextLevelAmount = 0;
+	//
+	// 		for (int i = 0; i < cardPerformLevelList.size() - 1; i++) {
+	// 			if (curPerform >= cardPerformLevelList.get(i) && curPerform < cardPerformLevelList.get(i+1)) {
+	// 				currentLevel = i;
+	// 				nextLevelAmount = cardPerformLevelList.get(i+1);
+	// 				break;
+	// 			}
+	// 		}
+	// 		UserCardResponseDto userCardResponseDto = userCard.toUserCardResponseDto(cardPerformLevelList, currentLevel, nextLevelAmount);
+	// 		userCardResponseDtos.add(userCardResponseDto);
+	// 	}
+	// 	return userCardResponseDtos;
+	// }
 }
