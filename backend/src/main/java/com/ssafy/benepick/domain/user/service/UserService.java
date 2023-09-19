@@ -1,5 +1,6 @@
 package com.ssafy.benepick.domain.user.service;
 
+import com.ssafy.benepick.domain.user.entity.UserCard;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 import com.ssafy.benepick.domain.user.dto.request.ChangePasswordRequestDto;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 public interface UserService {
 	void createUserAccount(CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) throws NoSuchAlgorithmException;

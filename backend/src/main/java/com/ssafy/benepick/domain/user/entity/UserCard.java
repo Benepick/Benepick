@@ -4,8 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.ssafy.benepick.domain.card.entity.Category1;
-
+import com.ssafy.benepick.domain.user.dto.response.UserCardResponseDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -72,4 +71,18 @@ public class UserCard {
 	@OneToMany(mappedBy = "userCard", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<UserCardCategory1> userCardCategory1List;
 
+	public UserCardResponseDto toUserCardResponseDto (List<Integer> userCardPerformanceLevels, int userCardCurrentLevel, int nextLevelAmount){
+		return UserCardResponseDto.builder()
+				.serialNumber(userCardSerialNumber)
+				.cardName(userCardName)
+				.currentPerformance(userCardCurrentPerformance)
+				.cardImgUrl(userCardImgUrl)
+				.cardCode(userCardCode)
+				.expirationDate(userCardExpirationDate)
+				.cardCompanyName(userCardCompanyName)
+				.performanceLevels(userCardPerformanceLevels)
+				.currentLevel(userCardCurrentLevel)
+				.nextLevelAmount(nextLevelAmount)
+				.build();
+	}
 }
