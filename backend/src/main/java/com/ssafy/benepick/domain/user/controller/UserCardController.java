@@ -29,9 +29,9 @@ import java.util.List;
 @RequestMapping(value = "/api/user/card")
 public class UserCardController {
     private final UserCardService userCardService;
-    @GetMapping()
-    public ResponseResult getUserCards(HttpServletRequest request) {
-        log.info("UserController_getUserCards -> 사용자 보유 카드 목록 조회");
-        return new SingleResponseResult<List<UserCardResponseDto>>(userCardService.getUserCards(request));
-    }
+    // @GetMapping()
+    // public ResponseResult getUserCards(HttpServletRequest request) {
+    //     log.info("UserController_getUserCards -> 사용자 보유 카드 목록 조회");
+    //     return new SingleResponseResult<List<UserCardResponseDto>>(userCardService.getUserCards(request));
+    // }
 }
