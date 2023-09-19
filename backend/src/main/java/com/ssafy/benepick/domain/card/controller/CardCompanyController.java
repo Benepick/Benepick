@@ -2,6 +2,7 @@ package com.ssafy.benepick.domain.card.controller;
 
 import java.util.List;
 
+import com.ssafy.benepick.global.api.service.ApiService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +40,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CardCompanyController {
 
 	private final CardCompanyService cardCompanyService;
+	private final ApiService apiService;
 
 	@Operation(summary = "전체 카드사 조회", description = "전체 카드사 조회 기능")
 	@ApiResponses(value = {
@@ -50,6 +52,7 @@ public class CardCompanyController {
 		log.info("CardCompanyController_getAllCardCompany");
 		return new ListResponseResult<>(cardCompanyService.getAllCardCompany(isSignUp , request));
 	}
+
 
 	@Operation(summary = "카드사 연동", description = "사용자가 카드사 연동 및 갱신")
 	@ApiResponses(value = {

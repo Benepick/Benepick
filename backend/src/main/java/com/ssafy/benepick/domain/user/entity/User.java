@@ -1,14 +1,13 @@
 package com.ssafy.benepick.domain.user.entity;
 
-import io.swagger.v3.oas.annotations.media.Schema;
+import com.ssafy.benepick.global.api.dto.response.ApiCardCompanyResponseDto;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 import java.time.LocalDateTime;
 import java.util.*;
-
-import com.ssafy.benepick.domain.card.entity.CardCompany;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -61,7 +60,7 @@ public class User {
 		this.userSimplePassword = userSimplePassword;
 	}
 
-	public void linkCardCompany(CardCompany cardCompany){
+	public void linkCardCompany(ApiCardCompanyResponseDto cardCompany){
 		LocalDateTime now = LocalDateTime.now();
 
 		this.userCardCompanyList.add(

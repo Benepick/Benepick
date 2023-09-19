@@ -1,5 +1,9 @@
 package com.ssafy.benepick.domain.mydata.dto.response;
 
+import java.util.List;
+
+import com.ssafy.benepick.domain.user.entity.UserCard;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +26,25 @@ public class CardInfoResponseDto {
 	@Schema(description = "카드 이미지 URL", example = "https://~")
 	private String cardImgUrl;
 
-	@Schema(description = "카테고리 이름", example = "쇼핑")
-	private int card;
+	@Schema(description = "이번달 총 카드 사용 금액", example = "150000")
+	private int totalAmount;
 
+	@Schema(description = "이번달 총 받은 혜택 금액", example = "2000")
+	private int totalBenefit;
+
+	@Schema(description = "카드 거래 내역 리스트", example = "")
+	private List<DayTransactionResponseDto> dayTransactionResponseDtoList;
+
+	public static CardInfoResponseDto createCardInfoResponseDto(
+		UserCard userCard ,int[] monthResult , List<DayTransactionResponseDto> dayTransactionResponseDtoList){
+
+		return CardInfoResponseDto.builder()
+			.cardCompanyName(userCard.getUserCardCompanyName())
+			.cardName(userCard.getUserCardName())
+			.cardImgUrl(userCard.getUserCardImgUrl())
+			.totalAmount(monthResult[0])
+			.totalBenefit(monthResult[1])
+			.dayTransactionResponseDtoList(dayTransactionResponseDtoList)
+			.build();
+	}
 }

@@ -10,6 +10,7 @@ export default {
   password: (userSimplePassword: string) =>
     http.post<CommonResponse>('api/user/password', { userSimplePassword }),
   cardCompany: () => http.get<CardCompanyGetResponse>('api/user/card-company'),
+  withdrawal: () => http.delete<CommonResponse>('api/user'),
 };
 
 interface CommonResponse {

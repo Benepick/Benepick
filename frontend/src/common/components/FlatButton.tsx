@@ -1,30 +1,33 @@
 import React from 'react';
-import { StyleSheet, TouchableHighlight, TouchableHighlightProps } from 'react-native';
-import { Text } from 'react-native-svg';
+import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native';
 import BText from './BText';
 import colors from '@common/design/colors';
 
-interface FlatButtonProps extends TouchableHighlightProps {
+interface FlatButtonProps extends TouchableOpacityProps {
   title: string;
 }
 
-function FlatButton({ title }: FlatButtonProps) {
-  const styles = StyleSheet.create({
-    button: {
-      backgroundColor: 'transparent',
-      padding: 12,
-      borderRadius: 12,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
+function FlatButton({ title, onPress }: FlatButtonProps) {
   return (
-    <TouchableHighlight style={styles.button} activeOpacity={0.2}>
-      <BText type="bold" color={colors.disabled}>
+    <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={onPress}>
+      <BText type="p" color={colors.disabled}>
         {title}
       </BText>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  button: {
+    width: '45%',
+    backgroundColor: 'transparent',
+    padding: 10,
+    borderRadius: 10,
+    borderColor: colors.disabled,
+    borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
 
 export default FlatButton;

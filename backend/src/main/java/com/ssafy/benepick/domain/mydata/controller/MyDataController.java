@@ -83,6 +83,6 @@ public class MyDataController {
 				@RequestParam(name = "month") int month,
 				HttpServletRequest request) {
 		log.info("MyDataController_getUserCardInfo");
-		return new SingleResponseResult<>(myDataService.getMonthCategoryResult(request));
+		return new SingleResponseResult<>(myDataService.getUserCardInfo(cardId,year,month,request));
 	}
 }

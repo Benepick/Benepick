@@ -44,6 +44,9 @@ dependencies {
 
 	// cool sms api
 	implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
+
+	// webflux
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
 }
 
 tasks.named('test') {

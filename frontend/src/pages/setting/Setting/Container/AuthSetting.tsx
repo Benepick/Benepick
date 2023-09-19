@@ -16,7 +16,7 @@ function AuthSetting({ navigation }: SettingNavigationProps) {
   const dispatch = useAppDispatch();
 
   const changeAutoLogin = () => {
-    dispatch(setAutoLogin());
+    dispatch(setAutoLogin(!isAutoLogined));
   };
 
   const changeBiometricAuthentication = () => {
