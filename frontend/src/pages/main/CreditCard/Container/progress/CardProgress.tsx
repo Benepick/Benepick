@@ -5,6 +5,7 @@ import { CardProgressProps } from 'interfaces/common';
 import colors from '@common/design/colors';
 import CardProgressSection from './childs/CardProgressSection';
 import CardProgressBar from './childs/CardProgressBar';
+import BText from '@common/components/BText';
 
 function CardProgress({
   sections,
@@ -26,13 +27,6 @@ function CardProgress({
     },
   });
 
-  const percent =
-    (100 / sections.length) * currentSection +
-    (((currentAmount - sections[currentSection - 1]) /
-      (nextSectionAmont - sections[currentSection - 1])) *
-      100) /
-      sections.length;
-
   return (
     <View style={styles.container}>
       {sections.map((section, index) => (
@@ -42,7 +36,7 @@ function CardProgress({
             percent={
               currentSection >= index + 1
                 ? 100
-                : currentSection === index
+                : currentSection === index + 1
                 ? ((currentAmount - sections[currentSection - 1]) /
                     (nextSectionAmont - sections[currentSection - 1])) *
                   100

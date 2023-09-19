@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
 
-import {
-  StyleSheet,
-  TouchableHighlight,
-  View,
-  Image,
-  LayoutChangeEvent,
-  LayoutRectangle,
-} from 'react-native';
+import { StyleSheet, TouchableHighlight, View, Image } from 'react-native';
 
 import WhiteBox from '@common/components/WhiteBox';
 import BText from '@common/components/BText';
@@ -15,44 +8,56 @@ import { Spacing } from '@common/components/Spacing';
 import CardProgress from './progress/CardProgress';
 import CategoryText from '@common/components/CategoryText';
 import { CreditCardItemProps } from '@interfaces/creditCard';
+import colors from '@common/design/colors';
 
 function CreditCardItem({
   cardName,
-  cardType,
-  image,
-  benefitAmount,
-  usedAmount,
-  currentSection,
-  nextSection,
-  ...rest
+  cardCompanyName,
+  cardImgUrl,
+  currentPerformance,
+  performanceLevels,
+  currentLevel,
+  nextLevelAmount,
+  cardCode,
+  serialNumber,
+  navigation,
 }: CreditCardItemProps) {
   return (
     <WhiteBox>
-      <TouchableHighlight underlayColor="transparent" {...rest}>
+      <TouchableHighlight
+        underlayColor="transparent"
+        onPress={() => navigation.push('CreditCardDetail', { params: { cardId: cardCode } })}
+      >
         <View>
           <View style={styles.cardTitle}>
-            <Image style={styles.image} source={image} />
+            <Image style={styles.image} source={{ uri: cardImgUrl }} />
             <Spacing dir="row" />
             <View>
-              <BText type="h3">{cardName}</BText>
-              <BText>{cardType}</BText>
+              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                <BText type="h3">{cardName}</BText>
+                <Spacing rem="0.5" dir="row" />
+                <View style={styles.serialNumber}>
+                  <BText type="p">{serialNumber.slice(15, 19)}</BText>
+                </View>
+              </View>
+              <BText>{cardCompanyName}</BText>
             </View>
           </View>
           <Spacing />
           <CardProgress
-            sections={[500000, 1000000, 2000000, 3000000]}
-            currentAmount={1200000}
-            currentSection={2}
-            nextSectionAmont={2000000}
+            sections={performanceLevels}
+            currentAmount={currentPerformance}
+            currentSection={currentLevel}
+            nextSectionAmont={nextLevelAmount}
           />
           <Spacing />
           <CategoryText
             category="사용/실적금액"
-            value={`${usedAmount.toLocaleString()}원 / ${nextSection.toLocaleString()}원`}
+            value={`${currentPerformance.toLocaleString()}원 / ${nextLevelAmount.toLocaleString()}원`}
           />
           <CategoryText
             category="다음 구간까지"
-            value={`${(nextSection - usedAmount).toLocaleString()}원 남음`}
+            value={`${(nextLevelAmount - currentPerformance).toLocaleString()}원 남음`}
           />
         </View>
       </TouchableHighlight>
@@ -67,6 +72,15 @@ const styles = StyleSheet.create({
   image: {
     maxWidth: '15%',
     aspectRatio: 1 / 1.58,
+  },
+  serialNumber: {
+    borderWidth: 1,
+    borderColor: colors.placeholder,
+    paddingHorizontal: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+    color: colors.placeholder,
   },
 });
 

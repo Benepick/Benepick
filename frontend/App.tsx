@@ -13,6 +13,14 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (app.shakePick) {
+      EventListener.startListeningInBackground();
+    } else {
+      EventListener.stopListening();
+    }
+  }, [app.shakePick]);
+
+  useEffect(() => {
     const isFirstLaunch = app.isFirstLaunched;
     if (isFirstLaunch) {
       dispatch(setLaunch());
@@ -41,8 +49,6 @@ function App() {
         },
       ]);
     }
-
-    EventListener.startListeningInBackground();
   }, []);
 
   const eventListener = new NativeEventEmitter(EventListener);

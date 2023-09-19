@@ -40,7 +40,6 @@ public class EventService extends Service implements SensorEventListener {
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
       startListening();
-      showToast("Start Listener");
       return START_STICKY;
   }
 
