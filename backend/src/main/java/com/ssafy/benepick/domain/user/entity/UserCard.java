@@ -1,10 +1,7 @@
 package com.ssafy.benepick.domain.user.entity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-
-import com.ssafy.benepick.domain.card.entity.Category1;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

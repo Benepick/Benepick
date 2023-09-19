@@ -1,11 +1,8 @@
 package com.ssafy.benepick.global.api.dto.response;
 
 import com.ssafy.benepick.domain.card.dto.response.CardCompanyResponseDto;
-import com.ssafy.benepick.domain.card.entity.Card;
+
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

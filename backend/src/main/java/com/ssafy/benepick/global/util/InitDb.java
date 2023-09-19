@@ -1,23 +1,11 @@
 package com.ssafy.benepick.global.util;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.benepick.domain.card.entity.Card;
-import com.ssafy.benepick.domain.card.entity.CardCompany;
-import com.ssafy.benepick.domain.card.repository.CardCompanyRepository;
-import com.ssafy.benepick.domain.mydata.entity.MyDataCard;
-import com.ssafy.benepick.domain.mydata.entity.MyDataPayment;
-import com.ssafy.benepick.domain.mydata.entity.MyDataUser;
-import com.ssafy.benepick.domain.mydata.repository.MyDataUserRepository;
 import com.ssafy.benepick.domain.user.entity.User;
-import com.ssafy.benepick.domain.user.entity.UserCardCompany;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
@@ -47,9 +35,6 @@ public class InitDb {
 		// @Autowired
 		// @Qualifier("bankBenepickEntityManager")
 		// private EntityManager bankBenepickEntityManager;
-
-		private final CardCompanyRepository cardCompanyRepository;
-		private final MyDataUserRepository myDataUserRepository;
 
 		// @Transactional(transactionManager = "benepickTransactionManager")
 		public void userInit() {

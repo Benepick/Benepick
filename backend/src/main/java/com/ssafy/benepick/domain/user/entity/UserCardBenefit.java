@@ -1,7 +1,5 @@
 package com.ssafy.benepick.domain.user.entity;
 
-import com.ssafy.benepick.domain.card.entity.Category1;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

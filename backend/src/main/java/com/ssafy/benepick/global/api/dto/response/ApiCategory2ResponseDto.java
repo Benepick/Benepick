@@ -1,10 +1,7 @@
 package com.ssafy.benepick.global.api.dto.response;
 
-import com.ssafy.benepick.domain.card.entity.Category1;
-import com.ssafy.benepick.domain.card.entity.Category3;
 import com.ssafy.benepick.domain.user.entity.UserCardCategory2;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

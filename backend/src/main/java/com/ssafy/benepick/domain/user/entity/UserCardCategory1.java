@@ -2,10 +2,6 @@ package com.ssafy.benepick.domain.user.entity;
 
 import java.util.List;
 
-import com.ssafy.benepick.domain.card.entity.Card;
-import com.ssafy.benepick.domain.card.entity.CardBenefit;
-import com.ssafy.benepick.domain.card.entity.Category2;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

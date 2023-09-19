@@ -1,7 +1,5 @@
 package com.ssafy.benepick.global.api.service;
 
-import com.ssafy.benepick.domain.card.entity.CardCompany;
-import com.ssafy.benepick.global.api.dto.request.ApiMyDataCardRequestDto;
 import com.ssafy.benepick.global.api.dto.response.ApiCardCompanyResponseDto;
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
 import com.ssafy.benepick.global.response.ListResponseResult;

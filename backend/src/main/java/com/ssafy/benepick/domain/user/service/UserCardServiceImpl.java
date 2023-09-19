@@ -1,7 +1,5 @@
 package com.ssafy.benepick.domain.user.service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,15 +7,10 @@ import java.util.stream.Collectors;
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataPaymentResponseDto;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.ssafy.benepick.domain.card.entity.Category1;
 import com.ssafy.benepick.domain.card.service.CardService;
-import com.ssafy.benepick.domain.mydata.entity.MyDataCard;
-import com.ssafy.benepick.domain.mydata.entity.MyDataPayment;
 import com.ssafy.benepick.domain.user.entity.User;
 import com.ssafy.benepick.domain.user.entity.UserCard;
-import com.ssafy.benepick.domain.user.entity.UserCardBenefit;
 import com.ssafy.benepick.domain.user.entity.UserCardCategory1;
 import com.ssafy.benepick.domain.user.entity.UserCardCategory2;
 import com.ssafy.benepick.domain.user.entity.UserPayment;

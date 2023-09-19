@@ -2,8 +2,8 @@ package com.ssafy.benepick.domain.card.service;
 
 import java.util.List;
 
-import com.ssafy.benepick.domain.card.entity.Category1;
+import com.ssafy.benepick.domain.user.entity.UserCardCategory1;
 
 public interface CardService {
-	List<Category1> findCategory1ListByCardCode(Long cardCode);
+	List<UserCardCategory1> findCategory1ListByCardCode(Long cardCode);
 }

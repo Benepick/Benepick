@@ -1,8 +1,6 @@
 package com.ssafy.benepick.domain.mydata.service;
 
-import java.nio.file.LinkOption;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,9 +12,6 @@ import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
 import com.ssafy.benepick.global.api.service.ApiService;
 import org.springframework.stereotype.Service;
 
-import com.ssafy.benepick.domain.card.entity.Category1;
-import com.ssafy.benepick.domain.card.service.CardService;
-import com.ssafy.benepick.domain.mydata.dto.response.BenefitResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.CardInfoResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.CategoryPayResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.DayTransactionResponseDto;
@@ -24,13 +19,6 @@ import com.ssafy.benepick.domain.mydata.dto.response.MonthCategoryResultResponse
 import com.ssafy.benepick.domain.mydata.dto.response.MonthResultResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.RecentMonthResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.TransactionInfoResponseDto;
-import com.ssafy.benepick.domain.mydata.entity.MyDataCard;
-import com.ssafy.benepick.domain.mydata.entity.MyDataPayment;
-import com.ssafy.benepick.domain.mydata.entity.MyDataUser;
-import com.ssafy.benepick.domain.mydata.entity.PaymentCategory;
-import com.ssafy.benepick.domain.mydata.repository.MyDataCardRepository;
-import com.ssafy.benepick.domain.mydata.repository.MyDataPaymentRepository;
-import com.ssafy.benepick.domain.mydata.repository.MyDataUserRepository;
 import com.ssafy.benepick.domain.user.entity.User;
 import com.ssafy.benepick.domain.user.entity.UserCard;
 import com.ssafy.benepick.domain.user.entity.UserPayment;
@@ -52,7 +40,6 @@ public class MyDataServiceImpl implements MyDataService {
 	private final UserCardService userCardService;
 	private final UserPaymentService userPaymentService;
 	private final UserPaymentRepository userPaymentRepository;
-	private final MyDataCardRepository myDataCardRepository;
 	private final ApiService apiService;
 
 	@Override
@@ -102,6 +89,10 @@ public class MyDataServiceImpl implements MyDataService {
 		HashMap<String , Integer> categoryMap = new HashMap<>();
 		AtomicInteger amount = new AtomicInteger(0);
 		calculateUserCategoryPaymentAmount(loginUser, categoryMap, amount);
+		System.out.println(" hi" );
+		for (String s : categoryMap.keySet()) {
+			System.out.println("s = " + categoryMap.get(s));
+		}
 
 		return MonthCategoryResultResponseDto.builder().
 			totalAmount(amount.get()).
@@ -208,8 +199,9 @@ public class MyDataServiceImpl implements MyDataService {
 		log.info("MyDataServiceImpl_calculateUserCategoryPaymentAmount || 사용자의 카테고리별 사용금액 계산");
 		user.getUserCardList().stream()
 			.flatMap(userCard -> userPaymentRepository.findByUserCardIdAndMonth(userCard.getUserCardId(),
-				LocalDate.now().getMonthValue(),
-				LocalDate.now().getYear()).stream())
+				LocalDate.now().getYear(),
+				LocalDate.now().getMonthValue())
+				.stream())
 			.forEach(userPayment -> {
 				categoryMap.put(userPayment.getUserPaymentCategory1(), categoryMap.getOrDefault(userPayment.getUserPaymentCategory1(), 0) + userPayment.getUserPaymentAmount());
 				amount.addAndGet(userPayment.getUserPaymentAmount());

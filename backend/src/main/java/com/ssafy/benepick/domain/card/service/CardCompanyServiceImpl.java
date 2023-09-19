@@ -1,26 +1,19 @@
 package com.ssafy.benepick.domain.card.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.ssafy.benepick.global.api.dto.response.ApiCardCompanyResponseDto;
 import com.ssafy.benepick.global.api.service.ApiService;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.benepick.domain.card.dto.request.LinkAndRenewCardCompanyRequestDto;
 import com.ssafy.benepick.domain.card.dto.response.CardCompanyResponseDto;
-import com.ssafy.benepick.domain.card.entity.CardCompany;
-import com.ssafy.benepick.domain.card.repository.CardCompanyRepository;
 import com.ssafy.benepick.domain.mydata.service.MyDataService;
 import com.ssafy.benepick.domain.user.entity.User;
 import com.ssafy.benepick.domain.user.entity.UserCardCompany;
-import com.ssafy.benepick.domain.user.repository.UserRepository;
 import com.ssafy.benepick.domain.user.service.UserCardCompanyService;
 import com.ssafy.benepick.domain.user.service.UserService;
-import com.ssafy.benepick.global.exception.NotExistCardCompanyException;
 import com.ssafy.benepick.global.exception.NotExistLinkCardCompanyException;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,7 +25,6 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class CardCompanyServiceImpl implements CardCompanyService {
 
-	private final CardCompanyRepository cardCompanyRepository;
 	private final MyDataService myDataService;
 	private final UserService userService;
 	private final UserCardCompanyService userCardCompanyService;
@@ -41,7 +33,6 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	@Override
 	public List<CardCompanyResponseDto> getAllCardCompany(int isSignUp,HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_getAllCardCompany | 모든 카드사 조회");
-
 
 		if(isSignUp == 1){
 			return apiService.getCardCompanyListFromMyDataServer()
@@ -94,7 +85,6 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	public void cancelLinkCardCompany(Long cardCompanyId , HttpServletRequest request) {
 		log.info("CardCompanyServiceImpl_cancelLinkCardCompany | 카드사 연동 해제");
 		User loginUser = userService.getUserFromRequest(request);
-		System.out.println("cardCompanyId = " + cardCompanyId);
 
 		loginUser.getUserCardCompanyList().stream()
 			.filter(userCardCompany -> userCardCompany.getUserCardCompanyId().equals(cardCompanyId))
