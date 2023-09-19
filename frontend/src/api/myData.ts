@@ -6,6 +6,7 @@ export default {
   cardList: () => http.get('api/mydata/payment'),
   cardDetail: ({ cardId, year, month }: CardDetailRequest) =>
     http.get<CardDetailResponse>(`api/mydata/card/payment/${cardId}?year=${year}&month=${month}`),
+  category: () => http.get<CardCategoryResponse>('api/mydata/card/payment/category'),
 };
 
 interface RecentResponse extends CommonResponse {
@@ -37,14 +38,42 @@ interface CardDetailRequest {
   month: number;
 }
 
+// 카드 상세보기
 interface CardDetailResponse extends CommonResponse {
+  data: CardDataResponse;
+}
+
+interface CardDataResponse {
+  cardCompanyName: string;
+  cardName: string;
+  cardImgUrl: string;
+  totalAmount: number;
+  totalBenefit: number;
+  dayTransactionResponseDtoList: DayTransactionResponseDto[];
+}
+
+interface DayTransactionResponseDto {
+  transactionDate: string;
+  transcationInfoResponseDtoList: TransactionInfoResponseDto[];
+}
+
+interface TransactionInfoResponseDto {
+  category: string;
+  merchantName: string;
+  payAmount: number;
+  benefitAmount: number;
+  transactionTime: string;
+}
+
+// 이번달 카테고리 별 전체 소비 금액 조회
+interface CardCategoryResponse extends CommonResponse {
   data: {
     totalAmount: number;
     categoryResultResponseDtoList: CategoryResultResponseDto[];
   };
 }
 
-interface CategoryResultResponseDto {
+export interface CategoryResultResponseDto {
   categoryName: string;
   amount: number;
   amountRate: number;
