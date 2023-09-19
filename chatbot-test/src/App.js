@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import ChatGptAPI from "./ChatGptAPI";
+import ChatGptAPI, { generate } from "./ChatGptAPI";
 
 function App() {
   const [query, setQuery] = useState("");
@@ -29,32 +29,36 @@ function App() {
         setAnswerTime((prev) => prev + 1);
       }, 1000);
     }
-    axios
-      .post("http://localhost:3333/query", {
-        queries: [
-          {
-            query: query,
-            // filter: {
-            //   document_id: "7be70c9c-14a1-445b-8ca4-4329a96db23d",
-            // },
-            top_k: 15,
-          },
-        ],
-      })
-      .then((response) => {
-        console.log(response);
-        // 배열 데이터를 하나의 문자열로 변환
-        let answerString = "";
-        for (let i = 0; i < response.data.results[0].results.length; i++) {
-          let newline = response.data.results[0].results[i].text;
-          answerString += newline;
-          if (i !== response.data.results[0].results.length - 1) {
-            answerString += "\n";
-          }
-        }
-        setBenefits(answerString);
-        console.log(answerString);
-      });
+    // axios
+    //   .post("http://localhost:3333/query", {
+    //     queries: [
+    //       {
+    //         query: query,
+    //         // filter: {
+    //         //   document_id: "7be70c9c-14a1-445b-8ca4-4329a96db23d",
+    //         // },
+    //         top_k: 15,
+    //       },
+    //     ],
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //     // 배열 데이터를 하나의 문자열로 변환
+    //     let answerString = "";
+    //     for (let i = 0; i < response.data.results[0].results.length; i++) {
+    //       let newline = response.data.results[0].results[i].text;
+    //       answerString += newline;
+    //       if (i !== response.data.results[0].results.length - 1) {
+    //         answerString += "\n";
+    //       }
+    //     }
+    //     setBenefits(answerString);
+    //     console.log(answerString);
+    //   });
+
+    generate(query, benefits, category).then((response) => {
+      console.log(response);
+    });
   };
 
   useEffect(() => {
