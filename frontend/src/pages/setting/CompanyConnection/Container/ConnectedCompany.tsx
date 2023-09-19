@@ -17,7 +17,7 @@ function ConnectedCompany({ image, name, cardId, deleteCompany }: ConnectedCompa
           <BText>{name}</BText>
 
           <TouchableOpacity onPress={() => deleteCompany(cardId)}>
-            <BText color={colors.disabled}>({cardId})연결끊기</BText>
+            <BText color={colors.disabled}>연결끊기</BText>
             <BHr />
           </TouchableOpacity>
         </View>

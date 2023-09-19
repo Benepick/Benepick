@@ -1,7 +1,7 @@
 import { store } from '@store/store';
 import Axios from 'axios';
 
-export const ROOT = 'http://192.168.137.69:8080/';
+export const ROOT = 'http://192.168.137.28:8080/';
 
 const httpAxios = Axios.create({
   baseURL: ROOT,
@@ -28,4 +28,6 @@ export const http = {
     httpAxios.put<Response>(url, body).then((response) => response.data),
   delete: <Response = unknown>(url: string) =>
     httpAxios.delete<Response>(url).then((response) => response.data),
+  token: <Response = unknown, Request = unknown>(url: string, body?: Request) =>
+    httpAxios.post<Response>(url, body).then((response) => response),
 };

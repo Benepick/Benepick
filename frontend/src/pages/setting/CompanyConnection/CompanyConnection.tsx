@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Alert } from 'react-native';
 
 import { CompanyConnectionNavigationProps } from 'interfaces/navigation';
 import { Spacing } from '@common/components/Spacing';
@@ -11,11 +11,16 @@ import cardCompany, { CardCompany } from '@api/cardCompany';
 
 function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
   const [cardCompanys, setCardCompanys] = useState<CardCompany[] | []>([]);
+
   useEffect(() => {
     user
       .cardCompany()
       .then((res) => {
-        setCardCompanys(res.data);
+        if (res.statusCode === 200) {
+          setCardCompanys(res.data);
+        } else {
+          Alert.alert('카드사 조회에 실패하였습니다.');
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -26,12 +31,17 @@ function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
   const deleteCompany = (cardCompanyId: number) => {
     cardCompany
       .delete(cardCompanyId)
-      .then(() => {
-        setCardCompanys((prevCardCompanys) => {
-          return prevCardCompanys.filter((company) => company.cardCompanyId !== cardCompanyId);
-        });
+      .then((res) => {
+        if (res.statusCode === 200) {
+          setCardCompanys((prevCardCompanys) => {
+            return prevCardCompanys.filter((company) => company.cardCompanyId !== cardCompanyId);
+          });
+        } else if (res.statusCode === 451) {
+          Alert.alert('이미 연결이 해제되어있습니다.');
+        } else {
+          Alert.alert('연결 끊기에 실패하였습니다');
+        }
       })
-
       .catch((err) => {
         console.log(err);
       });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import WhitePage from '@common/components/WhitePage';
 import BText from '@common/components/BText';
@@ -22,7 +22,11 @@ function SelectCompany({ navigation }: SelectCompanyNavigationProps) {
     cardCompany
       .get(1)
       .then((res) => {
-        setBoxStates(res.data);
+        if (res.statusCode === 200) {
+          setBoxStates(res.data);
+        } else {
+          Alert.alert('전체 카드사 조회에 실패하였습니다.');
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -72,11 +76,15 @@ function SelectCompany({ navigation }: SelectCompanyNavigationProps) {
       const selectedCompaniesId = selectedCompanies.map((company) => company.cardCompanyId);
       cardCompany
         .post(selectedCompaniesId)
-        .then(() => {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'BottomTab' }],
-          });
+        .then((res) => {
+          if (res.statusCode === 200) {
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'BottomTab' }],
+            });
+          } else {
+            Alert.alert('카드사 연동에 실패하였습니다');
+          }
         })
         .catch((err) => {
           console.log(err);
@@ -135,7 +143,7 @@ function SelectCompany({ navigation }: SelectCompanyNavigationProps) {
             }
             onPress={submitCompany}
           />
-          <Spacing />
+          <Spacing rem="4" />
         </View>
       </ScrollView>
     </WhitePage>

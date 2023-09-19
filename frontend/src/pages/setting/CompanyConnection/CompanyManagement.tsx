@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView, StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import WhitePage from '@common/components/WhitePage';
 import BText from '@common/components/BText';
@@ -22,12 +22,24 @@ function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
     cardCompany
       .get(0)
       .then((res) => {
-        setBoxStates(res.data);
+        if (res.statusCode === 200) {
+          setBoxStates(res.data);
+        } else {
+          Alert.alert('전체 카드사 조회에 실패하였습니다.');
+        }
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    if (boxStates.length > 0 && getSelectedCount() === boxStates.length) {
+      setAllSelected(true);
+    } else {
+      setAllSelected(false);
+    }
+  }, [boxStates]);
 
   // 전체 선택
   const selectAll = () => {
@@ -72,8 +84,12 @@ function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
       const selectedCompaniesId = selectedCompanies.map((company) => company.cardCompanyId);
       cardCompany
         .post(selectedCompaniesId)
-        .then(() => {
-          navigation.push('Setting');
+        .then((res) => {
+          if (res.statusCode === 200) {
+            navigation.push('Setting');
+          } else {
+            Alert.alert('카드사 조회에 실패하였습니다');
+          }
         })
         .catch((err) => {
           console.log(err);
