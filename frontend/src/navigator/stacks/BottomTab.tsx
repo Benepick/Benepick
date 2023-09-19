@@ -105,6 +105,7 @@ const BottomTab = () => {
         name="Consumption"
         component={Consumption}
         options={{
+          unmountOnBlur: true,
           title: '내 소비',
           tabBarLabelStyle: {
             fontFamily: 'IBMPlexSansKR-SemiBold',

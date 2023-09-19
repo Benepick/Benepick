@@ -25,7 +25,7 @@ function MonthlyBenefit() {
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, []);
 
   const payAmounts: Array<number> = [];
   const benefitAmounts: Array<number> = [];

@@ -3,7 +3,7 @@ import colors from '@common/design/colors';
 import Svg, { Circle, Text } from 'react-native-svg';
 import { CircleChartProps } from '@interfaces/consumption';
 
-function CircleChart({ segments }: CircleChartProps) {
+function CircleChart({ segments, totalAmount }: CircleChartProps) {
   const [radius, setRadius] = useState(70);
   const strokeWidth = 20;
   const circumference = 2 * Math.PI * radius;
@@ -60,7 +60,7 @@ function CircleChart({ segments }: CircleChartProps) {
         fontSize="20"
         fontFamily="IBMPlexSansKR-Bold"
       >
-        1,000,000 원
+        {`${totalAmount}원`}
       </Text>
     </Svg>
   );

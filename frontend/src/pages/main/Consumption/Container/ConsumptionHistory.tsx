@@ -1,44 +1,82 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { ConsumptionNavigationProps } from 'interfaces/navigation';
 import BText from '@common/components/BText';
 import colors from '@common/design/colors';
 import { Spacing } from '@common/components/Spacing';
 import CircleChart from './ConsumptionHistory/CircleChart';
 import CategoryText from '../../../../common/components/CategoryText';
 import WhiteBox from '@common/components/WhiteBox';
+import myData, { CategoryResultResponseDto } from '@api/myData';
 
 function ConsumptionHistory() {
+  const [categoryData, setCategoryData] = useState<CategoryResultResponseDto[]>([]);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [month] = useState(() => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    return currentMonth;
+  });
+
+  useEffect(() => {
+    myData
+      .category()
+      .then((res) => {
+        setCategoryData(res.data.categoryResultResponseDtoList);
+        setTotalAmount(res.data.totalAmount);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const colorMap: Record<string, string> = {
+    생활: colors.graphRed,
+    쇼핑: colors.graphOrange,
+    식비: colors.graphYellow,
+    여가: colors.graphGreen,
+    편의점: colors.graphBlue,
+    카페: colors.graphDarkBlue,
+    온라인: colors.graphPurple,
+  };
+
+  const segments = categoryData.map((data) => {
+    return {
+      percent: data.amountRate,
+      color: colorMap[data.categoryName] || colors.main,
+    };
+  });
+
   return (
     <WhiteBox>
       <BText style={{ alignSelf: 'flex-start' }} type="h3">
-        8월 소비내역
+        {`${month}월 소비내역`}
       </BText>
-      <Spacing />
-      <View style={styles.chart}>
-        <CircleChart
-          segments={[
-            { percent: 30, color: colors.graphRed },
-            { percent: 10, color: colors.graphOrange },
-            { percent: 14, color: colors.graphYellow },
-            { percent: 16, color: colors.graphGreen },
-            { percent: 10, color: colors.graphBlue },
-            { percent: 10, color: colors.graphDarkBlue },
-            { percent: 10, color: colors.graphPurple },
-          ]}
-        />
-      </View>
-      <Spacing />
-      <View style={styles.text}>
-        <CategoryText category="쇼핑" value="10,000원(10. 0%)" />
-        <CategoryText category="생활" value="10,000원(10. 0%)" />
-        <CategoryText category="식비" value="10,000원(10. 0%)" />
-        <CategoryText category="여가" value="10,000원(10. 0%)" />
-        <CategoryText category="편의점" value="10,000원(10. 0%)" />
-        <CategoryText category="카페" value="10,000원(10. 0%)" />
-        <CategoryText category="온라인" value="10,000원(10. 0%)" />
-      </View>
+      {!categoryData && (
+        <View style={{ alignSelf: 'center' }}>
+          <Spacing rem="3" />
+          <BText type="bold">카드사 연동이 필요해요!</BText>
+          <Spacing rem="3" />
+        </View>
+      )}
+      {categoryData && (
+        <View>
+          <Spacing />
+          <View style={styles.chart}>
+            <CircleChart totalAmount={totalAmount} segments={segments} />
+          </View>
+          <Spacing />
+          <View style={styles.text}>
+            {categoryData.map((data, index) => (
+              <CategoryText
+                key={index}
+                category={data.categoryName}
+                value={`${data.amount}원(${data.amountRate}%)`}
+              />
+            ))}
+          </View>
+        </View>
+      )}
     </WhiteBox>
   );
 }

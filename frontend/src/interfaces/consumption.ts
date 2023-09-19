@@ -7,4 +7,5 @@ type Segments = Segment[];
 
 export interface CircleChartProps {
   segments: Segments;
+  totalAmount: number;
 }
