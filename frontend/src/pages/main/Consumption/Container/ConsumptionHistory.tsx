@@ -8,12 +8,15 @@ import CircleChart from './ConsumptionHistory/CircleChart';
 import CategoryText from '../../../../common/components/CategoryText';
 import WhiteBox from '@common/components/WhiteBox';
 import myData, { CategoryResultResponseDto } from '@api/myData';
-import getMonth from '@common/utils/getMonth';
 
 function ConsumptionHistory() {
   const [categoryData, setCategoryData] = useState<CategoryResultResponseDto[]>([]);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [month, setMonth] = useState('');
+  const [month] = useState(() => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1;
+    return currentMonth;
+  });
 
   useEffect(() => {
     myData
@@ -21,8 +24,6 @@ function ConsumptionHistory() {
       .then((res) => {
         setCategoryData(res.data.categoryResultResponseDtoList);
         setTotalAmount(res.data.totalAmount);
-        const timestamp = res.timestamp;
-        setMonth(getMonth(timestamp));
       })
       .catch((err) => {
         console.log(err);
