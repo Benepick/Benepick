@@ -24,12 +24,14 @@ public class EventListenerModule extends ReactContextBaseJavaModule {
   public void startListeningInBackground() {
       Intent serviceIntent = new Intent(reactContext, EventService.class);
       reactContext.startService(serviceIntent);
+      Toast.makeText(reactContext, "들어", Toast.LENGTH_SHORT).show();
   }
 
   @ReactMethod
   public void stopListening() {
       Intent serviceIntent = new Intent(reactContext, EventService.class);
       reactContext.stopService(serviceIntent);
+      Toast.makeText(reactContext, "듣지마", Toast.LENGTH_SHORT).show();
   }
 
   @ReactMethod

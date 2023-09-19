@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 
 import { CreditCardNavigationProps } from 'interfaces/navigation';
@@ -7,55 +7,25 @@ import BText from '@common/components/BText';
 import colors from '@common/design/colors';
 import CreditCardItem from './Container/CreditCardItem';
 import { Spacing } from '@common/components/Spacing';
+import myData, { CardListData } from '@api/myData';
 
 function CreditCard({ navigation }: CreditCardNavigationProps) {
-  const sampleData = [
-    {
-      cardName: '롯데카드',
-      cardType: 'LOCA 365 카드',
-      image: require('@common/assets/images/cardImg.png'),
-      benefitAmount: [200000, 400000, 600000, 800000],
-      usedAmount: 500000,
-      currentSection: 2,
-      nextSection: 600000,
-    },
-    {
-      cardName: '카카오뱅크',
-      cardType: '카카오뱅크 체크 카드',
-      image: require('@common/assets/images/cardImg.png'),
-      benefitAmount: [100000, 300000, 500000, 700000],
-      usedAmount: 250000,
-      currentSection: 1,
-      nextSection: 300000,
-    },
-    {
-      cardName: '카카오뱅크',
-      cardType: '카카오뱅크 체크 카드',
-      image: require('@common/assets/images/cardImg.png'),
-      benefitAmount: [100000, 300000, 500000, 700000],
-      usedAmount: 250000,
-      currentSection: 1,
-      nextSection: 300000,
-    },
-    {
-      cardName: '카카오뱅크',
-      cardType: '카카오뱅크 체크 카드',
-      image: require('@common/assets/images/cardImg.png'),
-      benefitAmount: [100000, 300000, 500000, 700000],
-      usedAmount: 250000,
-      currentSection: 1,
-      nextSection: 300000,
-    },
-    {
-      cardName: '카카오뱅크',
-      cardType: '카카오뱅크 체크 카드',
-      image: require('@common/assets/images/cardImg.png'),
-      benefitAmount: [100000, 300000, 500000, 700000],
-      usedAmount: 250000,
-      currentSection: 1,
-      nextSection: 300000,
-    },
-  ];
+  const [data, setData] = useState<CardListData[]>();
+
+  useEffect(() => {
+    myData
+      .cardList()
+      .then((response) => {
+        if (response.statusCode === 200) {
+          setData(response.data);
+        } else {
+          console.log(response.statusCode);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <Page>
@@ -68,17 +38,19 @@ function CreditCard({ navigation }: CreditCardNavigationProps) {
         <Spacing rem="0.25" />
         <BText type="h2">카드 보여드릴게요</BText>
         <Spacing />
-        {sampleData.map((data, index) => (
+        {data?.map((value, index) => (
           <View key={index}>
             <CreditCardItem
-              image={data.image}
-              cardName={data.cardName}
-              cardType={data.cardType}
-              benefitAmount={data.benefitAmount}
-              usedAmount={data.usedAmount}
-              currentSection={data.currentSection}
-              nextSection={data.nextSection}
-              onPress={() => navigation.push('CreditCardDetail', { params: { cardId: index } })}
+              cardImgUrl={value.cardImgUrl}
+              cardName={value.cardName}
+              cardCompanyName={value.cardCompanyName}
+              performanceLevels={value.performanceLevels}
+              currentPerformance={value.currentPerformance}
+              currentLevel={value.currentLevel}
+              nextLevelAmount={value.nextLevelAmount}
+              cardCode={value.cardCode}
+              serialNumber={value.serialNumber}
+              navigation={navigation}
             />
             <Spacing />
           </View>

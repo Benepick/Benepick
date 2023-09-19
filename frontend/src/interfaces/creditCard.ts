@@ -1,15 +1,9 @@
+import { CardListData } from '@api/myData';
 import React, { Dispatch, SetStateAction } from 'react';
 import { ImageSourcePropType, TouchableHighlightProps } from 'react-native';
+import { CreditCardNavigationProps } from './navigation';
 
-export interface CreditCardItemProps extends TouchableHighlightProps {
-  cardName: string;
-  cardType: string;
-  image: ImageSourcePropType;
-  benefitAmount: Array<number>;
-  usedAmount: number;
-  currentSection: number;
-  nextSection: number;
-}
+export interface CreditCardItemProps extends CardListData, CreditCardNavigationProps {}
 
 export interface CardIdProps {
   cardId: number;
