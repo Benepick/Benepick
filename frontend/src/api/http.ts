@@ -1,7 +1,7 @@
 import { store } from '@store/store';
 import Axios from 'axios';
 
-export const ROOT = 'http://192.168.137.69:8080/';
+export const ROOT = 'http://192.168.137.28:8080/';
 
 const httpAxios = Axios.create({
   baseURL: ROOT,
@@ -27,3 +27,10 @@ export const http = {
   delete: <Response = unknown>(url: string) =>
     httpAxios.delete<Response>(url).then((response) => response.data),
 };
+
+export interface CommonResponse {
+  statusCode: number;
+  messages: string;
+  developerMessage: string;
+  timestamp: string;
+}

@@ -34,11 +34,7 @@ function Home({ navigation }: HomeNavigationProps) {
         </BText>
       </View>
       <Spacing rem="0.25" />
-      <MonthlyConsumption
-        image={require('@common/assets/images/cardImg.png')}
-        money="10000원"
-        benefit="10000원"
-      />
+      <MonthlyConsumption />
     </Page>
   );
 }
