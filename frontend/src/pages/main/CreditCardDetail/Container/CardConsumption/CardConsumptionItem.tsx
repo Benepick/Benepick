@@ -17,7 +17,7 @@ function CardConsumptionItem({
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <SvgIcons name={'Diamond'} size={30} />
+        <SvgIcons name={category} size={30} />
         <Spacing rem="1" dir="row" />
         <View style={styles.description}>
           <View style={styles.item}>
