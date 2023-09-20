@@ -194,7 +194,7 @@ public class MyDataServiceImpl implements MyDataService {
 				apiService.getTransactionDataAfterLastRenewalTime(
 					userCardCompany.getUserCardCompanyId(),
 					loginUser.getUserId(),
-					LocalDateTime.now()).
+					loginUser.getUserLastRenewalTime()).
 					stream()
 					.forEach(apiMyDataCardResponseDto -> {
 						UserCard userCard = userCardRepository.findByUserCardCode(
@@ -202,6 +202,7 @@ public class MyDataServiceImpl implements MyDataService {
 
 						int monthPerformance = 0;
 
+						//
 						List<UserPayment> userPaymentList = apiMyDataCardResponseDto.getApiMyDataPaymentResponseDtoList()
 							.stream()
 							.map(apiMyDataPaymentResponseDto -> apiMyDataPaymentResponseDto.toUserPayment(userCard))
@@ -229,6 +230,7 @@ public class MyDataServiceImpl implements MyDataService {
 						userPaymentRepository.saveAll(userPaymentList);
 					});
 		});
+		loginUser.updateLastRenewalTime();
 	}
 
 	private List<CategoryPayResponseDto> getCategoryPayResponseDtoList(HashMap<String, Integer> categoryMap , int totalAmount) {
