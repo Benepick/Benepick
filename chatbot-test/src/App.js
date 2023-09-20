@@ -34,9 +34,10 @@ function App() {
         queries: [
           {
             query: query,
-            // filter: {
-            //   document_id: "7be70c9c-14a1-445b-8ca4-4329a96db23d",
-            // },
+            filter: {
+              // document_id: "7be70c9c-14a1-445b-8ca4-4329a96db23d",
+              source_id:"cardname"
+            },
             top_k: 30,
           },
         ],
