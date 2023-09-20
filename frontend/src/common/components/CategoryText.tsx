@@ -7,7 +7,6 @@ import { CategoryTextProps } from '@interfaces/common';
 function CategoryText({ category, value }: CategoryTextProps) {
   return (
     <View>
-      <Spacing rem="0.5" />
       <View style={styles.description}>
         <BText type="bold">{category}</BText>
         <BText>{value}</BText>

@@ -51,6 +51,7 @@ function CreditCard({ navigation }: CreditCardNavigationProps) {
               cardCode={value.cardCode}
               serialNumber={value.serialNumber}
               navigation={navigation}
+              cardId={index + 1}
             />
             <Spacing />
           </View>

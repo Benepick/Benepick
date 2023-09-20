@@ -34,9 +34,6 @@ public class CardBenefit {
 	@Column(nullable = false , name = "card_benefit_performance_end")
 	private int cardBenefitPerformanceEnd;
 
-	@Column(nullable = false, name = "card_benefit_limit")
-	private int cardBenefitLimit;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category1_id" , nullable = false)
 	private Category1 category1;
@@ -47,7 +44,6 @@ public class CardBenefit {
 				.cardBenefitDiscountPercent(cardBenefitDiscountPercent)
 				.cardBenefitPerformanceStart(cardBenefitPerformanceStart)
 				.cardBenefitPerformanceEnd(cardBenefitPerformanceEnd)
-				.cardBenefitLimit(cardBenefitLimit)
 				.build();
 
 	}

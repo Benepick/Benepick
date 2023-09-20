@@ -1,6 +1,11 @@
 package com.ssafy.benepick.domain.card.controller;
 
+import com.ssafy.benepick.global.api.dto.response.ApiMerchantResponseDto;
+import com.ssafy.benepick.global.api.service.ApiService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.benepick.domain.card.service.CardService;
@@ -26,4 +31,9 @@ import lombok.extern.slf4j.Slf4j;
 public class CardController {
 
 	private final CardService cardService;
+	private final ApiService apiService;
+	@GetMapping("/place")
+	public ApiMerchantResponseDto getCardPlace(@RequestParam("x") double x, @RequestParam("y") double y, HttpServletRequest request) {
+		return apiService.getNearestMerchant(x, y);
+	}
 }

@@ -8,6 +8,7 @@ import CircleChart from './ConsumptionHistory/CircleChart';
 import CategoryText from '../../../../common/components/CategoryText';
 import WhiteBox from '@common/components/WhiteBox';
 import myData, { CategoryResultResponseDto } from '@api/myData';
+import SvgIcons from '@common/assets/SvgIcons';
 
 function ConsumptionHistory() {
   const [categoryData, setCategoryData] = useState<CategoryResultResponseDto[]>([]);
@@ -68,11 +69,29 @@ function ConsumptionHistory() {
           <Spacing />
           <View style={styles.text}>
             {categoryData.map((data, index) => (
-              <CategoryText
-                key={index}
-                category={data.categoryName}
-                value={`${data.amount}원(${data.amountRate}%)`}
-              />
+              <View key={index}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <View style={{ width: '10%' }}>
+                    <SvgIcons
+                      name={data.categoryName}
+                      fill={colorMap[data.categoryName] || colors.main}
+                    />
+                  </View>
+                  <View style={{ flex: 1 }}>
+                    <CategoryText
+                      category={data.categoryName}
+                      value={`${data.amount} 원 ( ${data.amountRate}% )`}
+                    />
+                  </View>
+                </View>
+                <Spacing rem="0.5" />
+              </View>
             ))}
           </View>
         </View>

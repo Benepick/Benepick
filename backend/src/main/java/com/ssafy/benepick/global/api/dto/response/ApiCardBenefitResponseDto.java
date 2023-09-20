@@ -19,14 +19,13 @@ public class ApiCardBenefitResponseDto {
     private int cardBenefitDiscountPercent;
     private int cardBenefitPerformanceStart;
     private int cardBenefitPerformanceEnd;
-    private int cardBenefitLimit;
+
     public UserCardBenefit toUserCardBenefit(UserCardCategory1 userCardCategory1){
         return UserCardBenefit.builder()
                 .userCardBenefitPerformanceLevel(cardBenefitPerformanceLevel)
                 .userCardBenefitDiscountPercent(cardBenefitDiscountPercent)
                 .userCardBenefitPerformanceStart(cardBenefitPerformanceStart)
                 .userCardBenefitPerformanceEnd(cardBenefitPerformanceEnd)
-                .userCardBenefitLimit(cardBenefitLimit)
                 .userCardCategory1(userCardCategory1)
                 .build();
     }

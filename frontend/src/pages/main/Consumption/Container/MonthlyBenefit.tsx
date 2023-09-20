@@ -57,13 +57,13 @@ function MonthlyBenefit() {
           <BText type="bold">
             {data && data[0].year}년 {data && data[0].month}월 총 받은 혜택
           </BText>
-          <BText type="p">{data && data[0].benefitAmount} 원</BText>
+          <BText type="p">{data && data[0].benefitAmount.toLocaleString()} 원</BText>
         </View>
         <View style={styles.text}>
           <BText type="bold">
             {data && data[0].year}년 {data && data[0].month}월 총 사용 금액
           </BText>
-          <BText type="p">{data && data[0].payAmount} 원</BText>
+          <BText type="p">{data && data[0].payAmount.toLocaleString()} 원</BText>
         </View>
       </WhiteBox>
       <Spacing />
