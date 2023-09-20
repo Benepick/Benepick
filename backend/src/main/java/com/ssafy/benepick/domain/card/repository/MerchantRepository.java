@@ -1,2 +1,4 @@
-package com.ssafy.benepick.domain.card.repository;public interface MerchantRepo {
+package com.ssafy.benepick.domain.card.repository;
+
+public interface MerchantRepository {
 }
