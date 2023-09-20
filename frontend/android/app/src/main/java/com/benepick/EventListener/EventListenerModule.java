@@ -2,9 +2,7 @@ package com.benepick.EventListener;
 
 import android.content.Intent;
 import android.widget.Toast;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 public class EventListenerModule extends ReactContextBaseJavaModule {
@@ -21,7 +19,7 @@ public class EventListenerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void startListeningInBackground() {
+  public void startListening() {
       Intent serviceIntent = new Intent(reactContext, EventService.class);
       reactContext.startService(serviceIntent);
       Toast.makeText(reactContext, "들어", Toast.LENGTH_SHORT).show();
@@ -35,19 +33,13 @@ public class EventListenerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void sendTrigger(String trigger) {
-      reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTrigger", trigger);
+  public void sendLocation(double latitude, double longitude) {
+      WritableMap location = Arguments.createMap();
+      location.putDouble("latitude", latitude);
+      location.putDouble("longitude", longitude);
+
+      reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTrigger", location);
   }
-
-    @ReactMethod
-    public void addListener(String eventName) {
-
-    }
-
-    @ReactMethod
-    public void removeListeners(Integer count) {
-
-    }
 }
 
 

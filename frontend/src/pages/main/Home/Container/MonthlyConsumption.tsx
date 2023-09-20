@@ -4,6 +4,7 @@ import { Image, StyleSheet, View } from 'react-native';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import WhiteBox from '@common/components/WhiteBox';
+
 import myData, { PaymentData } from '@api/myData';
 
 function MonthlyConsumption() {

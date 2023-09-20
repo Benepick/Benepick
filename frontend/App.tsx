@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
-import { Alert, NativeEventEmitter, NativeModules, StatusBar } from 'react-native';
-import RootStack from './src/navigator/RootStack';
+import { Alert, NativeEventEmitter, NativeModules } from 'react-native';
 import PushNotification, { Importance } from 'react-native-push-notification';
+
 import PushAlert from '@common/utils/PushAlert';
-import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { setShakePick, setLaunch } from '@store/slices/appSlice';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+import RootStack from './src/navigator/RootStack';
 
 function App() {
   const { EventListener } = NativeModules;
@@ -14,10 +15,11 @@ function App() {
 
   useEffect(() => {
     if (app.shakePick) {
-      EventListener.startListeningInBackground();
-    } else {
-      // EventListener.stopListening();
+      EventListener.startListening();
     }
+    // else {
+    //   EventListener.stopListening();
+    // }
   }, [app.shakePick]);
 
   useEffect(() => {
@@ -36,27 +38,32 @@ function App() {
         },
         (created) => console.log(`createChannel returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
       );
-      Alert.alert('알림 권한 설정', '베네픽 서비스를 사용하기 위해서는 알림 권한 설정이 필요해요', [
-        {
-          text: '허용 안함',
-          onPress: () => console.log('허용하지 않음'),
-          style: 'cancel',
-        },
-        {
-          text: '허용',
-          onPress: () => dispatch(setShakePick()),
-          style: 'default',
-        },
-      ]);
+      Alert.alert(
+        '권한 설정',
+        '베네픽 서비스를 사용하기 위해서는 알림 및 위치 정보 권한 설정이 필요해요',
+        [
+          {
+            text: '허용 안함',
+            onPress: () => console.log('허용하지 않음'),
+            style: 'cancel',
+          },
+          {
+            text: '허용',
+            onPress: () => dispatch(setShakePick()),
+            style: 'default',
+          },
+        ],
+      );
     }
   }, []);
 
   const eventListener = new NativeEventEmitter(EventListener);
 
-  eventListener.addListener('onTrigger', () => {
+  eventListener.addListener('onTrigger', (location) => {
+    console.log(location);
     PushAlert({
       channelId: 'shakePick',
-      message: '흔들림 감지',
+      message: `위도: ${location.latitude}, 경도: ${location.longitude}`,
     });
   });
 

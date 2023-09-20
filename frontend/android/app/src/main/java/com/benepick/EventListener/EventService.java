@@ -13,7 +13,6 @@ import com.benepick.MainApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
-import com.facebook.react.bridge.ReactMethod;
 
 public class EventService extends Service implements SensorEventListener {
   private EventListenerModule eventListenerModule;
@@ -71,7 +70,7 @@ public class EventService extends Service implements SensorEventListener {
 
                 if (speed > SHAKE_THRESHOLD) {
                     EventListenerModule eventListenerModule = new EventListenerModule((ReactApplicationContext) getReactContext());
-                    eventListenerModule.sendTrigger("Success");
+                    eventListenerModule.sendLocation(1, 1);
                 }
 
                 lastShakeValue = (int) (x + y + z);
@@ -93,9 +92,5 @@ public class EventService extends Service implements SensorEventListener {
 
     private void stopListening() {
         sensorManager.unregisterListener(this);
-    }
-
-    private void showToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

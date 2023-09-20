@@ -1,10 +1,11 @@
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+
 import SvgIcons from '@common/assets/SvgIcons';
-import BHr from '@common/components/BHr';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import colors from '@common/design/colors';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+
 import { TransactionInfoResponseDto } from '@api/myData';
 
 function CardConsumptionItem({
@@ -22,7 +23,7 @@ function CardConsumptionItem({
         <View style={styles.description}>
           <View style={styles.item}>
             <BText type="bold">{merchantName}</BText>
-            <BText type="bold">{payAmount}원</BText>
+            <BText type="bold">{payAmount.toLocaleString()}원</BText>
           </View>
           <View style={styles.item}>
             <BText type="p">받은혜택</BText>

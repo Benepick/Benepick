@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Modal, TouchableHighlight, StyleSheet } from 'react-native';
-import BText from '@common/components/BText';
+
 import MonthButton from './DateOption/MonthButton';
+
+import BText from '@common/components/BText';
 import SvgIcons from '@common/assets/SvgIcons';
 import SubmitButton from '@common/components/SubmitButton';
 import colors from '@common/design/colors';
 import IconButton from '@common/components/IconButton';
-import useDateOption from 'hooks/useDateOption';
-import { DateOptionProps } from '@interfaces/creditCard';
 import { Spacing } from '@common/components/Spacing';
+
+import { DateOptionProps } from '@interfaces/creditCard';
+import useDateOption from 'hooks/useDateOption';
 
 function DateOption({
   selectedDate,

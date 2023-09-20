@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { checkNotifications, requestNotifications } from 'react-native-permissions';
+import { checkMultiple, Permission, PERMISSIONS, request } from 'react-native-permissions';
 
 const initialState = {
   shakePick: false,
@@ -12,9 +12,23 @@ export const appSlice = createSlice({
   reducers: {
     setShakePick: (state) => {
       if (!state.shakePick) {
-        checkNotifications().then((response) => {
-          if (response.status !== 'granted') {
-            requestNotifications([]);
+        const permissions: Permission[] = [
+          PERMISSIONS.ANDROID.POST_NOTIFICATIONS,
+          PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+          PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION,
+        ];
+        checkMultiple(permissions).then((response) => {
+          console.log(response);
+          if (
+            response['android.permission.POST_NOTIFICATIONS'] !== 'granted' ||
+            response['android.permission.ACCESS_FINE_LOCATION'] !== 'granted' ||
+            response['android.permission.ACCESS_BACKGROUND_LOCATION'] !== 'granted'
+          ) {
+            request(PERMISSIONS.ANDROID.POST_NOTIFICATIONS).then(() => {
+              request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION).then(() => {
+                request(PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION);
+              });
+            });
           }
         });
       }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
+
 import BText from '@common/components/BText';
 import IconButton from '@common/components/IconButton';
 import { Spacing } from '@common/components/Spacing';

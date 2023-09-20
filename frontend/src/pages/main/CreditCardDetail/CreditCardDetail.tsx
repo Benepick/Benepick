@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { View, Button, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
+import DateOption from './Container/DateOption';
+import CardConsumption from './Container/CardConsumption';
+import CautionModal from './Container/CautionModal';
+
 import Page from '@common/components/Page';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import IconButton from '@common/components/IconButton';
-
-import DateOption from './Container/DateOption';
-import CardConsumption from './Container/CardConsumption';
-import useDateOption from 'hooks/useDateOption';
-import { CreditCardDetailNavigationProps } from 'interfaces/navigation';
-import CautionModal from './Container/CautionModal';
-import myData, { CardDetailData } from '@api/myData';
-import WhitePage from '@common/components/WhitePage';
 import colors from '@common/design/colors';
-import BHr from '@common/components/BHr';
+
+import { CreditCardDetailNavigationProps } from 'interfaces/navigation';
+import useDateOption from 'hooks/useDateOption';
+import myData, { CardDetailData } from '@api/myData';
 
 function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps) {
   const cardId = route.params.cardId;
@@ -80,18 +79,13 @@ function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps
         }
       >
         {data?.dayTransactionResponseDtoList.length !== 0 ? (
-          data?.dayTransactionResponseDtoList
-            .sort((a, b) => {
-              return (
-                Number(b.transactionDate.slice(8, 10)) - Number(a.transactionDate.slice(8, 10))
-              );
-            })
-            .map((value) => (
-              <CardConsumption
-                transactionDate={value.transactionDate}
-                transcationInfoResponseDtoList={value.transcationInfoResponseDtoList}
-              />
-            ))
+          data?.dayTransactionResponseDtoList.map((value, index) => (
+            <CardConsumption
+              key={index}
+              transactionDate={value.transactionDate}
+              transcationInfoResponseDtoList={value.transcationInfoResponseDtoList}
+            />
+          ))
         ) : (
           <BText>해당 월에는 결제 내역이 없어요</BText>
         )}

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
+
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import colors from '@common/design/colors';
