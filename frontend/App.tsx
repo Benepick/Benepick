@@ -16,7 +16,7 @@ function App() {
     if (app.shakePick) {
       EventListener.startListeningInBackground();
     } else {
-      EventListener.stopListening();
+      // EventListener.stopListening();
     }
   }, [app.shakePick]);
 

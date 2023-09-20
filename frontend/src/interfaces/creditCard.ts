@@ -3,9 +3,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 import { ImageSourcePropType, TouchableHighlightProps } from 'react-native';
 import { CreditCardNavigationProps } from './navigation';
 
-export interface CreditCardItemProps extends CardListData, CreditCardNavigationProps {}
-
-export interface CardIdProps {
+export interface CreditCardItemProps extends CardListData, CreditCardNavigationProps {
   cardId: number;
 }
 
@@ -27,12 +25,6 @@ export interface MonthButtonProps {
   isSelected: boolean;
   isDisabled?: boolean;
   onSelect: () => void;
-}
-
-export interface CardConsumptionItemProps {
-  item: string;
-  price: string;
-  benefit: string;
 }
 
 export interface CautionModalProps {

@@ -38,12 +38,12 @@ function MonthlyConsumption() {
         <View style={{ width: '75%', justifyContent: 'center' }}>
           <View style={styles.description}>
             <BText type="bold">사용금액</BText>
-            <BText>{data?.payAmount} 원</BText>
+            <BText>{data?.payAmount.toLocaleString()} 원</BText>
           </View>
           <Spacing rem="0.5" />
           <View style={styles.description}>
             <BText type="bold">받은혜택</BText>
-            <BText>{data?.benefitAmount} 원</BText>
+            <BText>{data?.benefitAmount.toLocaleString()} 원</BText>
           </View>
         </View>
       </View>

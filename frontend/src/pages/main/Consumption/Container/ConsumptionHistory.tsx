@@ -71,7 +71,7 @@ function ConsumptionHistory() {
               <CategoryText
                 key={index}
                 category={data.categoryName}
-                value={`${data.amount}원(${data.amountRate}%)`}
+                value={`${data.amount.toLocaleString()} 원 ( ${data.amountRate}% )`}
               />
             ))}
           </View>
