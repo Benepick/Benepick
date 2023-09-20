@@ -1,6 +1,8 @@
 package com.ssafy.benepick.domain.user.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -12,6 +14,8 @@ import com.ssafy.benepick.domain.card.service.CardService;
 import com.ssafy.benepick.domain.user.dto.response.UserCardResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +33,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	private final UserPaymentService userPaymentService;
 
 	@Override
+	@Transactional
 	public void linkUserCardAndUserPaymentByMyDataCard(List<ApiMyDataCardResponseDto> myDataCardList) {
 		log.info("UserCardServiceImpl_linkUserCardAndUserPaymentByMyDataCard || 마이데이터 유저 카드 데이터를 유저 카드데이터에 연동");
 
@@ -36,7 +41,7 @@ public class UserCardServiceImpl implements  UserCardService{
 		myDataCardList.stream().forEach(myDataCard -> {
 
 			UserCard userCard = myDataCard.toUserCard(user);
-			userCard.updateCardCurrentPerformance(calculateCardPerformance(userCard, LocalDate.now()));
+			userCard.updateCardCurrentPerformance(calculateCardPerformance(myDataCard,LocalDate.now()));
 			userCardRepository.save(userCard);
 
 			// 결제 내역 연동
@@ -73,11 +78,16 @@ public class UserCardServiceImpl implements  UserCardService{
 		});
 	}
 
-	private int calculateCardPerformance(UserCard userCard , LocalDate now){
-		return userPaymentService.getUserPaymentListByUserCardAndDate(
-			userCard.getUserCardId(), now.getYear(), now.getMonthValue(), 1)
+	private int calculateCardPerformance(ApiMyDataCardResponseDto myDataCard , LocalDate now){
+		log.info("카드 이번달 실적 파악");
+		return myDataCard.getApiMyDataPaymentResponseDtoList()
 			.stream()
-			.mapToInt(UserPayment::getUserPaymentAmount)
+			.filter(dto -> dto.getMyDataPaymentReceivedBenefitAmount() == 0)
+			.filter(dto -> {
+				LocalDateTime paymentDate = dto.getMyDataPaymentDate();
+				return paymentDate.getYear() == now.getYear()  && paymentDate.getMonthValue() == now.getMonthValue();
+			})
+			.mapToInt(ApiMyDataPaymentResponseDto::getMyDataPaymentAmount)
 			.sum();
 	}
 

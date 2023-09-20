@@ -73,7 +73,7 @@ public class MyDataServiceImpl implements MyDataService {
 		int cardPayAmount = 0;
 		int cardBenefitAmount = 0;
 
-		for (UserPayment userPayment : userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardId(), now.getYear(), now.getMonthValue() ,0) ) {
+		for (UserPayment userPayment : userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardSerialNumber(), now.getYear(), now.getMonthValue()) ) {
 			cardPayAmount += userPayment.getUserPaymentAmount();
 			cardBenefitAmount += userPayment.getUserPaymentReceivedBenefitAmount();
 		}
@@ -158,7 +158,7 @@ public class MyDataServiceImpl implements MyDataService {
 		List<DayTransactionResponseDto> dayTransactionResponseDtoList = new ArrayList<>();
 		HashMap<LocalDate , List<TransactionInfoResponseDto>> dateMap = new HashMap();
 
-		userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardId() , year , month ,0)
+		userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardSerialNumber() , year , month)
 			.stream()
 			.forEach(userPayment -> {
 				dateMap
@@ -189,9 +189,9 @@ public class MyDataServiceImpl implements MyDataService {
 	private void calculateUserCategoryPaymentAmount(User user, HashMap<String, Integer> categoryMap, AtomicInteger amount) {
 		log.info("MyDataServiceImpl_calculateUserCategoryPaymentAmount || 사용자의 카테고리별 사용금액 계산");
 		user.getUserCardList().stream()
-			.flatMap(userCard -> userPaymentRepository.findByUserCardIdAndMonth(userCard.getUserCardId(),
+			.flatMap(userCard -> userPaymentRepository.findByUserCardIdAndMonth(userCard.getUserCardSerialNumber(),
 				LocalDate.now().getYear(),
-				LocalDate.now().getMonthValue(),0)
+				LocalDate.now().getMonthValue())
 				.stream())
 			.forEach(userPayment -> {
 				categoryMap.put(userPayment.getUserPaymentCategory1(), categoryMap.getOrDefault(userPayment.getUserPaymentCategory1(), 0) + userPayment.getUserPaymentAmount());

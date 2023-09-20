@@ -11,13 +11,11 @@ import com.ssafy.benepick.domain.user.entity.UserPayment;
 public interface UserPaymentRepository extends JpaRepository<UserPayment , Long> {
 
 	@Query("SELECT p FROM UserPayment p " +
-		"WHERE p.userCard.userCardId = :userCardId " +
+		"WHERE p.userCard.userCardSerialNumber = :myDataCardId " +
 		"AND MONTH(p.userPaymentDateTime) = :month " +
-		"AND YEAR(p.userPaymentDateTime) = :year " +
-		"AND (:filter = 0 OR p.userPaymentReceivedBenefitAmount = 0)")
-	List<UserPayment> findByUserCardIdAndMonth(@Param("userCardId") Long userCardId,
+		"AND YEAR(p.userPaymentDateTime) = :year ")
+	List<UserPayment> findByUserCardIdAndMonth(@Param("myDataCardId") String myDataCardId,
 		@Param("year") int year,
-		@Param("month") int month,
-		@Param("filter") int filter);
+		@Param("month") int month);
 
 }
