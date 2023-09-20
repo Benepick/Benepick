@@ -1,6 +1,7 @@
 package com.ssafy.benepick.domain.mydata.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,9 +9,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.ssafy.benepick.domain.user.entity.UserCardCompany;
+import com.ssafy.benepick.domain.user.repository.UserCardRepository;
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
 import com.ssafy.benepick.global.api.service.ApiService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ssafy.benepick.domain.mydata.dto.response.CardInfoResponseDto;
 import com.ssafy.benepick.domain.mydata.dto.response.CategoryPayResponseDto;
@@ -41,6 +45,7 @@ public class MyDataServiceImpl implements MyDataService {
 	private final UserPaymentService userPaymentService;
 	private final UserPaymentRepository userPaymentRepository;
 	private final ApiService apiService;
+	private final UserCardRepository userCardRepository;
 
 	@Override
 	public MonthResultResponseDto getMonthResult(HttpServletRequest request) {
@@ -172,6 +177,46 @@ public class MyDataServiceImpl implements MyDataService {
 		}
 
 		return CardInfoResponseDto.createCardInfoResponseDto(userCard,cardPayAmountAndBenefitAmount,dayTransactionResponseDtoList);
+	}
+
+	@Override
+	@Transactional
+	public void updateUserMyData(HttpServletRequest request) {
+		log.info("MyDataServiceImpl_updateUserMyData | 사용자의 마이데이터 거래내역 갱신");
+		// card benefit에 받은 혜택계산해주기
+		User loginUser = userService.getUserFromRequest(request);
+		List<UserCardCompany> userCardCompanyList = loginUser.getUserCardCompanyList();
+
+		userCardCompanyList
+			.stream()
+			.forEach(userCardCompany -> {
+				apiService.getTransactionDataAfterLastRenewalTime(
+					userCardCompany.getUserCardCompanyId(),
+					loginUser.getUserId(),
+					LocalDateTime.now()).
+					stream()
+					.forEach(apiMyDataCardResponseDto -> {
+						UserCard userCard = userCardRepository.findByUserCardCode(
+							apiMyDataCardResponseDto.getApiCardResponseDto().getCardCode());
+
+						int monthPerformance = 0;
+
+						List<UserPayment> userPaymentList = apiMyDataCardResponseDto.getApiMyDataPaymentResponseDtoList()
+							.stream()
+							.map(apiMyDataPaymentResponseDto -> apiMyDataPaymentResponseDto.toUserPayment(userCard))
+							.collect(Collectors.toList());
+
+						monthPerformance = userPaymentList.stream()
+							.filter(userPayment -> userPayment.getUserPaymentReceivedBenefitAmount() == 0)
+							.mapToInt(UserPayment::getUserPaymentAmount)
+							.sum();
+
+
+						// 카드 현월 실적 누적
+						userCard.updateCardCurrentPerformance(userCard.getUserCardCurrentPerformance() + monthPerformance);
+						userPaymentRepository.saveAll(userPaymentList);
+					});
+		});
 	}
 
 	private List<CategoryPayResponseDto> getCategoryPayResponseDtoList(HashMap<String, Integer> categoryMap , int totalAmount) {

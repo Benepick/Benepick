@@ -86,7 +86,7 @@ public class UserCard {
 	}
 
 	public void updateCardCurrentPerformance(int userCardCurrentPerformance){
-		System.out.println("userCardCurrentPerformance = " + userCardCurrentPerformance);
 		this.userCardCurrentPerformance = userCardCurrentPerformance;
 	}
+
 }

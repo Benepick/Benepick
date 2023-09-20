@@ -31,6 +31,7 @@ public class ApiMyDataPaymentResponseDto {
     public UserPayment toUserPayment(UserCard userCard) {
         return UserPayment.builder()
             .userCard(userCard)
+            .userPaymentId(this.getMyDataPaymentId())
             .userPaymentCategory1(this.getMyDataPaymentCategory1())
             .userPaymentCategory2(this.getMyDataPaymentCategory2())
             .userPaymentDateTime(this.getMyDataPaymentDate())

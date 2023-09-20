@@ -42,4 +42,8 @@ public class UserCardBenefit {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_card_category1_id" , nullable = false)
 	private UserCardCategory1 userCardCategory1;
+
+	public void updateReceivedAmount(int userCardBenefitReceivedAmount){
+		this.userCardBenefitReceivedAmount = userCardBenefitReceivedAmount;
+	}
 }

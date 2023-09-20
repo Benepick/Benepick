@@ -1,5 +1,7 @@
 package com.ssafy.benepick.mydata.domain.mydata.controller;
 
+import java.time.LocalDateTime;
+
 import com.ssafy.benepick.mydata.domain.mydata.dto.request.ApiMyDataCardRequestDto;
 import com.ssafy.benepick.mydata.domain.mydata.service.MyDataService;
 import com.ssafy.benepick.mydata.global.response.ResponseResult;
@@ -36,5 +38,16 @@ public class MyDataController {
 	public ResponseResult getMyDataCardList(@RequestParam Long cardCompanyId , @RequestParam String userId) {
 		log.info("MyDataController_getMyDataCardList");
 		return new SingleResponseResult<>(myDataService.getMyDataCard(cardCompanyId , userId));
+	}
+
+	@Operation(summary = "마이 데이터 거래 내역 데이터 갱신", description = "마이 데이터 거래 내역 데이터 갱신 기능")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "마이 데이터 거래 내역 데이터 갱신 성공"),
+		@ApiResponse(responseCode = "400", description = "마이 데이터 거래 내역 데이터 갱신 실패"),
+	})
+	@GetMapping("/renewal")
+	public ResponseResult getTransactionDataAfterLastRenewalTime(@RequestParam Long cardCompanyId , @RequestParam String userId , @RequestParam LocalDateTime lastRenewalTime) {
+		log.info("MyDataController_getTransactionDataAfterLastRenewalTime");
+		return new SingleResponseResult<>(myDataService.getTransactionDataAfterLastRenewalTime(cardCompanyId,userId,lastRenewalTime));
 	}
 }

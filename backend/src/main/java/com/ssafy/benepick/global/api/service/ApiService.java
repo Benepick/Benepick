@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -55,6 +56,22 @@ public class ApiService {
                 .timeout(Duration.ofSeconds(5))
                 .block().getData();
     }
+
+    public List<ApiMyDataCardResponseDto> getTransactionDataAfterLastRenewalTime(Long cardCompanyId,String userId,LocalDateTime lastRenewalTime){
+        log.info("BANK API : 뱅킹 서버에서 거래내역 갱신해주기");
+        return getDefaultWebClient().get()
+            .uri(uriBuilder -> uriBuilder
+                .path("/mydata/renewal")
+                .queryParam("cardCompanyId",cardCompanyId)
+                .queryParam("userId",userId)
+                .queryParam("lastRenewalTime",LocalDateTime.now())
+                .build())
+            .retrieve()
+            .bodyToMono(new ParameterizedTypeReference<ListResponseResult<ApiMyDataCardResponseDto>>() {})
+            .timeout(Duration.ofSeconds(5))
+            .block().getData();
+    }
+
 
 
 }

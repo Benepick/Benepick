@@ -30,7 +30,6 @@ public class UserCardServiceImpl implements  UserCardService{
 	private final UserCardCategory1Repository userCardCategory1Repository;
 	private final UserCardBenefitRepository userCardBenefitRepository;
 	private final UserService userService;
-	private final UserPaymentService userPaymentService;
 
 	@Override
 	@Transactional
@@ -49,14 +48,26 @@ public class UserCardServiceImpl implements  UserCardService{
 				.map(myDataPayment -> myDataPayment.toUserPayment(userCard))
 				.collect(Collectors.toList());
 
+			// 이번달 결제 내역 리스트
+			List<UserPayment> monthPaymentList =
+				userCardPaymentList
+					.stream()
+					.filter(userPayment -> {
+						LocalDateTime paymentDate = userPayment.getUserPaymentDateTime();
+						return paymentDate.getYear() == LocalDate.now().getYear() && paymentDate.getMonthValue() == LocalDate.now().getMonthValue();
+					}).collect(Collectors.toList());
+
+
 			List<UserCardCategory1> userCardCategory1List = new ArrayList<>();
 
 			// 카테고리1 연동
 			myDataCard.getApiCardResponseDto().getCategory1List().stream().forEach(category1 -> {
 				UserCardCategory1 userCardCategory1 = category1.toUserCardCategory1(userCard);
 
+				// 카드 혜택 연동
 				category1.getCardBenefitList().stream().forEach(cardBenefit -> {
-					userCardCategory1.addUserCardBenefit(cardBenefit.toUserCardBenefit(userCardCategory1));
+					UserCardBenefit userCardBenefit = cardBenefit.toUserCardBenefit(userCardCategory1);
+					userCardCategory1.addUserCardBenefit(calculateReceivedCardBenefit(monthPaymentList, userCardBenefit));
 				});
 
 				// 카테고리1 에대하여 카테고리2 연동
@@ -76,6 +87,18 @@ public class UserCardServiceImpl implements  UserCardService{
 			userCardCategory1Repository.saveAll(userCardCategory1List);
 			userPaymentRepository.saveAll(userCardPaymentList);
 		});
+		user.updateLastRenewalTime();
+	}
+
+	private UserCardBenefit calculateReceivedCardBenefit(List<UserPayment> userCardPaymentList , UserCardBenefit cardBenefit){
+		log.info("카드 마다 받은 혜택 계산");
+		int receivedAmount = userCardPaymentList
+			.stream()
+			.filter(userPayment -> userPayment.getUserPaymentCategory1().equals(cardBenefit.getUserCardCategory1().getUserCardCategory1Name()))
+			.mapToInt(UserPayment::getUserPaymentReceivedBenefitAmount)
+			.sum();
+		cardBenefit.updateReceivedAmount(receivedAmount);
+		return cardBenefit;
 	}
 
 	private int calculateCardPerformance(ApiMyDataCardResponseDto myDataCard , LocalDate now){
