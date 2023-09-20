@@ -84,4 +84,8 @@ public class UserCard {
 				.nextLevelAmount(nextLevelAmount)
 				.build();
 	}
+
+	public void updateCardCurrentPerformance(int userCardCurrentPerformance){
+		this.userCardCurrentPerformance = userCardCurrentPerformance;
+	}
 }

@@ -73,7 +73,7 @@ public class MyDataServiceImpl implements MyDataService {
 		int cardPayAmount = 0;
 		int cardBenefitAmount = 0;
 
-		for (UserPayment userPayment : userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardId(), now.getYear(), now.getMonthValue()) ) {
+		for (UserPayment userPayment : userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardId(), now.getYear(), now.getMonthValue() ,0) ) {
 			cardPayAmount += userPayment.getUserPaymentAmount();
 			cardBenefitAmount += userPayment.getUserPaymentReceivedBenefitAmount();
 		}
@@ -89,10 +89,6 @@ public class MyDataServiceImpl implements MyDataService {
 		HashMap<String , Integer> categoryMap = new HashMap<>();
 		AtomicInteger amount = new AtomicInteger(0);
 		calculateUserCategoryPaymentAmount(loginUser, categoryMap, amount);
-		System.out.println(" hi" );
-		for (String s : categoryMap.keySet()) {
-			System.out.println("s = " + categoryMap.get(s));
-		}
 
 		return MonthCategoryResultResponseDto.builder().
 			totalAmount(amount.get()).
@@ -135,11 +131,6 @@ public class MyDataServiceImpl implements MyDataService {
 	public void linkCard(Long cardCompanyId, String userId) {
 		log.info("MyDataServiceImpl_linkCard || 사용자의 카드중 넘겨받은 카드사와 일치하는 카드들 연결");
 		List<ApiMyDataCardResponseDto> myDataCardList = apiService.getMyDataCardList(cardCompanyId, userId);
-//		List<MyDataCard> myDataCardList = myDataCardRepository.findByUserIdAndCompanyId(userId, cardCompanyId);
-		for (ApiMyDataCardResponseDto apiMyDataCardResponseDto : myDataCardList)
-		{
-			System.out.println("apiMyDataCardResponseDto = " + apiMyDataCardResponseDto.getApiCardResponseDto().getApiCardCompanyResponseDto().getCardCompanyName());
-		}
 
 		if(myDataCardList.size() == 0)
 			return;
@@ -157,7 +148,7 @@ public class MyDataServiceImpl implements MyDataService {
 			.stream()
 			.filter(u -> u.getUserCardId().equals(cardId))
 			.findFirst()
-			.get();
+			.orElseGet(null);
 
 		// 이번달 카드 사용 금액
 		// 이번달 카드 받은 혜택 금액
@@ -167,7 +158,7 @@ public class MyDataServiceImpl implements MyDataService {
 		List<DayTransactionResponseDto> dayTransactionResponseDtoList = new ArrayList<>();
 		HashMap<LocalDate , List<TransactionInfoResponseDto>> dateMap = new HashMap();
 
-		userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardId() , year , month)
+		userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardId() , year , month ,0)
 			.stream()
 			.forEach(userPayment -> {
 				dateMap
@@ -200,7 +191,7 @@ public class MyDataServiceImpl implements MyDataService {
 		user.getUserCardList().stream()
 			.flatMap(userCard -> userPaymentRepository.findByUserCardIdAndMonth(userCard.getUserCardId(),
 				LocalDate.now().getYear(),
-				LocalDate.now().getMonthValue())
+				LocalDate.now().getMonthValue(),0)
 				.stream())
 			.forEach(userPayment -> {
 				categoryMap.put(userPayment.getUserPaymentCategory1(), categoryMap.getOrDefault(userPayment.getUserPaymentCategory1(), 0) + userPayment.getUserPaymentAmount());

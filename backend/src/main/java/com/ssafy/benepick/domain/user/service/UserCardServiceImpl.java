@@ -1,5 +1,6 @@
 package com.ssafy.benepick.domain.user.service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,6 @@ import com.ssafy.benepick.domain.card.service.CardService;
 import com.ssafy.benepick.domain.user.dto.response.UserCardResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,18 +26,22 @@ public class UserCardServiceImpl implements  UserCardService{
 	private final UserCardCategory1Repository userCardCategory1Repository;
 	private final UserCardBenefitRepository userCardBenefitRepository;
 	private final UserService userService;
+	private final UserPaymentService userPaymentService;
+
 	@Override
 	public void linkUserCardAndUserPaymentByMyDataCard(List<ApiMyDataCardResponseDto> myDataCardList) {
 		log.info("UserCardServiceImpl_linkUserCardAndUserPaymentByMyDataCard || 마이데이터 유저 카드 데이터를 유저 카드데이터에 연동");
 
 		User user = userRepository.findById(myDataCardList.get(0).getApiMyDataUserResponseDto().getMyDataUserId()).get();
 		myDataCardList.stream().forEach(myDataCard -> {
-			UserCard userCard = myDataCardToUserCard(myDataCard, user);
+
+			UserCard userCard = myDataCard.toUserCard(user);
+			userCard.updateCardCurrentPerformance(calculateCardPerformance(userCard, LocalDate.now()));
 			userCardRepository.save(userCard);
 
 			// 결제 내역 연동
 			List<UserPayment> userCardPaymentList = myDataCard.getApiMyDataPaymentResponseDtoList().stream()
-				.map(myDataPayment -> myDataPaymentToUserPayment(myDataPayment,userCard))
+				.map(myDataPayment -> myDataPayment.toUserPayment(userCard))
 				.collect(Collectors.toList());
 
 			List<UserCardCategory1> userCardCategory1List = new ArrayList<>();
@@ -69,6 +73,14 @@ public class UserCardServiceImpl implements  UserCardService{
 		});
 	}
 
+	private int calculateCardPerformance(UserCard userCard , LocalDate now){
+		return userPaymentService.getUserPaymentListByUserCardAndDate(
+			userCard.getUserCardId(), now.getYear(), now.getMonthValue(), 1)
+			.stream()
+			.mapToInt(UserPayment::getUserPaymentAmount)
+			.sum();
+	}
+
 	// private List<UserCardCategory1> toUserCardCategory1(List<Category1> category1List , UserCard userCard){
 	// 	List<UserCardCategory1> userCardCategory1List = new ArrayList<>();
 	//
@@ -87,36 +99,6 @@ public class UserCardServiceImpl implements  UserCardService{
 	// 	return userCardCategory1List;
 	// }
 
-
-	@Override
-	public UserCard myDataCardToUserCard(ApiMyDataCardResponseDto myDataCard,User user) {
-		return UserCard.builder()
-			.user(user)
-			.userCardCompanyName(myDataCard.getApiCardResponseDto().getApiCardCompanyResponseDto().getCardCompanyName())
-			.userCardSerialNumber(myDataCard.getMyDataCardId())
-			.userCardCode(myDataCard.getApiCardResponseDto().getCardCode())
-			.userCardName(myDataCard.getApiCardResponseDto().getCardName())
-			.userCardExpirationDate(myDataCard.getMyDataCardExpirationDate())
-			.userCardImgUrl(myDataCard.getApiCardResponseDto().getCardImgUrl())
-			.userCardCompanyImgUrl(myDataCard.getApiCardResponseDto().getApiCardCompanyResponseDto().getCardCompanyImgUrl())
-			.userCardCurrentPerformance(0)
-			.userCardPrevPerformance(0)
-			.build();
-	}
-
-	@Override
-	public UserPayment myDataPaymentToUserPayment(ApiMyDataPaymentResponseDto myDataPayment , UserCard userCard) {
-		return UserPayment.builder()
-			.userCard(userCard)
-			.userPaymentCategory1(myDataPayment.getMyDataPaymentCategory1())
-			.userPaymentCategory2(myDataPayment.getMyDataPaymentCategory2())
-			.userPaymentDateTime(myDataPayment.getMyDataPaymentDate())
-			.userPaymentAmount(myDataPayment.getMyDataPaymentAmount())
-			.userPaymentMerchantInfo(myDataPayment.getMyDataPaymentMerchantName())
-			.userPaymentReceivedBenefitAmount(myDataPayment.getMyDataPaymentReceivedBenefitAmount())
-			.userPaymentCardCode(myDataPayment.getMyDataPaymentCardCode())
-			.build();
-	}
 
 	 @Override
 	 public List<UserCardResponseDto> getUserCards(HttpServletRequest request) {

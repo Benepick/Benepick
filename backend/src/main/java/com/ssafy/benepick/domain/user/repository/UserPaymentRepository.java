@@ -13,6 +13,11 @@ public interface UserPaymentRepository extends JpaRepository<UserPayment , Long>
 	@Query("SELECT p FROM UserPayment p " +
 		"WHERE p.userCard.userCardId = :userCardId " +
 		"AND MONTH(p.userPaymentDateTime) = :month " +
-		"AND YEAR(p.userPaymentDateTime) = :year")
-	List<UserPayment> findByUserCardIdAndMonth(@Param("userCardId") Long userCardId, @Param("year") int year, @Param("month") int month);
+		"AND YEAR(p.userPaymentDateTime) = :year " +
+		"AND (:filter = 0 OR p.userPaymentReceivedBenefitAmount = 0)")
+	List<UserPayment> findByUserCardIdAndMonth(@Param("userCardId") Long userCardId,
+		@Param("year") int year,
+		@Param("month") int month,
+		@Param("filter") int filter);
+
 }
