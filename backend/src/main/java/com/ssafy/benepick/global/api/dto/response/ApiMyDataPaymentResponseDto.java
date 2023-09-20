@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import com.ssafy.benepick.domain.user.entity.UserCard;
+import com.ssafy.benepick.domain.user.entity.UserPayment;
+
 @Getter
 @Builder
 @NoArgsConstructor
@@ -24,4 +27,18 @@ public class ApiMyDataPaymentResponseDto {
     private String myDataPaymentCategory2;
     private int myDataPaymentCardCode;
     private int myDataPaymentReceivedBenefitAmount;
+
+    public UserPayment toUserPayment(UserCard userCard) {
+        return UserPayment.builder()
+            .userCard(userCard)
+            .userPaymentId(this.getMyDataPaymentId())
+            .userPaymentCategory1(this.getMyDataPaymentCategory1())
+            .userPaymentCategory2(this.getMyDataPaymentCategory2())
+            .userPaymentDateTime(this.getMyDataPaymentDate())
+            .userPaymentAmount(this.getMyDataPaymentAmount())
+            .userPaymentMerchantInfo(this.getMyDataPaymentMerchantName())
+            .userPaymentReceivedBenefitAmount(this.getMyDataPaymentReceivedBenefitAmount())
+            .userPaymentCardCode(this.getMyDataPaymentCardCode())
+            .build();
+    }
 }

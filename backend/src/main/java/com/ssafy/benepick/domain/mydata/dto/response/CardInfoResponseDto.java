@@ -1,6 +1,8 @@
 package com.ssafy.benepick.domain.mydata.dto.response;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.ssafy.benepick.domain.user.entity.UserCard;
 
@@ -44,7 +46,9 @@ public class CardInfoResponseDto {
 			.cardImgUrl(userCard.getUserCardImgUrl())
 			.totalAmount(monthResult[0])
 			.totalBenefit(monthResult[1])
-			.dayTransactionResponseDtoList(dayTransactionResponseDtoList)
+			.dayTransactionResponseDtoList(dayTransactionResponseDtoList.stream()
+				.sorted(Comparator.comparing(DayTransactionResponseDto::getTransactionDate).reversed())
+				.collect(Collectors.toList()))
 			.build();
 	}
 }

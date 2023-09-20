@@ -50,6 +50,9 @@ public class User {
 	@Column(nullable = false , name = "is_auto_login_active")
 	private boolean isAutoLoginActive;
 
+	@Column(name = "user_last_renewal_time")
+	private LocalDateTime userLastRenewalTime;
+
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<UserCard> userCardList;
 
@@ -86,5 +89,9 @@ public class User {
 				iter.remove();
 			}
 		}
+	}
+
+	public void updateLastRenewalTime(){
+		this.userLastRenewalTime = LocalDateTime.now();
 	}
 }

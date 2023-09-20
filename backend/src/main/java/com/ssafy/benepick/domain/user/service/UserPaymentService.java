@@ -6,5 +6,5 @@ import com.ssafy.benepick.domain.user.entity.UserCard;
 import com.ssafy.benepick.domain.user.entity.UserPayment;
 
 public interface UserPaymentService {
-	List<UserPayment> getUserPaymentListByUserCardAndDate(Long userCardId , int year , int month);
+	List<UserPayment> getUserPaymentListByUserCardAndDate(String myDataCardId , int year , int month);
 }

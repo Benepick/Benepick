@@ -33,7 +33,17 @@ public class UserCardBenefit {
 	@Column(nullable = false , name = "user_card_benefit_performance_end")
 	private int userCardBenefitPerformanceEnd;
 
+	@Column(nullable = false, name = "user_card_benefit_limit")
+	private int userCardBenefitLimit;
+
+	@Column(nullable = false, name = "user_card_benefit_received_amount")
+	private int userCardBenefitReceivedAmount;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_card_category1_id" , nullable = false)
 	private UserCardCategory1 userCardCategory1;
+
+	public void updateReceivedAmount(int userCardBenefitReceivedAmount){
+		this.userCardBenefitReceivedAmount = userCardBenefitReceivedAmount;
+	}
 }
