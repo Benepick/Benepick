@@ -91,7 +91,7 @@ interface CardCategoryResponse extends CommonResponse {
 }
 
 export interface CategoryResultResponseDto {
-  categoryName: string;
+  categoryName: '생활' | '쇼핑' | '식비' | '여가' | '편의점' | '카페' | '온라인';
   amount: number;
   amountRate: number;
 }
