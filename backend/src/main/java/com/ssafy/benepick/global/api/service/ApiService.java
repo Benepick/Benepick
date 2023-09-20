@@ -1,6 +1,7 @@
 package com.ssafy.benepick.global.api.service;
 
 import com.ssafy.benepick.global.api.dto.response.ApiCardCompanyResponseDto;
+import com.ssafy.benepick.global.api.dto.response.ApiMerchantResponseDto;
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
 import com.ssafy.benepick.global.response.ListResponseResult;
 import com.ssafy.benepick.global.response.SingleResponseResult;
@@ -55,6 +56,13 @@ public class ApiService {
                 .timeout(Duration.ofSeconds(5))
                 .block().getData();
     }
-
-
+    public ApiMerchantResponseDto getNearestMerchant(double x, double y) {
+        log.info("BANK API : 뱅킹 서버에서 가까운 상권 정보 가져오기");
+        return getDefaultWebClient().get()
+                .uri("/card/place?x={x}&y={y}", x, y)
+                .retrieve()
+                .bodyToMono(ApiMerchantResponseDto.class)
+                .timeout(Duration.ofSeconds(5))
+                .block();
+    }
 }
