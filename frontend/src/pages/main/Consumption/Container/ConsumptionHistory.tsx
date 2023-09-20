@@ -86,7 +86,7 @@ function ConsumptionHistory() {
                   <View style={{ flex: 1 }}>
                     <CategoryText
                       category={data.categoryName}
-                      value={`${data.amount}원(${data.amountRate}%)`}
+                      value={`${data.amount} 원 ( ${data.amountRate}% )`}
                     />
                   </View>
                 </View>

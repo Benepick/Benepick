@@ -1,8 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { CardIdProps } from './creditCard';
-
 // Navigation Interface
 
 export type RootStackParamList = {
@@ -30,7 +28,7 @@ export type RootStackParamList = {
 
   Home: undefined;
   CreditCard: undefined;
-  CreditCardDetail: { params: CardIdProps };
+  CreditCardDetail: { cardId: number };
   Consumption: undefined;
   Benefit: undefined;
   ChatBot: undefined;

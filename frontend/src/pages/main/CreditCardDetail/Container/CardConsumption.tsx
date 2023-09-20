@@ -2,49 +2,39 @@ import React from 'react';
 import WhiteBox from '@common/components/WhiteBox';
 import CardConsumptionItem from './CardConsumption/CardConsumptionItem';
 import { Spacing } from '@common/components/Spacing';
-import { ScrollView, StyleSheet, View } from 'react-native';
-import { CardConsumptionItemProps } from '@interfaces/creditCard';
+import { ScrollView, View } from 'react-native';
+import { DayTransactionResponseDto } from '@api/myData';
+import BText from '@common/components/BText';
+import BHr from '@common/components/BHr';
 
-// {}: CardConsumptionItemProps[]
-interface CardConsumptionProps {}
-function CardConsumption({}: CardConsumptionProps) {
+function CardConsumption({
+  transactionDate,
+  transcationInfoResponseDtoList,
+}: DayTransactionResponseDto) {
+  const day = transactionDate.slice(8, 10);
+
   return (
-    <WhiteBox>
-      <ScrollView showsVerticalScrollIndicator={false} style={{ maxHeight: 500 }}>
-        <View>
-          <CardConsumptionItem item="에이셉피자" price="100,000" benefit="1,000" />
-          <Spacing />
+    <View style={{ width: '95%' }}>
+      <View style={{ flexDirection: 'row' }}>
+        <Spacing rem="0.5" dir="row" />
+        <BText type="h3">{day}일</BText>
+      </View>
+      <Spacing rem="0.5" />
+      {transcationInfoResponseDtoList.map((value, index) => (
+        <View key={index}>
+          <CardConsumptionItem
+            category={value.category}
+            merchantName={value.merchantName}
+            payAmount={value.payAmount}
+            benefitAmount={value.benefitAmount}
+            transactionTime={value.transactionTime}
+          />
+          <Spacing rem="1" />
         </View>
-        <View>
-          <CardConsumptionItem item="에이셉피자" price="100,000" benefit="1,000" />
-          <Spacing />
-        </View>
-        <View>
-          <CardConsumptionItem item="에이셉피자" price="100,000" benefit="1,000" />
-          <Spacing />
-        </View>
-        <View>
-          <CardConsumptionItem item="에이셉피자" price="100,000" benefit="1,000" />
-          <Spacing />
-        </View>
-        <View>
-          <CardConsumptionItem item="에이셉피자" price="100,000" benefit="1,000" />
-          <Spacing />
-        </View>
-        <View>
-          <CardConsumptionItem item="에이셉피자" price="100,000" benefit="1,000" />
-          <Spacing />
-        </View>
-        <View>
-          <CardConsumptionItem item="에이셉피자" price="100,000" benefit="1,000" />
-          <Spacing />
-        </View>
-        <View>
-          <CardConsumptionItem item="에이셉피자" price="100,000" benefit="1,000" />
-          <Spacing />
-        </View>
-      </ScrollView>
-    </WhiteBox>
+      ))}
+      <BHr />
+      <Spacing rem="0.5" />
+    </View>
   );
 }
 

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Button, Text, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Button, Text, Image, StyleSheet, ScrollView } from 'react-native';
 
 import Page from '@common/components/Page';
 import BText from '@common/components/BText';
@@ -11,20 +11,34 @@ import CardConsumption from './Container/CardConsumption';
 import useDateOption from 'hooks/useDateOption';
 import { CreditCardDetailNavigationProps } from 'interfaces/navigation';
 import CautionModal from './Container/CautionModal';
+import myData, { CardDetailData } from '@api/myData';
+import WhitePage from '@common/components/WhitePage';
+import colors from '@common/design/colors';
+import BHr from '@common/components/BHr';
 
 function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps) {
-  const { params } = route.params;
+  const cardId = route.params.cardId;
   const { selectedDate, showModal, setShowModal, selectDate, setSelectedDate } = useDateOption();
   const [showCautionModal, setShowCautionModal] = useState(false);
 
-  const sampleData = {
-    cardName: '롯데카드',
-    cardType: 'LOCA 365 카드',
-    benefitAmount: '250,000',
-    usedAmount: '500,000',
-    nextSection: '0',
-    image: require('@common/assets/images/cardImg.png'),
-  };
+  const [data, setData] = useState<CardDetailData>();
+
+  useEffect(() => {
+    myData
+      .cardDetail({ cardId: cardId, year: selectedDate.year, month: selectedDate.month })
+      .then((response) => {
+        if (response.statusCode === 200) {
+          setData(response.data);
+        } else {
+          console.log(response.statusCode);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [selectedDate]);
+
+  console.log(data?.cardImgUrl);
 
   return (
     <Page>
@@ -32,19 +46,19 @@ function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps
 
       <View style={styles.cardTitle}>
         <View>
-          <BText type="h3">{sampleData.cardName}</BText>
-          <BText>{sampleData.cardType}</BText>
+          <BText type="h3">{data?.cardName}</BText>
+          <BText>{data?.cardCompanyName}</BText>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <BText type="h1">{`${sampleData.usedAmount}원`}</BText>
+            <BText type="h1">{`${data?.totalAmount.toLocaleString()} 원`}</BText>
             <CautionModal
               showCautionModal={showCautionModal}
               setShowCautionModal={setShowCautionModal}
             />
           </View>
         </View>
-        <Image style={styles.image} source={sampleData.image} />
+        {data?.cardImgUrl && <Image style={styles.image} source={{ uri: data?.cardImgUrl }} />}
       </View>
-      <Spacing />
+      <Spacing rem="1.5" />
       <View style={styles.dateOption}>
         <DateOption
           showModal={showModal}
@@ -55,8 +69,33 @@ function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps
         />
         <IconButton name="Refresh" />
       </View>
-      <Spacing rem="0.5" />
-      <CardConsumption />
+      <Spacing rem="1" />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={styles.scroll}
+        contentContainerStyle={
+          data?.dayTransactionResponseDtoList.length !== 0
+            ? styles.purchase
+            : styles.noPurchaseMonth
+        }
+      >
+        {data?.dayTransactionResponseDtoList.length !== 0 ? (
+          data?.dayTransactionResponseDtoList
+            .sort((a, b) => {
+              return (
+                Number(b.transactionDate.slice(8, 10)) - Number(a.transactionDate.slice(8, 10))
+              );
+            })
+            .map((value) => (
+              <CardConsumption
+                transactionDate={value.transactionDate}
+                transcationInfoResponseDtoList={value.transcationInfoResponseDtoList}
+              />
+            ))
+        ) : (
+          <BText>해당 월에는 결제 내역이 없어요</BText>
+        )}
+      </ScrollView>
     </Page>
   );
 }
@@ -70,7 +109,7 @@ const styles = StyleSheet.create({
     width: '95%',
   },
   image: {
-    maxWidth: '15%',
+    width: '15%',
     aspectRatio: 1 / 1.58,
   },
   dateOption: {
@@ -87,6 +126,22 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     zIndex: 1000,
     alignSelf: 'center',
+  },
+  scroll: {
+    width: '100%',
+    backgroundColor: colors.white,
+    maxHeight: '80%',
+    borderRadius: 10,
+  },
+  purchase: {
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 5,
+  },
+  noPurchaseMonth: {
+    alignItems: 'center',
+    paddingTop: 15,
+    paddingBottom: 15,
   },
 });
 

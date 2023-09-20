@@ -5,33 +5,37 @@ import { Spacing } from '@common/components/Spacing';
 import colors from '@common/design/colors';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { CardConsumptionItemProps } from '@interfaces/creditCard';
+import { TransactionInfoResponseDto } from '@api/myData';
 
-function CardConsumptionItem({ item, price, benefit }: CardConsumptionItemProps) {
+function CardConsumptionItem({
+  category,
+  merchantName,
+  payAmount,
+  benefitAmount,
+  transactionTime,
+}: TransactionInfoResponseDto) {
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <SvgIcons name="Menu" size={30} />
+        <SvgIcons name={category} size={30} />
         <Spacing rem="1" dir="row" />
         <View style={styles.description}>
           <View style={styles.item}>
-            <BText type="h3">{item}</BText>
-            <BText type="h3">{price}원</BText>
+            <BText type="bold">{merchantName}</BText>
+            <BText type="bold">{payAmount}원</BText>
           </View>
           <View style={styles.item}>
-            <BText type="p">예상혜택</BText>
-            <BText color={colors.main}>{benefit}원</BText>
+            <BText type="p">받은혜택</BText>
+            <BText color={colors.main}>{benefitAmount}원</BText>
           </View>
         </View>
       </View>
-      <Spacing rem="0.5" />
-      <BHr />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  description: { flexDirection: 'column', width: '80%' },
+  description: { flexDirection: 'column', width: '85%' },
   item: { flexDirection: 'row', justifyContent: 'space-between' },
 });
 

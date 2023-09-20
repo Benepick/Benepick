@@ -60,7 +60,7 @@ function CircleChart({ segments, totalAmount }: CircleChartProps) {
         fontSize="20"
         fontFamily="IBMPlexSansKR-Bold"
       >
-        {`${totalAmount.toLocaleString()}원`}
+        {`${totalAmount.toLocaleString()} 원`}
       </Text>
     </Svg>
   );
