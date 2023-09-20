@@ -33,3 +33,5 @@ export { default as 여가 } from './여가.svg';
 export { default as 온라인 } from './온라인.svg';
 export { default as 카페 } from './카페.svg';
 export { default as 편의점 } from './편의점.svg';
+
+export { default as Send } from './Send.svg';
