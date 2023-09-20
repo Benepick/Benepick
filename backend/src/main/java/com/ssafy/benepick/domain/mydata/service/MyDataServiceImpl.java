@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.ssafy.benepick.domain.user.entity.UserCardBenefit;
 import com.ssafy.benepick.domain.user.entity.UserCardCompany;
 import com.ssafy.benepick.domain.user.repository.UserCardRepository;
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
@@ -211,6 +212,17 @@ public class MyDataServiceImpl implements MyDataService {
 							.mapToInt(UserPayment::getUserPaymentAmount)
 							.sum();
 
+						userPaymentList.stream()
+							.filter(userPayment -> userPayment.getUserPaymentReceivedBenefitAmount() > 0)
+							.forEach(userPayment -> {
+								userCard.getUserCardCategory1List().stream().forEach(userCardCategory1 -> {
+									if(userPayment.getUserPaymentCategory1().equals(userCardCategory1.getUserCardCategory1Name())){
+										for (UserCardBenefit userCardBenefit : userCardCategory1.getUserCardBenefitList()) {
+											userCardBenefit.updateReceivedAmount(userCardBenefit.getUserCardBenefitReceivedAmount() + userPayment.getUserPaymentReceivedBenefitAmount());
+										}
+									}
+								});
+							});
 
 						// 카드 현월 실적 누적
 						userCard.updateCardCurrentPerformance(userCard.getUserCardCurrentPerformance() + monthPerformance);
