@@ -52,15 +52,25 @@ public class CardController {
 		return new ListResponseResult<>(cardService.findCardBenefitListByCardId(cardId));
 	}
 
-	@Operation(summary = "가맹점 기반 카드 혜택 검색", description = "가맹점 기반 카드 혜택 검색")
+	@Operation(summary = "가맹점 기반 내 카드 혜택 검색", description = "가맹점 기반 내 카드 혜택 검색")
 	@ApiResponses(value = {
-		@ApiResponse(responseCode = "200", description = "가맹점 기반 카드 혜택 검색 성공"),
-		@ApiResponse(responseCode = "400", description = "가맹점 기반 카드 혜택 검색 실패"),
+		@ApiResponse(responseCode = "200", description = "가맹점 기반 내 카드 혜택 검색 성공"),
+		@ApiResponse(responseCode = "400", description = "가맹점 기반 내 카드 혜택 검색 실패"),
 	})
 	@GetMapping("/benefit/user/{keyword}")
 	public ResponseResult searchCardBenefitByKeyword(@PathVariable(value = "keyword") String keyword , HttpServletRequest request) {
 		log.info("CardController_searchCardBenefitByKeyword");
 		return new ListResponseResult<>(cardService.findCardBenefitBySearch(keyword,request));
+	}
 
+	@Operation(summary = "가맹점 기반 전체 카드 혜택 검색", description = "가맹점 기반 전체 카드 혜택 검색")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "가맹점 기반 전체 카드 혜택 검색 성공"),
+		@ApiResponse(responseCode = "400", description = "가맹점 기반 전체 카드 혜택 검색 실패"),
+	})
+	@GetMapping("/benefit/all/{keyword}")
+	public ResponseResult searchAllCardBenefitByKeyword(@PathVariable(value = "keyword") String keyword , HttpServletRequest request) {
+		log.info("CardController_searchAllCardBenefitByKeyword");
+		return new ListResponseResult<>(apiService.searchCardBenefitByKeyword(keyword));
 	}
 }

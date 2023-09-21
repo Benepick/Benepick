@@ -3,6 +3,7 @@ package com.ssafy.benepick.global.api.service;
 import com.ssafy.benepick.global.api.dto.response.ApiCardCompanyResponseDto;
 import com.ssafy.benepick.global.api.dto.response.ApiMerchantResponseDto;
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
+import com.ssafy.benepick.global.api.dto.response.ApiSearchCardBenefitResponseDto;
 import com.ssafy.benepick.global.response.ListResponseResult;
 import com.ssafy.benepick.global.response.SingleResponseResult;
 import lombok.RequiredArgsConstructor;
@@ -81,5 +82,15 @@ public class ApiService {
                 .bodyToMono(ApiMerchantResponseDto.class)
                 .timeout(Duration.ofSeconds(5))
                 .block();
+    }
+
+    public List<ApiSearchCardBenefitResponseDto> searchCardBenefitByKeyword(String keyword) {
+        log.info("BANK API : 뱅킹 서버에서 가맹점에 대한 전체 카드 혜택 정보 가져오기");
+        return getDefaultWebClient().get()
+            .uri("/card/benefit/{keyword}",keyword)
+            .retrieve()
+            .bodyToMono(new ParameterizedTypeReference<ListResponseResult<ApiSearchCardBenefitResponseDto>>() {})
+            .timeout(Duration.ofSeconds(5))
+            .block().getData();
     }
 }
