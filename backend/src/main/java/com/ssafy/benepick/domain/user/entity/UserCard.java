@@ -86,7 +86,7 @@ public class UserCard {
 				.build();
 	}
 
-	public RecommendCardResponseDto recommendCardResponseDto(String merchantName, String discountTarget, int remainLimitBenefit) {
+	public RecommendCardResponseDto recommendCardResponseDto(String merchantName, String discountTarget, int discountPercent, int remainLimitBenefit) {
 		return RecommendCardResponseDto.builder()
 				.merchantName(merchantName)
 				.cardName(userCardName)
@@ -94,6 +94,7 @@ public class UserCard {
 				.cardImgUrl(userCardImgUrl)
 				.serialNumber(userCardSerialNumber)
 				.discountTarget(discountTarget)
+				.discountPercent(discountPercent)
 				.remainLimitBenefit(remainLimitBenefit)
 				.build();
 	}

@@ -33,6 +33,9 @@ public class RecommendCardResponseDto {
     @Schema(description = "할인 대상", example = "스타벅스")
     private String discountTarget;
 
+    @Schema(description = "혜택 적용률", example = "5")
+    private int discountPercent;
+
     @Schema(description = "잔여한도", example = "12000")
     private int remainLimitBenefit;
 }
