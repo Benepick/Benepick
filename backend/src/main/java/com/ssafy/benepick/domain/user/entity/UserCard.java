@@ -3,6 +3,7 @@ package com.ssafy.benepick.domain.user.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.ssafy.benepick.domain.card.dto.response.RecommendCardResponseDto;
 import com.ssafy.benepick.domain.user.dto.response.UserCardResponseDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -82,6 +83,18 @@ public class UserCard {
 				.performanceLevels(userCardPerformanceLevels)
 				.currentLevel(userCardCurrentLevel)
 				.nextLevelAmount(nextLevelAmount)
+				.build();
+	}
+
+	public RecommendCardResponseDto recommendCardResponseDto(String merchantName, String discountTarget, int remainLimitBenefit) {
+		return RecommendCardResponseDto.builder()
+				.merchantName(merchantName)
+				.cardName(userCardName)
+				.cardCompanyName(userCardCompanyName)
+				.cardImgUrl(userCardImgUrl)
+				.serialNumber(userCardSerialNumber)
+				.discountTarget(discountTarget)
+				.remainLimitBenefit(remainLimitBenefit)
 				.build();
 	}
 

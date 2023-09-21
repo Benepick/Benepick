@@ -1,41 +1,47 @@
 package com.ssafy.benepick.domain.card.service;
 
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import org.springframework.stereotype.Service;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.ssafy.benepick.domain.card.dto.response.BenefitSearchResponseDto;
 import com.ssafy.benepick.domain.card.dto.response.CardBenefitDiscountResponseDto;
 import com.ssafy.benepick.domain.card.dto.response.CardBenefitResponseDto;
-import com.ssafy.benepick.domain.user.entity.User;
-import com.ssafy.benepick.domain.user.entity.UserCard;
-import com.ssafy.benepick.domain.user.entity.UserCardBenefit;
-import com.ssafy.benepick.domain.user.entity.UserCardCategory1;
-import com.ssafy.benepick.domain.user.entity.UserCardCategory2;
-import com.ssafy.benepick.domain.user.entity.UserCardCategory3;
-import com.ssafy.benepick.domain.user.repository.UserCardRepository;
+import com.ssafy.benepick.domain.card.dto.response.RecommendCardResponseDto;
+import com.ssafy.benepick.domain.user.dto.response.UserCardResponseDto;
+import com.ssafy.benepick.domain.user.entity.*;
+import com.ssafy.benepick.domain.user.repository.*;
+import com.ssafy.benepick.domain.user.service.UserCardService;
 import com.ssafy.benepick.domain.user.service.UserService;
-
+import com.ssafy.benepick.global.api.dto.response.ApiMerchantResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
-public class CardServiceImpl implements CardService {
+public class CardServiceImpl implements CardService{
 
-	private final UserCardRepository userCardRepository;
 	private final UserService userService;
+	private final UserCardRepository userCardRepository;
+	private final UserCardService userCardService;
+	private final UserCardBenefitRepository userCardBenefitRepository;
+	private final UserCardCategory1Repository userCardCategory1Repository;
+	private final UserCardCategory2Repository userCardCategory2Repository;
+	private final UserCardCategory3Repository userCardCategory3Repository;
+
 
 	@Override
 	public List<UserCardCategory1> findCategory1ListByCardCode(Long cardCode) {
 		log.info("CardServiceImpl_findCategory1ByCardCode || 카드 코드 바탕 으로 혜택 정보 찾기");
 		return userCardRepository.findByUserCardCode(cardCode).getUserCardCategory1List();
 	}
+
 
 	@Override
 	public List<CardBenefitResponseDto> findCardBenefitListByCardId(Long cardId) {
@@ -147,5 +153,70 @@ public class CardServiceImpl implements CardService {
 
 		String joinedNames = String.join(",", category3List);
 		return category2Name + "(" + joinedNames + " 등)";
+	}
+
+
+	@Override
+	public RecommendCardResponseDto recommendCard(ApiMerchantResponseDto apiMerchantResponseDto, HttpServletRequest request) {
+		User user = userService.getUserFromRequest(request);
+		String merchantName = apiMerchantResponseDto.getMerchantName();
+		String cate1 = apiMerchantResponseDto.getMerchantCategory1();
+		String cate2 = apiMerchantResponseDto.getMerchantCategory2();
+		String cate3 = apiMerchantResponseDto.getMerchantCategory3();
+
+		String target = "";
+		int remainLimitBenefit = 0;
+		UserCard recommendCard = null;
+		int discountPercent = 0;
+
+		for (UserCard card : userCardRepository.findByUser(user)) {
+			for (UserCardCategory1 category1 : userCardCategory1Repository.findByUserCard(card)) {
+				if (!category1.getUserCardCategory1Name().equals(cate1)) {
+					continue;
+				}
+
+				for (UserCardCategory2 category2 : userCardCategory2Repository.findByUserCardCategory1(category1)) {
+					if (!category2.getUserCardCategory2Name().equals(cate2)) {
+						continue;
+					}
+
+					if (cate3.isEmpty()) {
+						target = cate2 + " 모든 가맹점";
+					} else {
+						for (UserCardCategory3 category3 : userCardCategory3Repository.findByUserCardCategory2(category2)) {
+							if (category3.getUserCardCategory3Name().equals(cate3)) {
+								target = cate3;
+								break;
+							}
+						}
+					}
+
+					int prevAmount = card.getUserCardPrevPerformance();
+					List<UserCardBenefit> userCardBenefits = userCardBenefitRepository.findByUserCardCategory1(category1);
+
+					for (UserCardBenefit benefit : userCardBenefits) {
+						if (isPerformanceInRange(prevAmount, benefit)) {
+							if (discountPercent < benefit.getUserCardBenefitDiscountPercent()) {
+								discountPercent = benefit.getUserCardBenefitDiscountPercent();
+								recommendCard = card;
+								remainLimitBenefit = benefit.getUserCardBenefitLimit() - benefit.getUserCardBenefitReceivedAmount();
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if (recommendCard != null) {
+			System.out.println(recommendCard.getUserCardName());
+			return recommendCard.recommendCardResponseDto(merchantName, target, remainLimitBenefit);
+		}
+
+		return null;
+	}
+
+	private boolean isPerformanceInRange(int prevAmount, UserCardBenefit userCardBenefit) {
+		return prevAmount >= userCardBenefit.getUserCardBenefitPerformanceStart() &&
+				prevAmount < userCardBenefit.getUserCardBenefitPerformanceEnd();
 	}
 }
