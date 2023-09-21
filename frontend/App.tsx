@@ -3,7 +3,7 @@ import { Alert, NativeEventEmitter, NativeModules } from 'react-native';
 import PushNotification, { Importance } from 'react-native-push-notification';
 
 import PushAlert from '@common/utils/PushAlert';
-import { setShakePick, setLaunch } from '@store/slices/appSlice';
+import { setShakePick, setLaunch, setIsShakePickRunning } from '@store/slices/appSlice';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import RootStack from './src/navigator/RootStack';
 
@@ -15,11 +15,10 @@ function App() {
 
   useEffect(() => {
     if (app.shakePick) {
-      EventListener.startListening();
+      EventListener.startShakePick();
+    } else {
+      EventListener.stopShakePick();
     }
-    // else {
-    //   EventListener.stopListening();
-    // }
   }, [app.shakePick]);
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 package com.benepick.EventListener;
 
 import android.content.Intent;
+import android.os.Build;
 import android.widget.Toast;
 import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
@@ -19,17 +20,23 @@ public class EventListenerModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void startListening() {
+  public void startShakePick() {
       Intent serviceIntent = new Intent(reactContext, EventService.class);
-      reactContext.startService(serviceIntent);
-      Toast.makeText(reactContext, "들어", Toast.LENGTH_SHORT).show();
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+          reactContext.startForegroundService(serviceIntent);
+      } else {
+          reactContext.startService(serviceIntent);
+      }
+      Toast.makeText(reactContext, "RN_Start", Toast.LENGTH_SHORT).show();
   }
 
   @ReactMethod
-  public void stopListening() {
+  public void stopShakePick() {
       Intent serviceIntent = new Intent(reactContext, EventService.class);
-      reactContext.stopService(serviceIntent);
-      Toast.makeText(reactContext, "듣지마", Toast.LENGTH_SHORT).show();
+      if (EventService.getIsRunning()) {
+          reactContext.stopService(serviceIntent);
+      }
+      Toast.makeText(reactContext, "RN_Stop", Toast.LENGTH_SHORT).show();
   }
 
   @ReactMethod
@@ -40,6 +47,14 @@ public class EventListenerModule extends ReactContextBaseJavaModule {
 
       reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTrigger", location);
   }
+    @ReactMethod
+    public void addListener(String eventName) {
+    }
+
+    @ReactMethod
+    public void removeListeners(Integer count) {
+    }
+
 }
 
 
