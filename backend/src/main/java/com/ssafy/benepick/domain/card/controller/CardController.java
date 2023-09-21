@@ -1,5 +1,7 @@
 package com.ssafy.benepick.domain.card.controller;
 
+import com.ssafy.benepick.domain.card.dto.response.RecommendCardResponseDto;
+import com.ssafy.benepick.domain.user.dto.response.UserCardResponseDto;
 import com.ssafy.benepick.global.api.dto.response.ApiMerchantResponseDto;
 import com.ssafy.benepick.global.api.service.ApiService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,7 +35,7 @@ public class CardController {
 	private final CardService cardService;
 	private final ApiService apiService;
 	@GetMapping("/place")
-	public ApiMerchantResponseDto getCardPlace(@RequestParam("x") double x, @RequestParam("y") double y, HttpServletRequest request) {
-		return apiService.getNearestMerchant(x, y);
+	public RecommendCardResponseDto getCardPlace(@RequestParam("x") double x, @RequestParam("y") double y, HttpServletRequest request) {
+		return cardService.recommendCard(apiService.getNearestMerchant(x, y), request);
 	}
 }
