@@ -141,7 +141,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	 	for (UserCard userCard : userCardList) {
 	 		int curPerform = userCard.getUserCardCurrentPerformance();
 	 		List<UserCardCategory1> category1s = getUserCardCategory1(userCard); //cardService.getCardCategory1(card);
-	 		List<Integer> cardPerformLevelList = getCardBenefitsLevels(category1s.get(0));
+			List<Integer> cardPerformLevelList = getCardBenefitsLevels(category1s.get(0));
 	 		int currentLevel = 0, nextLevelAmount = 0;
 
 	 		for (int i = 0; i < cardPerformLevelList.size() - 1; i++) {
@@ -156,6 +156,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	 	}
 	 	return userCardResponseDtos;
 	 }
+
 
 	private List<UserCardBenefit> getCardBenefits(UserCardCategory1 userCardCategory1) {
 		List<UserCardBenefit> cardBenefitList = userCardBenefitRepository.findByUserCardCategory1(userCardCategory1);
