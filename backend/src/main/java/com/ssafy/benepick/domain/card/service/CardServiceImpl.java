@@ -106,7 +106,10 @@ public class CardServiceImpl implements CardService {
 				if(isMatch) break;
 			}
 		}
-		return benefitSearchResponseDtoList;
+		return benefitSearchResponseDtoList.stream()
+			.sorted(Comparator.comparingInt(BenefitSearchResponseDto::getDiscountPercent).reversed())
+			.limit(3)
+			.collect(Collectors.toList());
 	}
 
 	private BenefitSearchResponseDto createBenefitSearchResponseDto(UserCard userCard ,UserCardCategory3 category3){
@@ -123,8 +126,8 @@ public class CardServiceImpl implements CardService {
 				userCardPrevPerformance <= userCardBenefit.getUserCardBenefitPerformanceEnd()){
 
 				return BenefitSearchResponseDto.createBenefitSearchResponseDto(
-					userCard.getUserCardName(),
 					userCard.getUserCardCompanyName(),
+					userCard.getUserCardName(),
 					userCard.getUserCardImgUrl(),
 					category3.getUserCardCategory3Name(),
 					userCardBenefit.getUserCardBenefitDiscountPercent(),
