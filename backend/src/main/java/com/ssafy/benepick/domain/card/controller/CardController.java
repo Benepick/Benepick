@@ -2,13 +2,17 @@ package com.ssafy.benepick.domain.card.controller;
 
 import com.ssafy.benepick.global.api.dto.response.ApiMerchantResponseDto;
 import com.ssafy.benepick.global.api.service.ApiService;
+
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.benepick.domain.card.service.CardService;
+import com.ssafy.benepick.global.response.ListResponseResult;
 import com.ssafy.benepick.global.response.ResponseResult;
 
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,5 +39,16 @@ public class CardController {
 	@GetMapping("/place")
 	public ApiMerchantResponseDto getCardPlace(@RequestParam("x") double x, @RequestParam("y") double y, HttpServletRequest request) {
 		return apiService.getNearestMerchant(x, y);
+	}
+
+	@Operation(summary = "카드 혜택 조회", description = "카드 혜택 조회")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "카드 혜택 조회 성공"),
+		@ApiResponse(responseCode = "400", description = "카드 혜택 조회 실패"),
+	})
+	@GetMapping("/benefit/{cardId}")
+	public ResponseResult getCardBenefit(@PathVariable(value = "cardId") Long cardId, HttpServletRequest request) {
+		log.info("CardController_getCardBenefit");
+		return new ListResponseResult<>(cardService.findCardBenefitListByCardId(cardId));
 	}
 }

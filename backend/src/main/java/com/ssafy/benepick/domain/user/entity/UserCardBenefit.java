@@ -1,5 +1,7 @@
 package com.ssafy.benepick.domain.user.entity;
 
+import com.ssafy.benepick.domain.card.dto.response.CardBenefitDiscountResponseDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -45,5 +47,14 @@ public class UserCardBenefit {
 
 	public void updateReceivedAmount(int userCardBenefitReceivedAmount){
 		this.userCardBenefitReceivedAmount = userCardBenefitReceivedAmount;
+	}
+
+	public CardBenefitDiscountResponseDto toCardBenefitDiscountResponseDto(int performanceLevel){
+		return CardBenefitDiscountResponseDto.builder()
+			.performanceLevel(performanceLevel)
+			.discountPercent(userCardBenefitDiscountPercent)
+			.performanceStart(userCardBenefitPerformanceStart)
+			.performanceEnd(userCardBenefitPerformanceEnd)
+			.build();
 	}
 }
