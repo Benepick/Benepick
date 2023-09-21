@@ -17,5 +17,6 @@ public class ApiCardBenefitResponseDto {
     private int cardBenefitDiscountPercent;
     private int cardBenefitPerformanceStart;
     private int cardBenefitPerformanceEnd;
+    private int cardBenefitLimit;
 
 }

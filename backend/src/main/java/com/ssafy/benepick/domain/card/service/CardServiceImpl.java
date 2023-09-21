@@ -3,7 +3,12 @@ package com.ssafy.benepick.domain.card.service;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
+
+import com.ssafy.benepick.domain.card.dto.response.CardBenefitDiscountResponseDto;
+import com.ssafy.benepick.domain.card.dto.response.CardBenefitResponseDto;
+import com.ssafy.benepick.domain.user.entity.UserCardBenefit;
 import com.ssafy.benepick.domain.user.entity.UserCardCategory1;
+import com.ssafy.benepick.domain.user.entity.UserCardCategory2;
 import com.ssafy.benepick.domain.user.repository.UserCardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,12 +29,44 @@ public class CardServiceImpl implements CardService{
 		return userCardRepository.findByUserCardCode(cardCode).getUserCardCategory1List();
 	}
 
-    // @Override
-    // public List<Category1> findCategory1ListByCardCode(Long cardCode) {
-    //     log.info("CardServiceImpl_findCategory1ByCardCode || 카드 코드 바탕 으로 혜택 정보 찾기");
-    //     return cardRepository.findByCardCode(cardCode).getCategory1List();
-    // }
-    // @Override
+	@Override
+	public List<CardBenefitResponseDto> findCardBenefitListByCardId(Long cardId) {
+		log.info("CardServiceImpl_findCardBenefitListByCardId || 카드 ID 바탕 으로 혜택 정보 찾기");
+		List<CardBenefitResponseDto> result = new ArrayList<>();
+
+		userCardRepository.findById(cardId)
+			.get()
+			.getUserCardCategory1List()
+			.stream()
+			.forEach(userCardCategory1 -> {
+
+				List<String> category2List = new ArrayList<>();
+				List<String> category3List = new ArrayList<>();
+				userCardCategory1.getUserCardCategory2List().stream().forEach(userCardCategory2 -> {
+					category2List.add(userCardCategory2.getUserCardCategory2Name());
+					userCardCategory2.getUserCardCategory3List().stream().forEach(userCardCategory3 -> {
+						category3List.add(userCardCategory3.getUserCardCategory3Name());
+					});
+				});
+
+				List<CardBenefitDiscountResponseDto> cardBenefitDiscountResponseDtoList = new ArrayList<>();
+				// 카드 혜택 리스트
+				List<UserCardBenefit> userCardBenefitList = userCardCategory1.getUserCardBenefitList();
+				for (int idx = 0; idx < userCardBenefitList.size() ; idx++) {
+					cardBenefitDiscountResponseDtoList.add(userCardBenefitList.get(idx).toCardBenefitDiscountResponseDto(idx+1));
+				}
+
+				result.add(CardBenefitResponseDto.createCardBenefitResponseDto(
+					userCardCategory1.getUserCardCategory1Name(),
+					cardBenefitDiscountResponseDtoList,
+					category2List,
+					category3List));
+			});
+
+		return result;
+	}
+
+	// @Override
     // public List<Category1> getCardCategory1(Card card) {
     //     List<Category1> category1s = category1Repository.findByCard(card);
     //     for (Category1 cate1 : category1s) {
