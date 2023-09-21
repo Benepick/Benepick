@@ -38,7 +38,7 @@ public class UserCardServiceImpl implements  UserCardService{
 
 		User user = userRepository.findById(myDataCardList.get(0).getApiMyDataUserResponseDto().getMyDataUserId()).get();
 		myDataCardList.stream().forEach(myDataCard -> {
-
+			
 			UserCard userCard = myDataCard.toUserCard(user);
 			userCard.updateCardCurrentPerformance(calculateCardPerformance(myDataCard,LocalDate.now()));
 			userCardRepository.save(userCard);
@@ -83,6 +83,9 @@ public class UserCardServiceImpl implements  UserCardService{
 				});
 				userCardCategory1List.add(userCardCategory1);
 			});
+			for (UserCardCategory1 userCardCategory1 : userCardCategory1List) {
+				System.out.println("userCardCategory1 = " + userCardCategory1.getUserCard().getUserCardId());
+			}
 
 			userCardCategory1Repository.saveAll(userCardCategory1List);
 			userPaymentRepository.saveAll(userCardPaymentList);
@@ -91,7 +94,6 @@ public class UserCardServiceImpl implements  UserCardService{
 	}
 
 	private UserCardBenefit calculateReceivedCardBenefit(List<UserPayment> userCardPaymentList , UserCardBenefit cardBenefit){
-		log.info("카드 마다 받은 혜택 계산");
 		int receivedAmount = userCardPaymentList
 			.stream()
 			.filter(userPayment -> userPayment.getUserPaymentCategory1().equals(cardBenefit.getUserCardCategory1().getUserCardCategory1Name()))

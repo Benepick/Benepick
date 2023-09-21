@@ -47,8 +47,20 @@ public class CardController {
 		@ApiResponse(responseCode = "400", description = "카드 혜택 조회 실패"),
 	})
 	@GetMapping("/benefit/{cardId}")
-	public ResponseResult getCardBenefit(@PathVariable(value = "cardId") Long cardId, HttpServletRequest request) {
+	public ResponseResult getCardBenefit(@PathVariable(value = "cardId") Long cardId) {
 		log.info("CardController_getCardBenefit");
 		return new ListResponseResult<>(cardService.findCardBenefitListByCardId(cardId));
+	}
+
+	@Operation(summary = "가맹점 기반 카드 혜택 검색", description = "가맹점 기반 카드 혜택 검색")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "가맹점 기반 카드 혜택 검색 성공"),
+		@ApiResponse(responseCode = "400", description = "가맹점 기반 카드 혜택 검색 실패"),
+	})
+	@GetMapping("/benefit/user/{keyword}")
+	public ResponseResult searchCardBenefitByKeyword(@PathVariable(value = "keyword") String keyword , HttpServletRequest request) {
+		log.info("CardController_searchCardBenefitByKeyword");
+		return new ListResponseResult<>(cardService.findCardBenefitBySearch(keyword,request));
+
 	}
 }

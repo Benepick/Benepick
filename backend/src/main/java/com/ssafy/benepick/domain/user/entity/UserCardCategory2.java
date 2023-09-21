@@ -6,6 +6,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -25,8 +27,12 @@ import lombok.NoArgsConstructor;
 public class UserCardCategory2 {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_card_category2_id")
 	private Long userCardCategory2Id;
+
+	@Column(nullable = false , name = "card_category2_id")
+	private Long cardCategory2Id;
 
 	@Column(nullable = false ,name = "user_card_category2_name")
 	private String userCardCategory2Name;
