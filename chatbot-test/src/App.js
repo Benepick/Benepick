@@ -5,7 +5,7 @@ import generate from "./ChatGptAPI";
 
 function App() {
   const [query, setQuery] = useState("");
-  const [benefits, setBenefits] = useState('');
+  const [cards, setCards] = useState([]);
   const [answer, setAnswer] = useState([]);
   const [answerTime, setAnswerTime] = useState(0);
   const answerTimer = useRef(null);
@@ -21,7 +21,7 @@ function App() {
   };
 
   const onClickRequest = () => {
-    setBenefits('');
+    setCards('');
     setAnswer([]);
     setAnswerTime(0);
     if (isGptAPI) {
@@ -38,33 +38,73 @@ function App() {
               // document_id: "7be70c9c-14a1-445b-8ca4-4329a96db23d",
               source_id:"cardname"
             },
-            top_k: 30,
+            top_k: 1,
           },
         ],
       })
       .then((response) => {
         console.log(response);
-        // 배열 데이터를 하나의 문자열로 변환
-        let answerString = "";
+        let answers = [];
         for (let i = 0; i < response.data.results[0].results.length; i++) {
           let newline = response.data.results[0].results[i].text;
-          answerString += newline;
-          if (i !== response.data.results[0].results.length - 1) {
-            answerString += "\n";
-          }
+          answers.push(newline);
         }
-        setBenefits(answerString);
-        console.log(answerString);
+        setCards(answers);
+        console.log(answers);
       });
   };
 
   useEffect(() => {
-    if (benefits === '' || !isGptAPI) return;
-    generate(query, benefits, category, setAnswer).then((response) => {
+    if (cards === '' || !isGptAPI) return;
+    if (category === '카드') {
+      let benefits = [];
+      for (let i = 0; i < cards.length; i++) {
+        benefits[i] = retrieveCardBenefits(cards[i], i);
+      }
+      setAnswer(benefits);
+      return;
+    }
+    
+    generate(query, cards, category, setAnswer).then((response) => {
       console.log(response);
       answerTimer.current && clearInterval(answerTimer.current);
     });
-  }, [benefits]);
+  }, [cards]);
+
+  const retrieveCardBenefits = (cardname, i) => {
+    axios
+      .post("http://localhost:3333/query", {
+        queries: [
+          {
+            query: query,
+            filter: {
+              source_id: cardname
+            },
+            top_k: 10,
+          },
+        ],
+      })
+      .then((response) => {
+        console.log(response);
+        let answers = [];
+        for (let i = 0; i < response.data.results[0].results.length; i++) {
+          let newline = response.data.results[0].results[i].text;
+          answers.push(newline);
+        }
+        console.log(answers);
+        console.log(answer);
+        answer[i] = answers;
+        setAnswer(answer);
+        return answers;
+      }
+    );
+  }
+
+  const handleClickCardName = (e) => {
+    console.log(e.target.innerText);
+    let cardname = e.target.innerText;
+    retrieveCardBenefits(cardname);
+  }
 
   return (
     <div className="App">
@@ -77,14 +117,16 @@ function App() {
           <label><input type="radio" name="category" value="장소" onChange={(e) => setCategory(e.target.value)} checked={category === '장소'}/>장소</label>
         </div>}
       </div>
-      <pre>
-        {benefits}
-      </pre>
+      {cards && cards.map((benefit, index) => {
+        return <li key={index}><a onClick={handleClickCardName}>{benefit}</a></li>;
+      })}
       <hr/>
       {isGptAPI && <div>
         <h1>챗지피티 답변</h1>
         <p>요청 시간: {answerTime}</p>
-        <pre>{answer}</pre>
+        {answer && answer.map((benefits, index) => {
+          return <li key={index}>{benefits}</li>;
+        })}
       </div>}
     </div>
   );
