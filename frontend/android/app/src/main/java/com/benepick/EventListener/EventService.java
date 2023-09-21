@@ -28,12 +28,14 @@ import com.facebook.react.bridge.ReactContext;
 
 public class EventService extends Service implements SensorEventListener {
     private SensorManager sensorManager;
-    private int lastShakeValue = -1;
-    private long lastShakeTime = 0;
-    private static final int SHAKE_THRESHOLD = 800;
+    private static final float SHAKE_THRESHOLD_GRAVITY = 2.7F;
+    private static final int SHAKE_SLOP_TIME_MS = 500;
+    private static final int SHAKE_COUNT_RESET_TIME_MS = 3000;
     private static final int NOTIFICATION_ID = 1;
     private static final String CHANNEL_ID = "SHAKEPICK";
     private static boolean isRunning = false;
+    private long mShakeTimestamp;
+    private int mShakeCount;
 
     public EventService() {
         super();
@@ -84,17 +86,17 @@ public class EventService extends Service implements SensorEventListener {
 
             long currentTime = System.currentTimeMillis();
 
-            if ((currentTime - lastShakeTime) > 100) {
-                long timeDiff = currentTime - lastShakeTime;
-                lastShakeTime = currentTime;
-
-                double speed = Math.abs(x + y + z - lastShakeValue) / timeDiff * 10000;
-
-                if (speed > SHAKE_THRESHOLD) {
-                    onShake();
+            if (gForce > SHAKE_THRESHOLD_GRAVITY) {
+                final long now = System.currentTimeMillis();
+                if (mShakeTimestamp + SHAKE_SLOP_TIME_MS > now) {
+                    return;
                 }
-
-                lastShakeValue = (int) (x + y + z);
+                if (mShakeTimestamp + SHAKE_COUNT_RESET_TIME_MS < now) {
+                    mShakeCount = 0;
+                }
+                mShakeTimestamp = now;
+                mShakeCount++;
+                onShake();
             }
         }
     }
