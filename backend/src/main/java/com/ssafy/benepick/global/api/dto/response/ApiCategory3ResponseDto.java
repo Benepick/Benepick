@@ -18,7 +18,7 @@ public class ApiCategory3ResponseDto {
 
     public UserCardCategory3 toUserCardCategory3(){
         return UserCardCategory3.builder()
-                .userCardCategory3Id(category3Id)
+                .cardCategory3Id(category3Id)
                 .userCardCategory3Name(category3Name)
                 .build();
     }

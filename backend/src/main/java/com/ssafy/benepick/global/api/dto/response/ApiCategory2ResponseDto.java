@@ -22,7 +22,7 @@ public class ApiCategory2ResponseDto {
 
     public UserCardCategory2 toUserCardCategory2(){
         return UserCardCategory2.builder()
-                .userCardCategory2Id(category2Id)
+                .cardCategory2Id(category2Id)
                 .userCardCategory2Name(category2Name)
                 .userCardCategory3List(new ArrayList<>())
                 .build();

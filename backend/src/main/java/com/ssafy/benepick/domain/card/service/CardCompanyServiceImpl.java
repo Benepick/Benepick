@@ -67,7 +67,7 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 
 			for (UserCardCompany userCardCompany : userCardCompanyList){
 				log.info("카드사 유효기간 갱신");
-				if(userCardCompany.getUserCardCompanyId().equals(cardCompanyId)){
+				if(userCardCompany.getCardCompanyId().equals(cardCompanyId)){
 					userCardCompany.renewDate();
 					isExist = true;
 					break;

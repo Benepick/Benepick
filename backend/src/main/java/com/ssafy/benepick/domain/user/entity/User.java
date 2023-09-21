@@ -69,7 +69,7 @@ public class User {
 		this.userCardCompanyList.add(
 			UserCardCompany.builder()
 				.user(this)
-				.userCardCompanyId(cardCompany.getCardCompanyId())
+				.cardCompanyId(cardCompany.getCardCompanyId())
 				.userCardCompanyName(cardCompany.getCardCompanyName())
 				.userCardCompanyImgUrl(cardCompany.getCardCompanyImgUrl())
 				.userCardCompanyRequestDate(now)
