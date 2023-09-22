@@ -1,12 +1,15 @@
+server:
+  port: 8081
+
 spring:
   jpa:
     hibernate:
       ddl-auto: create #create update none
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://j9a602a.p.ssafy.io:3306/benepick?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://j9a610.p.ssafy.io:3306/benepick?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: benepick
     password: benepick
 
 webclient:
-  base-url= http://j9a610.p.ssafy.io:8082
+  base-url: http://43.200.133.254:8082
