@@ -1,5 +1,12 @@
 import { ImageSourcePropType } from 'react-native';
 
 export interface BenfitCardProps {
-  image: ImageSourcePropType;
+  cardCompanyName: string;
+  cardName: string;
+  cardImgUrl: string;
+  category: string;
+  discountPercent: number;
+  discountTarget: string;
+  remainedBenefit?: number;
+  benefitLimit?: number;
 }
