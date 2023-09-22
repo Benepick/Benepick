@@ -3,7 +3,7 @@ import { Alert, NativeEventEmitter, NativeModules } from 'react-native';
 import PushNotification, { Importance } from 'react-native-push-notification';
 
 import PushAlert from '@common/utils/PushAlert';
-import { setShakePick, setLaunch, setIsShakePickRunning } from '@store/slices/appSlice';
+import { setShakePick, setLaunch } from '@store/slices/appSlice';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import RootStack from './src/navigator/RootStack';
 
@@ -48,23 +48,28 @@ function App() {
           },
           {
             text: '허용',
-            onPress: () => dispatch(setShakePick()),
+            onPress: () => {
+              dispatch(setShakePick());
+            },
             style: 'default',
           },
         ],
       );
     }
-  }, []);
 
-  const eventListener = new NativeEventEmitter(EventListener);
-
-  eventListener.addListener('onTrigger', (location) => {
-    console.log(location);
-    PushAlert({
-      channelId: 'shakePick',
-      message: `위도: ${location.latitude}, 경도: ${location.longitude}`,
+    const eventListener = new NativeEventEmitter(EventListener);
+    eventListener.addListener('onTrigger', (location) => {
+      console.log(location);
+      PushAlert({
+        channelId: 'shakePick',
+        message: `위도: ${location.latitude}, 경도: ${location.longitude}`,
+      });
     });
-  });
+
+    return () => {
+      eventListener.removeAllListeners('onTrigger');
+    };
+  }, []);
 
   return <RootStack />;
 }

@@ -28,14 +28,13 @@ import com.facebook.react.bridge.ReactContext;
 
 public class EventService extends Service implements SensorEventListener {
     private SensorManager sensorManager;
-    private static final float SHAKE_THRESHOLD_GRAVITY = 2.7F;
-    private static final int SHAKE_SLOP_TIME_MS = 500;
-    private static final int SHAKE_COUNT_RESET_TIME_MS = 3000;
+    private static final float SHAKE_THRESHOLD_GRAVITY = 3.5f;
+    private static final int SHAKE_COUNT_THRESHOLD = 2;
+    private int shakeCount = 0;
+    private long lastShakeTimestamp = 0;
     private static final int NOTIFICATION_ID = 1;
     private static final String CHANNEL_ID = "SHAKEPICK";
     private static boolean isRunning = false;
-    private long mShakeTimestamp;
-    private int mShakeCount;
 
     public EventService() {
         super();
@@ -78,27 +77,40 @@ public class EventService extends Service implements SensorEventListener {
             float y = event.values[1];
             float z = event.values[2];
 
-            float gX = x / SensorManager.GRAVITY_EARTH;
-            float gY = y / SensorManager.GRAVITY_EARTH;
-            float gZ = z / SensorManager.GRAVITY_EARTH;
+             float gX = x / SensorManager.GRAVITY_EARTH;
+             float gY = y / SensorManager.GRAVITY_EARTH;
+             float gZ = z / SensorManager.GRAVITY_EARTH;
 
-            float gForce = (float)Math.sqrt(gX * gX + gY * gY + gZ * gZ);
-
-            long currentTime = System.currentTimeMillis();
+             float gForce = (float)Math.sqrt(gX * gX + gY * gY + gZ * gZ);
 
             if (gForce > SHAKE_THRESHOLD_GRAVITY) {
-                final long now = System.currentTimeMillis();
-                if (mShakeTimestamp + SHAKE_SLOP_TIME_MS > now) {
+                long now = System.currentTimeMillis();
+                if (lastShakeTimestamp == 0) {
+                    lastShakeTimestamp = now;
+                }
+
+                if (lastShakeTimestamp + 350 > now) {
                     return;
                 }
-                if (mShakeTimestamp + SHAKE_COUNT_RESET_TIME_MS < now) {
-                    mShakeCount = 0;
+
+                long shakeTime = now - lastShakeTimestamp;
+                if (shakeTime > 1500) {
+                    setShakeCount(0);
                 }
-                mShakeTimestamp = now;
-                mShakeCount++;
-                onShake();
+
+                lastShakeTimestamp = now;
+                shakeCount++;
+                System.out.println(shakeCount);
+                if (shakeCount >= SHAKE_COUNT_THRESHOLD) {
+                    System.out.println("ShakeShakeShakeShakeShakeShakeShakeShakeShake");
+                    onShake();
+                    setShakeCount(0);
+                }
             }
         }
+    }
+    private void setShakeCount(int count) {
+        shakeCount = count;
     }
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
@@ -122,7 +134,6 @@ public class EventService extends Service implements SensorEventListener {
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             Location current = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            System.out.println(current);
             if (current != null) {
                 eventListenerModule.sendLocation(current.getLatitude(), current.getLongitude());
             }
