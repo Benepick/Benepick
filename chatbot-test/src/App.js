@@ -7,6 +7,7 @@ function App() {
   const [query, setQuery] = useState("");
   const [cards, setCards] = useState([]);
   const [answer, setAnswer] = useState([]);
+  const answers = useRef([]);
   const [answerTime, setAnswerTime] = useState(0);
   const answerTimer = useRef(null);
   const [isGptAPI, setIsGptAPI] = useState(false);
@@ -38,66 +39,68 @@ function App() {
               // document_id: "7be70c9c-14a1-445b-8ca4-4329a96db23d",
               source_id:"cardname"
             },
-            top_k: 1,
+            top_k: 5,
           },
         ],
       })
       .then((response) => {
         console.log(response);
-        let answers = [];
+        answers.current = [];
         for (let i = 0; i < response.data.results[0].results.length; i++) {
-          let newline = response.data.results[0].results[i].text;
-          answers.push(newline);
+          let newAnswer = [];
+          let cardname = response.data.results[0].results[i].text;
+          newAnswer.push(cardname);
+          answers.current.push(newAnswer);
         }
-        setCards(answers);
+        setCards(Array.from(answers.current, (x) => x[0]));
         console.log(answers);
       });
   };
 
   useEffect(() => {
     if (cards === '' || !isGptAPI) return;
+
     if (category === '카드') {
-      let benefits = [];
-      for (let i = 0; i < cards.length; i++) {
-        benefits[i] = retrieveCardBenefits(cards[i], i);
+      const getCardBenefits = async () => {
+        for (let i = 0; i < cards.length; i++) {
+          console.log(cards[i]);
+          answers.current[i].push( await retrieveCardBenefits(cards[i]));
+          setAnswer(Array.from(answers.current, (x) => x));
+        }
       }
-      setAnswer(benefits);
-      return;
+
+      getCardBenefits();
+    }
+    else {
+      generate(query, cards, category, setAnswer).then((response) => {
+        console.log(response);
+      });
     }
     
-    generate(query, cards, category, setAnswer).then((response) => {
-      console.log(response);
-      answerTimer.current && clearInterval(answerTimer.current);
-    });
+    answerTimer.current && clearInterval(answerTimer.current);
   }, [cards]);
 
-  const retrieveCardBenefits = (cardname, i) => {
-    axios
+  const retrieveCardBenefits = async (cardname) => {
+    const response = await axios
       .post("http://localhost:3333/query", {
         queries: [
           {
-            query: query,
+            query: cardname,
             filter: {
               source_id: cardname
             },
             top_k: 10,
           },
         ],
-      })
-      .then((response) => {
-        console.log(response);
-        let answers = [];
-        for (let i = 0; i < response.data.results[0].results.length; i++) {
-          let newline = response.data.results[0].results[i].text;
-          answers.push(newline);
-        }
-        console.log(answers);
-        console.log(answer);
-        answer[i] = answers;
-        setAnswer(answer);
-        return answers;
-      }
-    );
+      });
+    
+    console.log(response);
+    let newlines = '';
+    for (let i = 0; i < response.data.results[0].results.length; i++) {
+      newlines += response.data.results[0].results[i].text + '\n';
+    }
+    console.log(newlines);
+    return newlines;
   }
 
   const handleClickCardName = (e) => {
@@ -125,7 +128,12 @@ function App() {
         <h1>챗지피티 답변</h1>
         <p>요청 시간: {answerTime}</p>
         {answer && answer.map((benefits, index) => {
-          return <li key={index}>{benefits}</li>;
+          return (
+            <div key={index}>
+              <h2>{benefits[0]}</h2>
+              <pre>{benefits[1]}</pre>
+            </div>
+          );
         })}
       </div>}
     </div>
