@@ -209,7 +209,7 @@ public class CardServiceImpl implements CardService{
 
 		if (recommendCard != null) {
 			System.out.println(recommendCard.getUserCardName());
-			return recommendCard.recommendCardResponseDto(merchantName, target, discountPercent, remainLimitBenefit);
+			return recommendCard.recommendCardResponseDto(true, merchantName, target, discountPercent, remainLimitBenefit);
 		}
 
 		return null;
