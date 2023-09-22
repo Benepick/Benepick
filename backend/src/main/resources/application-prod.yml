@@ -1,9 +1,12 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: none #create update none
+      ddl-auto: create #create update none
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/benepick?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username:
-    password:
+    url: jdbc:mysql://j9a602a.p.ssafy.io:3306/benepick?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: benepick
+    password: benepick
+
+webclient:
+  base-url= http://j9a610.p.ssafy.io:8082

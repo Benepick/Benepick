@@ -8,6 +8,9 @@ import com.ssafy.benepick.global.response.ListResponseResult;
 import com.ssafy.benepick.global.response.SingleResponseResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -21,8 +24,11 @@ import java.util.List;
 @Slf4j
 public class ApiService {
 
+    @Value("${webclient.base-url}")
+    private String baseUrl;
+
     private WebClient getDefaultWebClient() {
-        return WebClient.builder().baseUrl("http://localhost:8082").build();
+        return WebClient.builder().baseUrl(baseUrl).build();
     }
 
     public List<ApiCardCompanyResponseDto> getCardCompanyListFromMyDataServer(){

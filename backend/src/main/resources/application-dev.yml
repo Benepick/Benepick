@@ -4,3 +4,6 @@ spring:
     url: jdbc:mysql://localhost:3306/benepick?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: benepick
     password: benepick1234
+
+webclient:
+  base-url=http://localhost:8082
