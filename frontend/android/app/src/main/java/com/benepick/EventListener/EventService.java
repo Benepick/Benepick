@@ -12,19 +12,21 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Build;
 import android.os.IBinder;
-import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.benepick.MainApplication;
-import com.benepick.R;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
+
+import com.google.android.gms.location.CurrentLocationRequest;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 
 public class EventService extends Service implements SensorEventListener {
     private SensorManager sensorManager;
@@ -35,6 +37,7 @@ public class EventService extends Service implements SensorEventListener {
     private static final int NOTIFICATION_ID = 1;
     private static final String CHANNEL_ID = "SHAKEPICK";
     private static boolean isRunning = false;
+    private FusedLocationProviderClient fusedLocationProviderClient;
 
     public EventService() {
         super();
@@ -49,6 +52,7 @@ public class EventService extends Service implements SensorEventListener {
     public void onCreate() {
         super.onCreate();
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
     }
 
     @Override
@@ -102,7 +106,6 @@ public class EventService extends Service implements SensorEventListener {
                 shakeCount++;
                 System.out.println(shakeCount);
                 if (shakeCount >= SHAKE_COUNT_THRESHOLD) {
-                    System.out.println("ShakeShakeShakeShakeShakeShakeShakeShakeShake");
                     onShake();
                     setShakeCount(0);
                 }
@@ -128,19 +131,26 @@ public class EventService extends Service implements SensorEventListener {
         sensorManager.unregisterListener(this);
     }
 
-    private void onShake() {
+    public void onShake() {
         EventListenerModule eventListenerModule = new EventListenerModule((ReactApplicationContext) getReactContext());
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Location current = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            if (current != null) {
-                eventListenerModule.sendLocation(current.getLatitude(), current.getLongitude());
-            }
+        CurrentLocationRequest currentLocationRequest = new CurrentLocationRequest.Builder().setPriority(Priority.PRIORITY_HIGH_ACCURACY).build();
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationProviderClient.getCurrentLocation(currentLocationRequest, null).addOnSuccessListener(location -> {
+                if (location != null) {
+                    eventListenerModule.sendLocation(location.getLatitude(), location.getLongitude());
+                }
+            });
         }
-        else {
-            return;
-        }
+//        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+//        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//            Location current = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//            if (current != null) {
+//                eventListenerModule.sendLocation(current.getLatitude(), current.getLongitude());
+//            }
+//        }
     }
 
     private Notification createNotification() {

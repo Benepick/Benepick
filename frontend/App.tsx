@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import { Alert, NativeEventEmitter, NativeModules } from 'react-native';
 import PushNotification, { Importance } from 'react-native-push-notification';
 
-import PushAlert from '@common/utils/PushAlert';
 import { setShakePick, setLaunch } from '@store/slices/appSlice';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import RootStack from './src/navigator/RootStack';
+import shakePickPushAlert from '@common/utils/PushAlert';
 
 function App() {
   const { EventListener } = NativeModules;
@@ -60,9 +60,8 @@ function App() {
     const eventListener = new NativeEventEmitter(EventListener);
     eventListener.addListener('onTrigger', (location) => {
       console.log(location);
-      PushAlert({
-        channelId: 'shakePick',
-        message: `위도: ${location.latitude}, 경도: ${location.longitude}`,
+      shakePickPushAlert({
+        location: location,
       });
     });
 

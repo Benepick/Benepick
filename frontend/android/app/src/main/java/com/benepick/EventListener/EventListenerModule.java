@@ -1,17 +1,32 @@
 package com.benepick.EventListener;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.google.android.gms.location.CurrentLocationRequest;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.Granularity;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
+
+import java.text.DecimalFormat;
 
 public class EventListenerModule extends ReactContextBaseJavaModule {
   private final ReactApplicationContext reactContext;
+  private FusedLocationProviderClient fusedLocationProviderClient;
 
   public EventListenerModule(ReactApplicationContext reactContext) {
       super(reactContext);
       this.reactContext = reactContext;
+      fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(reactContext);
   }
 
   @Override
@@ -47,14 +62,36 @@ public class EventListenerModule extends ReactContextBaseJavaModule {
 
       reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit("onTrigger", location);
   }
-    @ReactMethod
-    public void addListener(String eventName) {
-    }
 
-    @ReactMethod
-    public void removeListeners(Integer count) {
-    }
+  @ReactMethod
+  public void getLocation(Callback successCallback, Callback errorCallback) {
+      CurrentLocationRequest currentLocationRequest = new CurrentLocationRequest.Builder().setGranularity(Granularity.GRANULARITY_FINE).setPriority(Priority.PRIORITY_HIGH_ACCURACY).build();
 
+      if (ContextCompat.checkSelfPermission(reactContext, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(reactContext, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+          if (fusedLocationProviderClient != null) {
+          fusedLocationProviderClient.getCurrentLocation(currentLocationRequest, null).addOnSuccessListener(location -> {
+              if (location != null) {
+                  successCallback.invoke(location.getLatitude(), location.getLongitude());
+              } else {
+                  errorCallback.invoke("Location is null");
+              }
+          }).addOnFailureListener(error -> {
+              errorCallback.invoke(error.getMessage());
+          });
+          }
+      }
+      else {
+          errorCallback.invoke("Permission not granted");
+      }
+  }
+
+  @ReactMethod
+  public void addListener(String eventName) {
+  }
+
+  @ReactMethod
+  public void removeListeners(Integer count) {
+  }
 }
 
 

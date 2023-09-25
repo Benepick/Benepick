@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Button, StyleSheet, Image } from 'react-native';
+import { View, Button, StyleSheet, Image, NativeModules } from 'react-native';
 
 import { StartNavigationProps } from 'interfaces/navigation';
 import WhitePage from '@common/components/WhitePage';
@@ -21,6 +21,8 @@ function Start({ navigation }: StartNavigationProps) {
       }
     }
   }, []);
+
+  const { EventListener } = NativeModules;
 
   return (
     <WhitePage style={styles.layout}>
