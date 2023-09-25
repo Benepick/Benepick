@@ -1,7 +1,7 @@
 import { store } from '@store/store';
 import Axios from 'axios';
 
-export const ROOT = 'http://192.168.137.173:8080/';
+export const ROOT = 'http://192.168.137.56:8080/';
 
 const httpAxios = Axios.create({
   baseURL: ROOT,
