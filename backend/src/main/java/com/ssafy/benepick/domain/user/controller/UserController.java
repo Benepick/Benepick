@@ -2,6 +2,7 @@ package com.ssafy.benepick.domain.user.controller;
 
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -109,5 +110,16 @@ public class UserController {
 		CoolsmsException {
 		log.info("UserController_sendMessage -> 휴대폰 번호로 메시지 발송");
 		return new SingleResponseResult<String>(userService.sendMessage(phoneNumberRequestDto));
+	}
+
+	@Operation(summary = "회원탈퇴", description = "사용자는 회원탈퇴를 합니다.")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "회원탈퇴 성공")
+	})
+	@DeleteMapping
+	public ResponseResult withDraw(HttpServletRequest request) {
+		log.info("UserController_withDraw -> 회원 탈퇴");
+		userService.withDraw(request);
+		return ResponseResult.successResponse;
 	}
 }

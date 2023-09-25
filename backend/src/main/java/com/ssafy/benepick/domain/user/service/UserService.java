@@ -22,4 +22,5 @@ public interface UserService {
 	void changeSimplePassword(ChangePasswordRequestDto changePasswordRequestDto , HttpServletRequest request);
 	User getUserFromRequest(HttpServletRequest request);
 	String sendMessage(PhoneNumberRequestDto phoneNumberRequestDto) throws CoolsmsException;
+	void withDraw(HttpServletRequest request);
 }

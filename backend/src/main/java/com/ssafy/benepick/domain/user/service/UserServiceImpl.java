@@ -87,4 +87,11 @@ public class UserServiceImpl implements UserService{
 		log.info("UserServiceImpl_sendMessage | 메시지 발송");
 		return smsService.sendAuthKey(phoneNumberRequestDto.getPhoneNumber());
 	}
+
+	@Override
+	@Transactional
+	public void withDraw(HttpServletRequest request) {
+		log.info("UserServiceImpl_withDraw | 회원 탈퇴");
+		userRepository.delete(getUserFromRequest(request));
+	}
 }
