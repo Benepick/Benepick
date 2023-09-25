@@ -1,10 +1,8 @@
 package com.ssafy.benepick.domain.card.service;
 
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.ssafy.benepick.domain.card.dto.response.BenefitSearchResponseDto;
@@ -34,7 +32,7 @@ public class CardServiceImpl implements CardService{
 	private final UserCardCategory1Repository userCardCategory1Repository;
 	private final UserCardCategory2Repository userCardCategory2Repository;
 	private final UserCardCategory3Repository userCardCategory3Repository;
-
+	private final UserPaymentRepository userPaymentRepository;
 
 	@Override
 	public List<UserCardCategory1> findCategory1ListByCardCode(Long cardCode) {
@@ -169,7 +167,8 @@ public class CardServiceImpl implements CardService{
 		UserCard recommendCard = null;
 		int discountPercent = 0;
 
-		for (UserCard card : userCardRepository.findByUser(user)) {
+		List<UserCard> userCardList = userCardRepository.findByUser(user);
+		for (UserCard card : userCardList) {
 			for (UserCardCategory1 category1 : userCardCategory1Repository.findByUserCard(card)) {
 				if (!category1.getUserCardCategory1Name().equals(cate1)) {
 					continue;
@@ -212,6 +211,27 @@ public class CardServiceImpl implements CardService{
 			return recommendCard.recommendCardResponseDto(true, merchantName, target, discountPercent, remainLimitBenefit);
 		}
 
+		Object[][] cardPaymentCnt = new Object[userCardList.size()][2];
+		for (int i = 0; i < userCardList.size(); i++) {
+			UserCard userCard = userCardList.get(i);
+			int paymentCount = userPaymentRepository.findByUserCardIdAndMonth(userCard.getUserCardSerialNumber(), LocalDate.now().getYear(), LocalDate.now().getMonthValue()).size();
+			cardPaymentCnt[i][0] = userCard;
+			cardPaymentCnt[i][1] = paymentCount;
+		}
+
+		// 배열을 paymentCount를 기준으로 내림차순으로 정렬합니다.
+		Arrays.sort(cardPaymentCnt, (o1, o2) -> ((Integer) o2[1]).compareTo((Integer) o1[1]));
+
+		for (Object[] cards : cardPaymentCnt) {
+			UserCard userCard = (UserCard) cards[0];
+			int currentPerformance = userCard.getUserCardCurrentPerformance();
+			UserCardCategory1 category1 = userCardCategory1Repository.findByUserCard(userCard).get(0);
+			List<UserCardBenefit> userCardBenefits = userCardBenefitRepository.findByUserCardCategory1(category1);
+			int remainPerformance = userCardBenefits.get(0).getUserCardBenefitPerformanceStart() - currentPerformance;
+			if (remainPerformance > 0) {
+				return userCard.recommendCardResponseDto(false, merchantName, target, discountPercent, remainLimitBenefit);
+			}
+		}
 		return null;
 	}
 

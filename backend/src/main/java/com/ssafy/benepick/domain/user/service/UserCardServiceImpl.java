@@ -116,25 +116,6 @@ public class UserCardServiceImpl implements  UserCardService{
 			.sum();
 	}
 
-	// private List<UserCardCategory1> toUserCardCategory1(List<Category1> category1List , UserCard userCard){
-	// 	List<UserCardCategory1> userCardCategory1List = new ArrayList<>();
-	//
-	// 	category1List.stream().forEach(category1 -> {
-	// 		category1.to
-	//
-	// 		// 혜택 정보들
-	// 		List<UserCardBenefit> userCardBenefitList = category1.getCardBenefitList()
-	// 			.stream()
-	// 			.map(cardBenefit -> cardBenefit.toUserCardBenefit(category1))
-	// 			.toList();
-	// 	});
-	//
-	//
-	//
-	// 	return userCardCategory1List;
-	// }
-
-
 	 @Override
 	 public List<UserCardResponseDto> getUserCards(HttpServletRequest request) {
 	 	User user = userService.getUserFromRequest(request);
