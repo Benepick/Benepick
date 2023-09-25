@@ -15,4 +15,4 @@ WORKDIR /usr/src/app
 #결국 /usr/src/app 밑에 airlingo-0.0.1-SNAPSHOT.jar파일을 복사!
 COPY --from=builder /usr/src/app/build/libs/*.jar ./
 #환경에따라 빌드 해주는 명령어
-CMD ["java","-jar","./benepick-0.0.1-SNAPSHOT.jar"]
+CMD ["java","-jar","./benepick.mydata-0.0.1-SNAPSHOT.jar"]

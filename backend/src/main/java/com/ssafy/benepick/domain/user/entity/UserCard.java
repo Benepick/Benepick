@@ -86,8 +86,9 @@ public class UserCard {
 				.build();
 	}
 
-	public RecommendCardResponseDto recommendCardResponseDto(String merchantName, String discountTarget, int discountPercent, int remainLimitBenefit) {
+	public RecommendCardResponseDto recommendCardResponseDto(boolean isRecommend, String merchantName, String discountTarget, int discountPercent, int remainLimitBenefit) {
 		return RecommendCardResponseDto.builder()
+				.isRecommend(isRecommend)
 				.merchantName(merchantName)
 				.cardName(userCardName)
 				.cardCompanyName(userCardCompanyName)

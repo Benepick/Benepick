@@ -15,6 +15,10 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Schema(description = "추천 카드 정보 DTO")
 public class RecommendCardResponseDto {
+
+    @Schema(description = "카드 추천 여부", example = "True")
+    private boolean isRecommend;
+
     @Schema(description = "가맹점 명", example = "스타벅스 역삼점")
     private String merchantName;
 

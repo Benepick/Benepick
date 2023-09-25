@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.benepick.mydata.domain.card.dto.response.ApiSearchCardBenefitResponseDto;
@@ -29,6 +30,11 @@ public class CardServiceImpl implements CardService{
 		log.info("CardServiceImpl_findCardBenefitBySearch");
 		List<Category3> category3List = category3Repository.findByCategory3Name(keyword);
 		List<ApiSearchCardBenefitResponseDto> apiSearchCardBenefitResponseDtoList = new ArrayList<>();
+
+		// 만약 키워드와 일치하는 혜택 카드가 없을시 랜덤 3개 카드 추천
+		if(category3List.size() == 0){
+			category3List = category3Repository.findAll(PageRequest.of(0, 3)).getContent();
+		}
 
 		for (Category3 category3 : category3List) {
 			// 키워드와 일치하는 혜택을 제공해주는 카드
