@@ -28,9 +28,8 @@ import lombok.NoArgsConstructor;
 public class UserPayment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_payment_id")
-	private Long userPaymentId;
+	private String userPaymentId;
 
 	@Column(nullable = false , name = "user_payment_category1")
 	private String userPaymentCategory1;

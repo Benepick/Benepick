@@ -6,6 +6,9 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.ssafy.benepick.domain.user.entity.User;
+import com.ssafy.benepick.domain.user.entity.UserCard;
+
 @Getter
 @Setter
 @Builder
@@ -19,4 +22,19 @@ public class ApiMyDataCardResponseDto {
     private ApiCardResponseDto apiCardResponseDto;
     private ApiMyDataUserResponseDto apiMyDataUserResponseDto;
     private List<ApiMyDataPaymentResponseDto> apiMyDataPaymentResponseDtoList;
+
+    public UserCard toUserCard(User user) {
+        return UserCard.builder()
+            .user(user)
+            .userCardCompanyName(this.getApiCardResponseDto().getApiCardCompanyResponseDto().getCardCompanyName())
+            .userCardSerialNumber(this.getMyDataCardId())
+            .userCardCode(this.getApiCardResponseDto().getCardCode())
+            .userCardName(this.getApiCardResponseDto().getCardName())
+            .userCardExpirationDate(this.getMyDataCardExpirationDate())
+            .userCardImgUrl(this.getApiCardResponseDto().getCardImgUrl())
+            .userCardCompanyImgUrl(this.getApiCardResponseDto().getApiCardCompanyResponseDto().getCardCompanyImgUrl())
+            .userCardCurrentPerformance(0)
+            .userCardPrevPerformance(this.getMyDataCardPrevMonthAmount())
+            .build();
+    }
 }

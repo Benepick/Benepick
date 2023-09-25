@@ -15,10 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public interface UserCardService {
 
 	void linkUserCardAndUserPaymentByMyDataCard(List<ApiMyDataCardResponseDto> myDataCardList);
-	UserCard myDataCardToUserCard(ApiMyDataCardResponseDto myDataCard, User user);
-	UserPayment myDataPaymentToUserPayment(ApiMyDataPaymentResponseDto myDataPayment , UserCard userCard);
-	 List<UserCardResponseDto> getUserCards(HttpServletRequest request);
-
+	List<UserCardResponseDto> getUserCards(HttpServletRequest request);
 	List<Integer> getCardBenefitsLevels(UserCardCategory1 userCardCategory1);
 
 	List<UserCardCategory1> getUserCardCategory1(UserCard userCard);

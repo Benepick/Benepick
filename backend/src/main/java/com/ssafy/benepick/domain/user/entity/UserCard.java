@@ -3,6 +3,7 @@ package com.ssafy.benepick.domain.user.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.ssafy.benepick.domain.card.dto.response.RecommendCardResponseDto;
 import com.ssafy.benepick.domain.user.dto.response.UserCardResponseDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -84,4 +85,28 @@ public class UserCard {
 				.nextLevelAmount(nextLevelAmount)
 				.build();
 	}
+
+	public RecommendCardResponseDto recommendCardResponseDto(boolean isRecommend, String merchantName, String discountTarget, int discountPercent, int remainLimitBenefit) {
+		return RecommendCardResponseDto.builder()
+				.isRecommend(isRecommend)
+				.merchantName(merchantName)
+				.cardName(userCardName)
+				.cardCompanyName(userCardCompanyName)
+				.cardImgUrl(userCardImgUrl)
+				.serialNumber(userCardSerialNumber)
+				.discountTarget(discountTarget)
+				.discountPercent(discountPercent)
+				.remainLimitBenefit(remainLimitBenefit)
+				.build();
+	}
+
+	public void updateCardCurrentPerformance(int userCardCurrentPerformance){
+		this.userCardCurrentPerformance = userCardCurrentPerformance;
+	}
+
+	public void updatePerformanceEveryMonth(){
+		this.userCardPrevPerformance = this.userCardCurrentPerformance;
+		this.userCardCurrentPerformance = 0;
+	}
+
 }

@@ -24,8 +24,8 @@ public class ApiCategory1ResponseDto {
 
     public UserCardCategory1 toUserCardCategory1(UserCard userCard){
         return UserCardCategory1.builder()
-                .userCardCategory1Id(category1Id)
                 .userCardCategory1Name(category1Name)
+                .cardCategory1Id(category1Id)
                 .userCard(userCard)
                 .userCardBenefitList(new ArrayList<>())
                 .userCardCategory2List(new ArrayList<>())

@@ -1,5 +1,8 @@
 package com.ssafy.benepick.domain.user.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -11,6 +14,7 @@ import com.ssafy.benepick.domain.card.service.CardService;
 import com.ssafy.benepick.domain.user.dto.response.UserCardResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,19 +30,33 @@ public class UserCardServiceImpl implements  UserCardService{
 	private final UserCardCategory1Repository userCardCategory1Repository;
 	private final UserCardBenefitRepository userCardBenefitRepository;
 	private final UserService userService;
+
 	@Override
+	@Transactional
 	public void linkUserCardAndUserPaymentByMyDataCard(List<ApiMyDataCardResponseDto> myDataCardList) {
 		log.info("UserCardServiceImpl_linkUserCardAndUserPaymentByMyDataCard || 마이데이터 유저 카드 데이터를 유저 카드데이터에 연동");
 
 		User user = userRepository.findById(myDataCardList.get(0).getApiMyDataUserResponseDto().getMyDataUserId()).get();
 		myDataCardList.stream().forEach(myDataCard -> {
-			UserCard userCard = myDataCardToUserCard(myDataCard, user);
+			
+			UserCard userCard = myDataCard.toUserCard(user);
+			userCard.updateCardCurrentPerformance(calculateCardPerformance(myDataCard,LocalDate.now()));
 			userCardRepository.save(userCard);
 
 			// 결제 내역 연동
 			List<UserPayment> userCardPaymentList = myDataCard.getApiMyDataPaymentResponseDtoList().stream()
-				.map(myDataPayment -> myDataPaymentToUserPayment(myDataPayment,userCard))
+				.map(myDataPayment -> myDataPayment.toUserPayment(userCard))
 				.collect(Collectors.toList());
+
+			// 이번달 결제 내역 리스트
+			List<UserPayment> monthPaymentList =
+				userCardPaymentList
+					.stream()
+					.filter(userPayment -> {
+						LocalDateTime paymentDate = userPayment.getUserPaymentDateTime();
+						return paymentDate.getYear() == LocalDate.now().getYear() && paymentDate.getMonthValue() == LocalDate.now().getMonthValue();
+					}).collect(Collectors.toList());
+
 
 			List<UserCardCategory1> userCardCategory1List = new ArrayList<>();
 
@@ -46,8 +64,10 @@ public class UserCardServiceImpl implements  UserCardService{
 			myDataCard.getApiCardResponseDto().getCategory1List().stream().forEach(category1 -> {
 				UserCardCategory1 userCardCategory1 = category1.toUserCardCategory1(userCard);
 
+				// 카드 혜택 연동
 				category1.getCardBenefitList().stream().forEach(cardBenefit -> {
-					userCardCategory1.addUserCardBenefit(cardBenefit.toUserCardBenefit(userCardCategory1));
+					UserCardBenefit userCardBenefit = cardBenefit.toUserCardBenefit(userCardCategory1);
+					userCardCategory1.addUserCardBenefit(calculateReceivedCardBenefit(monthPaymentList, userCardBenefit));
 				});
 
 				// 카테고리1 에대하여 카테고리2 연동
@@ -63,59 +83,37 @@ public class UserCardServiceImpl implements  UserCardService{
 				});
 				userCardCategory1List.add(userCardCategory1);
 			});
+			for (UserCardCategory1 userCardCategory1 : userCardCategory1List) {
+				System.out.println("userCardCategory1 = " + userCardCategory1.getUserCard().getUserCardId());
+			}
 
 			userCardCategory1Repository.saveAll(userCardCategory1List);
 			userPaymentRepository.saveAll(userCardPaymentList);
 		});
+		user.updateLastRenewalTime();
 	}
 
-	// private List<UserCardCategory1> toUserCardCategory1(List<Category1> category1List , UserCard userCard){
-	// 	List<UserCardCategory1> userCardCategory1List = new ArrayList<>();
-	//
-	// 	category1List.stream().forEach(category1 -> {
-	// 		category1.to
-	//
-	// 		// 혜택 정보들
-	// 		List<UserCardBenefit> userCardBenefitList = category1.getCardBenefitList()
-	// 			.stream()
-	// 			.map(cardBenefit -> cardBenefit.toUserCardBenefit(category1))
-	// 			.toList();
-	// 	});
-	//
-	//
-	//
-	// 	return userCardCategory1List;
-	// }
-
-
-	@Override
-	public UserCard myDataCardToUserCard(ApiMyDataCardResponseDto myDataCard,User user) {
-		return UserCard.builder()
-			.user(user)
-			.userCardCompanyName(myDataCard.getApiCardResponseDto().getApiCardCompanyResponseDto().getCardCompanyName())
-			.userCardSerialNumber(myDataCard.getMyDataCardId())
-			.userCardCode(myDataCard.getApiCardResponseDto().getCardCode())
-			.userCardName(myDataCard.getApiCardResponseDto().getCardName())
-			.userCardExpirationDate(myDataCard.getMyDataCardExpirationDate())
-			.userCardImgUrl(myDataCard.getApiCardResponseDto().getCardImgUrl())
-			.userCardCompanyImgUrl(myDataCard.getApiCardResponseDto().getApiCardCompanyResponseDto().getCardCompanyImgUrl())
-			.userCardCurrentPerformance(0)
-			.userCardPrevPerformance(0)
-			.build();
+	private UserCardBenefit calculateReceivedCardBenefit(List<UserPayment> userCardPaymentList , UserCardBenefit cardBenefit){
+		int receivedAmount = userCardPaymentList
+			.stream()
+			.filter(userPayment -> userPayment.getUserPaymentCategory1().equals(cardBenefit.getUserCardCategory1().getUserCardCategory1Name()))
+			.mapToInt(UserPayment::getUserPaymentReceivedBenefitAmount)
+			.sum();
+		cardBenefit.updateReceivedAmount(receivedAmount);
+		return cardBenefit;
 	}
 
-	@Override
-	public UserPayment myDataPaymentToUserPayment(ApiMyDataPaymentResponseDto myDataPayment , UserCard userCard) {
-		return UserPayment.builder()
-			.userCard(userCard)
-			.userPaymentCategory1(myDataPayment.getMyDataPaymentCategory1())
-			.userPaymentCategory2(myDataPayment.getMyDataPaymentCategory2())
-			.userPaymentDateTime(myDataPayment.getMyDataPaymentDate())
-			.userPaymentAmount(myDataPayment.getMyDataPaymentAmount())
-			.userPaymentMerchantInfo(myDataPayment.getMyDataPaymentMerchantName())
-			.userPaymentReceivedBenefitAmount(myDataPayment.getMyDataPaymentReceivedBenefitAmount())
-			.userPaymentCardCode(myDataPayment.getMyDataPaymentCardCode())
-			.build();
+	private int calculateCardPerformance(ApiMyDataCardResponseDto myDataCard , LocalDate now){
+		log.info("카드 이번달 실적 파악");
+		return myDataCard.getApiMyDataPaymentResponseDtoList()
+			.stream()
+			.filter(dto -> dto.getMyDataPaymentReceivedBenefitAmount() == 0)
+			.filter(dto -> {
+				LocalDateTime paymentDate = dto.getMyDataPaymentDate();
+				return paymentDate.getYear() == now.getYear()  && paymentDate.getMonthValue() == now.getMonthValue();
+			})
+			.mapToInt(ApiMyDataPaymentResponseDto::getMyDataPaymentAmount)
+			.sum();
 	}
 
 	 @Override
@@ -126,7 +124,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	 	for (UserCard userCard : userCardList) {
 	 		int curPerform = userCard.getUserCardCurrentPerformance();
 	 		List<UserCardCategory1> category1s = getUserCardCategory1(userCard); //cardService.getCardCategory1(card);
-	 		List<Integer> cardPerformLevelList = getCardBenefitsLevels(category1s.get(0));
+			List<Integer> cardPerformLevelList = getCardBenefitsLevels(category1s.get(0));
 	 		int currentLevel = 0, nextLevelAmount = 0;
 
 	 		for (int i = 0; i < cardPerformLevelList.size() - 1; i++) {
@@ -141,6 +139,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	 	}
 	 	return userCardResponseDtos;
 	 }
+
 
 	private List<UserCardBenefit> getCardBenefits(UserCardCategory1 userCardCategory1) {
 		List<UserCardBenefit> cardBenefitList = userCardBenefitRepository.findByUserCardCategory1(userCardCategory1);

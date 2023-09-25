@@ -64,9 +64,14 @@ function DateOption({
               ))}
             </View>
             <Spacing />
-            <View style={{ width: '100%' }}>
+            <View
+              style={{
+                width: '100%',
+                backgroundColor: colors.main,
+              }}
+            >
               <SubmitButton
-                title="선택"
+                title="닫기"
                 onPress={() => selectDate(selectedDate.month, selectedDate.year)}
               />
             </View>

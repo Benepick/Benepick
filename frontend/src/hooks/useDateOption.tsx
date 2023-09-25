@@ -10,6 +10,7 @@ function useDateOption() {
     year: currentYear,
   });
   const [showModal, setShowModal] = useState(false);
+  const [showBenefit, setShowBenefit] = useState(false);
 
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
 
@@ -17,6 +18,7 @@ function useDateOption() {
   const selectDate = (month: number, year: number) => {
     setSelectedDate({ month, year });
     setShowModal(false);
+    setShowBenefit(false);
     // console.log(selectedDate);
   };
 
@@ -27,6 +29,8 @@ function useDateOption() {
     setShowModal,
     selectDate,
     setSelectedDate,
+    showBenefit,
+    setShowBenefit,
   };
 }
 

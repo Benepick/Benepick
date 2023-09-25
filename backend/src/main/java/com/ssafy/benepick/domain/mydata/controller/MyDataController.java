@@ -85,4 +85,16 @@ public class MyDataController {
 		log.info("MyDataController_getUserCardInfo");
 		return new SingleResponseResult<>(myDataService.getUserCardInfo(cardId,year,month,request));
 	}
+
+	@Operation(summary = "사용자 마이데이터 갱신", description = "사용자 마이데이터 갱신")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "사용자 마이데이터 갱신 성공"),
+		@ApiResponse(responseCode = "400", description = "사용자 마이데이터 갱신 실패"),
+	})
+	@GetMapping("/renewal")
+	public ResponseResult refreshUserMyData(HttpServletRequest request) {
+		log.info("MyDataController_refreshUserMyData");
+		myDataService.updateUserMyData(request);
+		return ResponseResult.successResponse;
+	}
 }

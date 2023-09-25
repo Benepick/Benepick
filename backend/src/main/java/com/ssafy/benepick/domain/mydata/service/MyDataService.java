@@ -15,4 +15,5 @@ public interface MyDataService {
 	List<RecentMonthResponseDto> getRecentFourMonthResult(HttpServletRequest request);
 	void linkCard(Long cardCompanyId , String userId);
 	CardInfoResponseDto getUserCardInfo(Long cardId, int year, int month , HttpServletRequest request);
+	void updateUserMyData(HttpServletRequest request);
 }

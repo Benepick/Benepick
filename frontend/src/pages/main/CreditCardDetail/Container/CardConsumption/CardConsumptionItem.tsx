@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import SvgIcons from '@common/assets/SvgIcons';
 import BText from '@common/components/BText';
+import SvgIcons from '@common/assets/SvgIcons';
 import { Spacing } from '@common/components/Spacing';
 import colors from '@common/design/colors';
 
@@ -18,7 +19,7 @@ function CardConsumptionItem({
   return (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <SvgIcons name={category} size={30} />
+        {category && <SvgIcons name={category === '카페/간식' ? '카페' : category} size={30} />}
         <Spacing rem="1" dir="row" />
         <View style={styles.description}>
           <View style={styles.item}>

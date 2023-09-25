@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	@Transactional
 	public void changeSimplePassword(ChangePasswordRequestDto changePasswordRequestDto, HttpServletRequest request) {
 		log.info("UserServiceImpl_changeSimplePassword | 사용자의 간편 비밀번호 변경 서비스");
 		User loginUser = getUserFromRequest(request);
@@ -85,5 +86,18 @@ public class UserServiceImpl implements UserService{
 	public String sendMessage(PhoneNumberRequestDto phoneNumberRequestDto) throws CoolsmsException {
 		log.info("UserServiceImpl_sendMessage | 메시지 발송");
 		return smsService.sendAuthKey(phoneNumberRequestDto.getPhoneNumber());
+	}
+
+	@Override
+	@Transactional
+	public void withDraw(HttpServletRequest request) {
+		log.info("UserServiceImpl_withDraw | 회원 탈퇴");
+		userRepository.delete(getUserFromRequest(request));
+	}
+
+	@Override
+	public String getUserName(HttpServletRequest request) {
+		log.info("UserServiceImpl_getUserName | 사용자 이름 조회");
+		return getUserFromRequest(request).getUserName();
 	}
 }
