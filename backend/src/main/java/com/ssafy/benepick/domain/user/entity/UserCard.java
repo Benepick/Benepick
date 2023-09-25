@@ -104,4 +104,9 @@ public class UserCard {
 		this.userCardCurrentPerformance = userCardCurrentPerformance;
 	}
 
+	public void updatePerformanceEveryMonth(){
+		this.userCardPrevPerformance = this.userCardCurrentPerformance;
+		this.userCardCurrentPerformance = 0;
+	}
+
 }

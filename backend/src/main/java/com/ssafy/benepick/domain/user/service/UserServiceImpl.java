@@ -94,4 +94,10 @@ public class UserServiceImpl implements UserService{
 		log.info("UserServiceImpl_withDraw | 회원 탈퇴");
 		userRepository.delete(getUserFromRequest(request));
 	}
+
+	@Override
+	public String getUserName(HttpServletRequest request) {
+		log.info("UserServiceImpl_getUserName | 사용자 이름 조회");
+		return getUserFromRequest(request).getUserName();
+	}
 }
