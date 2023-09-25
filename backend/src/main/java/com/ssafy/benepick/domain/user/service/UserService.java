@@ -23,4 +23,5 @@ public interface UserService {
 	User getUserFromRequest(HttpServletRequest request);
 	String sendMessage(PhoneNumberRequestDto phoneNumberRequestDto) throws CoolsmsException;
 	void withDraw(HttpServletRequest request);
+	String getUserName(HttpServletRequest request);
 }

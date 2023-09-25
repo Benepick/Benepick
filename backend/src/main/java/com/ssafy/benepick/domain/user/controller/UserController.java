@@ -122,4 +122,14 @@ public class UserController {
 		userService.withDraw(request);
 		return ResponseResult.successResponse;
 	}
+
+	@Operation(summary = "사용자 이름 조회", description = "사용자 이름 조회")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "사용자 이름 조회 성공")
+	})
+	@GetMapping("/name")
+	public ResponseResult getUserName(HttpServletRequest request) {
+		log.info("UserController_getUserName -> 사용자 이름 조회");
+		return new SingleResponseResult<>(userService.getUserName(request));
+	}
 }
