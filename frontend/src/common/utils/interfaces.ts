@@ -1,4 +1,6 @@
-export interface PushAlertParams {
-  channelId: string;
-  message: string;
+export interface shakePickPushAlertParams {
+  location: {
+    latitude: number;
+    longitude: number;
+  };
 }

@@ -1,11 +1,12 @@
 import React from 'react';
-import WhiteBox from '@common/components/WhiteBox';
+import { View } from 'react-native';
+
 import CardConsumptionItem from './CardConsumption/CardConsumptionItem';
+
 import { Spacing } from '@common/components/Spacing';
-import { ScrollView, View } from 'react-native';
-import { DayTransactionResponseDto } from '@api/myData';
 import BText from '@common/components/BText';
 import BHr from '@common/components/BHr';
+import { DayTransactionResponseDto } from '@api/myData';
 
 function CardConsumption({
   transactionDate,

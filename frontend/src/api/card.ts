@@ -1,11 +1,29 @@
 import { CommonResponse, http } from './http';
 
 export default {
+  place: ({ x, y }: PlaceRequest) => http.get<PlaceResponse>(`api/card/place?x=${x}&y=${y}`),
   benefitUser: (keyword: string) =>
     http.get<BenefitUserResponse>(`api/card/benefit/user/${keyword}`),
   benefitAll: (keyword: string) => http.get<BenefitAllResponse>(`api/card/benefit/all/${keyword}`),
   benefit: (cardId: number) => http.get<CardBenefitResponse>(`api/card/benefit/${cardId}`),
 };
+
+interface PlaceRequest {
+  x: number;
+  y: number;
+}
+
+export interface PlaceResponse {
+  merchantName: string;
+  cardName: string;
+  cardCompanyName: string;
+  cardImgUrl: string;
+  serialNumber: string;
+  discountTarget: string;
+  discountPercent: number;
+  remainLimitBenefit: number;
+  recommend: boolean;
+}
 
 // 가맹점 기반 내 카드 혜택 검색
 export interface BenefitUserResponse extends CommonResponse {

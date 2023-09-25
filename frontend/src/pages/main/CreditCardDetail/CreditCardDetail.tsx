@@ -13,11 +13,8 @@ import Page from '@common/components/Page';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 
-import DateOption from './Container/DateOption';
-import CardConsumption from './Container/CardConsumption';
-import useDateOption from 'hooks/useDateOption';
 import { CreditCardDetailNavigationProps } from 'interfaces/navigation';
-import CautionModal from './Container/CautionModal';
+import useDateOption from 'hooks/useDateOption';
 import myData, { CardDetailData } from '@api/myData';
 
 import colors from '@common/design/colors';
