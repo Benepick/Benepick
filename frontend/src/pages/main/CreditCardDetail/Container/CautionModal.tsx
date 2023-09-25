@@ -30,7 +30,9 @@ function CautionModal({ showCautionModal, setShowCautionModal }: CautionModalPro
               <Spacing rem="0.25" />
               <BText>카드사 별 이벤트, 프로모션 등의 할인 내용은 반영되지 않을 수 있어요.</BText>
             </View>
-            <SubmitButton title="확인" onPress={() => setShowCautionModal(false)} />
+            <View style={{ width: '100%', backgroundColor: colors.main }}>
+              <SubmitButton title="확인" onPress={() => setShowCautionModal(false)} />
+            </View>
           </View>
         </View>
       </Modal>

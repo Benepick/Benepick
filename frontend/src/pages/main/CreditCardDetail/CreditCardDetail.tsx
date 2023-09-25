@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { View, Button, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import {
+  View,
+  Button,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableHighlight,
+} from 'react-native';
 
 import Page from '@common/components/Page';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
-import IconButton from '@common/components/IconButton';
 
 import DateOption from './Container/DateOption';
 import CardConsumption from './Container/CardConsumption';
@@ -12,16 +19,27 @@ import useDateOption from 'hooks/useDateOption';
 import { CreditCardDetailNavigationProps } from 'interfaces/navigation';
 import CautionModal from './Container/CautionModal';
 import myData, { CardDetailData } from '@api/myData';
-import WhitePage from '@common/components/WhitePage';
+
 import colors from '@common/design/colors';
-import BHr from '@common/components/BHr';
+import WhiteBox from '@common/components/WhiteBox';
+import card, { Benefit } from '@api/card';
+import SvgIcons from '@common/assets/SvgIcons';
 
 function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps) {
   const cardId = route.params.cardId;
-  const { selectedDate, showModal, setShowModal, selectDate, setSelectedDate } = useDateOption();
+  const {
+    selectedDate,
+    showModal,
+    setShowModal,
+    selectDate,
+    setSelectedDate,
+    showBenefit,
+    setShowBenefit,
+  } = useDateOption();
   const [showCautionModal, setShowCautionModal] = useState(false);
 
   const [data, setData] = useState<CardDetailData>();
+  const [cardBenefitData, setCardBenefitData] = useState<Benefit[]>();
 
   useEffect(() => {
     myData
@@ -38,7 +56,22 @@ function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps
       });
   }, [selectedDate]);
 
-  console.log(data?.cardImgUrl);
+  useEffect(() => {
+    if (showBenefit) {
+      card
+        .benefit(cardId)
+        .then((res) => {
+          if (res.statusCode === 200) {
+            setCardBenefitData(res.data);
+          } else {
+            console.log(res.statusCode);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  });
 
   return (
     <Page>
@@ -67,35 +100,79 @@ function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps
           setSelectedDate={setSelectedDate}
           selectDate={selectDate}
         />
-        <IconButton name="Refresh" />
+
+        <TouchableHighlight
+          activeOpacity={0.5}
+          underlayColor={'transparents'}
+          onPress={() => setShowBenefit(!showBenefit)}
+        >
+          <BText>{showBenefit ? '소비내역보기' : '혜택보기'}</BText>
+        </TouchableHighlight>
       </View>
       <Spacing rem="1" />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={styles.scroll}
-        contentContainerStyle={
-          data?.dayTransactionResponseDtoList.length !== 0
-            ? styles.purchase
-            : styles.noPurchaseMonth
-        }
-      >
-        {data?.dayTransactionResponseDtoList.length !== 0 ? (
-          data?.dayTransactionResponseDtoList
-            .sort((a, b) => {
-              return (
-                Number(b.transactionDate.slice(8, 10)) - Number(a.transactionDate.slice(8, 10))
+      {showBenefit && (
+        <WhiteBox style={{ justifyContent: 'center' }}>
+          <Spacing />
+          {cardBenefitData?.map((data) => {
+            const totalDiscount = cardBenefitData.reduce((total, data) => {
+              const sumForCurrentData = data.cardBenefitDiscountResponseDtoList.reduce(
+                (sum, dto) => sum + dto.discountPercent,
+                0,
               );
-            })
-            .map((value) => (
-              <CardConsumption
-                transactionDate={value.transactionDate}
-                transcationInfoResponseDtoList={value.transcationInfoResponseDtoList}
-              />
-            ))
-        ) : (
-          <BText>해당 월에는 결제 내역이 없어요</BText>
-        )}
-      </ScrollView>
+              return total + sumForCurrentData;
+            }, 0);
+
+            const totalCount = cardBenefitData.reduce(
+              (count, data) => count + data.cardBenefitDiscountResponseDtoList.length,
+              0,
+            );
+
+            const averageDiscount = totalDiscount / totalCount;
+
+            return (
+              <View key={data.category1Name}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <SvgIcons name="카페" size={30} />
+                  <Spacing dir="row" />
+                  <BText>
+                    {data.category1Name} 구간별 평균 {averageDiscount}% 할인
+                  </BText>
+                </View>
+                <Spacing />
+              </View>
+            );
+          })}
+        </WhiteBox>
+      )}
+      {!showBenefit && (
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.scroll}
+          contentContainerStyle={
+            data?.dayTransactionResponseDtoList.length !== 0
+              ? styles.purchase
+              : styles.noPurchaseMonth
+          }
+        >
+          {data?.dayTransactionResponseDtoList.length !== 0 ? (
+            data?.dayTransactionResponseDtoList
+              .sort((a, b) => {
+                return (
+                  Number(b.transactionDate.slice(8, 10)) - Number(a.transactionDate.slice(8, 10))
+                );
+              })
+              .map((value, idx) => (
+                <CardConsumption
+                  key={idx}
+                  transactionDate={value.transactionDate}
+                  transcationInfoResponseDtoList={value.transcationInfoResponseDtoList}
+                />
+              ))
+          ) : (
+            <BText>해당 월에는 결제 내역이 없어요</BText>
+          )}
+        </ScrollView>
+      )}
     </Page>
   );
 }
@@ -120,8 +197,8 @@ const styles = StyleSheet.create({
     width: '95%',
   },
   overlay: {
-    width: '150%',
-    height: '150%',
+    width: '500%',
+    height: '500%',
     position: 'absolute',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     zIndex: 1000,
