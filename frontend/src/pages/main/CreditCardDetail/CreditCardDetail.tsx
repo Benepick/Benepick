@@ -71,7 +71,7 @@ function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps
           console.log(err);
         });
     }
-  });
+  }, [showBenefit]);
 
   return (
     <Page>
@@ -114,29 +114,27 @@ function CreditCardDetail({ navigation, route }: CreditCardDetailNavigationProps
         <WhiteBox style={{ justifyContent: 'center' }}>
           <Spacing />
           {cardBenefitData?.map((data) => {
-            const totalDiscount = cardBenefitData.reduce((total, data) => {
-              const sumForCurrentData = data.cardBenefitDiscountResponseDtoList.reduce(
-                (sum, dto) => sum + dto.discountPercent,
-                0,
-              );
-              return total + sumForCurrentData;
-            }, 0);
-
-            const totalCount = cardBenefitData.reduce(
-              (count, data) => count + data.cardBenefitDiscountResponseDtoList.length,
+            const totalDiscount = data.cardBenefitDiscountResponseDtoList.reduce(
+              (sum, dto) => sum + dto.discountPercent,
               0,
             );
+            const totalCount = data.cardBenefitDiscountResponseDtoList.length;
 
-            const averageDiscount = totalDiscount / totalCount;
+            const averageDiscount = (totalDiscount / totalCount).toFixed(1);
 
             return (
               <View key={data.category1Name}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                  <SvgIcons name="카페" size={30} />
+                  <SvgIcons
+                    name={data.category1Name === '카페/간식' ? '카페' : data.category1Name}
+                    size={30}
+                  />
                   <Spacing dir="row" />
-                  <BText>
-                    {data.category1Name} 구간별 평균 {averageDiscount}% 할인
-                  </BText>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <BText>{data.category1Name} 구간별 평균 </BText>
+                    <BText type="h3">{averageDiscount}% </BText>
+                    <BText>할인</BText>
+                  </View>
                 </View>
                 <Spacing />
               </View>

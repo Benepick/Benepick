@@ -39,11 +39,11 @@ export interface BefitAllCard {
 
 // 카드 혜택 조회
 export interface CardBenefitResponse extends CommonResponse {
-  data: Category[];
+  data: Benefit[];
 }
 
-export interface Category {
-  category1Name: string;
+export interface Benefit {
+  category1Name: '생활' | '쇼핑' | '식비' | '여가' | '편의점' | '카페/간식' | '온라인';
   cardBenefitDiscountResponseDtoList: CardBenefitDiscount[];
   category2List: string[];
   category3List: string[];
