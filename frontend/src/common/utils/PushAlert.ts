@@ -1,6 +1,8 @@
 import PushNotification from 'react-native-push-notification';
 import { shakePickPushAlertParams } from './interfaces';
 import card from '@api/card';
+import { addNotificationLog } from '@store/slices/appSlice';
+import { AppDispatch } from '@store/store';
 
 const randomTitle = (recommend: boolean, title: string) => {
   const index = 3;
@@ -42,25 +44,26 @@ const randomContext = (recommend: boolean, company: string, card: string) => {
   }
 };
 
-const shakePickPushAlert = ({ location }: shakePickPushAlertParams) => {
-  card.place({ x: location.longitude, y: location.latitude }).then((response) => {
-    PushNotification.localNotification({
-      channelId: 'shakePick',
-      showWhen: true,
-      title: randomTitle(response.recommend, response.merchantName),
-      message: randomContext(response.recommend, response.cardCompanyName, response.cardName),
-      subText: `${location.latitude}, ${location.longitude}`,
-      largeIcon: '',
+const shakePickPushAlert = (
+  location: { latitude: number; longitude: number },
+  dispatch: AppDispatch,
+) => {
+  card
+    .place({ x: location.longitude, y: location.latitude })
+    .then((response) => {
+      PushNotification.localNotification({
+        channelId: 'shakePick',
+        showWhen: true,
+        title: randomTitle(response.recommend, response.merchantName),
+        message: randomContext(response.recommend, response.cardCompanyName, response.cardName),
+        subText: `${location.latitude}, ${location.longitude}`,
+        largeIcon: '',
+      });
+      dispatch(addNotificationLog(response.merchantName));
+    })
+    .catch((error) => {
+      console.log(error);
     });
-  });
-
-  // PushNotification.localNotification({
-  //   channelId: 'shakePick',
-  //   showWhen: true,
-  //   message: randomContext(`${location.latitude}`, `${location.longitude}`),
-  //   subText: `${location.latitude}, ${location.longitude}`,
-  //   largeIcon: '',
-  // });
 };
 
 export default shakePickPushAlert;

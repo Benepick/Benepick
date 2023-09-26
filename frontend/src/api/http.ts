@@ -1,7 +1,7 @@
 import { store } from '@store/store';
 import Axios from 'axios';
 
-export const ROOT = 'http://70.12.247.212:8080/';
+export const ROOT = 'https://benepick.shop/';
 
 const httpAxios = Axios.create({
   baseURL: ROOT,
