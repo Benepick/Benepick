@@ -1,7 +1,8 @@
 import "./App.css";
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import generate from "./ChatGptAPI";
+import generate, {summary} from "./ChatGptAPI";
+// import MarkdownRenderer from './MarkdownRenderer';
 
 function App() {
   const [query, setQuery] = useState("");
@@ -36,10 +37,9 @@ function App() {
           {
             query: query,
             filter: {
-              // document_id: "7be70c9c-14a1-445b-8ca4-4329a96db23d",
               source_id:"cardname"
             },
-            top_k: 5,
+            top_k: 1,
           },
         ],
       })
@@ -65,6 +65,8 @@ function App() {
         for (let i = 0; i < cards.length; i++) {
           console.log(cards[i]);
           answers.current[i].push( await retrieveCardBenefits(cards[i]));
+          answers.current[i].push( Array.from({ length: answers.current[i][1].length }, () => '') );
+          console.log(Array.from(answers.current, (x) => x));
           setAnswer(Array.from(answers.current, (x) => x));
         }
       }
@@ -87,7 +89,8 @@ function App() {
           {
             query: cardname,
             filter: {
-              source_id: cardname
+              source_id: cardname,
+              author: "benefit"
             },
             top_k: 10,
           },
@@ -95,9 +98,9 @@ function App() {
       });
     
     console.log(response);
-    let newlines = '';
+    let newlines = [];
     for (let i = 0; i < response.data.results[0].results.length; i++) {
-      newlines += response.data.results[0].results[i].text + '\n';
+      newlines.push(response.data.results[0].results[i].text + '\n');
     }
     console.log(newlines);
     return newlines;
@@ -107,6 +110,47 @@ function App() {
     console.log(e.target.innerText);
     let cardname = e.target.innerText;
     retrieveCardBenefits(cardname);
+  }
+
+  const retrieveCardDetails = async (benefits, idx) => {
+    const cardname = benefits[0];
+    const response = await axios
+      .get("http://localhost:3333/cardBenefits/summary/"+ cardname + "/" + idx);
+
+    console.log(response);
+    let results = '';
+
+    if (response.data.length !== 0) {
+      results = response.data;
+    }
+
+    else {
+      console.log("요약 없음");
+      const response2 =  await axios.get("http://localhost:3333/cardBenefits/" + cardname + "/" + idx);
+      console.log(response2);
+      if (response2.status !== 200) {
+        console.log("Error: ", response2.data.error);
+        return "";
+      }
+
+      // 요약해서 저장
+      const response3 = await summary(response2.data);
+      console.log(response3);
+      results = response3;
+
+      axios.post("http://localhost:3333/cardBenefits/summary/", {
+        cardName: cardname,
+        idx: idx,
+        content: results
+      }).then((response) => {
+        console.log(response);
+      });
+    }
+
+    benefits[2][idx] = results;
+    setAnswer(Array.from(answers.current, (x) => x));
+
+    return results;
   }
 
   return (
@@ -131,7 +175,16 @@ function App() {
           return (
             <div key={index}>
               <h2>{benefits[0]}</h2>
-              <pre>{benefits[1]}</pre>
+              {/* {benefits[1].map((benefit, index) => {
+                return <li key={index}>{benefit}</li>;
+              })} */}
+              {benefits[1] && benefits[1].map((benefit, index) => {
+                return <li onClick={() => retrieveCardDetails(benefits, index)} key={index}>{benefit}</li>;
+              })}
+              <hr></hr>
+              {benefits[2] && benefits[2].map((detail, index) => {
+                return <p>{detail}</p>;
+              })}
             </div>
           );
         })}

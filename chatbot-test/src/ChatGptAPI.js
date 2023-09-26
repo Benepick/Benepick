@@ -1,8 +1,24 @@
+import axios from "axios";
+
+
+
+const API_URL = "https://api.openai.com/v1/chat/completions";
+const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
+
+const requestBodyPrefix = {
+  max_tokens: 1000,
+  temperature: 0.1,
+  model: "gpt-3.5-turbo-16k-0613",
+}
+
+const headers = {
+  headers: {
+    Authorization: "Bearer " + API_KEY,
+    "Content-Type": "application/json",
+  }
+}
 
 export default async function generate (query, benefits, category, setText) {
-
-  const API_URL = "https://api.openai.com/v1/chat/completions";
-  const API_KEY = process.env.REACT_APP_OPENAI_API_KEY;
 
   const conversation = [
     // { role: 'system', content: '주어진 정보를 바탕으로 카드 혜택 정보를 항목별로 요약해줘'},
@@ -20,15 +36,10 @@ export default async function generate (query, benefits, category, setText) {
     // Fetch the response from the OpenAI API with the signal from AbortController
     const response = await fetch(API_URL, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${API_KEY}`,
-      },
+      ...headers,
       body: JSON.stringify({
+        ...requestBodyPrefix,
         messages: conversation,
-        max_tokens: 500,
-        temperature: 0.1,
-        model: "gpt-3.5-turbo-16k-0613",
         stream: true,
       }),
     });
@@ -65,3 +76,25 @@ export default async function generate (query, benefits, category, setText) {
     console.error("Error:", error);
   }
 };
+
+export async function summary(benefits) {  
+  const conversation = [
+    { role: 'user', content: '혜택 정보 요약해줘:\n\n' + benefits}
+  ];
+
+  console.log(benefits);
+
+  const requestBody = {
+    ...requestBodyPrefix,
+    messages: conversation
+  };
+
+  const response = await axios.post(API_URL, requestBody, headers);
+
+  if (response.status !== 200) {
+    console.log("Error: ", response.data.error);
+    return "Error: ", response.data.error;
+  }
+  
+  return response.data.choices[0].message.content;
+}
