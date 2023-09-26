@@ -72,6 +72,12 @@ const RootStack = () => {
           component={Notification}
           options={({ navigation }) => ({
             headerBackVisible: false,
+            headerTitleAlign: 'center',
+            headerTitle: () => (
+              <BText type="h3" color={colors.black}>
+                알람
+              </BText>
+            ),
             headerRight: () => <IconButton onPress={() => navigation.goBack()} name="Close" />,
           })}
         />
