@@ -1,0 +1,12 @@
+version: '3'
+services:
+  blue-backend:
+    build:
+      context: ../backend
+    ports:
+      - "8081:8081"
+  blue-backend-mydata:
+    build:
+      context: ../backend-mydata
+    ports:
+      - "8082:8082"
