@@ -53,14 +53,32 @@ export const appSlice = createSlice({
       state = initialState;
     },
     addNotificationLog: (state, action) => {
-      const newNotificationLog = state.notificationLog;
       const today = dayjs().format('YYYY-MM-DD');
-      if (newNotificationLog[0].date === today) {
-        newNotificationLog[0].values.unshift(action.payload);
+      if (state.notificationLog?.length !== undefined) {
+        // 기존 로그가 있는 경우 또는 정의되지 않은 경우를 처리
+        if (state.notificationLog.length !== 0 && state.notificationLog[0].date === today) {
+          state.notificationLog[0].values.unshift(action.payload);
+        } else {
+          state.notificationLog.push({ date: today, values: [action.payload] });
+        }
       } else {
-        newNotificationLog.unshift({ date: today, values: [action.payload] });
+        // state.notificationLog이 정의되지 않은 경우 처리
+        state.notificationLog = [{ date: today, values: [action.payload] }];
       }
-      state.notificationLog = newNotificationLog;
+      console.log(state.notificationLog);
+      // const newNotificationLog = state.notificationLog;
+      // console.log(newNotificationLog);
+      // const today = dayjs().format('YYYY-MM-DD');
+      // if (newNotificationLog.length != 0) {
+      //   if (newNotificationLog[0].date === today) {
+      //     newNotificationLog[0].values.unshift(action.payload);
+      //   } else {
+      //     newNotificationLog.push({ date: today, values: [action.payload] });
+      //   }
+      // } else {
+      //   newNotificationLog.push({ date: today, values: [action.payload] });
+      // }
+      // state.notificationLog = newNotificationLog;
     },
   },
 });

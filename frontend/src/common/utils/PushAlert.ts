@@ -1,8 +1,8 @@
 import PushNotification from 'react-native-push-notification';
 import { shakePickPushAlertParams } from './interfaces';
 import card from '@api/card';
-import { useAppDispatch } from '@store/hooks';
 import { addNotificationLog } from '@store/slices/appSlice';
+import { AppDispatch } from '@store/store';
 
 const randomTitle = (recommend: boolean, title: string) => {
   const index = 3;
@@ -44,9 +44,10 @@ const randomContext = (recommend: boolean, company: string, card: string) => {
   }
 };
 
-const dispatch = useAppDispatch();
-
-const shakePickPushAlert = ({ location }: shakePickPushAlertParams) => {
+const shakePickPushAlert = (
+  location: { latitude: number; longitude: number },
+  dispatch: AppDispatch,
+) => {
   card
     .place({ x: location.longitude, y: location.latitude })
     .then((response) => {
@@ -66,5 +67,3 @@ const shakePickPushAlert = ({ location }: shakePickPushAlertParams) => {
 };
 
 export default shakePickPushAlert;
-
-[{}];
