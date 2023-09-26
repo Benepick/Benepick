@@ -1,9 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { checkMultiple, Permission, PERMISSIONS, request } from 'react-native-permissions';
+import { PlaceResponse } from '@api/card';
+import dayjs from 'dayjs';
 
-const initialState = {
+interface AppState {
+  shakePick: boolean;
+  isFirstLaunched: boolean;
+  notificationLog: Array<{ date: string; values: string[] }>;
+}
+
+const initialState: AppState = {
   shakePick: false,
   isFirstLaunched: true,
+  notificationLog: [],
 };
 
 export const appSlice = createSlice({
@@ -43,9 +52,20 @@ export const appSlice = createSlice({
     reset: (state) => {
       state = initialState;
     },
+    addNotificationLog: (state, action) => {
+      const newNotificationLog = state.notificationLog;
+      const today = dayjs().format('YYYY-MM-DD');
+      if (newNotificationLog[0].date === today) {
+        newNotificationLog[0].values.unshift(action.payload);
+      } else {
+        newNotificationLog.unshift({ date: today, values: [action.payload] });
+      }
+      state.notificationLog = newNotificationLog;
+    },
   },
 });
 
-export const { setShakePick, unsetShakePick, setLaunch, reset } = appSlice.actions;
+export const { setShakePick, unsetShakePick, setLaunch, reset, addNotificationLog } =
+  appSlice.actions;
 
 export default appSlice.reducer;

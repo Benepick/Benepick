@@ -42,7 +42,6 @@ public class EventListenerModule extends ReactContextBaseJavaModule {
       } else {
           reactContext.startService(serviceIntent);
       }
-      Toast.makeText(reactContext, "RN_Start", Toast.LENGTH_SHORT).show();
   }
 
   @ReactMethod
@@ -51,7 +50,6 @@ public class EventListenerModule extends ReactContextBaseJavaModule {
       if (EventService.getIsRunning()) {
           reactContext.stopService(serviceIntent);
       }
-      Toast.makeText(reactContext, "RN_Stop", Toast.LENGTH_SHORT).show();
   }
 
   @ReactMethod
