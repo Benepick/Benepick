@@ -22,3 +22,9 @@ logging:
     org.hibernate.SQL: debug
     org.hibernate.orm.jdbc.bind: trace
     org.springframework.web.socket: trace
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
