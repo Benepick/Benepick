@@ -25,6 +25,7 @@ export { default as Whale } from './Whale.svg';
 export { default as ArrowBack } from './ArrowBack.svg';
 export { default as Error } from './Error.svg';
 export { default as Profile } from './Profile.svg';
+export { default as Location } from './Location.svg';
 
 export { default as 생활 } from './생활.svg';
 export { default as 쇼핑 } from './쇼핑.svg';
