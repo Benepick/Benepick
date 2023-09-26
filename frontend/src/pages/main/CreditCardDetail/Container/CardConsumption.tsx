@@ -15,26 +15,28 @@ function CardConsumption({
   const day = transactionDate.slice(8, 10);
 
   return (
-    <View style={{ width: '95%' }}>
-      <View style={{ flexDirection: 'row' }}>
-        <Spacing rem="0.5" dir="row" />
-        <BText type="h3">{day}일</BText>
-      </View>
-      <Spacing rem="0.5" />
-      {transcationInfoResponseDtoList.map((value, index) => (
-        <View key={index}>
-          <CardConsumptionItem
-            category={value.category}
-            merchantName={value.merchantName}
-            payAmount={value.payAmount}
-            benefitAmount={value.benefitAmount}
-            transactionTime={value.transactionTime}
-          />
-          <Spacing rem="1" />
+    <View>
+      <BText type="h3">{day}일</BText>
+      <View style={{ width: '88%' }}>
+        <View style={{ flexDirection: 'row' }}>
+          <Spacing rem="0.5" dir="row" />
         </View>
-      ))}
-      <BHr />
-      <Spacing rem="0.5" />
+        <Spacing rem="0.5" />
+        {transcationInfoResponseDtoList.map((value, index) => (
+          <View key={index}>
+            <CardConsumptionItem
+              category={value.category}
+              merchantName={value.merchantName}
+              payAmount={value.payAmount}
+              benefitAmount={value.benefitAmount}
+              transactionTime={value.transactionTime}
+            />
+            <Spacing rem="1" />
+            <BHr />
+          </View>
+        ))}
+        <Spacing rem="0.5" />
+      </View>
     </View>
   );
 }

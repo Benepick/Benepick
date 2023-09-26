@@ -61,7 +61,7 @@ function Recommendation() {
 
           <View style={styles.description}>
             {data?.cardImgUrl && <Image style={styles.image} source={{ uri: data?.cardImgUrl }} />}
-            <View>
+            <View style={{ marginLeft: '5%' }}>
               <BText type="h3">{data?.cardCompanyName}</BText>
               <BText type="h1">{data?.cardName}</BText>
               <BText type="h1" color={colors.main}>
