@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { Alert, Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import { ReadTermsNavigationProps } from 'interfaces/navigation';
 import SubmitButton from '@common/components/SubmitButton';
 import WhitePage from '@common/components/WhitePage';
-import colors from '@common/design/colors';
+
 import { Spacing } from '@common/components/Spacing';
 import BText from '@common/components/BText';
 
