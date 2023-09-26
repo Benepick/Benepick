@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   hr: {
     borderBottomWidth: 1,
     borderBottomColor: colors.disabled,
-    width: '95%',
+    width: '100%',
     alignSelf: 'center',
   },
 });
