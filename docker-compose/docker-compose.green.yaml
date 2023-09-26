@@ -1,6 +1,6 @@
 version: '3'
 services:
-  blue-backend:
+  green-backend:
     build:
       context: ../backend
     ports:
@@ -9,7 +9,7 @@ services:
       - SMS_KEY=NCSRGCEYXNITRXGO
       - SMS_SECRET_KEY=DJSA1XHJB6HMRZZHSARMBVTZ50SZCEJL
       - SENDER=01099509587
-  blue-backend-mydata:
+  green-backend-mydata:
     build:
       context: ../backend-mydata
     ports:
