@@ -15,6 +15,8 @@ import AlarmButton from '@common/components/AlarmButton';
 import SvgIcons from '@common/assets/SvgIcons';
 import { Spacing } from '@common/components/Spacing';
 import { RootStackParamList } from '@interfaces/navigation';
+import BText from '@common/components/BText';
+import MainLogo from '@common/components/MainLogo';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
@@ -22,14 +24,7 @@ const BottomTab = () => {
   return (
     <Tab.Navigator
       screenOptions={({ navigation }) => ({
-        headerLeft: () => (
-          <TouchableHighlight
-            onPress={() => navigation.push('BottomTab')}
-            underlayColor={'transparent'}
-          >
-            <Image source={require('@common/assets/images/logo/navLogo.png')} />
-          </TouchableHighlight>
-        ),
+        headerLeft: () => <MainLogo navigation={navigation} />,
         headerRight: () => (
           <View style={{ display: 'flex', flexDirection: 'row' }}>
             <AlarmButton onPress={() => navigation.push('Notification')} isAlarmed={false} />
@@ -51,6 +46,7 @@ const BottomTab = () => {
         name="Home"
         component={Home}
         options={{
+          unmountOnBlur: true,
           title: '홈',
           tabBarLabelStyle: {
             fontFamily: 'IBMPlexSansKR-SemiBold',
@@ -69,6 +65,7 @@ const BottomTab = () => {
         name="CreditCard"
         component={CreditCard}
         options={{
+          unmountOnBlur: true,
           title: '내 카드',
           tabBarLabelStyle: {
             fontFamily: 'IBMPlexSansKR-SemiBold',
@@ -87,6 +84,7 @@ const BottomTab = () => {
         name="Benefit"
         component={Benefit}
         options={{
+          unmountOnBlur: true,
           title: '혜택 찾기',
           tabBarLabelStyle: {
             fontFamily: 'IBMPlexSansKR-SemiBold',
@@ -124,6 +122,7 @@ const BottomTab = () => {
         name="ChatBot"
         component={ChatBot}
         options={{
+          unmountOnBlur: true,
           title: '챗봇',
           tabBarLabelStyle: {
             fontFamily: 'IBMPlexSansKR-SemiBold',

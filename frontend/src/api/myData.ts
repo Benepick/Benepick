@@ -7,6 +7,7 @@ export default {
   cardDetail: ({ cardId, year, month }: CardDetailRequest) =>
     http.get<CardDetailResponse>(`api/mydata/card/payment/${cardId}?year=${year}&month=${month}`),
   category: () => http.get<CardCategoryResponse>('api/mydata/card/payment/category'),
+  renewal: () => http.get<CommonResponse>('api/mydata/renewal'),
 };
 
 interface RecentResponse extends CommonResponse {
