@@ -12,4 +12,4 @@ spring:
     password: benepick
 
 webclient:
-  base-url: http://15.164.146.106:8082
+  base-url: http://43.201.205.28:8082
