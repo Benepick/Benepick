@@ -57,8 +57,7 @@ public class UserController {
 		@Valid @RequestBody CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) throws
 		NoSuchAlgorithmException {
 		log.info("UserController_createUserAccount | 사용자의 회원가입");
-		userService.createUserAccount(createUserAccountRequestDto , response);
-		return ResponseResult.successResponse;
+		return new SingleResponseResult<>(userService.createUserAccount(createUserAccountRequestDto , response));
 	}
 
 	@Operation(summary = "로그인", description = "사용자가 간편 비밀번호를 가지고 로그인 합니다.")
