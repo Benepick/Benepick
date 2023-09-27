@@ -1,32 +1,41 @@
+import { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 // Navigation Interface
 
-type RootStackParamList = {
+export type RootStackParamList = {
   // Auth Stack
+  AuthStack: undefined;
+
   Start: undefined;
-  Terms: undefined;
+  Terms: { isRead: boolean };
   ReadTerms: undefined;
   PersonalAuth: undefined;
-  PhoneAuth: undefined;
-  SetPassword: undefined;
+  PhoneAuth: {
+    userData: PhoneAuthParams;
+  };
+  SetPassword: {
+    userData: SetPasswordParams;
+  };
   SelectCompany: undefined;
   SelectCard: undefined;
   RegistrationComplete: undefined;
 
-  LogIn: undefined;
+  Login: undefined;
 
   // Bottom Tab
   BottomTab: undefined;
 
   Home: undefined;
   CreditCard: undefined;
-  CreditCardDetail: undefined;
+  CreditCardDetail: { cardId: number };
   Consumption: undefined;
-  Benefit: undefined;
+  Benefit: { place: string };
   ChatBot: undefined;
 
   // Setting Stack
+  SettingStack: undefined;
+
   Setting: undefined;
   CompanyStack: undefined;
   CompanyManagement: undefined;
@@ -34,6 +43,10 @@ type RootStackParamList = {
   PasswordStack: undefined;
   CheckPassword: undefined;
   ChangePassword: undefined;
+
+  // 알림창
+
+  Notification: undefined;
 
   Test: undefined;
 };
@@ -46,6 +59,7 @@ export interface StartNavigationProps {
 
 export interface TermsNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Terms'>;
+  route: RouteProp<RootStackParamList, 'Terms'>;
 }
 
 export interface ReadTermsNavigationProps {
@@ -58,10 +72,12 @@ export interface PersonalAuthNavigationProps {
 
 export interface PhoneAuthNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'PhoneAuth'>;
+  route: RouteProp<RootStackParamList, 'PhoneAuth'>;
 }
 
 export interface SetPasswordNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'SetPassword'>;
+  route: RouteProp<RootStackParamList, 'SetPassword'>;
 }
 
 export interface SelectCompanyNavigationProps {
@@ -76,8 +92,8 @@ export interface RegistrationCompleteNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'RegistrationComplete'>;
 }
 
-export interface LogInNavigationProps {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'LogIn'>;
+export interface LoginNavigationProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Login'>;
 }
 
 // Bottom Tab
@@ -91,7 +107,8 @@ export interface CreditCardNavigationProps {
 }
 
 export interface CreditCardDetailNavigationProps {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'CreditCardDetail'>;
+  navigation?: NativeStackNavigationProp<RootStackParamList, 'CreditCardDetail'>;
+  route: RouteProp<RootStackParamList, 'CreditCardDetail'>;
 }
 
 export interface ConsumptionNavigationProps {
@@ -100,6 +117,7 @@ export interface ConsumptionNavigationProps {
 
 export interface BenefitNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Benefit'>;
+  route: RouteProp<RootStackParamList, 'Benefit'>;
 }
 
 export interface ChatBotNavigationProps {
@@ -126,4 +144,23 @@ export interface CheckPasswordNavigationProps {
 
 export interface ChangePasswordNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'ChangePassword'>;
+}
+
+export interface NotificationNavigationProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Notification'>;
+}
+
+// prop data
+
+interface PhoneAuthParams {
+  userName: string;
+  userSocialNumber: string;
+  userGenderAndGenerationCode: string;
+}
+
+interface SetPasswordParams {
+  userName: string;
+  userSocialNumber: string;
+  userGenderAndGenerationCode: string;
+  userPhoneNumber: string;
 }

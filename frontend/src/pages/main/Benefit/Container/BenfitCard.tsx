@@ -8,13 +8,22 @@ import colors from '@common/design/colors';
 
 import { BenfitCardProps } from '@interfaces/benefit';
 
-function BenfitCard({ image }: BenfitCardProps) {
+function BenfitCard({
+  cardName,
+  category,
+  cardImgUrl,
+  cardCompanyName,
+  discountPercent,
+  discountTarget,
+  remainedBenefit,
+  benefitLimit,
+}: BenfitCardProps) {
   const [showBenefit, setShowBenefit] = useState(false);
   const animationValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     Animated.timing(animationValue, {
-      toValue: showBenefit ? 0 : -20, // 원하는 높이로 설정
+      toValue: showBenefit ? 0 : -10, // 원하는 높이로 설정
       duration: 500,
       useNativeDriver: true,
     }).start();
@@ -24,17 +33,23 @@ function BenfitCard({ image }: BenfitCardProps) {
     <TouchableHighlight underlayColor="transparent" onPress={() => setShowBenefit(!showBenefit)}>
       <View style={{ justifyContent: 'center' }}>
         <View style={{ flexDirection: 'row' }}>
-          <Image style={styles.image} source={image} />
+          <Image style={styles.image} source={{ uri: cardImgUrl }} />
           <Spacing dir="row" />
           <View style={{ width: '80%', justifyContent: 'center' }}>
             <View style={styles.description}>
-              <BText type="bold">신한카드</BText>
+              <BText type="bold">{cardName}</BText>
               <SvgIcons name={showBenefit ? 'Down' : 'Up'} />
             </View>
+            {/* <Spacing rem="0.5" />
+            <View style={styles.description}>
+              <BText type="bold">{cardCompanyName}</BText>
+            </View> */}
             <Spacing rem="0.5" />
             <View style={styles.description}>
               <BText type="bold">예상혜택</BText>
-              <BText>1,000 캐쉬백</BText>
+              <BText>
+                {category} {discountPercent}% 할인
+              </BText>
             </View>
           </View>
         </View>
@@ -44,20 +59,21 @@ function BenfitCard({ image }: BenfitCardProps) {
             style={{ transform: [{ translateY: animationValue }], overflow: 'hidden' }}
           >
             <Spacing rem="0.5" />
-            <View style={styles.description}>
+            <View>
               <BText type="bold">할인대상</BText>
-              <BText>스타벅스</BText>
+              <BText>{discountTarget}</BText>
             </View>
             <Spacing rem="0.5" />
             <View style={styles.description}>
-              <BText type="bold">할인종류</BText>
-              <BText>1,000 캐쉬백</BText>
+              <BText type="bold">{remainedBenefit ? '잔여혜택' : '혜택한도'}</BText>
+              <BText>
+                {remainedBenefit
+                  ? remainedBenefit?.toLocaleString()
+                  : benefitLimit?.toLocaleString()}{' '}
+                원
+              </BText>
             </View>
             <Spacing rem="0.5" />
-            <View style={styles.description}>
-              <BText type="bold">잔여혜택</BText>
-              <BText>1,000원</BText>
-            </View>
           </Animated.View>
         )}
       </View>
@@ -72,7 +88,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    maxWidth: '15%',
+    width: '15%',
     aspectRatio: 1 / 1.58,
   },
 });

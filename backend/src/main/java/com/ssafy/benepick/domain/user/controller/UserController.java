@@ -1,18 +1,25 @@
 package com.ssafy.benepick.domain.user.controller;
 
+import java.security.NoSuchAlgorithmException;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+
 import com.ssafy.benepick.domain.user.dto.request.ChangePasswordRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.CreateUserAccountRequestDto;
 import com.ssafy.benepick.domain.user.dto.request.LoginRequestDto;
+import com.ssafy.benepick.domain.user.dto.request.PhoneNumberRequestDto;
 import com.ssafy.benepick.domain.user.service.UserCardCompanyService;
 import com.ssafy.benepick.domain.user.service.UserService;
 import com.ssafy.benepick.global.response.ListResponseResult;
 import com.ssafy.benepick.global.response.ResponseResult;
+import com.ssafy.benepick.global.response.SingleResponseResult;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -47,10 +54,10 @@ public class UserController {
 	})
 	@PostMapping("/signup")
 	public ResponseResult createUserAccount(
-		@Valid @RequestBody CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) {
+		@Valid @RequestBody CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) throws
+		NoSuchAlgorithmException {
 		log.info("UserController_createUserAccount | 사용자의 회원가입");
-		userService.createUserAccount(createUserAccountRequestDto , response);
-		return ResponseResult.successResponse;
+		return new SingleResponseResult<>(userService.createUserAccount(createUserAccountRequestDto , response));
 	}
 
 	@Operation(summary = "로그인", description = "사용자가 간편 비밀번호를 가지고 로그인 합니다.")
@@ -91,5 +98,37 @@ public class UserController {
 	public ResponseResult getUserCardCompany(HttpServletRequest request) {
 		log.info("UserController_getUserCardCompany");
 		return new ListResponseResult<>(userCardCompanyService.getUserCardCompany(request));
+	}
+
+	@Operation(summary = "SMS 인증번호 발송", description = "사용자 휴대폰 번호인증을 요청합니다.")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "휴대폰번호로 문자메시지 발송 성공")
+	})
+	@PostMapping("/phone")
+	public ResponseResult sendMessage(@Valid @RequestBody PhoneNumberRequestDto phoneNumberRequestDto) throws
+		CoolsmsException {
+		log.info("UserController_sendMessage -> 휴대폰 번호로 메시지 발송");
+		return new SingleResponseResult<String>(userService.sendMessage(phoneNumberRequestDto));
+	}
+
+	@Operation(summary = "회원탈퇴", description = "사용자는 회원탈퇴를 합니다.")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "회원탈퇴 성공")
+	})
+	@DeleteMapping
+	public ResponseResult withDraw(HttpServletRequest request) {
+		log.info("UserController_withDraw -> 회원 탈퇴");
+		userService.withDraw(request);
+		return ResponseResult.successResponse;
+	}
+
+	@Operation(summary = "사용자 이름 조회", description = "사용자 이름 조회")
+	@ApiResponses(value = {
+		@ApiResponse(responseCode = "200", description = "사용자 이름 조회 성공")
+	})
+	@GetMapping("/name")
+	public ResponseResult getUserName(HttpServletRequest request) {
+		log.info("UserController_getUserName -> 사용자 이름 조회");
+		return new SingleResponseResult<>(userService.getUserName(request));
 	}
 }

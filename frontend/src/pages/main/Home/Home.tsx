@@ -1,14 +1,15 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import colors from '@common/design/colors';
 
 import MonthlyConsumption from './Container/MonthlyConsumption';
 import Recommendation from './Container/Recommendation';
-import { HomeNavigationProps } from 'interfaces/navigation';
+
 import { Spacing } from '@common/components/Spacing';
-import { globalStyles } from '@common/design/globalStyles';
 import BText from '@common/components/BText';
 import Page from '@common/components/Page';
+import colors from '@common/design/colors';
+
+import { HomeNavigationProps } from 'interfaces/navigation';
 
 function Home({ navigation }: HomeNavigationProps) {
   return (
@@ -34,11 +35,7 @@ function Home({ navigation }: HomeNavigationProps) {
         </BText>
       </View>
       <Spacing rem="0.25" />
-      <MonthlyConsumption
-        image={require('@common/assets/images/cardImg.png')}
-        money="10000원"
-        benefit="10000원"
-      />
+      <MonthlyConsumption />
     </Page>
   );
 }

@@ -1,26 +1,31 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, TouchableHighlight } from 'react-native';
 import { RequestButtonProps } from 'interfaces/common';
 import colors from '@common/design/colors';
 import BText from './BText';
 
-function RequestButton({ title, ...rest }: RequestButtonProps) {
+function RequestButton({ title, color = colors.main, ...rest }: RequestButtonProps) {
+  const styles = StyleSheet.create({
+    button: {
+      backgroundColor: color,
+      padding: 7,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });
   return (
-    <TouchableOpacity style={styles.button} {...rest}>
+    <TouchableHighlight
+      style={styles.button}
+      underlayColor={color}
+      activeOpacity={color === colors.disabled ? 1 : 0.2}
+      {...rest}
+    >
       <BText type="bold" color={colors.white}>
         {title}
       </BText>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 }
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: colors.main,
-    padding: 7,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
 export default RequestButton;

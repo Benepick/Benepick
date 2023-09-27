@@ -17,4 +17,22 @@ export { default as Search } from './Search.svg';
 export { default as Refresh } from './Refresh.svg';
 export { default as Up } from './Up.svg';
 export { default as Down } from './Down.svg';
+export { default as ArrowLeft } from './ArrowLeft.svg';
+export { default as ArrowRight } from './ArrowRight.svg';
 export { default as Right } from './Right.svg';
+export { default as Remove } from './Remove.svg';
+export { default as Whale } from './Whale.svg';
+export { default as ArrowBack } from './ArrowBack.svg';
+export { default as Error } from './Error.svg';
+export { default as Profile } from './Profile.svg';
+export { default as Location } from './Location.svg';
+
+export { default as 생활 } from './생활.svg';
+export { default as 쇼핑 } from './쇼핑.svg';
+export { default as 식비 } from './식비.svg';
+export { default as 여가 } from './여가.svg';
+export { default as 온라인 } from './온라인.svg';
+export { default as 카페 } from './카페.svg';
+export { default as 편의점 } from './편의점.svg';
+
+export { default as Send } from './Send.svg';

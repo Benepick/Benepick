@@ -7,8 +7,10 @@ import {
   StyleProp,
   TextStyle,
   TouchableHighlightProps,
+  ViewStyle,
 } from 'react-native';
 import * as Icons from '@common/assets/icons/iconIndex';
+import { ViewProps } from 'react-native-svg/lib/typescript/fabric/utils';
 
 export interface AlarmButtonProps extends TouchableOpacityProps {
   isAlarmed: boolean;
@@ -20,12 +22,14 @@ export interface IconButtonProps {
   size?: number;
 }
 
-export interface SubmitButtonProps extends TouchableOpacityProps {
+export interface SubmitButtonProps extends TouchableHighlightProps {
   title: string;
+  color?: string;
 }
 
-export interface RequestButtonProps extends TouchableOpacityProps {
+export interface RequestButtonProps extends TouchableHighlightProps {
   title: string;
+  color?: string;
 }
 
 export interface BTextProps extends TextProps {
@@ -37,28 +41,30 @@ export interface BTextProps extends TextProps {
 
 export interface BInputProps extends TextInputProps {
   label?: string;
-}
-export interface NodeProps {
-  size: number;
-  color: string;
-  num: number;
+  style?: StyleProp<ViewStyle | TextStyle>;
 }
 
-export interface BranchProps {
-  size: number;
-  color: string;
+export interface CardProgressSectionProps {
+  section: number;
+  isFill: boolean;
 }
 
-export interface ProgressNodeProps {
-  page: number;
-  size: number;
-  current: number;
+export interface CardProgressBarProps {
+  percent: number;
+  section: number;
+}
+
+export interface CardProgressProps {
+  sections: Array<number>;
+  currentAmount: number;
+  currentSection: number;
+  nextSectionAmont: number;
 }
 
 export interface CompanySelectBoxProps extends TouchableHighlightProps {
   name: string;
   size: number;
-  state: string;
+  isLinked: boolean;
   image: string;
   isSelected: boolean;
 }
@@ -71,4 +77,24 @@ export interface BSwitchProps extends TouchableHighlightProps {
 export interface BCheckBoxProps extends TouchableHighlightProps {
   size: number;
   value: boolean;
+}
+
+export interface PageProps extends ViewProps {
+  children?: ReactNode;
+  style?: StyleProp<ViewStyle>;
+}
+
+export interface CoveringPointsProps {
+  num: number;
+  size: number;
+}
+
+export interface CategoryTextProps {
+  category: string;
+  value: string;
+}
+
+export interface LineProps {
+  size: number;
+  progress: number;
 }

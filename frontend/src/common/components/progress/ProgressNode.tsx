@@ -21,7 +21,11 @@ function ProgressNode({ page, size, current }: ProgressNodeProps) {
 }
 
 const styles = StyleSheet.create({
-  flexBox: { display: 'flex', flexDirection: 'row', alignItems: 'center' },
+  flexBox: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
 
 export default ProgressNode;

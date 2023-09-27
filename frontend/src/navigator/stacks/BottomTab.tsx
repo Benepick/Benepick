@@ -1,6 +1,7 @@
 import React from 'react';
-import { createBottomTabNavigator, useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
-import { Button, View } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import { TouchableHighlight, View, Image } from 'react-native';
 
 import Home from '@pages/main/Home/Home';
 import Consumption from '@pages/main/Consumption/Consumption';
@@ -13,16 +14,18 @@ import IconButton from '@common/components/IconButton';
 import AlarmButton from '@common/components/AlarmButton';
 import SvgIcons from '@common/assets/SvgIcons';
 import { Spacing } from '@common/components/Spacing';
+import { RootStackParamList } from '@interfaces/navigation';
+import BText from '@common/components/BText';
+import MainLogo from '@common/components/MainLogo';
+import Notification from '@pages/Notification/Notification';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootStackParamList>();
 
 const BottomTab = () => {
   return (
     <Tab.Navigator
       screenOptions={({ navigation }) => ({
-        headerLeft: () => (
-          <Button onPress={() => navigation.push('BottomTab')} title="Go Home" color="#000000" />
-        ),
+        headerLeft: () => <MainLogo navigation={navigation} />,
         headerRight: () => (
           <View style={{ display: 'flex', flexDirection: 'row' }}>
             <AlarmButton onPress={() => navigation.push('Notification')} isAlarmed={false} />
@@ -37,12 +40,19 @@ const BottomTab = () => {
         headerTitle: '',
         headerStyle: { backgroundColor: 'none' },
         headerShadowVisible: false,
+        unmountOnBlur: true,
       })}
     >
       <Tab.Screen
-        name="홈"
+        name="Home"
         component={Home}
         options={{
+          title: '홈',
+          tabBarLabelStyle: {
+            fontFamily: 'IBMPlexSansKR-SemiBold',
+            marginTop: -5,
+            marginBottom: -5,
+          },
           tabBarIcon: ({ focused }) =>
             focused ? (
               <SvgIcons name="Home" fill={colors.main} size={30} />
@@ -52,9 +62,15 @@ const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="내 카드"
+        name="CreditCard"
         component={CreditCard}
         options={{
+          title: '내 카드',
+          tabBarLabelStyle: {
+            fontFamily: 'IBMPlexSansKR-SemiBold',
+            marginTop: -5,
+            marginBottom: -5,
+          },
           tabBarIcon: ({ focused }) =>
             focused ? (
               <SvgIcons name="Card" fill={colors.main} size={30} />
@@ -64,9 +80,15 @@ const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="혜택찾기"
+        name="Benefit"
         component={Benefit}
         options={{
+          title: '혜택 찾기',
+          tabBarLabelStyle: {
+            fontFamily: 'IBMPlexSansKR-SemiBold',
+            marginTop: -5,
+            marginBottom: -5,
+          },
           tabBarIcon: ({ focused }) =>
             focused ? (
               <SvgIcons name="Diamond" fill={colors.main} size={30} />
@@ -74,11 +96,18 @@ const BottomTab = () => {
               <SvgIcons name="Diamond" fill={colors.disabled} size={30} />
             ),
         }}
+        initialParams={{ place: '' }}
       />
       <Tab.Screen
-        name="소비내역"
+        name="Consumption"
         component={Consumption}
         options={{
+          title: '내 소비',
+          tabBarLabelStyle: {
+            fontFamily: 'IBMPlexSansKR-SemiBold',
+            marginTop: -5,
+            marginBottom: -5,
+          },
           tabBarIcon: ({ focused }) =>
             focused ? (
               <SvgIcons name="Payment" fill={colors.main} size={30} />
@@ -88,14 +117,20 @@ const BottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="챗봇"
+        name="ChatBot"
         component={ChatBot}
         options={{
+          title: '챗봇',
+          tabBarLabelStyle: {
+            fontFamily: 'IBMPlexSansKR-SemiBold',
+            marginTop: -5,
+            marginBottom: -5,
+          },
           tabBarIcon: ({ focused }) =>
             focused ? (
-              <SvgIcons name="ChatBot" fill={colors.main} size={30} />
+              <SvgIcons name="Whale" fill={colors.main} size={30} />
             ) : (
-              <SvgIcons name="ChatBot" fill={colors.disabled} size={30} />
+              <SvgIcons name="Whale" fill={colors.disabled} size={30} />
             ),
         }}
       />

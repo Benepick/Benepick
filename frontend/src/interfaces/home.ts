@@ -1,7 +1,6 @@
 import { ImageSourcePropType } from 'react-native';
 
-export interface MonthlyConsumptionProps {
-  image: ImageSourcePropType;
-  money: string;
-  benefit: string;
+export interface LocationInterface {
+  latitude: number;
+  longitude: number;
 }

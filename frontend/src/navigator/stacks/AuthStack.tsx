@@ -9,14 +9,24 @@ import PhoneAuth from '@pages/auth/PhoneAuth/PhoneAuth';
 import SetPassword from '@pages/auth/SetPassword/SetPassword';
 import SelectCompany from '@pages/auth/SelectCompany/SelectCompany';
 import SelectCard from '@pages/auth/SelectCard/SelectCard';
-import LogIn from '@pages/auth/LogIn/LogIn';
 import RegistrationComplete from '@pages/auth/RegistrationComplete/RegistrationComplete';
 
-const Stack = createNativeStackNavigator();
+import colors from '@common/design/colors';
+import ProgressNode from '@common/components/progress/ProgressNode';
+import { RootStackParamList } from '@interfaces/navigation';
+import Login from '@pages/auth/Login/Login';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const AuthStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerTitle: '' }}>
+    <Stack.Navigator
+      screenOptions={{
+        headerTitle: '',
+        headerStyle: { backgroundColor: colors.white },
+        headerShadowVisible: false,
+      }}
+    >
       <Stack.Screen
         name="Start"
         component={Start}
@@ -24,17 +34,28 @@ const AuthStack = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="Terms" component={Terms} />
       <Stack.Screen
-        name="ReadTerms"
-        component={ReadTerms}
-        options={{
-          headerShown: false,
-        }}
+        name="Terms"
+        component={Terms}
+        initialParams={{ isRead: false }}
+        options={{ headerRight: () => <ProgressNode page={3} size={22} current={1} /> }}
       />
-      <Stack.Screen name="PersonalAuth" component={PersonalAuth} />
-      <Stack.Screen name="PhoneAuth" component={PhoneAuth} />
-      <Stack.Screen name="SetPassword" component={SetPassword} />
+      <Stack.Screen name="ReadTerms" component={ReadTerms} />
+      <Stack.Screen
+        name="PersonalAuth"
+        component={PersonalAuth}
+        options={{ headerRight: () => <ProgressNode page={3} size={22} current={2} /> }}
+      />
+      <Stack.Screen
+        name="PhoneAuth"
+        component={PhoneAuth}
+        options={{ headerRight: () => <ProgressNode page={3} size={22} current={3} /> }}
+      />
+      <Stack.Screen
+        name="SetPassword"
+        component={SetPassword}
+        options={{ headerBackVisible: false }}
+      />
       <Stack.Screen
         name="SelectCompany"
         component={SelectCompany}
@@ -46,7 +67,7 @@ const AuthStack = () => {
         component={RegistrationComplete}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="LogIn" component={LogIn} />
+      <Stack.Screen name="Login" component={Login} options={{ headerBackVisible: false }} />
     </Stack.Navigator>
   );
 };

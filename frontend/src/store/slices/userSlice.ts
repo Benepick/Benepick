@@ -1,8 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   token: '',
   autoLogIn: false,
+  renewalTimeStamp: null,
 };
 
 export const userSlice = createSlice({
@@ -12,18 +13,18 @@ export const userSlice = createSlice({
     setToken: (state, action) => {
       state.token = action.payload;
     },
-    setAutoLogIn: (state) => {
-      state.autoLogIn = true;
-    },
     clearToken: (state) => {
       state.token = '';
     },
-    cancleAutoLogin: (state) => {
-      state.autoLogIn = false;
+    setAutoLogin: (state, action) => {
+      state.autoLogIn = action.payload;
+    },
+    setRenewalTimeStamp: (state, action) => {
+      state.renewalTimeStamp = action.payload;
     },
   },
 });
 
-export const { setToken, setAutoLogIn, clearToken, cancleAutoLogin } = userSlice.actions;
+export const { setToken, clearToken, setAutoLogin, setRenewalTimeStamp } = userSlice.actions;
 
 export default userSlice.reducer;

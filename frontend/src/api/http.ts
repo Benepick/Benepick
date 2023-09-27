@@ -1,21 +1,19 @@
+import { store } from '@store/store';
 import Axios from 'axios';
 
-export const ROOT = 'http://10.0.2.2:8080';
+// export const ROOT = 'https://benepick.shop/';
+export const ROOT = 'http://192.168.137.18:8080/';
 
 const httpAxios = Axios.create({
   baseURL: ROOT,
 });
 
-// 토큰을 받아옴
-// 현재는 김싸피 토큰임
-const getToken = () => {
-  return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE2OTM5Nzk0NDIsImV4cCI6MTc1NDQ1OTQ0MiwidXNlcklkIjoiZjJhNWI1N2MyOTJhNDkzNzRmMWZhNTAyNjJjNzY2NjdmYjRhYWNlYzNlZGQ2YzlmNDJhYmZiZWU1OGVkZjlmNyJ9.zuh5QQPIRjl9W7JXdmdOWa-YcRDQ5jCzT706dKk8KyQ';
-};
-
 // 토큰이 있을 때 httpAxios에 토큰을 집어넣는 로직
 httpAxios.interceptors.request.use((config) => {
+  // Request URL 보는법
+  // console.log(config.url);
   const newConfig = { ...config };
-  const token = getToken();
+  const token = store.getState().user.token;
   if (token) {
     newConfig.headers.Authorization = `Bearer ${token}`;
   }
@@ -23,11 +21,21 @@ httpAxios.interceptors.request.use((config) => {
 });
 
 export const http = {
-  get: <Response = unknown>(url: string) => httpAxios.get<Response>(url).then((res) => res.data),
+  get: <Response = unknown>(url: string) =>
+    httpAxios.get<Response>(url).then((response) => response.data),
   post: <Response = unknown, Request = unknown>(url: string, body?: Request) =>
-    httpAxios.post<Response>(url, body).then((res) => res.data),
+    httpAxios.post<Response>(url, body).then((response) => response.data),
   put: <Response = unknown, Request = unknown>(url: string, body?: Request) =>
-    httpAxios.put<Response>(url, body).then((res) => res.data),
+    httpAxios.put<Response>(url, body).then((response) => response.data),
   delete: <Response = unknown>(url: string) =>
-    httpAxios.delete<Response>(url).then((res) => res.data),
+    httpAxios.delete<Response>(url).then((response) => response.data),
+  token: <Response = unknown, Request = unknown>(url: string, body?: Request) =>
+    httpAxios.post<Response>(url, body).then((response) => response),
 };
+
+export interface CommonResponse {
+  statusCode: number;
+  messages: string;
+  developerMessage: string;
+  timestamp: string;
+}

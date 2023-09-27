@@ -61,12 +61,5 @@ public class MainApplication extends Application implements ReactApplication {
       DefaultNewArchitectureEntryPoint.load();
     }
     ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
-
-    Intent serviceIntent = new Intent(this, EventService.class);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      startForegroundService(serviceIntent);
-    } else {
-      startService(serviceIntent);
-    }
   }
 }

@@ -8,7 +8,7 @@ import colors from '@common/design/colors';
 import { Spacing } from '@common/components/Spacing';
 import { globalStyles } from '@common/design/globalStyles';
 import MonthlyBenefit from './Container/MonthlyBenefit';
-import ConsumptionHistory from './Container/ConsumptionHistory/ConsumptionHistory';
+import ConsumptionHistory from './Container/ConsumptionHistory';
 import Page from '@common/components/Page';
 
 function Consumption({ navigation }: ConsumptionNavigationProps) {
@@ -30,6 +30,7 @@ function Consumption({ navigation }: ConsumptionNavigationProps) {
         <MonthlyBenefit />
         <Spacing />
         <ConsumptionHistory />
+        <Spacing />
       </ScrollView>
     </Page>
   );

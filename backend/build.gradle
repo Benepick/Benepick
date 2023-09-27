@@ -41,6 +41,12 @@ dependencies {
 
 	//S3
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
+	// cool sms api
+	implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
+
+	// webflux
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
 }
 
 tasks.named('test') {

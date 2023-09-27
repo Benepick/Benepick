@@ -14,21 +14,31 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class CIService {
 
-	public String generateUserCI(CreateUserAccountRequestDto createUserAccountRequestDto){
-		log.info("CIService_generateUserCI | 유저 CI 생성");
-		String rawCI = createUserAccountRequestDto.getUserName() + createUserAccountRequestDto.getUserSocialNumber()
-			+ createUserAccountRequestDto.getUserGenderAndGenerationCode() + createUserAccountRequestDto.getUserPhoneNumber();
-
+	public  String getSHA256Hash(String data) {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] encodedhash = digest.digest(rawCI.getBytes(StandardCharsets.UTF_8));
-			String ci = bytesToHex(encodedhash);
+			byte[] encodedHash = digest.digest(data.getBytes(StandardCharsets.UTF_8));
 
-			return ci;
-		} catch (NoSuchAlgorithmException e) {
+			// 바이트 배열을 16진수 문자열로 변환
+			StringBuilder hexStringBuilder = new StringBuilder(2 * encodedHash.length);
+			for (byte b : encodedHash) {
+				String hex = String.format("%02x", b);
+				hexStringBuilder.append(hex);
+			}
+
+			return hexStringBuilder.toString();
+		} catch (NoSuchAlgorithmException e){
 			e.printStackTrace();
 		}
 		return "error";
+	}
+
+	public String generateUserCI(CreateUserAccountRequestDto createUserAccountRequestDto) throws NoSuchAlgorithmException {
+		log.info("CIService_generateUserCI | 유저 CI 생성");
+		String rawCI = createUserAccountRequestDto.getUserName() + createUserAccountRequestDto.getUserSocialNumber()
+				+ createUserAccountRequestDto.getUserGenderAndGenerationCode() + createUserAccountRequestDto.getUserPhoneNumber();
+		return getSHA256Hash(rawCI);
+
 	}
 
 	private static String bytesToHex(byte[] hash) {

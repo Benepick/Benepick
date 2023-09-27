@@ -1,27 +1,32 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import { StyleSheet, TouchableHighlight } from 'react-native';
 import { SubmitButtonProps } from 'interfaces/common';
 import colors from '@common/design/colors';
 import BText from './BText';
 
-function SubmitButton({ title, ...rest }: SubmitButtonProps) {
+function SubmitButton({ title, color = colors.main, ...rest }: SubmitButtonProps) {
+  const styles = StyleSheet.create({
+    button: {
+      backgroundColor: color,
+      padding: 12,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });
   return (
-    <TouchableOpacity style={styles.button} {...rest}>
+    <TouchableHighlight
+      disabled={color === colors.disabled}
+      style={styles.button}
+      activeOpacity={color === colors.disabled ? 1 : 0.2}
+      underlayColor={color}
+      {...rest}
+    >
       <BText type="bold" color={colors.white}>
         {title}
       </BText>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 }
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: colors.main,
-    padding: 12,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 10,
-  },
-});
 
 export default SubmitButton;

@@ -8,7 +8,7 @@ function BSwitch({ size, value, ...rest }: BSwitchProps) {
     switch: {
       width: size * 50,
       height: size * 25,
-      backgroundColor: colors.disabled,
+      backgroundColor: value ? colors.main2 : colors.disabled,
       display: 'flex',
       justifyContent: 'center',
       borderRadius: size * 10,
