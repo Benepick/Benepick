@@ -1,0 +1,6 @@
+1_crawling/data/*
+2_data
+4_DB용
+!4_DB용/분류정보.txt
+infra_data/*.csv
+*.csv
