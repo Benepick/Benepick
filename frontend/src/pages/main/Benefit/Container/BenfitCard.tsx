@@ -23,7 +23,7 @@ function BenfitCard({
 
   useEffect(() => {
     Animated.timing(animationValue, {
-      toValue: showBenefit ? 0 : -20, // 원하는 높이로 설정
+      toValue: showBenefit ? 0 : -10, // 원하는 높이로 설정
       duration: 500,
       useNativeDriver: true,
     }).start();

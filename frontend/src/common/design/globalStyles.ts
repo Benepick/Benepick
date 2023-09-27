@@ -3,17 +3,17 @@ import colors from './colors';
 
 export const globalStyles = StyleSheet.create({
   page: {
-    paddingHorizontal: 10,
+    paddingHorizontal: '4%',
   },
   whitePage: {
-    paddingHorizontal: 10,
+    paddingHorizontal: '4%',
     backgroundColor: colors.white,
     minHeight: '100%',
   },
   container: {
-    borderRadius: 12,
+    borderRadius: 10,
     backgroundColor: colors.white,
-    padding: 20,
+    padding: '5%',
   },
   h1: {
     fontSize: 30,

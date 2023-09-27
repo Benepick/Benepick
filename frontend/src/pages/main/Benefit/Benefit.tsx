@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, Alert } from 'react-native';
+import { View, ScrollView, Alert, Animated } from 'react-native';
 
 import { BenefitNavigationProps } from 'interfaces/navigation';
 
@@ -19,6 +19,8 @@ function Benefit({ navigation }: BenefitNavigationProps) {
   const [isError, setError] = useState(false);
   const [title, setTitle] = useState('');
   const [isSearched, setSearched] = useState(false);
+
+  const [translateY] = useState(new Animated.Value(0));
 
   const searchBenefit = () => {
     if (keyword.length !== 0) {

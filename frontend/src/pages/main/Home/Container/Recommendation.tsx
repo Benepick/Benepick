@@ -11,12 +11,10 @@ import card, { PlaceResponse } from '@api/card';
 
 function Recommendation() {
   const { EventListener } = NativeModules;
-
   const [data, setData] = useState<PlaceResponse>();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const successCallback = (latitude: number, longitude: number) => {
-    setLoading(true);
     if (latitude && longitude) {
       console.log(latitude, longitude);
       card
@@ -55,13 +53,16 @@ function Recommendation() {
             <BText type="h2">{data?.merchantName}에서 추천드려요</BText>
             <IconButton
               name="Refresh"
-              onPress={() => EventListener.getLocation(successCallback, errorCallback)}
+              onPress={() => {
+                setLoading(true);
+                EventListener.getLocation(successCallback, errorCallback);
+              }}
             />
           </View>
 
           <View style={styles.description}>
             {data?.cardImgUrl && <Image style={styles.image} source={{ uri: data?.cardImgUrl }} />}
-            <View>
+            <View style={{ marginLeft: '5%' }}>
               <BText type="h3">{data?.cardCompanyName}</BText>
               <BText type="h1">{data?.cardName}</BText>
               <BText type="h1" color={colors.main}>

@@ -85,6 +85,7 @@ function MainLogo({ navigation }: any) {
                 borderRadius: 100,
                 padding: 2,
                 justifyContent: 'center',
+                marginLeft: '5%',
               }}
             >
               <SvgIcons name="Refresh" size={20} fill={colors.white} />
