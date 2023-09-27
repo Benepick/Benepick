@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService{
 	private final SmsService smsService;
 
 	@Override
-	public void createUserAccount(CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) throws NoSuchAlgorithmException {
+	public String createUserAccount(CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) throws NoSuchAlgorithmException {
 		log.info("UserServiceImpl_createUserAccount | 유저 회원 가입");
 
 		String userId = ciService.generateUserCI(createUserAccountRequestDto);
@@ -48,6 +48,7 @@ public class UserServiceImpl implements UserService{
 			userRepository.save(createUserAccountRequestDto.toUserEntity(userId));
 
 		setToken(userId , response);
+		return userRepository.findById(userId).get().getUserName();
 	}
 
 	@Override
