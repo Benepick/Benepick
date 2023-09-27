@@ -17,6 +17,7 @@ import { Spacing } from '@common/components/Spacing';
 import { RootStackParamList } from '@interfaces/navigation';
 import BText from '@common/components/BText';
 import MainLogo from '@common/components/MainLogo';
+import Notification from '@pages/Notification/Notification';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
@@ -33,20 +34,19 @@ const BottomTab = () => {
             <Spacing rem="0.5" dir="row" />
           </View>
         ),
-
         tabBarStyle: {
           backgroundColor: colors.white,
         },
         headerTitle: '',
         headerStyle: { backgroundColor: 'none' },
         headerShadowVisible: false,
+        unmountOnBlur: true,
       })}
     >
       <Tab.Screen
         name="Home"
         component={Home}
         options={{
-          unmountOnBlur: true,
           title: '홈',
           tabBarLabelStyle: {
             fontFamily: 'IBMPlexSansKR-SemiBold',
@@ -65,7 +65,6 @@ const BottomTab = () => {
         name="CreditCard"
         component={CreditCard}
         options={{
-          unmountOnBlur: true,
           title: '내 카드',
           tabBarLabelStyle: {
             fontFamily: 'IBMPlexSansKR-SemiBold',
@@ -84,7 +83,6 @@ const BottomTab = () => {
         name="Benefit"
         component={Benefit}
         options={{
-          unmountOnBlur: true,
           title: '혜택 찾기',
           tabBarLabelStyle: {
             fontFamily: 'IBMPlexSansKR-SemiBold',
@@ -98,12 +96,12 @@ const BottomTab = () => {
               <SvgIcons name="Diamond" fill={colors.disabled} size={30} />
             ),
         }}
+        initialParams={{ place: '' }}
       />
       <Tab.Screen
         name="Consumption"
         component={Consumption}
         options={{
-          unmountOnBlur: true,
           title: '내 소비',
           tabBarLabelStyle: {
             fontFamily: 'IBMPlexSansKR-SemiBold',
@@ -122,7 +120,6 @@ const BottomTab = () => {
         name="ChatBot"
         component={ChatBot}
         options={{
-          unmountOnBlur: true,
           title: '챗봇',
           tabBarLabelStyle: {
             fontFamily: 'IBMPlexSansKR-SemiBold',
