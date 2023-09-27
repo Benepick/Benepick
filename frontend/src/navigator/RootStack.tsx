@@ -68,6 +68,13 @@ const RootStack = () => {
           }}
         />
         <Stack.Screen
+          name="SettingStack"
+          component={SettingStack}
+          options={({ navigation }) => ({
+            headerShown: false,
+          })}
+        />
+        <Stack.Screen
           name="Notification"
           component={Notification}
           options={({ navigation }) => ({
@@ -79,13 +86,6 @@ const RootStack = () => {
               </BText>
             ),
             headerRight: () => <IconButton onPress={() => navigation.goBack()} name="Close" />,
-          })}
-        />
-        <Stack.Screen
-          name="SettingStack"
-          component={SettingStack}
-          options={({ navigation }) => ({
-            headerShown: false,
           })}
         />
         <Stack.Screen name="Test" component={Test} />

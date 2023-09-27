@@ -30,7 +30,7 @@ export type RootStackParamList = {
   CreditCard: undefined;
   CreditCardDetail: { cardId: number };
   Consumption: undefined;
-  Benefit: undefined;
+  Benefit: { place: string };
   ChatBot: undefined;
 
   // Setting Stack
@@ -117,6 +117,7 @@ export interface ConsumptionNavigationProps {
 
 export interface BenefitNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Benefit'>;
+  route: RouteProp<RootStackParamList, 'Benefit'>;
 }
 
 export interface ChatBotNavigationProps {
@@ -143,6 +144,10 @@ export interface CheckPasswordNavigationProps {
 
 export interface ChangePasswordNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'ChangePassword'>;
+}
+
+export interface NotificationNavigationProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Notification'>;
 }
 
 // prop data
