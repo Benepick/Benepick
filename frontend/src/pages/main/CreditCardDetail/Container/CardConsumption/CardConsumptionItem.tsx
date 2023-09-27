@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import SvgIcons from '@common/assets/SvgIcons';
 import BText from '@common/components/BText';
-import SvgIcons from '@common/assets/SvgIcons';
+
 import { Spacing } from '@common/components/Spacing';
 import colors from '@common/design/colors';
 

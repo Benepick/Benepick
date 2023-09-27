@@ -35,7 +35,7 @@ function CreditCardItem({
             <Spacing dir="row" />
             <View style={styles.cardTitle}>
               <BText type="h3">{cardName}</BText>
-              <BText>{cardCompanyName}</BText>
+              {/* <BText>{cardCompanyName} </BText> */}
               <View style={styles.serialNumber}>
                 <BText type="p">{serialNumber.slice(15, 19)}</BText>
               </View>
@@ -71,16 +71,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   image: {
-    width: '15%',
+    width: '12%',
     aspectRatio: 1 / 1.58,
   },
   serialNumber: {
     width: 70,
     borderWidth: 1,
     borderColor: colors.placeholder,
-    paddingHorizontal: 5,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 5,
     borderRadius: 5,
     color: colors.placeholder,
   },

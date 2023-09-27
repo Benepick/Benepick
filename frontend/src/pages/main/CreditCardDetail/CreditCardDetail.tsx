@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Button,
-  Text,
-  Image,
-  StyleSheet,
-  ScrollView,
-  TouchableHighlight,
-} from 'react-native';
+import { View, Image, StyleSheet, ScrollView, TouchableHighlight } from 'react-native';
+
+import CautionModal from './Container/CautionModal';
+import DateOption from './Container/DateOption';
+import CardConsumption from './Container/CardConsumption';
 
 import Page from '@common/components/Page';
 import BText from '@common/components/BText';
