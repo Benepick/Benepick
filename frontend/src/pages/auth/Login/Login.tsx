@@ -21,7 +21,7 @@ function Login({ navigation }: LoginNavigationProps) {
   const enterPassword = (pad: string) => {
     if (pad === 'Clear') {
       setPassword([]);
-    } else if (pad === 'remove' && password.length > 0) {
+    } else if (pad === 'remove' && password.length >= 0) {
       const newPassword = [...password];
       newPassword.pop();
       setPassword(newPassword);

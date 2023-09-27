@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, ScrollView, Alert, Animated } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, ScrollView, Alert } from 'react-native';
 
 import { BenefitNavigationProps } from 'interfaces/navigation';
 
@@ -12,7 +12,7 @@ import Page from '@common/components/Page';
 import WhiteBox from '@common/components/WhiteBox';
 import card, { BefitAllCard, BefitUserCard } from '@api/card';
 
-function Benefit({ navigation }: BenefitNavigationProps) {
+function Benefit({ navigation, route }: BenefitNavigationProps) {
   const [keyword, setKeyword] = useState('');
   const [benefitUserData, setBenefitUserData] = useState<BefitUserCard[]>([]);
   const [benefitAllData, setBenefitAllData] = useState<BefitAllCard[]>([]);
@@ -20,9 +20,18 @@ function Benefit({ navigation }: BenefitNavigationProps) {
   const [title, setTitle] = useState('');
   const [isSearched, setSearched] = useState(false);
 
-  const [translateY] = useState(new Animated.Value(0));
+  useEffect(() => {
+    if (route.params.place && route.params.place.length > 0) {
+      searchBenefit(route.params.place);
+      setKeyword(route.params.place);
+    }
+  }, [route.params.place]);
 
-  const searchBenefit = () => {
+  useEffect(() => {
+    return navigation.setParams({ place: '' });
+  }, []);
+
+  const searchBenefit = (keyword: string) => {
     if (keyword.length !== 0) {
       // 내 카드 조회
       card
@@ -75,7 +84,11 @@ function Benefit({ navigation }: BenefitNavigationProps) {
               justifyContent: isSearched ? 'flex-start' : 'center',
             }}
           >
-            <SearchInput onChangeText={(e) => setKeyword(e)} onSubmitEditing={searchBenefit} />
+            <SearchInput
+              value={keyword}
+              onChangeText={(e) => setKeyword(e)}
+              onSubmitEditing={() => searchBenefit(keyword)}
+            />
           </View>
           {isSearched && (
             <View>
