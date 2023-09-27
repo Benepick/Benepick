@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "카드 카테고리2 정보 DTO")
-public class ApiCategory2ResponseDto {
+public class ApiCategory2ResponseDto implements Serializable {
     private Long category2Id;
     private String category2Name;
     private List<ApiCategory3ResponseDto> category3List;

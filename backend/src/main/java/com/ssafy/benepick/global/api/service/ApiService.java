@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class ApiService {
         return WebClient.builder().baseUrl(baseUrl).build();
     }
 
+    @Cacheable(value = "cardCompanyList")
     public List<ApiCardCompanyResponseDto> getCardCompanyListFromMyDataServer(){
         log.info("BANK API : 뱅킹 서버에서 전체 카드사 정보 조회");
         return getDefaultWebClient().get()
