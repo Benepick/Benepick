@@ -24,38 +24,38 @@
      private void allController() {
      }
 
-     @Around("allController()")
-     public Object traceRqAndRs(ProceedingJoinPoint joinPoint) throws Throwable {
-         //request Log 를 위한 로직
-         Object[] request = joinPoint.getArgs();
-
-         Method method = getMethod(joinPoint);
-
-         JSONObject rqLogJson = new JSONObject();
-         for (Object rq : request) {
-             if(rq == null) {
-                 break;
-             }
-
-             rqLogJson.put(method.getName(), rq.toString());
-         }
-         String logRq = rqLogJson.toString();
-
-         log.info("request ={}", logRq);
-
-         Object rs = joinPoint.proceed();
-         //response Log 를 위한 로직
-
-         if(rs != null) {
-             JSONObject rsLogJson = new JSONObject();
-             rsLogJson.put(method.getName(), rs.toString());
-             String logRr = rsLogJson.toString();
-
-             log.info("response ={}",logRr);
-         }
-
-         return rs;
-     }
+//     @Around("allController()")
+//     public Object traceRqAndRs(ProceedingJoinPoint joinPoint) throws Throwable {
+//         //request Log 를 위한 로직
+//         Object[] request = joinPoint.getArgs();
+//
+//         Method method = getMethod(joinPoint);
+//
+//         JSONObject rqLogJson = new JSONObject();
+//         for (Object rq : request) {
+//             if(rq == null) {
+//                 break;
+//             }
+//
+//             rqLogJson.put(method.getName(), rq.toString());
+//         }
+//         String logRq = rqLogJson.toString();
+//
+//         log.info("request ={}", logRq);
+//
+//         Object rs = joinPoint.proceed();
+//         //response Log 를 위한 로직
+//
+//         if(rs != null) {
+//             JSONObject rsLogJson = new JSONObject();
+//             rsLogJson.put(method.getName(), rs.toString());
+//             String logRr = rsLogJson.toString();
+//
+//             log.info("response ={}",logRr);
+//         }
+//
+//         return rs;
+//     }
 
      private Method getMethod(JoinPoint joinPoint) {
          MethodSignature signature = (MethodSignature) joinPoint.getSignature();

@@ -33,21 +33,21 @@
      private void allRepository() {
      }
 
-     @Around("allController() || allService() || allRepository()")
-     public Object traceLog(ProceedingJoinPoint joinPoint) throws Throwable {
-         String massage = joinPoint.getSignature().toShortString();
-         TraceStatus status = null;
-
-         try {
-             status = threadLocalLogTrace.begin(massage);
-
-             Object result = joinPoint.proceed();
-
-             threadLocalLogTrace.end(status);
-             return result;
-         } catch (Exception e) {
-             threadLocalLogTrace.exception(status, e);
-             throw e;
-         }
-     }
+//     @Around("allController() || allService() || allRepository()")
+//     public Object traceLog(ProceedingJoinPoint joinPoint) throws Throwable {
+//         String massage = joinPoint.getSignature().toShortString();
+//         TraceStatus status = null;
+//
+//         try {
+//             status = threadLocalLogTrace.begin(massage);
+//
+//             Object result = joinPoint.proceed();
+//
+//             threadLocalLogTrace.end(status);
+//             return result;
+//         } catch (Exception e) {
+//             threadLocalLogTrace.exception(status, e);
+//             throw e;
+//         }
+//     }
  }
