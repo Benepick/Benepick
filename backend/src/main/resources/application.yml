@@ -9,13 +9,18 @@ spring:
       hibernate: # hibernate property 설정
         format_sql: true # 보여지는 쿼리를 예쁘게 포맷팅 -> 사용하지않으면 긴 줄 형태로 출력됌
 
-server:
-  port: 8080
+  cache:
+    type: redis
+
   data:
     redis:
       host: j9a610.p.ssafy.io
       port: 6379
       timeout: 5000 # 서버와의 연결 시도 및 응답 대기 시간 최대 5초
+
+server:
+  port: 8080
+
 
 # 로그 레벨 설정
 logging:
