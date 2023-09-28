@@ -7,13 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Getter
 @Builder
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "전체 카드 혜택 검색 결과 DTO")
-public class ApiSearchCardBenefitResponseDto {
+public class ApiSearchCardBenefitResponseDto implements Serializable {
 
 	@Schema(description = "카드사 이름", example = "삼성")
 	private String cardCompanyName;

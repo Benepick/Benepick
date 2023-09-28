@@ -1,5 +1,6 @@
 package com.ssafy.benepick.domain.mydata.dto.response;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
@@ -16,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "일별 카드 거래 내역 정보 DTO")
-public class DayTransactionResponseDto {
+public class DayTransactionResponseDto implements Serializable {
 
 	@Schema(description = "거래 일자", example = "2023-09-15")
 	private LocalDate transactionDate;
