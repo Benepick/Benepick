@@ -16,6 +16,7 @@ import com.ssafy.benepick.domain.user.service.UserCardService;
 import com.ssafy.benepick.domain.user.service.UserService;
 import com.ssafy.benepick.global.api.dto.response.ApiMerchantResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,7 @@ public class CardServiceImpl implements CardService{
 
 
 	@Override
+	@Cacheable(value = "cardBenefit" , key = "#cardId")
 	public List<CardBenefitResponseDto> findCardBenefitListByCardId(Long cardId) {
 		log.info("CardServiceImpl_findCardBenefitListByCardId || 카드 ID 바탕 으로 혜택 정보 찾기");
 		List<CardBenefitResponseDto> result = new ArrayList<>();
@@ -95,7 +97,7 @@ public class CardServiceImpl implements CardService{
 				for (UserCardCategory2 userCardCategory2 : userCardCategory1.getUserCardCategory2List()) {
 					Optional<UserCardCategory3> category3 = userCardCategory2.getUserCardCategory3List()
 						.stream()
-						.filter(userCardCategory3 -> userCardCategory3.getUserCardCategory3Name().equals(keyword))
+						.filter(userCardCategory3 -> userCardCategory3.getUserCardCategory3Name().toLowerCase().contains(keyword.toLowerCase()))
 						.findFirst();
 
 					if (category3.isEmpty()) continue;
