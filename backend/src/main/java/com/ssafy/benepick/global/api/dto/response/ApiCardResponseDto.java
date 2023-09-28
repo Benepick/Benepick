@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "카드 정보 DTO")
-public class ApiCardResponseDto {
+public class ApiCardResponseDto implements Serializable {
 
     private Long cardCode;
     private String cardName;

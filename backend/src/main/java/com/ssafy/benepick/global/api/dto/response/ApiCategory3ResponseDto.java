@@ -7,12 +7,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "카드 카테고리3 정보 DTO")
-public class ApiCategory3ResponseDto {
+public class ApiCategory3ResponseDto implements Serializable {
     private Long category3Id;
     private String category3Name;
 

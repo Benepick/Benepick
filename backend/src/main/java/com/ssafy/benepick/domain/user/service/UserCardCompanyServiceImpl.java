@@ -3,6 +3,7 @@ package com.ssafy.benepick.domain.user.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.ssafy.benepick.domain.card.dto.response.CardCompanyResponseDto;
@@ -24,6 +25,7 @@ public class UserCardCompanyServiceImpl implements UserCardCompanyService{
 	private final UserService userService;
 
 	@Override
+	@Cacheable(value = "userCardCompanyList", key = "@userServiceImpl.getUserFromRequest(#request).getUserId()")
 	public List<CardCompanyResponseDto> getUserCardCompany(HttpServletRequest request) {
 		log.info("UserCardCompanyServiceImpl_getUserCardCompany | 사용자와 연동된 카드사 조회");
 		User loginUser = userService.getUserFromRequest(request);

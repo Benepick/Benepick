@@ -1,5 +1,6 @@
 package com.ssafy.benepick.domain.mydata.dto.response;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "상세 거래 내역 정보 DTO")
-public class TransactionInfoResponseDto {
+public class TransactionInfoResponseDto implements Serializable {
 
 	@Schema(description = "거래 카테고리", example = "쇼핑")
 	private String category;
