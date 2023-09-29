@@ -19,7 +19,7 @@ public class InitDb {
 
 	@PostConstruct
 	public void init() {
-		initService.userInit();
+//		initService.userInit();
 		// initService.bankInit();
 		// initService.test();
 	}

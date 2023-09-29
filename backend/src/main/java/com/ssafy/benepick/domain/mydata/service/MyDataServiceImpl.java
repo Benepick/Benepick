@@ -14,6 +14,7 @@ import com.ssafy.benepick.domain.user.entity.UserCardCompany;
 import com.ssafy.benepick.domain.user.repository.UserCardRepository;
 import com.ssafy.benepick.global.api.dto.response.ApiMyDataCardResponseDto;
 import com.ssafy.benepick.global.api.service.ApiService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +50,7 @@ public class MyDataServiceImpl implements MyDataService {
 	private final UserCardRepository userCardRepository;
 
 	@Override
+	@Cacheable(value = "monthResult", key = "#request.getHeader('Authorization')")
 	public MonthResultResponseDto getMonthResult(HttpServletRequest request) {
 		log.info("MyDataServiceImpl_getMonthResult | 사용자 이번달 소비내역 , 받은 혜택 조회");
 		User loginUser = userService.getUserFromRequest(request);
@@ -88,6 +90,7 @@ public class MyDataServiceImpl implements MyDataService {
 	}
 
 	@Override
+	@Cacheable(value = "monthCategoryResult", key = "#request.getHeader('Authorization')")
 	public MonthCategoryResultResponseDto getMonthCategoryResult(HttpServletRequest request) {
 		log.info("MyDataServiceImpl_getMonthCategoryResult | 사용자 이번달 카테고리별 사용 금액 조회");
 		User loginUser = userService.getUserFromRequest(request);
@@ -107,6 +110,7 @@ public class MyDataServiceImpl implements MyDataService {
 	}
 
 	@Override
+	@Cacheable(value = "fourMonthResult", key = "#request.getHeader('Authorization')")
 	public List<RecentMonthResponseDto> getRecentFourMonthResult(HttpServletRequest request) {
 		log.info("MyDataServiceImpl_getRecentFourMonthResult || 최근 4달의 사용금액,받은혜택 조회");
 		User loginUser = userService.getUserFromRequest(request);
@@ -146,6 +150,7 @@ public class MyDataServiceImpl implements MyDataService {
 	}
 
 	@Override
+	@Cacheable(value = "cardInfo",key = "#cardId + '_' + #year + '_' + #month")
 	public CardInfoResponseDto getUserCardInfo(Long cardId, int year, int month , HttpServletRequest request) {
 		log.info("MyDataServiceImpl_getUserCardInfo || 사용자의 카드 상세 정보 조회");
 		User loginUser = userService.getUserFromRequest(request);

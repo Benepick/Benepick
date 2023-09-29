@@ -13,6 +13,7 @@ import com.ssafy.benepick.global.api.dto.response.ApiMyDataPaymentResponseDto;
 import com.ssafy.benepick.domain.card.service.CardService;
 import com.ssafy.benepick.domain.user.dto.response.UserCardResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -117,6 +118,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	}
 
 	 @Override
+	 @Cacheable(value = "userCardList", key = "@userServiceImpl.getUserFromRequest(#request).getUserId()")
 	 public List<UserCardResponseDto> getUserCards(HttpServletRequest request) {
 	 	User user = userService.getUserFromRequest(request);
 	 	List<UserCard> userCardList = userCardRepository.findByUser(user);

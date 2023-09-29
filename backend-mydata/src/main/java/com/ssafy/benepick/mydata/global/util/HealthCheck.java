@@ -1,5 +1,7 @@
 package com.ssafy.benepick.mydata.global.util;
 
+import com.ssafy.benepick.mydata.global.response.ResponseResult;
+import com.ssafy.benepick.mydata.global.response.SingleResponseResult;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/health-check")
 public class HealthCheck {
-    @GetMapping("")
-    public String checkServerStatus(){
+    @GetMapping
+    public ResponseResult checkServerStatus(){
         log.info("jenkins health check 요청");
-        return "check";
+        return new SingleResponseResult<>(true);
     }
 }

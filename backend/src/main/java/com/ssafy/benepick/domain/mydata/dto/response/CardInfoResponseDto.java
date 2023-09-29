@@ -1,5 +1,6 @@
 package com.ssafy.benepick.domain.mydata.dto.response;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,7 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "카드 상세 정보 DTO")
-public class CardInfoResponseDto {
+public class CardInfoResponseDto implements Serializable {
 
 	@Schema(description = "카드사 이름", example = "롯데카드")
 	private String cardCompanyName;

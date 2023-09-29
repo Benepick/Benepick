@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.ssafy.benepick.global.api.service.ApiService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,6 +57,16 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 				.collect(Collectors.toList());
 	}
 
+
+	@Caching(
+			evict = {
+					@CacheEvict(value = "monthResult", key = "#request.getHeader('Authorization')"),
+					@CacheEvict(value = "monthCategoryResult", key = "#request.getHeader('Authorization')"),
+					@CacheEvict(value = "fourMonthResult", key = "#request.getHeader('Authorization')"),
+					@CacheEvict(value = "userCardCompanyList", key = "#request.getHeader('Authorization')"),
+					@CacheEvict(value = "userCardList", key = "#request.getHeader('Authorization')")
+			}
+	)
 	@Override
 	@Transactional
 	public void linkAndRenewCardCompany(LinkAndRenewCardCompanyRequestDto linkAndRenewCardCompanyRequestDto, HttpServletRequest request) {
