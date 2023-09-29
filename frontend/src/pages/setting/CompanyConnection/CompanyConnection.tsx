@@ -8,6 +8,7 @@ import ConnectedCompany from './Container/ConnectedCompany';
 import SubmitButton from '@common/components/SubmitButton';
 import user from '@api/user';
 import cardCompany, { CardCompany } from '@api/cardCompany';
+import BText from '@common/components/BText';
 
 function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
   const [cardCompanys, setCardCompanys] = useState<CardCompany[] | []>([]);
@@ -51,6 +52,11 @@ function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
     <WhitePage>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Spacing />
+        {cardCompanys.length === 0 && (
+          <View>
+            <BText type="h2">연결된 카드가 없습니다</BText>
+          </View>
+        )}
         {cardCompanys &&
           cardCompanys.map((cardCompany) => {
             return (
