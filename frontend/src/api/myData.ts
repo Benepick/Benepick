@@ -48,6 +48,7 @@ export interface CardListData {
   performanceLevels: number[];
   currentLevel: number;
   nextLevelAmount: number;
+  cardId: number;
 }
 
 export interface CardDetailRequest {
