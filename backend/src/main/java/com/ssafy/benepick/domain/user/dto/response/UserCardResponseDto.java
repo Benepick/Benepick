@@ -15,6 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 @Schema(description = "사용자 카드 조회 결과 DTO")
 public class UserCardResponseDto {
+
+    @Schema(description = "카드 ID", example = "64")
+    private Long cardId;
+
     @Schema(description = "카드 종류 번호", example = "133")
     private Long cardCode;
 
