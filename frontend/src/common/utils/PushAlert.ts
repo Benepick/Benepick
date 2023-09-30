@@ -51,12 +51,29 @@ const shakePickPushAlert = (
   card
     .place({ x: location.longitude, y: location.latitude })
     .then((response) => {
+      // 현재 시간을 가져옴
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const formattedMinutes = minutes.toString().padStart(2, '0');
+
+      // 오전, 오후 판단
+      let period = '오전';
+      let formattedHour = hours;
+      if (hours >= 12) {
+        period = '오후';
+        formattedHour = hours - 12;
+      }
+
+      // 시간을 오후 오전 식으로 포매팅
+      const currentTime = `${period} ${formattedHour}:${formattedMinutes}`;
       PushNotification.localNotification({
         channelId: 'shakePick',
         showWhen: true,
         title: randomTitle(response.recommend, response.merchantName),
         message: randomContext(response.recommend, response.cardCompanyName, response.cardName),
-        subText: `${location.latitude}, ${location.longitude}`,
+        // subText: `${location.latitude}, ${location.longitude}`,
+        subText: currentTime,
         largeIcon: '',
       });
       dispatch(addNotificationLog(response.merchantName));
