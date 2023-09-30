@@ -9,17 +9,21 @@ import CreditCardItem from './Container/CreditCardItem';
 import { Spacing } from '@common/components/Spacing';
 import myData, { CardListData } from '@api/myData';
 import { useAppSelector } from '@store/hooks';
+import Loading from '@pages/Loading/Loading';
 
 function CreditCard({ navigation }: CreditCardNavigationProps) {
-  const [data, setData] = useState<CardListData[]>();
+  const [data, setData] = useState<CardListData[]>([]);
   const userName = useAppSelector((state) => state.user.userName);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     myData
       .cardList()
       .then((response) => {
         if (response.statusCode === 200) {
           setData(response.data);
+          setLoading(false);
         } else {
           console.log(response.statusCode);
         }
@@ -58,6 +62,17 @@ function CreditCard({ navigation }: CreditCardNavigationProps) {
             <Spacing />
           </View>
         ))}
+        {!isLoading && data.length === 0 && (
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <BText type="h3">보유하신 신용카드가 없어요</BText>
+          </View>
+        )}
+        {isLoading && (
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Loading />
+            <BText type="h3">카드 리스트 가져오는중...</BText>
+          </View>
+        )}
       </ScrollView>
     </Page>
   );

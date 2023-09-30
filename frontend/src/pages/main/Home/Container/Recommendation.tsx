@@ -8,6 +8,7 @@ import colors from '@common/design/colors';
 import IconButton from '@common/components/IconButton';
 import WhiteBox from '@common/components/WhiteBox';
 import card, { PlaceResponse } from '@api/card';
+import Loading from '@pages/Loading/Loading';
 
 function Recommendation() {
   const { EventListener } = NativeModules;
@@ -41,14 +42,15 @@ function Recommendation() {
   return (
     <WhiteBox style={styles.container}>
       {loading && (
-        <View>
-          <BText type="h2">현재 위치 정보 가져오는 중...</BText>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Loading />
+          <BText type="h3">현재 위치 정보 가져오는 중...</BText>
         </View>
       )}
       {!loading && (
         <View style={styles.col}>
           <View style={styles.title}>
-            <BText type="h2">{data?.merchantName}에서 추천드려요</BText>
+            <BText type="h3">{data?.merchantName}에서 추천드려요</BText>
             <IconButton
               name="Refresh"
               onPress={() => {
@@ -76,7 +78,7 @@ function Recommendation() {
             <Spacing rem="0.25" />
             <View style={styles.benefit}>
               <BText type="bold">혜택종류</BText>
-              <BText>% 할인</BText>
+              <BText>{data?.discountPercent}% 할인</BText>
             </View>
             <Spacing rem="0.25" />
             <View style={styles.benefit}>

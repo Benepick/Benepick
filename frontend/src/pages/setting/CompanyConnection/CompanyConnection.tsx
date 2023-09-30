@@ -9,16 +9,20 @@ import SubmitButton from '@common/components/SubmitButton';
 import user from '@api/user';
 import cardCompany, { CardCompany } from '@api/cardCompany';
 import BText from '@common/components/BText';
+import Loading from '@pages/Loading/Loading';
 
 function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
   const [cardCompanys, setCardCompanys] = useState<CardCompany[] | []>([]);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     user
       .cardCompany()
       .then((res) => {
         if (res.statusCode === 200) {
           setCardCompanys(res.data);
+          setLoading(false);
         } else {
           Alert.alert('카드사 조회에 실패하였습니다.');
         }
@@ -52,12 +56,19 @@ function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
     <WhitePage>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Spacing />
-        {cardCompanys.length === 0 && (
+        {isLoading && (
+          <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Loading />
+            <BText type="h3">연결된 카드를 가져오고 있어요...</BText>
+          </View>
+        )}
+        {!isLoading && cardCompanys.length === 0 && (
           <View>
             <BText type="h2">연결된 카드가 없습니다</BText>
           </View>
         )}
-        {cardCompanys &&
+        {!isLoading &&
+          cardCompanys &&
           cardCompanys.map((cardCompany) => {
             return (
               <ConnectedCompany
@@ -70,12 +81,14 @@ function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
             );
           })}
         <View style={styles.button}>
-          <SubmitButton
-            title="자산 연결하러가기"
-            onPress={() => {
-              navigation.push('CompanyManagement');
-            }}
-          />
+          {!isLoading && (
+            <SubmitButton
+              title="자산 연결하러가기"
+              onPress={() => {
+                navigation.push('CompanyManagement');
+              }}
+            />
+          )}
           <Spacing />
         </View>
       </ScrollView>
