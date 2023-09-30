@@ -4,6 +4,7 @@ const initialState = {
   token: '',
   autoLogIn: false,
   renewalTimeStamp: null,
+  userName: '',
 };
 
 export const userSlice = createSlice({
@@ -22,9 +23,13 @@ export const userSlice = createSlice({
     setRenewalTimeStamp: (state, action) => {
       state.renewalTimeStamp = action.payload;
     },
+    setUserName: (state, action) => {
+      state.userName = action.payload;
+    },
   },
 });
 
-export const { setToken, clearToken, setAutoLogin, setRenewalTimeStamp } = userSlice.actions;
+export const { setToken, clearToken, setAutoLogin, setRenewalTimeStamp, setUserName } =
+  userSlice.actions;
 
 export default userSlice.reducer;

@@ -8,9 +8,11 @@ import colors from '@common/design/colors';
 import CreditCardItem from './Container/CreditCardItem';
 import { Spacing } from '@common/components/Spacing';
 import myData, { CardListData } from '@api/myData';
+import { useAppSelector } from '@store/hooks';
 
 function CreditCard({ navigation }: CreditCardNavigationProps) {
   const [data, setData] = useState<CardListData[]>();
+  const userName = useAppSelector((state) => state.user.userName);
 
   useEffect(() => {
     myData
@@ -32,7 +34,7 @@ function CreditCard({ navigation }: CreditCardNavigationProps) {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.title}>
           <BText type="h2" color={colors.main}>
-            김성용님
+            {userName}님
           </BText>
         </View>
         <Spacing rem="0.25" />
