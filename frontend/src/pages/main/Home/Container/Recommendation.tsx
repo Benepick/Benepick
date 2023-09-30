@@ -62,10 +62,10 @@ function Recommendation() {
 
           <View style={styles.description}>
             {data?.cardImgUrl && <Image style={styles.image} source={{ uri: data?.cardImgUrl }} />}
-            <View style={{ marginLeft: '5%' }}>
+            <View>
               <BText type="h3">{data?.cardCompanyName}</BText>
-              <BText type="h1">{data?.cardName}</BText>
-              <BText type="h1" color={colors.main}>
+              <BText type="h2">{data?.cardName}</BText>
+              <BText type="h2" color={colors.main}>
                 {data?.discountPercent}% 할인
               </BText>
             </View>

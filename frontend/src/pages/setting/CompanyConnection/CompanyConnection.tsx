@@ -8,6 +8,7 @@ import ConnectedCompany from './Container/ConnectedCompany';
 import SubmitButton from '@common/components/SubmitButton';
 import user from '@api/user';
 import cardCompany, { CardCompany } from '@api/cardCompany';
+import BText from '@common/components/BText';
 
 function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
   const [cardCompanys, setCardCompanys] = useState<CardCompany[] | []>([]);
@@ -51,6 +52,11 @@ function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
     <WhitePage>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Spacing />
+        {cardCompanys.length === 0 && (
+          <View>
+            <BText type="h2">연결된 카드가 없습니다</BText>
+          </View>
+        )}
         {cardCompanys &&
           cardCompanys.map((cardCompany) => {
             return (
@@ -59,7 +65,7 @@ function CompanyConnection({ navigation }: CompanyConnectionNavigationProps) {
                 name={cardCompany.cardCompanyName}
                 cardId={cardCompany.cardCompanyId}
                 deleteCompany={() => deleteCompany(cardCompany.cardCompanyId)}
-                image="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434"
+                image={cardCompany.cardCompanyImgUrl}
               />
             );
           })}
