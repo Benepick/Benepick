@@ -7,6 +7,7 @@ import {
   Platform,
   ScrollView,
   Keyboard,
+  Alert,
 } from 'react-native';
 
 import colors from '@common/design/colors';
@@ -19,12 +20,14 @@ import ChatLog from './Container/ChatLog';
 import { ChatBotNavigationProps } from 'interfaces/navigation';
 import { ChatLogProps } from '@interfaces/chatBot';
 import { queryBenefits, retrieveCardDetails } from '@api/chatGPT';
+import { useAppSelector } from '@store/hooks';
 
 function ChatBot({ navigation }: ChatBotNavigationProps) {
   const [value, setValue] = useState('');
   const [chatLogs, setChatLogs] = useState<ChatLogProps[]>([]);
   const scrollViewRef = useRef<ScrollView>(null);
   const [keyword, setKeyword] = useState('');
+  const userName = useAppSelector((state) => state.user.userName);
 
   const handleInput = async () => {
     if (value.trim() === '') {
@@ -58,12 +61,15 @@ function ChatBot({ navigation }: ChatBotNavigationProps) {
 
   const handleCardClick = async (cardname: string, benefitId: string) => {
     try {
-      const message = await retrieveCardDetails(cardname, benefitId);
+      // const message = await retrieveCardDetails(cardname, benefitId);
+      const message = '아직 준비중이에요! :)';
+
       // 상태를 업데이트하여 새로운 메시지를 추가
       setChatLogs([...chatLogs, { type: 'response', message }]);
     } catch (error) {
       console.error('Failed to retrieve card details', error);
     }
+    scrollViewRef.current?.scrollToEnd({ animated: true });
   };
 
   useEffect(() => {
@@ -105,7 +111,7 @@ function ChatBot({ navigation }: ChatBotNavigationProps) {
               <Spacing rem="2" />
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <BText type="h2" color={colors.main}>
-                  김성용님
+                  {userName}님
                 </BText>
                 <BText type="h2">을 위한 카드추천 챗봇입니다</BText>
               </View>

@@ -34,7 +34,6 @@ function CheckPassword({ navigation }: CheckPasswordNavigationProps) {
           .login(newPassword.join(''))
           .then((response) => {
             if (response.statusCode === 200) {
-              console.log(response.messages);
               navigation.navigate('ChangePassword');
             } else {
               console.log('Error, Status Code: ', response.statusCode);

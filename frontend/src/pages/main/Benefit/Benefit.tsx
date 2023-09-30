@@ -11,6 +11,7 @@ import { Spacing } from '@common/components/Spacing';
 import Page from '@common/components/Page';
 import WhiteBox from '@common/components/WhiteBox';
 import card, { BefitAllCard, BefitUserCard } from '@api/card';
+import Loading from '@pages/Loading/Loading';
 
 function Benefit({ navigation, route }: BenefitNavigationProps) {
   const [keyword, setKeyword] = useState('');
@@ -19,6 +20,7 @@ function Benefit({ navigation, route }: BenefitNavigationProps) {
   const [isError, setError] = useState(false);
   const [title, setTitle] = useState('');
   const [isSearched, setSearched] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     if (route.params.place && route.params.place.length > 0) {
@@ -34,12 +36,14 @@ function Benefit({ navigation, route }: BenefitNavigationProps) {
   const searchBenefit = (keyword: string) => {
     if (keyword.length !== 0) {
       // 내 카드 조회
+      setLoading(true);
       card
         .benefitUser(keyword.trim())
         .then((res) => {
           if (res.statusCode === 200) {
             setBenefitUserData(res.data);
             setSearched(true);
+            setLoading(false);
           } else {
             setSearched(false);
           }
@@ -84,13 +88,15 @@ function Benefit({ navigation, route }: BenefitNavigationProps) {
               justifyContent: isSearched ? 'flex-start' : 'center',
             }}
           >
-            <SearchInput
-              value={keyword}
-              onChangeText={(e) => setKeyword(e)}
-              onSubmitEditing={() => searchBenefit(keyword)}
-            />
+            {!isLoading && (
+              <SearchInput
+                value={keyword}
+                onChangeText={(e) => setKeyword(e)}
+                onSubmitEditing={() => searchBenefit(keyword)}
+              />
+            )}
           </View>
-          {isSearched && (
+          {!isLoading && isSearched && (
             <View>
               <Spacing />
               <WhiteBox>
@@ -151,6 +157,12 @@ function Benefit({ navigation, route }: BenefitNavigationProps) {
                 )}
               </WhiteBox>
               <Spacing rem="1" />
+            </View>
+          )}
+          {isLoading && (
+            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Loading />
+              <BText type="h3">{keyword}에 혜택을 찾고있어요!</BText>
             </View>
           )}
         </ScrollView>

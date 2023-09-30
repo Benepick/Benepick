@@ -1,11 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { Text } from 'react-native-svg';
 
 function Loading() {
   return (
     <View>
-      <Text>로딩 중</Text>
+      <Image
+        style={{ width: 200, height: 200 }}
+        source={require('@common/assets/images/Loading.gif')}
+      />
     </View>
   );
 }

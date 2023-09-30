@@ -10,14 +10,16 @@ import { globalStyles } from '@common/design/globalStyles';
 import MonthlyBenefit from './Container/MonthlyBenefit';
 import ConsumptionHistory from './Container/ConsumptionHistory';
 import Page from '@common/components/Page';
+import { useAppSelector } from '@store/hooks';
 
 function Consumption({ navigation }: ConsumptionNavigationProps) {
+  const userName = useAppSelector((state) => state.user.userName);
   return (
     <Page>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.title}>
           <BText type="h2" color={colors.main}>
-            김성용님
+            {userName}님
           </BText>
           <BText type="h2">의 이번달</BText>
         </View>

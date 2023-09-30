@@ -10,13 +10,15 @@ import Page from '@common/components/Page';
 import colors from '@common/design/colors';
 
 import { HomeNavigationProps } from 'interfaces/navigation';
+import { useAppSelector } from '@store/hooks';
 
 function Home({ navigation }: HomeNavigationProps) {
+  const userName = useAppSelector((state) => state.user.userName);
   return (
     <Page>
       <View style={styles.title}>
         <BText type="h2" color={colors.main}>
-          김성용님
+          {userName}님
         </BText>
         <BText type="h2"> 위치에서</BText>
       </View>

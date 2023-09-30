@@ -10,7 +10,7 @@ import PasswordNumpad from '@common/components/PasswordNumpad';
 import { SetPasswordNavigationProps } from 'interfaces/navigation';
 import user from '@api/user';
 import { useAppDispatch } from '../../../store/hooks';
-import { setToken } from '@store/slices/userSlice';
+import { setToken, setUserName } from '@store/slices/userSlice';
 
 function SetPassword({ navigation, route }: SetPasswordNavigationProps) {
   const dispatch = useAppDispatch();
@@ -49,9 +49,10 @@ function SetPassword({ navigation, route }: SetPasswordNavigationProps) {
               .then((response) => {
                 const AuthHeader = response.headers.authorization;
                 const token = AuthHeader.replace('Bearer ', '');
-                console.log(token);
+                const userName = response.data.data;
                 dispatch(setToken(token));
-                console.log('성공, Message: ', response.data.messages);
+                dispatch(setUserName(userName));
+
                 setPassword([]);
                 setCheck([]);
                 navigation.navigate('SelectCompany');

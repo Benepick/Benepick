@@ -11,19 +11,23 @@ import colors from '@common/design/colors';
 
 import { SelectCompanyNavigationProps } from '@interfaces/navigation';
 import cardCompany, { CardCompany } from '@api/cardCompany';
+import Loading from '@pages/Loading/Loading';
 
 function SelectCompany({ navigation }: SelectCompanyNavigationProps) {
   const [boxStates, setBoxStates] = useState<CardCompany[] | []>([]);
   const [isAllselected, setAllSelected] = useState(true);
   const [visibleCount, setVisibleCount] = useState(9);
+  const [isLoading, setLoading] = useState(false);
 
   // 카드사 정보 가져오기
   useEffect(() => {
+    setLoading(true);
     cardCompany
       .get(1)
       .then((res) => {
         if (res.statusCode === 200) {
           setBoxStates(res.data);
+          setLoading(false);
         } else {
           Alert.alert('전체 카드사 조회에 실패하였습니다.');
         }
@@ -72,12 +76,14 @@ function SelectCompany({ navigation }: SelectCompanyNavigationProps) {
   // 카드사 연동
   const submitCompany = () => {
     if (boxStates) {
+      setLoading(true);
       const selectedCompanies = boxStates.filter((box) => box.selected);
       const selectedCompaniesId = selectedCompanies.map((company) => company.cardCompanyId);
       cardCompany
         .post(selectedCompaniesId)
         .then((res) => {
           if (res.statusCode === 200) {
+            setLoading(false);
             navigation.reset({
               index: 0,
               routes: [{ name: 'BottomTab' }],
@@ -94,58 +100,66 @@ function SelectCompany({ navigation }: SelectCompanyNavigationProps) {
 
   return (
     <WhitePage>
+      {isLoading && (
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Loading />
+          <BText type="h3">잠시만 기다려주세요!</BText>
+        </View>
+      )}
       <Spacing rem="3" />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <BText type="h2">자주 사용하는 금융사를</BText>
-        <BText type="h2">선택해보세요</BText>
-        <Spacing />
-        <View style={styles.checkBox}>
-          <BCheckBox value={isAllselected} size={1} onPress={selectAll} />
-          <Spacing rem="0.5" dir="row" />
-          <BText>
-            {boxStates && getSelectedCount() === boxStates.length ? '전체해제' : '전체선택'}
-          </BText>
-        </View>
-        <Spacing />
-        <View style={styles.container}>
+      {!isLoading && (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <BText type="h2">자주 사용하는 금융사를</BText>
+          <BText type="h2">선택해보세요</BText>
+          <Spacing />
+          <View style={styles.checkBox}>
+            <BCheckBox value={isAllselected} size={1} onPress={selectAll} />
+            <Spacing rem="0.5" dir="row" />
+            <BText>
+              {boxStates && getSelectedCount() === boxStates.length ? '전체해제' : '전체선택'}
+            </BText>
+          </View>
+          <Spacing />
+          <View style={styles.container}>
+            {boxStates &&
+              boxStates.slice(0, visibleCount).map((box, index) => (
+                <View key={box.cardCompanyId} style={styles.box}>
+                  <CompanySelectBox
+                    name={box.cardCompanyName}
+                    // image={box.cardCompanyImgUrl}
+                    image={box.cardCompanyImgUrl}
+                    size={30}
+                    isLinked={box.linked}
+                    isSelected={box.selected}
+                    onPress={() => handleSelectBox(index)}
+                  />
+                </View>
+              ))}
+          </View>
+
           {boxStates &&
-            boxStates.slice(0, visibleCount).map((box, index) => (
-              <View key={box.cardCompanyId} style={styles.box}>
-                <CompanySelectBox
-                  name={box.cardCompanyName}
-                  // image={box.cardCompanyImgUrl}
-                  image="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99BCB0335D089C1434"
-                  size={30}
-                  isLinked={box.linked}
-                  isSelected={box.selected}
-                  onPress={() => handleSelectBox(index)}
-                />
+            visibleCount < boxStates.length && ( // 더 볼 회사가 있으면 "더보기" 버튼을 표시
+              <View>
+                <Spacing />
+                <TouchableOpacity onPress={loadMore} style={{ alignSelf: 'center' }}>
+                  <BText type="bold">더보기</BText>
+                </TouchableOpacity>
               </View>
-            ))}
-        </View>
+            )}
 
-        {boxStates &&
-          visibleCount < boxStates.length && ( // 더 볼 회사가 있으면 "더보기" 버튼을 표시
-            <View>
-              <Spacing />
-              <TouchableOpacity onPress={loadMore} style={{ alignSelf: 'center' }}>
-                <BText type="bold">더보기</BText>
-              </TouchableOpacity>
-            </View>
-          )}
-
-        <Spacing />
-        <View style={styles.button}>
-          <SubmitButton
-            color={getSelectedCount() === 0 ? colors.disabled : colors.main}
-            title={
-              getSelectedCount() === 0 ? '금융사를 선택해주세요' : `${getSelectedCount()}개 연결`
-            }
-            onPress={submitCompany}
-          />
-          <Spacing rem="4" />
-        </View>
-      </ScrollView>
+          <Spacing />
+          <View style={styles.button}>
+            <SubmitButton
+              color={getSelectedCount() === 0 ? colors.disabled : colors.main}
+              title={
+                getSelectedCount() === 0 ? '금융사를 선택해주세요' : `${getSelectedCount()}개 연결`
+              }
+              onPress={submitCompany}
+            />
+            <Spacing rem="4" />
+          </View>
+        </ScrollView>
+      )}
     </WhitePage>
   );
 }

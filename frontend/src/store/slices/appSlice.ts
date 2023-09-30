@@ -27,7 +27,6 @@ export const appSlice = createSlice({
           PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION,
         ];
         checkMultiple(permissions).then((response) => {
-          console.log(response);
           if (
             response['android.permission.POST_NOTIFICATIONS'] !== 'granted' ||
             response['android.permission.ACCESS_FINE_LOCATION'] !== 'granted' ||

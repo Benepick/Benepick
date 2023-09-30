@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import SvgIcons from '@common/assets/SvgIcons';
@@ -20,7 +20,8 @@ function AuthSetting({ navigation }: SettingNavigationProps) {
   };
 
   const changeBiometricAuthentication = () => {
-    setBiometricAuthentication(!isBiometricAuthentication);
+    // setBiometricAuthentication(!isBiometricAuthentication);
+    Alert.alert('아직 준비중이에요! :)');
   };
 
   return (

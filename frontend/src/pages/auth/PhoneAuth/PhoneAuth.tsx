@@ -43,8 +43,6 @@ function PhoneAuth({ navigation, route }: PhoneAuthNavigationProps) {
       Alert.alert('인증이 완료되었습니다.');
       setAuthButtonTitle('인증완료');
     } else {
-      console.log(responseNumber);
-      console.log(authenticationNumber);
       Alert.alert('인증번호를 확인해주세요');
     }
   };
