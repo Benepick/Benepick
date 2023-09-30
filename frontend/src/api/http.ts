@@ -1,8 +1,8 @@
 import { store } from '@store/store';
 import Axios from 'axios';
+import Config from 'react-native-config';
 
-// export const ROOT = 'https://benepick.shop/';
-export const ROOT = 'http://192.168.137.18:8080/';
+export const ROOT = Config.REACT_APP_ROOT_URL;
 
 const httpAxios = Axios.create({
   baseURL: ROOT,

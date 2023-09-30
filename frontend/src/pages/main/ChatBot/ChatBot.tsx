@@ -18,17 +18,52 @@ import ChatLog from './Container/ChatLog';
 
 import { ChatBotNavigationProps } from 'interfaces/navigation';
 import { ChatLogProps } from '@interfaces/chatBot';
+import { queryBenefits, retrieveCardDetails } from '@api/chatGPT';
 
 function ChatBot({ navigation }: ChatBotNavigationProps) {
   const [value, setValue] = useState('');
   const [chatLogs, setChatLogs] = useState<ChatLogProps[]>([]);
   const scrollViewRef = useRef<ScrollView>(null);
+  const [keyword, setKeyword] = useState('');
 
-  const handleInput = () => {
-    const newLog = { request: value, response: '안녕하신가요' };
-    setChatLogs([...chatLogs, newLog]);
+  const handleInput = async () => {
+    if (value.trim() === '') {
+      return;
+    }
+    const newLogs: ChatLogProps[] = [{ type: 'request', message: value }];
+    // API 호출
+    try {
+      const benefits = await queryBenefits(value);
+      if (benefits && benefits.length > 0) {
+        const cardData = benefits.map((b) => ({
+          cardname: b.cardname,
+          benefitId: b.benefitId,
+          benefit: b.benefit,
+        }));
+        newLogs.push({ type: 'response', message: cardData });
+        console.log(benefits);
+      } else {
+        newLogs.push({ type: 'response', message: '검색 결과가 없습니다.' });
+      }
+    } catch (error) {
+      console.log(error);
+      newLogs.push({ type: 'response', message: '오류가 발생했습니다. 다시 시도해주세요.' });
+    }
+
+    setChatLogs([...chatLogs, ...newLogs]);
     scrollViewRef.current?.scrollToEnd({ animated: true });
     setValue('');
+    setKeyword(value);
+  };
+
+  const handleCardClick = async (cardname: string, benefitId: string) => {
+    try {
+      const message = await retrieveCardDetails(cardname, benefitId);
+      // 상태를 업데이트하여 새로운 메시지를 추가
+      setChatLogs([...chatLogs, { type: 'response', message }]);
+    } catch (error) {
+      console.error('Failed to retrieve card details', error);
+    }
   };
 
   useEffect(() => {
@@ -84,9 +119,13 @@ function ChatBot({ navigation }: ChatBotNavigationProps) {
             <View>
               <Spacing />
               {chatLogs.map((log, index) => (
-                <View key={index}>
-                  <ChatLog requestMessage={log.request} responseMessage={log.response} />
-                </View>
+                <ChatLog
+                  onCardClick={handleCardClick}
+                  keyword={keyword}
+                  key={index}
+                  type={log.type}
+                  message={log.message}
+                />
               ))}
             </View>
           </ScrollView>

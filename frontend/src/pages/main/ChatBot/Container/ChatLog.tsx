@@ -1,49 +1,62 @@
+import React from 'react';
 import SvgIcons from '@common/assets/SvgIcons';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import colors from '@common/design/colors';
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ChatLogProps } from '@interfaces/chatBot';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
-interface ChatLogProps {
-  requestMessage: string;
-  responseMessage: string;
-}
-
-function ChatLog({ requestMessage, responseMessage }: ChatLogProps) {
-  return (
-    <View>
-      {requestMessage && (
-        <View style={styles.requestMessage}>
-          <BText color={colors.white}> {requestMessage}</BText>
+function ChatLog({ keyword, type, message, onCardClick }: ChatLogProps) {
+  if (type === 'request' && typeof message === 'string') {
+    return (
+      <View>
+        <View style={styles.request}>
+          <BText color={colors.white}>{message}</BText>
         </View>
-      )}
-      {requestMessage && responseMessage && (
-        <View>
-          <Spacing />
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              flex: 1,
-            }}
-          >
-            <View style={{ width: '10%' }}>
-              <SvgIcons name="Whale" size={30} />
-            </View>
-            <View style={styles.responseMessage}>
-              <BText color={colors.white}> {responseMessage}</BText>
-            </View>
+        <Spacing />
+      </View>
+    );
+  } else {
+    return (
+      <View>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ width: '10%' }}>
+            <SvgIcons name="Whale" size={30} />
           </View>
-          <Spacing />
+          <View style={styles.response}>
+            {typeof message === 'string' ? (
+              <BText color={colors.white}>{message}</BText>
+            ) : (
+              <View>
+                <BText color={colors.white}>{keyword}에 어울리는 카드 추천해드릴게요!</BText>
+                <Spacing />
+                {message.map((card, idx) => (
+                  <View key={idx}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        if (onCardClick) {
+                          onCardClick(card.cardname, card.benefitId);
+                        }
+                      }}
+                    >
+                      <BText color={colors.white}>{card.cardname}</BText>
+                      <BText color={colors.white}>{card.benefit}</BText>
+                    </TouchableOpacity>
+                    <Spacing />
+                  </View>
+                ))}
+              </View>
+            )}
+          </View>
         </View>
-      )}
-    </View>
-  );
+        <Spacing />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-  requestMessage: {
+  request: {
     padding: 12,
     borderRadius: 20,
     borderBottomRightRadius: 0,
@@ -54,7 +67,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     alignSelf: 'flex-end',
   },
-  responseMessage: {
+  response: {
     padding: 12,
     borderRadius: 20,
     borderBottomLeftRadius: 0,
