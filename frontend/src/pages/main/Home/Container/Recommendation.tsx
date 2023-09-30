@@ -16,13 +16,11 @@ function Recommendation() {
 
   const successCallback = (latitude: number, longitude: number) => {
     if (latitude && longitude) {
-      console.log(latitude, longitude);
       card
         .place({ x: longitude, y: latitude })
         .then((response) => {
           setData(response);
           setLoading(false);
-          console.log(response);
         })
         .catch((error) => {
           console.log(error);

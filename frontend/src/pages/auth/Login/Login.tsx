@@ -34,7 +34,6 @@ function Login({ navigation }: LoginNavigationProps) {
           .login(newPassword.join(''))
           .then((response) => {
             if (response.statusCode === 200) {
-              console.log(response.messages);
               navigation.navigate('BottomTab');
             } else {
               console.log('Error, Status Code: ', response.statusCode);

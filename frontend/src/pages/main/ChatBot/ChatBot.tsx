@@ -7,6 +7,7 @@ import {
   Platform,
   ScrollView,
   Keyboard,
+  Alert,
 } from 'react-native';
 
 import colors from '@common/design/colors';
@@ -60,12 +61,15 @@ function ChatBot({ navigation }: ChatBotNavigationProps) {
 
   const handleCardClick = async (cardname: string, benefitId: string) => {
     try {
-      const message = await retrieveCardDetails(cardname, benefitId);
+      // const message = await retrieveCardDetails(cardname, benefitId);
+      const message = '아직 준비중이에요! :)';
+
       // 상태를 업데이트하여 새로운 메시지를 추가
       setChatLogs([...chatLogs, { type: 'response', message }]);
     } catch (error) {
       console.error('Failed to retrieve card details', error);
     }
+    scrollViewRef.current?.scrollToEnd({ animated: true });
   };
 
   useEffect(() => {

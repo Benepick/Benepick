@@ -49,7 +49,6 @@ function Setting({ navigation }: SettingNavigationProps) {
           user
             .withdrawal()
             .then((response) => {
-              console.log(response);
               dispatch(clearToken());
               dispatch(setAutoLogin(false));
               dispatch(reset());
