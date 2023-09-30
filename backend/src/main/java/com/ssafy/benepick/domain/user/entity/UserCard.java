@@ -73,6 +73,7 @@ public class UserCard {
 
 	public UserCardResponseDto toUserCardResponseDto (List<Integer> userCardPerformanceLevels, int userCardCurrentLevel, int nextLevelAmount){
 		return UserCardResponseDto.builder()
+				.cardId(userCardId)
 				.serialNumber(userCardSerialNumber)
 				.cardName(userCardName)
 				.currentPerformance(userCardCurrentPerformance)
