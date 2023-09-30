@@ -84,9 +84,6 @@ public class UserCardServiceImpl implements  UserCardService{
 				});
 				userCardCategory1List.add(userCardCategory1);
 			});
-			for (UserCardCategory1 userCardCategory1 : userCardCategory1List) {
-				System.out.println("userCardCategory1 = " + userCardCategory1.getUserCard().getUserCardId());
-			}
 
 			userCardCategory1Repository.saveAll(userCardCategory1List);
 			userPaymentRepository.saveAll(userCardPaymentList);
@@ -166,9 +163,6 @@ public class UserCardServiceImpl implements  UserCardService{
 	@Override
 	public List<UserCardCategory1> getUserCardCategory1(UserCard userCard) {
 		List<UserCardCategory1> category1s = userCardCategory1Repository.findByUserCard(userCard);
-		 for (UserCardCategory1 cate1 : category1s) {
-			 System.out.println(cate1.getUserCardCategory1Name());
-		 }
 		 return category1s;
 	}
 }

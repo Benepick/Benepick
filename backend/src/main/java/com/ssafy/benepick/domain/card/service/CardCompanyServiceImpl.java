@@ -78,7 +78,7 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 			boolean isExist = false;
 
 			for (UserCardCompany userCardCompany : userCardCompanyList){
-				log.info("카드사 유효기간 갱신");
+				//log.info("카드사 유효기간 갱신");
 				if(userCardCompany.getCardCompanyId().equals(cardCompanyId)){
 					userCardCompany.renewDate();
 					isExist = true;
@@ -88,7 +88,7 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 
 			// 카드사가 연동이 안된상태일경우 새로 연동
 			if(!isExist) {
-				log.info("새로운 카드사 연동");
+				//log.info("새로운 카드사 연동");
 				loginUser.linkCardCompany(apiService.getCardCompanyFromMyDataServer(cardCompanyId));
 				myDataService.linkCard(cardCompanyId , loginUser.getUserId());
 			}
