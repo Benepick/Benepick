@@ -19,7 +19,6 @@ function CreditCard({ navigation }: CreditCardNavigationProps) {
       .cardList()
       .then((response) => {
         if (response.statusCode === 200) {
-          console.log(response.data);
           setData(response.data);
         } else {
           console.log(response.statusCode);
