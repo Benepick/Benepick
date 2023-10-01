@@ -45,4 +45,25 @@ public class ExceptionController {
 		log.info("Error Message : {}", err.getMessage());
 		return ResponseResult.exceptionResponse(ExceptionCode.NOT_EXIST_LINK_CARD_COMPANY_EXCEPTION);
 	}
+
+	@ExceptionHandler(BankServerException.class)
+	public ResponseResult BankServerException(BankServerException err) {
+		log.info("Error : {}", err.getClass());
+		log.info("Error Message : {}", err.getMessage());
+		return ResponseResult.exceptionResponse(ExceptionCode.BANK_SERVER_EXCEPTION);
+	}
+
+	@ExceptionHandler(BankServerTimeException.class)
+	public ResponseResult BankServerTimeException(BankServerTimeException err) {
+		log.info("Error : {}", err.getClass());
+		log.info("Error Message : {}", err.getMessage());
+		return ResponseResult.exceptionResponse(ExceptionCode.BANK_SERVER_TIME_EXCEPTION);
+	}
+
+	@ExceptionHandler(BankServerClientException.class)
+	public ResponseResult BankServerClientException(BankServerClientException err) {
+		log.info("Error : {}", err.getClass());
+		log.info("Error Message : {}", err.getMessage());
+		return ResponseResult.exceptionResponse(ExceptionCode.BANK_SERVER_CLIENT_EXCEPTION);
+	}
 }

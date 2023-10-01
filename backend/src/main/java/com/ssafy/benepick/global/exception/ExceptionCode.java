@@ -8,6 +8,9 @@ import lombok.Getter;
 @Getter
 public enum ExceptionCode {
 
+	BANK_SERVER_EXCEPTION(440,"뱅크 서버에서 예외가 발생하였습니다."),
+	BANK_SERVER_CLIENT_EXCEPTION(441,"뱅크 서버로 요청을 잘못 보냈습니다."),
+	BANK_SERVER_TIME_EXCEPTION(442,"뱅크 서버와의 연결시간이 5초를 초과하였습니다."),
 	NOT_EXIST_CARD_COMPANY_EXCEPTION(450,"입력받은 카드사ID와 일치하는 카드사가 존재하지 않습니다."),
 	NOT_EXIST_LINK_CARD_COMPANY_EXCEPTION(451,"연동 해제하려는 카드사는 연동 되어있지 않습니다."),
 	NOT_EXIST_USER_CI_EXCEPTION(460,"일치하는 CI를 가진 유저가 존재하지 않습니다."),
