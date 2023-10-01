@@ -41,6 +41,7 @@ function BInput({ label, style, ...rest }: BInputProps) {
       padding: 8,
       fontSize: 15,
       margin: 2,
+      color: colors.black,
     },
     label: {
       position: 'absolute',

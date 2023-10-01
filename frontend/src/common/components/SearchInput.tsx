@@ -36,6 +36,7 @@ function SearchInput({ ...rest }: TextInputProps) {
       fontFamily: 'IBMPlexSansKR-Regular',
       width: '85%',
       marginTop: 5,
+      color: colors.black,
     },
   });
   return (

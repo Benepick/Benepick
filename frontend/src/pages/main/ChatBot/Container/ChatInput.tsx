@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 60,
     padding: 20,
+    color: colors.black,
   },
   button: {
     justifyContent: 'center',
