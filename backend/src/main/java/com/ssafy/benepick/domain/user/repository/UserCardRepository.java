@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface UserCardRepository extends JpaRepository<UserCard, Long> {
 	UserCard findByUserCardCode(Long userCardCode);
+    UserCard findByUserCardSerialNumber(String userCardSerialNumber);
     List<UserCard> findByUser(User user);
 }

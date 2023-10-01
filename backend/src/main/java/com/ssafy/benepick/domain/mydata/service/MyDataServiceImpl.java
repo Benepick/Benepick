@@ -202,8 +202,8 @@ public class MyDataServiceImpl implements MyDataService {
 					loginUser.getUserLastRenewalTime()).
 					stream()
 					.forEach(apiMyDataCardResponseDto -> {
-						UserCard userCard = userCardRepository.findByUserCardCode(
-							apiMyDataCardResponseDto.getApiCardResponseDto().getCardCode());
+						UserCard userCard = userCardRepository.findByUserCardSerialNumber(
+							apiMyDataCardResponseDto.getMyDataCardId());
 
 						int monthPerformance = 0;
 
