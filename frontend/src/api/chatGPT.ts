@@ -2,7 +2,7 @@ import { Benefit, Message, RequestBody } from '@interfaces/chatBot';
 import axios from 'axios';
 import Config from 'react-native-config';
 
-const ROOT = Config.REACT_APP_GPT_ROOT;
+const ROOT = Config.REACT_APP_ROOT_URL;
 
 const GPT_API_URL = Config.REACT_GPT_API_URL;
 const API_KEY = Config.REACT_APP_OPENAI_API_KEY;
