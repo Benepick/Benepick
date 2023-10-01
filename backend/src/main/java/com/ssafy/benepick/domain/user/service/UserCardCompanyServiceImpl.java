@@ -25,7 +25,7 @@ public class UserCardCompanyServiceImpl implements UserCardCompanyService{
 	private final UserService userService;
 
 	@Override
-	@Cacheable(value = "userCardCompanyList", key = "#request.getHeader('Authorization')")
+	//@Cacheable(value = "userCardCompanyList", key = "#request.getHeader('Authorization')")
 	public List<CardCompanyResponseDto> getUserCardCompany(HttpServletRequest request) {
 		log.info("UserCardCompanyServiceImpl_getUserCardCompany | 사용자와 연동된 카드사 조회");
 		User loginUser = userService.getUserFromRequest(request);

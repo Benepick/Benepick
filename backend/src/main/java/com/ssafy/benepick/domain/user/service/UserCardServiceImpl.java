@@ -115,7 +115,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	}
 
 	 @Override
-	 @Cacheable(value = "userCardList", key = "@userServiceImpl.getUserFromRequest(#request).getUserId()")
+	 //@Cacheable(value = "userCardList", key = "@userServiceImpl.getUserFromRequest(#request).getUserId()")
 	 public List<UserCardResponseDto> getUserCards(HttpServletRequest request) {
 	 	User user = userService.getUserFromRequest(request);
 	 	List<UserCard> userCardList = userCardRepository.findByUser(user);

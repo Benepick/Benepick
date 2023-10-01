@@ -43,7 +43,7 @@ public class CardServiceImpl implements CardService{
 
 
 	@Override
-	@Cacheable(value = "cardBenefit" , key = "#cardId")
+	//@Cacheable(value = "cardBenefit" , key = "#cardId")
 	public List<CardBenefitResponseDto> findCardBenefitListByCardId(Long cardId) {
 		log.info("CardServiceImpl_findCardBenefitListByCardId || 카드 ID 바탕 으로 혜택 정보 찾기");
 		List<CardBenefitResponseDto> result = new ArrayList<>();
