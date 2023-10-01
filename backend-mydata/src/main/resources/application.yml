@@ -15,13 +15,13 @@ server:
   port: 8082
 
 # 로그 레벨 설정
-logging:
-  level:
+#logging:
+  #level:
     # hibernate 가 남기는 모든 로그가 debug모드로 설정
     # jpa hibernate가 생성하는 sql이 로거를 통해서 찍히도록 하는 설정
-    org.hibernate.SQL: debug
-    org.hibernate.orm.jdbc.bind: trace
-    org.springframework.web.socket: trace
+    #org.hibernate.SQL: debug
+    #org.hibernate.orm.jdbc.bind: trace
+    #org.springframework.web.socket: trace
 
 management:
   endpoints:

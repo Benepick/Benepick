@@ -39,7 +39,7 @@ public class ApiService {
                 .uri("/mydata/card-company")
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<ListResponseResult<ApiCardCompanyResponseDto>>() {})
-                .timeout(Duration.ofSeconds(5))
+                .timeout(Duration.ofSeconds(10))
                 .block().getData();
     }
 
@@ -50,7 +50,7 @@ public class ApiService {
                 .uri("/mydata/card-company/{cardId}",cardId)
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<SingleResponseResult<ApiCardCompanyResponseDto>>() {})
-                .timeout(Duration.ofSeconds(5))
+                .timeout(Duration.ofSeconds(10))
                 .block().getData();
     }
 
@@ -64,12 +64,12 @@ public class ApiService {
                         .build())
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<ListResponseResult<ApiMyDataCardResponseDto>>() {})
-                .timeout(Duration.ofSeconds(5))
+                .timeout(Duration.ofSeconds(10))
                 .block().getData();
     }
 
     public List<ApiMyDataCardResponseDto> getTransactionDataAfterLastRenewalTime(Long cardCompanyId,String userId,LocalDateTime lastRenewalTime){
-        log.info("BANK API : 뱅킹 서버에서 거래내역 갱신해주기");
+        //log.info("BANK API : 뱅킹 서버에서 거래내역 갱신해주기");
         return getDefaultWebClient().get()
             .uri(uriBuilder -> uriBuilder
                 .path("/mydata/renewal")
@@ -79,7 +79,7 @@ public class ApiService {
                 .build())
             .retrieve()
             .bodyToMono(new ParameterizedTypeReference<ListResponseResult<ApiMyDataCardResponseDto>>() {})
-            .timeout(Duration.ofSeconds(5))
+            .timeout(Duration.ofSeconds(10))
             .block().getData();
     }
 
@@ -89,7 +89,7 @@ public class ApiService {
                 .uri("/card/place?x={x}&y={y}", x, y)
                 .retrieve()
                 .bodyToMono(ApiMerchantResponseDto.class)
-                .timeout(Duration.ofSeconds(5))
+                .timeout(Duration.ofSeconds(10))
                 .block();
     }
 
