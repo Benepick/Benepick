@@ -159,7 +159,7 @@ public class MyDataServiceImpl implements MyDataService {
 			.stream()
 			.filter(u -> u.getUserCardId().equals(cardId))
 			.findFirst()
-			.orElseGet(null);
+			.orElse(null);
 
 		// 이번달 카드 사용 금액
 		// 이번달 카드 받은 혜택 금액
