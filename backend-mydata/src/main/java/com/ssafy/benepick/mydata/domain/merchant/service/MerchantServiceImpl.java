@@ -16,6 +16,6 @@ public class MerchantServiceImpl implements MerchantService{
     private final MerchantRepository merchantRepository;
     @Override
     public ApiMerchantResponseDto findNearestMerchant(double x, double y) {
-        return merchantRepository.findNearestMerchant(x, y).toApiMerchantResponseDto();
+        return merchantRepository.findNearestMerchant(x, y, (int) Math.floor(x)).toApiMerchantResponseDto();
     }
 }
