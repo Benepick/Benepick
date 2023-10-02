@@ -17,13 +17,14 @@ function ConsunptionChartItem({ stickHeight }: ConsunptionChartItemProps) {
     },
     stick: {
       width: '100%',
-      height: stickHeight,
+      height: !isNaN(stickHeight) ? stickHeight : 0,
       backgroundColor: colors.main2,
       alignItems: 'center',
       borderTopLeftRadius: 4,
       borderTopRightRadius: 4,
     },
   });
+
   return (
     <View style={styles.box}>
       <View style={styles.stick}></View>

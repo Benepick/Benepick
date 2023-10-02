@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet, Image } from 'react-native';
 
 import { CreditCardNavigationProps } from 'interfaces/navigation';
 import Page from '@common/components/Page';
@@ -64,6 +64,10 @@ function CreditCard({ navigation }: CreditCardNavigationProps) {
         ))}
         {!isLoading && data.length === 0 && (
           <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <Image
+              style={{ width: 200, height: 200, alignSelf: 'center' }}
+              source={require('@common/assets/images/whaleSorry.png')}
+            />
             <BText type="h3">보유하신 신용카드가 없어요</BText>
           </View>
         )}

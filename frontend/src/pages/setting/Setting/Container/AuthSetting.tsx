@@ -19,11 +19,6 @@ function AuthSetting({ navigation }: SettingNavigationProps) {
     dispatch(setAutoLogin(!isAutoLogined));
   };
 
-  const changeBiometricAuthentication = () => {
-    // setBiometricAuthentication(!isBiometricAuthentication);
-    Alert.alert('아직 준비중이에요! :)');
-  };
-
   return (
     <View>
       {/* 자동 로그인 여부 */}
@@ -41,7 +36,7 @@ function AuthSetting({ navigation }: SettingNavigationProps) {
         <Spacing rem="1" />
       </View>
       {/* 생체 인증 사용 여부 */}
-      <View style={styles.container}>
+      {/* <View style={styles.container}>
         <View style={styles.option}>
           <View style={styles.text}>
             <SvgIcons name="FingerPrint" fill={colors.disabled} size={30} />
@@ -57,7 +52,7 @@ function AuthSetting({ navigation }: SettingNavigationProps) {
           </View>
         </View>
         <Spacing rem="1" />
-      </View>
+      </View> */}
 
       <View style={styles.container}>
         <View style={styles.option}>

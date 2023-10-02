@@ -9,10 +9,12 @@ import CategoryText from '../../../../common/components/CategoryText';
 import WhiteBox from '@common/components/WhiteBox';
 import myData, { CategoryResultResponseDto } from '@api/myData';
 import SvgIcons from '@common/assets/SvgIcons';
+import Loading from '@pages/Loading/Loading';
 
 function ConsumptionHistory() {
   const [categoryData, setCategoryData] = useState<CategoryResultResponseDto[]>([]);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [isLoading, setLoading] = useState(true);
   const [month] = useState(() => {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth() + 1;
@@ -25,9 +27,11 @@ function ConsumptionHistory() {
       .then((res) => {
         setCategoryData(res.data.categoryResultResponseDtoList);
         setTotalAmount(res.data.totalAmount);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   }, []);
 
@@ -47,6 +51,14 @@ function ConsumptionHistory() {
       color: colorMap[data.categoryName] || colors.main,
     };
   });
+
+  if (isLoading) {
+    return (
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Loading />
+      </View>
+    );
+  }
 
   return (
     <WhiteBox>
