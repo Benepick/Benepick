@@ -103,7 +103,7 @@ public class ApiService {
             .block().getData();
     }
 
-    @Cacheable(value = "merchant", key = "#x + '_' + #y")
+    //@Cacheable(value = "merchant", key = "#x + '_' + #y")
     public ApiMerchantResponseDto getNearestMerchant(double x, double y) {
         log.info("BANK API : 뱅킹 서버에서 가까운 상권 정보 가져오기");
         return getDefaultWebClient().get()
