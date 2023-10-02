@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, Alert } from 'react-native';
+import { View, ScrollView, Alert, Image } from 'react-native';
 
 import { BenefitNavigationProps } from 'interfaces/navigation';
 
@@ -100,12 +100,24 @@ function Benefit({ navigation, route }: BenefitNavigationProps) {
             <View>
               <Spacing />
               <WhiteBox>
-                <BText style={{ alignSelf: 'flex-start' }} type="h3">
-                  {benefitUserData.length === 0
-                    ? `${title}에서 혜택을 받을 수 있는 카드가 없어요`
-                    : `${title}에서 사용할 카드 추천드려요`}
-                </BText>
-
+                {benefitUserData.length === 0 && (
+                  <View>
+                    <Image
+                      style={{ width: 200, height: 200, alignSelf: 'center' }}
+                      source={require('@common/assets/images/whaleSorry.png')}
+                    />
+                    <BText style={{ alignSelf: 'flex-start' }} type="h3">
+                      {title}에서 혜택을 받을 수 있는 카드가 없어요
+                    </BText>
+                  </View>
+                )}
+                {benefitUserData.length !== 0 && (
+                  <View>
+                    <BText style={{ alignSelf: 'flex-start' }} type="h3">
+                      {title}에서 사용할 카드 추천드려요
+                    </BText>
+                  </View>
+                )}
                 {benefitUserData.length !== 0 &&
                   benefitUserData.map((data, idx) => {
                     return (
@@ -160,7 +172,7 @@ function Benefit({ navigation, route }: BenefitNavigationProps) {
             </View>
           )}
           {isLoading && (
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
               <Loading />
               <BText type="h3">{keyword}에 혜택을 찾고있어요!</BText>
             </View>
@@ -169,6 +181,10 @@ function Benefit({ navigation, route }: BenefitNavigationProps) {
       )}
       {isError && (
         <View>
+          <Image
+            style={{ width: 200, height: 200, alignSelf: 'center' }}
+            source={require('@common/assets/images/whaleSorry.png')}
+          />
           <BText type="h1">잘못된 접근입니다</BText>
         </View>
       )}
