@@ -40,6 +40,9 @@ public class Merchant {
     @Column(nullable = false , name = "merchant_y")
     private String merchantY;
 
+    @Column(nullable = false , name = "merchant_x_int")
+    private int merchantXInt;
+
     public ApiMerchantResponseDto toApiMerchantResponseDto() {
         return ApiMerchantResponseDto.builder()
                 .merchantId(merchantId)
