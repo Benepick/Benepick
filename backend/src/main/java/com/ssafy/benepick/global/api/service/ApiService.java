@@ -40,7 +40,7 @@ public class ApiService {
         return WebClient.builder().baseUrl(baseUrl).build();
     }
 
-    //@Cacheable(value = "cardCompanyList")
+    @Cacheable(value = "cardCompanyList")
     public List<ApiCardCompanyResponseDto> getCardCompanyListFromMyDataServer(){
         log.info("BANK API : 뱅킹 서버에서 전체 카드사 정보 조회");
         return getDefaultWebClient().get()
@@ -54,7 +54,7 @@ public class ApiService {
                 .block().getData();
     }
 
-    //@Cacheable(value = "cardCompany" , key = "#cardId")
+    @Cacheable(value = "cardCompany" , key = "#cardId")
     public ApiCardCompanyResponseDto getCardCompanyFromMyDataServer(Long cardId){
         log.info("BANK API : 뱅킹 서버에서 카드사 정보 조회");
         return getDefaultWebClient().get()
@@ -117,7 +117,7 @@ public class ApiService {
                 .block();
     }
 
-    //@Cacheable(value = "cardBenefitList" , key = "#keyword")
+    @Cacheable(value = "cardBenefitList" , key = "#keyword")
     public List<ApiSearchCardBenefitResponseDto> searchCardBenefitByKeyword(String keyword) {
         log.info("BANK API : 뱅킹 서버에서 가맹점에 대한 전체 카드 혜택 정보 가져오기");
         return getDefaultWebClient().get()

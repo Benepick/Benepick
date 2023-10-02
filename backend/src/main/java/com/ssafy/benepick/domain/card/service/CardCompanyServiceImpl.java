@@ -58,15 +58,15 @@ public class CardCompanyServiceImpl implements CardCompanyService {
 	}
 
 
-	@Caching(
-			evict = {
-					//@CacheEvict(value = "monthResult", key = "#request.getHeader('Authorization')"),
-					//@CacheEvict(value = "monthCategoryResult", key = "#request.getHeader('Authorization')"),
-					//@CacheEvict(value = "fourMonthResult", key = "#request.getHeader('Authorization')"),
-					//@CacheEvict(value = "userCardCompanyList", key = "#request.getHeader('Authorization')"),
-					//@CacheEvict(value = "userCardList", key = "#request.getHeader('Authorization')")
-			}
-	)
+//	@Caching(
+//			evict = {
+//					@CacheEvict(value = "monthResult", key = "#request.getHeader('Authorization')"),
+//					@CacheEvict(value = "monthCategoryResult", key = "#request.getHeader('Authorization')"),
+//					@CacheEvict(value = "fourMonthResult", key = "#request.getHeader('Authorization')"),
+//					@CacheEvict(value = "userCardCompanyList", key = "#request.getHeader('Authorization')"),
+//					@CacheEvict(value = "userCardList", key = "#request.getHeader('Authorization')")
+//			}
+//	)
 	@Override
 	@Transactional
 	public void linkAndRenewCardCompany(LinkAndRenewCardCompanyRequestDto linkAndRenewCardCompanyRequestDto, HttpServletRequest request) {
