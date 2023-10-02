@@ -106,7 +106,7 @@ function CompanyManagement({ navigation }: CompanyManagementNavigationProps) {
   return (
     <WhitePage>
       {isLoading && (
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
           <Loading />
           <BText type="h3">잠시만 기다려주세요!</BText>
         </View>

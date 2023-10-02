@@ -12,11 +12,10 @@ import { addNotificationLog } from '@store/slices/appSlice';
 
 function Notification({ navigation }: NotificationNavigationProps) {
   const notificationLogs = useAppSelector((state) => state.app.notificationLog);
-  console.log(notificationLogs);
   const dispatch = useAppDispatch();
   return (
     <WhitePage>
-      {notificationLogs ? (
+      {notificationLogs.length !== 0 &&
         notificationLogs.map((log, index) => (
           <NotificationDate
             date={log.date}
@@ -24,12 +23,11 @@ function Notification({ navigation }: NotificationNavigationProps) {
             navigation={navigation}
             key={index}
           />
-        ))
-      ) : (
+        ))}
+      {notificationLogs.length === 0 && (
         <View style={styles.container}>
           <Spacing />
           <BText>알람 내역이 없습니다</BText>
-          <SubmitButton title="Test" onPress={() => dispatch(addNotificationLog('스타벅스'))} />
         </View>
       )}
     </WhitePage>

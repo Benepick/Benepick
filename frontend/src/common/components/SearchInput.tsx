@@ -48,6 +48,7 @@ function SearchInput({ ...rest }: TextInputProps) {
           ref={input}
           style={styles.content}
           placeholder="결제하려는 곳을 입력해보세요"
+          placeholderTextColor={colors.main}
         />
       </View>
     </TouchableWithoutFeedback>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import ConsumptionChartItem from './ConsunptionChartItem';
+import ConsumptionChartItem from './ConsumptionChartItem';
 
 interface ConsumptionChartProps {
   consumptions: Array<number>;
@@ -9,6 +9,7 @@ interface ConsumptionChartProps {
 
 function ConsumptionChart({ consumptions }: ConsumptionChartProps) {
   const max = Math.max(...consumptions) * 1.25;
+
   return (
     <View style={styles.box}>
       {consumptions.map((consumption, index) => (
