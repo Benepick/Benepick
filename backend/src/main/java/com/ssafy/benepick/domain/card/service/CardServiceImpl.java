@@ -216,7 +216,7 @@ public class CardServiceImpl implements CardService{
 		Object[][] cardPaymentCnt = new Object[userCardList.size()][2];
 		for (int i = 0; i < userCardList.size(); i++) {
 			UserCard userCard = userCardList.get(i);
-			int paymentCount = userPaymentRepository.findByUserCardIdAndMonth(userCard.getUserCardSerialNumber(), LocalDate.now().getYear(), LocalDate.now().getMonthValue()).size();
+			int paymentCount = userPaymentRepository.findByUserCardIdAndMonth(userCard.getUserCardId(), LocalDate.now().getYear(), LocalDate.now().getMonthValue()).size();
 			cardPaymentCnt[i][0] = userCard;
 			cardPaymentCnt[i][1] = paymentCount;
 		}

@@ -19,7 +19,7 @@ public class UserPaymentServiceImpl implements UserPaymentService{
 	private final UserPaymentRepository userPaymentRepository;
 
 	@Override
-	public List<UserPayment> getUserPaymentListByUserCardAndDate(String myDataCardId , int year , int month) {
+	public List<UserPayment> getUserPaymentListByUserCardAndDate(Long myDataCardId , int year , int month) {
 		return userPaymentRepository.findByUserCardIdAndMonth(myDataCardId , year , month);
 	}
 
