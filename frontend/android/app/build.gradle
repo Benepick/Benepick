@@ -81,8 +81,8 @@ android {
         applicationId "com.benepick"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 4
+        versionName "1.0.3"
         resValue "string", "build_config_package", "com.benepick"
     }
     signingConfigs {
@@ -112,6 +112,9 @@ android {
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            ndk {
+                debugSymbolLevel 'FULL'
+            }
         }
     }
 }

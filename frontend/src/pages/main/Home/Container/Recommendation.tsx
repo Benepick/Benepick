@@ -76,7 +76,7 @@ function Recommendation() {
           <BText type="bold">{data?.merchantName}에서 추천받을 수 있는 카드가 없어요</BText>
         </View>
       )}
-      {data && !loading && (
+      {data && !loading && data.discountPercent !== 0 && (
         <View style={styles.col}>
           <View style={styles.title}>
             <BText type="h3">{data.merchantName}에서 추천드려요</BText>
