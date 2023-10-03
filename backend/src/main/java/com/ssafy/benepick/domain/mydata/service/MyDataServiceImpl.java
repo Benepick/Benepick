@@ -197,7 +197,7 @@ public class MyDataServiceImpl implements MyDataService {
 			.stream()
 			.forEach(userCardCompany -> {
 				apiService.getTransactionDataAfterLastRenewalTime(
-					userCardCompany.getUserCardCompanyId(),
+					userCardCompany.getCardCompanyId(),
 					loginUser.getUserId(),
 					loginUser.getUserLastRenewalTime()).
 					stream()
