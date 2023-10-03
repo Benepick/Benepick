@@ -7,11 +7,13 @@ import com.ssafy.benepick.mydata.domain.merchant.repository.MerchantRepository;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class MerchantServiceImpl implements MerchantService{
     private final MerchantRepository merchantRepository;
     @Override

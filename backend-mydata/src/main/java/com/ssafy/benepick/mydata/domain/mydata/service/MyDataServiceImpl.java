@@ -16,6 +16,7 @@ import com.ssafy.benepick.mydata.domain.mydata.repository.MyDataPaymentRepositor
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class MyDataServiceImpl implements MyDataService {
 
     private final MyDataCardRepository myDataCardRepository;

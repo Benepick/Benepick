@@ -10,10 +10,12 @@ import com.ssafy.benepick.domain.user.repository.UserPaymentRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class UserPaymentServiceImpl implements UserPaymentService{
 
 	private final UserPaymentRepository userPaymentRepository;
