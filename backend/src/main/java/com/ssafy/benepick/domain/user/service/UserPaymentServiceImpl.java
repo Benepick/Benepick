@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
 public class UserPaymentServiceImpl implements UserPaymentService{
 
 	private final UserPaymentRepository userPaymentRepository;

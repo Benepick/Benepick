@@ -31,7 +31,6 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService{
 
 	private final UserRepository userRepository;
