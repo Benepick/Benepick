@@ -1,16 +1,14 @@
 package com.ssafy.benepick.domain.user.service;
 
+import com.ssafy.benepick.domain.user.dto.request.*;
 import com.ssafy.benepick.domain.user.entity.UserCard;
+import com.ssafy.benepick.global.api.service.ApiService;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
-import com.ssafy.benepick.domain.user.dto.request.ChangePasswordRequestDto;
-import com.ssafy.benepick.domain.user.dto.request.CreateUserAccountRequestDto;
-import com.ssafy.benepick.domain.user.dto.request.LoginRequestDto;
-import com.ssafy.benepick.domain.user.dto.request.PhoneNumberRequestDto;
 import com.ssafy.benepick.domain.user.entity.User;
 import com.ssafy.benepick.domain.user.repository.UserRepository;
 import com.ssafy.benepick.global.exception.ExistUserException;
@@ -38,6 +36,7 @@ public class UserServiceImpl implements UserService{
 	private final JwtService jwtService;
 	private final CIService ciService;
 	private final SmsService smsService;
+	private final ApiService apiService;
 
 	@Override
 	public String createUserAccount(CreateUserAccountRequestDto createUserAccountRequestDto , HttpServletResponse response) throws NoSuchAlgorithmException {
@@ -102,5 +101,12 @@ public class UserServiceImpl implements UserService{
 	public String getUserName(HttpServletRequest request) {
 		log.info("UserServiceImpl_getUserName | 사용자 이름 조회");
 		return getUserFromRequest(request).getUserName();
+	}
+
+	@Override
+	public boolean getUserCi(UserCiRequestDto userCiRequestDto) throws NoSuchAlgorithmException {
+		String userCi = ciService.generateUserCI(userCiRequestDto);
+		System.out.println(userCi);
+		return apiService.getUserCi(userCi);
 	}
 }

@@ -130,4 +130,16 @@ public class ApiService {
             .onErrorMap(TimeoutException.class, ex -> new BankServerTimeException())
             .block().getData();
     }
+
+    public boolean getUserCi(String userCi) {
+        log.info("BANK API : 뱅킹 서버에서 유저 CI 유무 확인하기");
+        return Boolean.TRUE.equals(getDefaultWebClient().get()
+                .uri("/mydata/ci/" + userCi)
+                .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, error -> Mono.error(new BankServerClientException()))
+                .onStatus(HttpStatusCode::is5xxServerError, error -> Mono.error(new BankServerException()))
+                .bodyToMono(Boolean.class)
+                .onErrorMap(TimeoutException.class, ex -> new BankServerTimeException())
+                .block());
+    }
 }

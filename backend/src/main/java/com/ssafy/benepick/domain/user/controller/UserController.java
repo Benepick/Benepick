@@ -2,6 +2,7 @@ package com.ssafy.benepick.domain.user.controller;
 
 import java.security.NoSuchAlgorithmException;
 
+import com.ssafy.benepick.domain.user.dto.request.*;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,10 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
-import com.ssafy.benepick.domain.user.dto.request.ChangePasswordRequestDto;
-import com.ssafy.benepick.domain.user.dto.request.CreateUserAccountRequestDto;
-import com.ssafy.benepick.domain.user.dto.request.LoginRequestDto;
-import com.ssafy.benepick.domain.user.dto.request.PhoneNumberRequestDto;
 import com.ssafy.benepick.domain.user.service.UserCardCompanyService;
 import com.ssafy.benepick.domain.user.service.UserService;
 import com.ssafy.benepick.global.response.ListResponseResult;
@@ -130,5 +127,11 @@ public class UserController {
 	public ResponseResult getUserName(HttpServletRequest request) {
 		log.info("UserController_getUserName -> 사용자 이름 조회");
 		return new SingleResponseResult<>(userService.getUserName(request));
+	}
+
+	@PostMapping("/ci")
+	public boolean getUserCi(@Valid @RequestBody UserCiRequestDto userCiRequestDto) throws NoSuchAlgorithmException {
+		log.info("UserContoller_getUserCi -> 사용자 Ci 유무 확인");
+		return userService.getUserCi(userCiRequestDto);
 	}
 }

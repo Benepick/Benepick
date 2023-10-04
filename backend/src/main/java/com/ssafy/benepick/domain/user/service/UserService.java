@@ -1,12 +1,9 @@
 package com.ssafy.benepick.domain.user.service;
 
+import com.ssafy.benepick.domain.user.dto.request.*;
 import com.ssafy.benepick.domain.user.entity.UserCard;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
-import com.ssafy.benepick.domain.user.dto.request.ChangePasswordRequestDto;
-import com.ssafy.benepick.domain.user.dto.request.CreateUserAccountRequestDto;
-import com.ssafy.benepick.domain.user.dto.request.LoginRequestDto;
-import com.ssafy.benepick.domain.user.dto.request.PhoneNumberRequestDto;
 import com.ssafy.benepick.domain.user.entity.User;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,4 +21,6 @@ public interface UserService {
 	String sendMessage(PhoneNumberRequestDto phoneNumberRequestDto) throws CoolsmsException;
 	void withDraw(HttpServletRequest request);
 	String getUserName(HttpServletRequest request);
+
+	boolean getUserCi(UserCiRequestDto userCiRequestDto) throws NoSuchAlgorithmException;
 }

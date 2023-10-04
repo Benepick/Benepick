@@ -50,4 +50,10 @@ public class MyDataController {
 		log.info("MyDataController_getTransactionDataAfterLastRenewalTime");
 		return new SingleResponseResult<>(myDataService.getTransactionDataAfterLastRenewalTime(cardCompanyId,userId,lastRenewalTime));
 	}
+
+	@GetMapping("/ci/{userCi}")
+	public boolean getUserCi(@PathVariable(value = "userCi") String userCi) {
+		log.info("MyDataController_getUserCi");
+		return myDataService.getUserCi(userCi);
+	}
 }

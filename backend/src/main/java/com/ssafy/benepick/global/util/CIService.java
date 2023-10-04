@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.ssafy.benepick.domain.user.dto.request.UserCiRequestDto;
 import org.springframework.stereotype.Component;
 
 import com.ssafy.benepick.domain.user.dto.request.CreateUserAccountRequestDto;
@@ -37,6 +38,13 @@ public class CIService {
 		log.info("CIService_generateUserCI | 유저 CI 생성");
 		String rawCI = createUserAccountRequestDto.getUserName() + createUserAccountRequestDto.getUserSocialNumber()
 				+ createUserAccountRequestDto.getUserGenderAndGenerationCode() + createUserAccountRequestDto.getUserPhoneNumber();
+		return getSHA256Hash(rawCI);
+
+	}
+	public String generateUserCI(UserCiRequestDto userCiRequestDto) throws NoSuchAlgorithmException {
+		log.info("CIService_generateUserCI | 유저 CI 생성");
+		String rawCI = userCiRequestDto.getUserName() + userCiRequestDto.getUserSocialNumber()
+				+ userCiRequestDto.getUserGenderAndGenerationCode() + userCiRequestDto.getUserPhoneNumber();
 		return getSHA256Hash(rawCI);
 
 	}
