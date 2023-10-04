@@ -10,12 +10,12 @@ spring:
     url: jdbc:mysql://j9a610.p.ssafy.io:3306/benepick?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: benepick
     password: benepick
-    hikari:
-      maximum-pool-size: 20           #최대 pool size (defailt 10)
-      connection-timeout: 30000
-      minimum-idle: 10                #연결 풀에서 HikariCP가 유지 관리하는 최소 유휴 연결 수
-      idle-timeout: 600000            #연결을 위한 최대 유휴 시간
-      max-lifetime: 1800000           #닫힌 후 pool 에있는 connection의 최대 수명 (ms)입니다.
+#    hikari:
+#      maximum-pool-size: 20           #최대 pool size (defailt 10)
+#      connection-timeout: 30000
+#      minimum-idle: 10                #연결 풀에서 HikariCP가 유지 관리하는 최소 유휴 연결 수
+#      idle-timeout: 600000            #연결을 위한 최대 유휴 시간
+#      max-lifetime: 1800000           #닫힌 후 pool 에있는 connection의 최대 수명 (ms)입니다.
 
 webclient:
   base-url: https://benepick.shop
