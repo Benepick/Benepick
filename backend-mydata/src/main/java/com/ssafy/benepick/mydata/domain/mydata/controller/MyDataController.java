@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/mydata")
+@RequestMapping(value = "/bank/mydata")
 public class MyDataController {
 
 	private final MyDataService myDataService;

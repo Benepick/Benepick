@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/card")
+@RequestMapping(value = "/bank/card")
 public class CardController {
 
 	private final MerchantService merchantService;

@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
 public class MyDataServiceImpl implements MyDataService {
 
     private final MyDataCardRepository myDataCardRepository;
