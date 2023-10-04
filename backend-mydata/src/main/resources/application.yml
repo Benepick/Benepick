@@ -19,6 +19,13 @@ spring:
 
 server:
   port: 8082
+  tomcat:
+    threads:
+      max: 300
+      min-spare: 10
+    max-connections: 8192
+    accept-count: 100
+    connection-timeout: 30000
 
 # 로그 레벨 설정
 #logging:
