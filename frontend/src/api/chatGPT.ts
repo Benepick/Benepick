@@ -1,4 +1,4 @@
-import { Benefit, Message, RequestBody } from '@interfaces/chatBot';
+import { Benefit, BenefitResult, Message, RequestBody } from '@interfaces/chatBot';
 import axios from 'axios';
 import Config from 'react-native-config';
 
@@ -66,88 +66,43 @@ export const queryBenefits = async (query: string): Promise<Benefit[]> => {
 
 // 카드 혜택 상세 정보 요청
 export const retrieveCardDetails = async (cardname: string, benefitId: string): Promise<string> => {
-  console.log(`${ROOT}${cardname}/${benefitId}`);
-  const response = await axios.get(`${ROOT}${cardname}/${benefitId}`);
+  const response = await axios.get(`${ROOT}cardBenefits/summary/${cardname}/${benefitId}`);
 
   if (response.data.length !== 0) {
-    return response.data;
+    return `${cardname}\n${response.data}`;
   } else {
-    const response2 = await axios.get(`${ROOT}${cardname}/${benefitId}`);
+    const response2 = await axios.get(`${ROOT}cardBenefits/${cardname}/${benefitId}`);
     const summarizedData = await summary(response2.data);
     await axios.post(`${ROOT}cardBenefits/summary/`, {
       cardName: cardname,
       benefitId,
       content: summarizedData,
     });
-    return summarizedData;
+
+    return `${cardname}\n${summarizedData}`;
   }
 };
 
-// export default async function generate(
-//   query: string,
-//   benefits: string,
-//   category: string,
-//   setText: (text: string) => void,
-// ) {
-//   if (!GPT_API_URL) {
-//     throw new Error('GPT_API_URL is not defined');
-//   }
+// 카드 혜택 정보 요청
+export const retrieveCardBenefits = async (cardname: string) => {
+  const response = await axios.post('https://benepick.shop/query', {
+    queries: [
+      {
+        query: cardname,
+        filter: {
+          source_id: cardname,
+          author: 'benefit',
+        },
+        top_k: 10,
+      },
+    ],
+  });
 
-//   const conversation: Message[] = [
-//     {
-//       role: 'user',
-//       content:
-//         '1. 주어진 정보에서 정확한 카드 이름을 찾아\n' +
-//         '2. json 양식: {카드 이름 : [혜택정보]} 으로 답변해\n' +
-//         '카드 혜택 정보:\n' +
-//         benefits +
-//         '\n\n' +
-//         category +
-//         ' 질문: ' +
-//         query,
-//     },
-//   ];
+  const benefits = response.data.results[0].results.map((result: BenefitResult) => result.text);
 
-//   try {
-//     const response = await fetch(GPT_API_URL, {
-//       method: 'POST',
-//       ...headers,
-//       body: JSON.stringify({
-//         ...requestBodyPrefix,
-//         messages: conversation,
-//         stream: true,
-//       }),
-//     });
+  const benefitString = benefits.join('\n- ');
 
-//     const reader = response.body.getReader();
+  const finalString = `${cardname}\n- ${benefitString}`;
 
-//     const decoder = new TextDecoder('utf-8');
-//     let resultText = '';
-
-//     while (true) {
-//       const { done, value } = await reader.read();
-//       if (done) {
-//         return resultText;
-//       }
-
-//       const chunk = decoder.decode(value);
-//       const lines = chunk.split('\n');
-//       const parsedLines = lines
-//         .filter((line) => line !== '' && line !== 'data: [DONE]')
-//         .map((line) => JSON.parse(line.replace(/^data: /, '').trim()));
-
-//       for (const parsedLine of parsedLines) {
-//         const { choices } = parsedLine as ResponseData;
-//         const { delta } = choices[0];
-//         const { content } = delta;
-
-//         if (content) {
-//           resultText += content;
-//           setText(resultText);
-//         }
-//       }
-//     }
-//   } catch (error) {
-//     console.error('Error:', error);
-//   }
-// }
+  return finalString;
+};
