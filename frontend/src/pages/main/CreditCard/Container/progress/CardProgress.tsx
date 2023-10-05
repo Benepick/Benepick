@@ -34,11 +34,11 @@ function CardProgress({
           <CardProgressBar
             section={index}
             percent={
-              currentSection >= index + 1
+              currentSection > index
                 ? 100
-                : currentSection === index + 1
-                ? ((currentAmount - sections[currentSection - 1]) /
-                    (nextSectionAmont - sections[currentSection - 1])) *
+                : currentSection === index
+                ? ((currentAmount - sections[currentSection]) /
+                    (nextSectionAmont - sections[currentSection])) *
                   100
                 : 0
             }

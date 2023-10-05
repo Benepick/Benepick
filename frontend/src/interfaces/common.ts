@@ -20,6 +20,7 @@ export interface IconButtonProps {
   name: keyof typeof Icons;
   onPress?: (event: GestureResponderEvent) => void;
   size?: number;
+  color?: string;
 }
 
 export interface SubmitButtonProps extends TouchableHighlightProps {

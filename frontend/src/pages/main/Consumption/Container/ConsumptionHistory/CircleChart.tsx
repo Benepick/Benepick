@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import colors from '@common/design/colors';
 import Svg, { Circle, Text } from 'react-native-svg';
 import { CircleChartProps } from '@interfaces/consumption';
+import BText from '@common/components/BText';
+import { StyleSheet, View } from 'react-native';
 
 function CircleChart({ segments, totalAmount }: CircleChartProps) {
   const [radius, setRadius] = useState(70);
@@ -51,19 +53,34 @@ function CircleChart({ segments, totalAmount }: CircleChartProps) {
         );
       })}
 
-      <Text
-        x="100"
-        y="100"
-        textAnchor="middle"
-        dy="0.3em"
-        fontWeight="bold"
-        fontSize="20"
-        fontFamily="IBMPlexSansKR-Bold"
-      >
-        {`${totalAmount.toLocaleString()} 원`}
-      </Text>
+      {totalAmount ? (
+        <Text
+          x="100"
+          y="100"
+          textAnchor="middle"
+          dy="0.3em"
+          fontWeight="bold"
+          fontSize="20"
+          fontFamily="IBMPlexSansKR-Bold"
+        >
+          {`${totalAmount.toLocaleString()} 원`}
+        </Text>
+      ) : (
+        <View style={styles.noConsumption}>
+          <BText>이번 달 사용 금액이 없습니다.</BText>
+        </View>
+      )}
     </Svg>
   );
 }
+
+const styles = StyleSheet.create({
+  noConsumption: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+  },
+});
 
 export default CircleChart;

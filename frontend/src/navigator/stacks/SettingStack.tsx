@@ -9,6 +9,7 @@ import IconButton from '@common/components/IconButton';
 import { RootStackParamList } from '@interfaces/navigation';
 import BText from '@common/components/BText';
 import colors from '@common/design/colors';
+import CheckPasswordToAutoLogin from '@pages/setting/Setting/Container/CheckPasswordToAutoLogin';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -33,6 +34,11 @@ const SettingStack = () => {
           ),
           headerBackVisible: false,
         })}
+      />
+      <Stack.Screen
+        name="CheckPasswordToAutoLogin"
+        component={CheckPasswordToAutoLogin}
+        options={{ headerShadowVisible: false, headerTitle: '' }}
       />
       <Stack.Screen name="CompanyStack" component={CompanyStack} options={{ headerShown: false }} />
       <Stack.Screen

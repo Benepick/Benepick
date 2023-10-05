@@ -142,7 +142,7 @@ function MonthlyBenefit() {
               </View>
             </View>
           )}
-          {!isLoading && sum(benefitRates) === 0 && (
+          {!isLoading && sum(payAmounts) === 0 && (
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
               <Image
                 style={{ width: 200, height: 200, alignSelf: 'center' }}

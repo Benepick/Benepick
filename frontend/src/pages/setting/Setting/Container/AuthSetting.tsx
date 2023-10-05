@@ -16,7 +16,11 @@ function AuthSetting({ navigation }: SettingNavigationProps) {
   const dispatch = useAppDispatch();
 
   const changeAutoLogin = () => {
-    dispatch(setAutoLogin(!isAutoLogined));
+    if (isAutoLogined) {
+      dispatch(setAutoLogin(!isAutoLogined));
+    } else {
+      navigation.navigate('CheckPasswordToAutoLogin');
+    }
   };
 
   return (

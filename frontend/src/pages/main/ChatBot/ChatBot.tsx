@@ -108,12 +108,11 @@ function ChatBot({ navigation }: ChatBotNavigationProps) {
         <View style={[styles.chatRoom]}>
           {chatLogs.length === 0 && (
             <View style={{ alignSelf: 'center' }}>
-              <Spacing rem="2" />
+              <Spacing rem="1" />
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <BText type="h2" color={colors.main}>
-                  {userName}님
+                  챗고래
                 </BText>
-                <BText type="h2">을 위한 카드추천 챗봇입니다</BText>
               </View>
             </View>
           )}
