@@ -22,7 +22,7 @@ function Consumption({ navigation }: ConsumptionNavigationProps) {
           <View>
             <View style={styles.title}>
               <BText type="h2" color={colors.main}>
-                {userName} 님
+                {userName}님
               </BText>
               <BText type="h2">의 이번달</BText>
             </View>

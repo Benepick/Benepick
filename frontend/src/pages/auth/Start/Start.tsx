@@ -27,10 +27,10 @@ function Start({ navigation }: StartNavigationProps) {
   const testLogin = () => {
     dispatch(
       setToken(
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE2OTQ2NTI3MDAsImV4cCI6MTc1NTEzMjcwMCwidXNlcklkIjoiMDAyM2QwYjc2NDAxYzQ4NGMxMjNlOWRjYzYwMzQ5M2Y2ODdmZTRkZjhlOTY1MjFlOGU1MWFhMmVmZDNmZGEwZSJ9.FOVWaHgmS8QjEJYEHzn0rSTZNRsx3MX57VSql2PHWRs',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhY2Nlc3MtdG9rZW4iLCJpYXQiOjE2OTY0OTE4NzEsImV4cCI6MTc1Njk3MTg3MSwidXNlcklkIjoiMDcwZjE4ZGYwZmU3MmI0ZjllNzcxNDk0M2ZlMGMzMDkxOTU0NTk2NWJhN2UwNDcwZGUxY2M3Yzc3YjMyZGRkNSJ9.3EvuzOrN-H7qWZWHik_tJC199CFToW2BSr6XanUHywE',
       ),
     );
-    dispatch(setUserName('테스트'));
+    dispatch(setUserName('베네픽'));
     navigation.navigate('BottomTab');
   };
 

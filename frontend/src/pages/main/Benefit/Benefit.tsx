@@ -174,7 +174,7 @@ function Benefit({ navigation, route }: BenefitNavigationProps) {
           {isLoading && (
             <View style={{ justifyContent: 'center', alignItems: 'center', height: '100%' }}>
               <Loading />
-              <BText type="h3">{keyword}에 혜택을 찾고있어요!</BText>
+              <BText type="h3">{keyword}의 혜택을 찾고있어요!</BText>
             </View>
           )}
         </ScrollView>

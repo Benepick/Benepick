@@ -24,6 +24,7 @@ function CardConsumption({
         <Spacing rem="0.5" />
         {transcationInfoResponseDtoList.map((value, index) => (
           <View key={index}>
+            <Spacing rem="1" />
             <CardConsumptionItem
               category={value.category}
               merchantName={value.merchantName}

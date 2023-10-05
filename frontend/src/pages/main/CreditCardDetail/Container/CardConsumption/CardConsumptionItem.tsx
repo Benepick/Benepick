@@ -23,7 +23,9 @@ function CardConsumptionItem({
         <Spacing rem="1" dir="row" />
         <View style={styles.description}>
           <View style={styles.item}>
-            <BText type="bold">{merchantName}</BText>
+            <BText type="bold" numberOfLines={1} ellipsizeMode="tail">
+              {merchantName}
+            </BText>
             <BText type="bold">{payAmount.toLocaleString()}원</BText>
           </View>
           <View style={styles.item}>
