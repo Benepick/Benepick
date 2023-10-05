@@ -12,4 +12,6 @@ import java.util.List;
 public interface MyDataService {
     List<ApiMyDataCardResponseDto> getMyDataCard(Long cardCompanyId , String userId);
     List<ApiMyDataCardResponseDto> getTransactionDataAfterLastRenewalTime(Long cardCompanyId , String userId, LocalDateTime lastRenewalTime);
+
+    boolean getUserCi(String userCi);
 }

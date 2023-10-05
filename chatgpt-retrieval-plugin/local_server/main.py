@@ -30,6 +30,9 @@ origins = [
     f"http://localhost:{PORT}",
     "https://chat.openai.com",
     "http://localhost:3000",
+    "http://benepick.shop"
+    "http://benepick.shop:3001",
+    "http://43.201.205.28:3001"
 ]
 
 app.add_middleware(
@@ -45,7 +48,7 @@ import os
 
 @app.get("/cardBenefits/summary/{cardName}/{benefitId}")
 async def read_file(cardName: str, benefitId: str):
-    
+
     # 폴더의 절대 경로를 구성
     folder_path = os.path.abspath("C:\\chatgpt-retrieval-plugin\\cards\\" + urllib.parse.quote(cardName))
     print(folder_path)
@@ -61,17 +64,17 @@ async def read_file(cardName: str, benefitId: str):
     if os.path.isfile(file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
             file_contents.append(file.read())
-        
+
         return file_contents
 
     else:
         # raise HTTPException(status_code=404, detail="summary not found")
         return []
-    
+
 
 @app.get("/cardBenefits/{cardName}/{benefitId}")
 async def read_file(cardName: str, benefitId: str):
-    
+
     # 폴더의 절대 경로를 구성
     folder_path = os.path.abspath("C:\\chatgpt-retrieval-plugin\\cards\\" + urllib.parse.quote(cardName))
 
@@ -84,12 +87,12 @@ async def read_file(cardName: str, benefitId: str):
     if os.path.isfile(file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
             file_contents = file.read()
-        
+
         return file_contents
 
     else:
         raise HTTPException(status_code=404, detail="benefit not found")
-    
+
 
 from pydantic import BaseModel
 
@@ -110,10 +113,10 @@ async def write_file(benefit: CardBenefits):
 
     # summary.txt 파일 작성
     file_path = os.path.join(folder_path, benefit.benefitId + "_summary.txt")
-    
+
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(benefit.content)
-    
+
     return {"status": "success"}
 
 @app.route("/.well-known/ai-plugin.json")
@@ -219,6 +222,6 @@ async def startup():
     global datastore
     datastore = await get_datastore()
 
-
 def start():
     uvicorn.run("local_server.main:app", host="localhost", port=PORT, reload=True)
+

@@ -26,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
 public class CardCompanyServiceImpl implements CardCompanyService {
 
 	private final MyDataService myDataService;

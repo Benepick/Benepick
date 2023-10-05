@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/mydata")
+@RequestMapping(value = "/bank/mydata")
 public class MyDataController {
 
 	private final MyDataService myDataService;
@@ -49,5 +49,11 @@ public class MyDataController {
 	public ResponseResult getTransactionDataAfterLastRenewalTime(@RequestParam Long cardCompanyId , @RequestParam String userId , @RequestParam LocalDateTime lastRenewalTime) {
 		log.info("MyDataController_getTransactionDataAfterLastRenewalTime");
 		return new SingleResponseResult<>(myDataService.getTransactionDataAfterLastRenewalTime(cardCompanyId,userId,lastRenewalTime));
+	}
+
+	@GetMapping("/ci/{userCi}")
+	public boolean getUserCi(@PathVariable(value = "userCi") String userCi) {
+		log.info("MyDataController_getUserCi");
+		return myDataService.getUserCi(userCi);
 	}
 }

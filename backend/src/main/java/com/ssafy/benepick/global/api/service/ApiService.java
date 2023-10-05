@@ -44,7 +44,7 @@ public class ApiService {
     public List<ApiCardCompanyResponseDto> getCardCompanyListFromMyDataServer(){
         log.info("BANK API : 뱅킹 서버에서 전체 카드사 정보 조회");
         return getDefaultWebClient().get()
-                .uri("/mydata/card-company")
+                .uri("/bank/mydata/card-company")
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, error -> Mono.error(new BankServerClientException()))
                 .onStatus(HttpStatusCode::is5xxServerError, error -> Mono.error(new BankServerException()))
@@ -58,7 +58,7 @@ public class ApiService {
     public ApiCardCompanyResponseDto getCardCompanyFromMyDataServer(Long cardId){
         log.info("BANK API : 뱅킹 서버에서 카드사 정보 조회");
         return getDefaultWebClient().get()
-                .uri("/mydata/card-company/{cardId}",cardId)
+                .uri("/bank/mydata/card-company/{cardId}",cardId)
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, error -> Mono.error(new BankServerClientException()))
                 .onStatus(HttpStatusCode::is5xxServerError, error -> Mono.error(new BankServerException()))
@@ -72,7 +72,7 @@ public class ApiService {
         log.info("BANK API : 뱅킹 서버에서 마이데이터 가져와서 갱신해주기");
         return getDefaultWebClient().get()
                 .uri(uriBuilder -> uriBuilder
-                        .path("/mydata")
+                        .path("/bank/mydata")
                         .queryParam("cardCompanyId",cardCompanyId)
                         .queryParam("userId",userId)
                         .build())
@@ -89,7 +89,7 @@ public class ApiService {
         //log.info("BANK API : 뱅킹 서버에서 거래내역 갱신해주기");
         return getDefaultWebClient().get()
             .uri(uriBuilder -> uriBuilder
-                .path("/mydata/renewal")
+                .path("/bank/mydata/renewal")
                 .queryParam("cardCompanyId",cardCompanyId)
                 .queryParam("userId",userId)
                 .queryParam("lastRenewalTime",LocalDateTime.now())
@@ -107,7 +107,7 @@ public class ApiService {
     public ApiMerchantResponseDto getNearestMerchant(double x, double y) {
         log.info("BANK API : 뱅킹 서버에서 가까운 상권 정보 가져오기");
         return getDefaultWebClient().get()
-                .uri("/card/place?x={x}&y={y}", x, y)
+                .uri("/bank/card/place?x={x}&y={y}", x, y)
                 .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, error -> Mono.error(new BankServerClientException()))
                 .onStatus(HttpStatusCode::is5xxServerError, error -> Mono.error(new BankServerException()))
@@ -121,7 +121,7 @@ public class ApiService {
     public List<ApiSearchCardBenefitResponseDto> searchCardBenefitByKeyword(String keyword) {
         log.info("BANK API : 뱅킹 서버에서 가맹점에 대한 전체 카드 혜택 정보 가져오기");
         return getDefaultWebClient().get()
-            .uri("/card/benefit/{keyword}",keyword)
+            .uri("/bank/card/benefit/{keyword}",keyword)
             .retrieve()
                 .onStatus(HttpStatusCode::is4xxClientError, error -> Mono.error(new BankServerClientException()))
                 .onStatus(HttpStatusCode::is5xxServerError, error -> Mono.error(new BankServerException()))
@@ -129,5 +129,17 @@ public class ApiService {
             .timeout(Duration.ofSeconds(10))
             .onErrorMap(TimeoutException.class, ex -> new BankServerTimeException())
             .block().getData();
+    }
+
+    public boolean getUserCi(String userCi) {
+        log.info("BANK API : 뱅킹 서버에서 유저 CI 유무 확인하기");
+        return Boolean.TRUE.equals(getDefaultWebClient().get()
+                .uri("/bank/mydata/ci/" + userCi)
+                .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, error -> Mono.error(new BankServerClientException()))
+                .onStatus(HttpStatusCode::is5xxServerError, error -> Mono.error(new BankServerException()))
+                .bodyToMono(Boolean.class)
+                .onErrorMap(TimeoutException.class, ex -> new BankServerTimeException())
+                .block());
     }
 }

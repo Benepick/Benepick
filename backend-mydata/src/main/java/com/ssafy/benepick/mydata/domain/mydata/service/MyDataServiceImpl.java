@@ -13,6 +13,7 @@ import com.ssafy.benepick.mydata.domain.mydata.entity.MyDataPayment;
 import com.ssafy.benepick.mydata.domain.mydata.repository.MyDataCardRepository;
 import com.ssafy.benepick.mydata.domain.mydata.repository.MyDataPaymentRepository;
 
+import com.ssafy.benepick.mydata.domain.mydata.repository.MyDataUserRepository;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,11 +27,11 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
 public class MyDataServiceImpl implements MyDataService {
 
     private final MyDataCardRepository myDataCardRepository;
     private final MyDataPaymentRepository myDataPaymentRepository;
+    private final MyDataUserRepository myDataUserRepository;
 
     @Override
     public List<ApiMyDataCardResponseDto> getMyDataCard(Long cardCompanyId , String userId) {
@@ -96,4 +97,11 @@ public class MyDataServiceImpl implements MyDataService {
 
         return apiMyDataCardResponseDtoList;
     }
+
+    @Override
+    public boolean getUserCi(String userCi) {
+        return myDataUserRepository.findById(userCi).isPresent();
+    }
+
+
 }

@@ -11,7 +11,7 @@ spring:
     username: benepick
     password: benepick
 #    hikari:
-#      maximum-pool-size: 15           #최대 pool size (defailt 10)
+#      maximum-pool-size: 20           #최대 pool size (defailt 10)
 #      connection-timeout: 30000
 #      minimum-idle: 10                #연결 풀에서 HikariCP가 유지 관리하는 최소 유휴 연결 수
 #      idle-timeout: 600000            #연결을 위한 최대 유휴 시간
@@ -19,6 +19,13 @@ spring:
 
 server:
   port: 8082
+#  tomcat:
+#    threads:
+#      max: 300
+#      min-spare: 10
+#    max-connections: 8192
+#    accept-count: 100
+#    connection-timeout: 30000
 
 # 로그 레벨 설정
 #logging:

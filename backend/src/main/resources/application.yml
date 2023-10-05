@@ -20,9 +20,16 @@ spring:
 
 server:
   port: 8080
+#  tomcat:
+#    threads:
+#      max: 300
+#      min-spare: 10
+#    max-connections: 8192
+#    accept-count: 100
+#    connection-timeout: 30000
 
 
-# 로그 레벨 설정
+    # 로그 레벨 설정
 #logging:
   #level:
     # hibernate 가 남기는 모든 로그가 debug모드로 설정

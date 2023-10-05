@@ -23,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @Service
-@Transactional(readOnly = true)
 public class UserCardServiceImpl implements  UserCardService{
 
 	private final UserCardRepository userCardRepository;

@@ -7,7 +7,6 @@ import {
   Platform,
   ScrollView,
   Keyboard,
-  Alert,
 } from 'react-native';
 
 import colors from '@common/design/colors';
@@ -19,21 +18,23 @@ import ChatLog from './Container/ChatLog';
 
 import { ChatBotNavigationProps } from 'interfaces/navigation';
 import { ChatLogProps } from '@interfaces/chatBot';
-import { queryBenefits, retrieveCardDetails } from '@api/chatGPT';
-import { useAppSelector } from '@store/hooks';
+import { queryBenefits, retrieveCardDetails, retrieveCardBenefits } from '@api/chatGPT';
 
 function ChatBot({ navigation }: ChatBotNavigationProps) {
   const [value, setValue] = useState('');
-  const [chatLogs, setChatLogs] = useState<ChatLogProps[]>([]);
+  const [chatLogs, setChatLogs] = useState<ChatLogProps[]>([
+    { type: 'response', message: '안녕하세요 \n궁금하신 혜택을 말씀해주세요\nex) 스타벅스' },
+  ]);
   const scrollViewRef = useRef<ScrollView>(null);
   const [keyword, setKeyword] = useState('');
-  const userName = useAppSelector((state) => state.user.userName);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInput = async () => {
     if (value.trim() === '') {
       return;
     }
     const newLogs: ChatLogProps[] = [{ type: 'request', message: value }];
+    setIsLoading(true);
     // API 호출
     try {
       const benefits = await queryBenefits(value);
@@ -44,13 +45,15 @@ function ChatBot({ navigation }: ChatBotNavigationProps) {
           benefit: b.benefit,
         }));
         newLogs.push({ type: 'response', message: cardData });
-        console.log(benefits);
+        setIsLoading(false);
       } else {
         newLogs.push({ type: 'response', message: '검색 결과가 없습니다.' });
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
       newLogs.push({ type: 'response', message: '오류가 발생했습니다. 다시 시도해주세요.' });
+      setIsLoading(false);
     }
 
     setChatLogs([...chatLogs, ...newLogs]);
@@ -59,15 +62,29 @@ function ChatBot({ navigation }: ChatBotNavigationProps) {
     setKeyword(value);
   };
 
-  const handleCardClick = async (cardname: string, benefitId: string) => {
+  const handleLocationClick = async (cardname: string, benefitId: string) => {
+    setIsLoading(true);
     try {
-      // const message = await retrieveCardDetails(cardname, benefitId);
-      const message = '아직 준비중이에요! :)';
-
-      // 상태를 업데이트하여 새로운 메시지를 추가
+      const message = await retrieveCardDetails(cardname, benefitId);
       setChatLogs([...chatLogs, { type: 'response', message }]);
+      setIsLoading(false);
     } catch (error) {
       console.error('Failed to retrieve card details', error);
+      setIsLoading(false);
+    }
+    scrollViewRef.current?.scrollToEnd({ animated: true });
+  };
+
+  const handleCardClick = async (cardname: string) => {
+    setIsLoading(true);
+    try {
+      const message = await retrieveCardBenefits(cardname);
+
+      setChatLogs([...chatLogs, { type: 'response', message }]);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Failed to retrieve card details', error);
+      setIsLoading(false);
     }
     scrollViewRef.current?.scrollToEnd({ animated: true });
   };
@@ -106,13 +123,14 @@ function ChatBot({ navigation }: ChatBotNavigationProps) {
         ]}
       >
         <View style={[styles.chatRoom]}>
-          {chatLogs.length === 0 && (
-            <View style={{ alignSelf: 'center' }}>
-              <Spacing rem="1" />
+          {chatLogs.length !== 0 && (
+            <View style={{ alignSelf: 'flex-start' }}>
+              <Spacing />
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <BText type="h2" color={colors.main}>
-                  챗고래
+                  챗봇
                 </BText>
+                <BText type="h2">과 대화중</BText>
               </View>
             </View>
           )}
@@ -125,7 +143,9 @@ function ChatBot({ navigation }: ChatBotNavigationProps) {
               <Spacing />
               {chatLogs.map((log, index) => (
                 <ChatLog
+                  isLoading={isLoading}
                   onCardClick={handleCardClick}
+                  onLocationClick={handleLocationClick}
                   keyword={keyword}
                   key={index}
                   type={log.type}
@@ -135,6 +155,7 @@ function ChatBot({ navigation }: ChatBotNavigationProps) {
             </View>
           </ScrollView>
           <ChatInput
+            isLoading={isLoading}
             inputProps={{
               onChangeText: (e) => setValue(e),
               placeholder: '무엇이든 물어보세요',
