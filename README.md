@@ -30,26 +30,16 @@
     - [💻 코드 리뷰](#-코드-리뷰)
     - [💻 코드 작성](#-코드-작성)
     - [💻 깃 관리](#-깃-관리)
-  - [🥈 생활 수칙](#-생활-수칙)
-    - [💻 개인 일정 관리 및 연락](#-개인-일정-관리-및-연락)
-    - [💻 개인 건강 및 위생 관리](#-개인-건강-및-위생-관리)
-  - [🥉 마인드셋 수칙](#-마인드셋-수칙)
-    - [💻 마인드셋](#-마인드셋)
     - [Git Commit](#git-commit)
     - [Git Branch](#git-branch)
 - [브랜치 명명 컨벤션](#브랜치-명명-컨벤션)
   - [Git flow](#git-flow)
     - [Codding](#codding)
     - [Jira](#jira)
-  - [📄 문서 정리](#-문서-정리)
-    - [회의록](#회의록)
-    - [버그 리포트](#버그-리포트)
-    - [지식 공유](#지식-공유)
   - [💻 구동 방법](#-구동-방법)
   - [💾 결과물](#-결과물)
     - [UCC](#ucc)
     - [시연 영상](#시연-영상)
-    - [PPT](#ppt)
 
 ---
 
@@ -61,7 +51,7 @@
 
 ## ❤ 팀 소개
 
-<img src="./readme-asset/profile/../image/profile/team.jpg" width="300px" height="300px" />
+<img src="./readme-asset/image/profile/team.jpg" width="300px" height="300px" />
 
 ### 팀명
 
@@ -71,17 +61,17 @@
 
 ### Frontend
 
-|                                                                                                                |                                                                                                            |
-| :------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
-| <img src="./readme-asset/profile/../image/profile/seongYong.gif" width="200px" height="200px" /><br>**김성용** | <img src="./readme-asset/profile/../image/profile/ikGun.gif" width="200px" height="200px" /><br>**진익근** |
+|                                                                                                     |                                                                                                 |
+| :-------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------: |
+| <img src="./readme-asset/image/profile/seongYong.gif" width="200px" height="200px" /><br>**김성용** | <img src="./readme-asset/image/profile/ikGun.gif" width="200px" height="200px" /><br>**진익근** |
 
 ---
 
 ### Backend
 
-|                                                                                                                |                                                                                                             |                                                                                                                |                                                                                                             |
-| :------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------: |
-| <img src="./readme-asset/profile/../image/profile/dongGyeom.gif" width="200px" height="200px" /><br>**김동겸** | <img src="./readme-asset/profile/../image/profile/siGgun.gif" width="200px" height="200px" /><br>**박시균** | <img src="./readme-asset/profile/../image/profile/hyeonChul.gif" width="200px" height="200px" /><br>**박현철** | <img src="./readme-asset/profile/../image/profile/hyeJin.gif" width="200px" height="200px" /><br>**임혜진** |
+|                                                                                                     |                                                                                                  |                                                                                                     |                                                                                                  |
+| :-------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------: |
+| <img src="./readme-asset/image/profile/dongGyeom.gif" width="200px" height="200px" /><br>**김동겸** | <img src="./readme-asset/image/profile/siGgun.gif" width="200px" height="200px" /><br>**박시균** | <img src="./readme-asset/image/profile/hyeonChul.gif" width="200px" height="200px" /><br>**박현철** | <img src="./readme-asset/image/profile/hyeJin.gif" width="200px" height="200px" /><br>**임혜진** |
 
 ---
 
@@ -149,42 +139,51 @@
 
 <summary>메인 페이지</summary>
 <div markdown="1">
-
+<img src="./readme-asset/image/gif/메인페이지.gif" width="200px" />
+<img src="./readme-asset/image/gif/쉑픽.gif" width="200px" />
 </div>
 
 <summary>회원가입 페이지</summary>
 <div markdown="1">
-
+<img src="./readme-asset/image/gif/개인정보처리방침.gif" width="200px" />
+<img src="./readme-asset/image/gif/회원정보입력.gif" width="200px" />
+<img src="./readme-asset/image/gif/휴대폰인증.gif" width="200px" />
 </div>
 
-<summary>간편 로그인 페이지</summary>
+<summary>혜택찾기</summary>
 <div markdown="1">
-
+<img src="./readme-asset/image/gif/혜택상세보기.gif" width="200px" />
 </div>
 
-<summary>매칭페이지</summary>
+<summary>내 카드 페이지</summary>
 
 <div markdown="1">
-
+<img src="./readme-asset/image/gif/내카드모아보기.gif" width="200px" />
+<img src="./readme-asset/image/gif/카드상세보기.gif" width="200px" />
 </div>
 
-<summary>미팅페이지</summary>
+<summary>내 소비 페이지</summary>
 
 <div markdown="1">
-
+<img src="./readme-asset/image/gif/소비혜택그래프.gif" width="200px" />
 </div>
 
-<summary>프로필페이지</summary>
+<summary>챗봇페이지</summary>
 <div markdown="1">
+<img src="./readme-asset/image/gif/챗봇.gif" width="200px" />
+</div>
 
+<summary>알람 페이지</summary>
+
+<div markdown="1">
+<img src="./readme-asset/image/gif/알람내역.gif" width="200px" />
 </div>
 
 ---
 
 ## 🏗️ 아키텍쳐
 
-<!--
-<img alt="Group 8" src="https://github.com/CalenDev/calendev/assets/60723373/893a5a73-cc6d-4b80-9842-940e4c3d46a6" /> -->
+<img alt="Group 8" src="./readme-asset/image/아키텍쳐.png" />
 
 ---
 
@@ -363,7 +362,7 @@
 <details>
 <summary>ERD</summary>
 <div markdown="1">       
-    <img src="https://hackmd.io/_uploads/SJKl2Mj32.png" alt="ERD 페이지"/>
+    <img src="./readme-asset/image/erd.png" alt="ERD 페이지"/>
 </div>
 </details>
 
@@ -372,30 +371,30 @@
 <details>
 <summary>전체 문서</summary>
 <div markdown="1">       
-    <img src="https://hackmd.io/_uploads/S1OrpMsn2.png" alt="전체 문서 페이지"/>
+    <img src="./readme-asset/api명세서.png" alt="전체 문서 페이지"/>
 </div>
 </details>
 
 <details>
 <summary>Request</summary>
 <div markdown="1">       
-    <img     src="https://hackmd.io/_uploads/SJ3r6Mihh.png" alt="Request 페이지"/>
+    <img src="./readme-asset/requestImg.png" alt="전체 문서 페이지"/>
 </div>
 </details>
 
 <details>
 <summary>Response</summary>
 <div markdown="1">       
-    <img     src="https://hackmd.io/_uploads/H1J86Gjh3.png" alt="Response 페이지"/>
+    <img src="./readme-asset/responseImge.png" alt="전체 문서 페이지"/>
 </div>
 </details>
 
 ### FIGMA
 
 <details>
-<summary>FIGMA</summary>
+<summary>WIREFRAME</summary>
 <div markdown="1">       
-    <img     src="https://hackmd.io/_uploads/BkGm0zs23.png" alt="피그마 페이지"/>
+    <img src="./readme-asset/wireFrame.png" alt="전체 문서 페이지"/>
 </div>
 </details>
 
@@ -440,31 +439,6 @@
 4. 1가지 기능 또는 1가지 함수를 새로 만들 때마다 커밋하는 습관을 생활화합니다.
 5. **커밋 메시지(Commit Message)**는 합의한 **커밋 컨벤션(Commit Convention)**에 따라 최대한 상세하게 작성합니다.
 6. 깃 브랜치(Branch) 규칙에 따라 브랜치를 관리하고, 모든 작업은 올바른 브랜치에서 작업해야 합니다.
-
-## 🥈 생활 수칙
-
-### 💻 개인 일정 관리 및 연락
-
-1. 개인 일정이 생긴 경우 **반드시 미리 다른 팀원들에게 공유**합니다.
-2. 프로젝트 중간에 취업 등으로 수료하게 된 경우, 도의적 차원에서 공통 프로젝트를 마무리하고 가야 합니다.
-3. 카카오톡(KakaoTalk), 디스코드(Discord), 매터모스트(Mattermost) 등을 통한 연락을 확인했을 때는, **확인했다는 의미의 답변 또는 이모지(Emoji)로 표시**합니다.
-4. 매주 금요일 논의해, 주말 중 하루는 스트레스 관리 및 개인 공부를 위한 시간으로 활용할 수 있도록 합니다.
-
-### 💻 개인 건강 및 위생 관리
-
-1. 교육장에서 퇴실하기 전에 자기 자리를 깔끔하게 정리정돈합니다.
-2. 몸이 아프면, 미안해하지 않고 빠르게 회복할 수 있도록 푹 쉬는 것을 권장합니다.
-3. 밥을 든든히 먹고, 굶지 않습니다. “**잘 먹고 죽은 개발자가 때깔도 곱습니다.**”
-
-## 🥉 마인드셋 수칙
-
-### 💻 마인드셋
-
-1. **적극성** : 회의나 코드 리뷰 때 의견이 있다면 망설이지 않고 의견을 이야기합니다. “**말할까 말까 할 때는 말해야 합니다.**”
-2. **긍정적인 태도** : 프로젝트에 임할 때는 웃으면서 재미있게 합시다. “**행복하기 때문에 웃는 것이 아니고 웃기 때문에 행복합니다.**”
-3. **소통** : 다른 팀원의 의견을 존중하고, 말을 끊지 않아야 합니다. 의견이 다르면, 대화를 통해 타협점을 찾아야 합니다.
-4. **협력** : 팀원이 힘들어하는 부분이 있다면, 웃으면서 도와주어야 합니다. 도움을 줄수록 나의 실력도 함께 올라갑니다.
-5. **신뢰** : 다른 팀원들의 책임감과 실력에 대해 믿음을 잃지 맙시다.
 
 </details>
 
@@ -547,15 +521,13 @@
 
 </details>
 
----
-
-## 📄 문서 정리
+<!-- ## 📄 문서 정리
 
 ### 회의록
 
 <details>
 <summary>페이지 전체 모습</summary>
-<div markdown="1">       
+<div markdown="1">
     <img     src="https://hackmd.io/_uploads/rk5Okmoh2.png" alt="전체 페이지"/>
     <img     src="https://hackmd.io/_uploads/HJ9hyXsn2.png" alt="전체 페이지"/>
     <img     src="https://hackmd.io/_uploads/BJi01mj3n.png" alt="전체 페이지"/>
@@ -564,27 +536,27 @@
 
 <details>
 <summary>기획 회의록 페이지 세부 모습</summary>
-<div markdown="1">       
+<div markdown="1">
     <img     src="https://hackmd.io/_uploads/HJoie7j33.png" alt="기획 회의록 페이지 세부 모습"/>
 </div>
 </details>
 <details>
 <summary>스크럼 페이지 세부 모습</summary>
-<div markdown="1">       
+<div markdown="1">
     <img     src="https://hackmd.io/_uploads/HyWDZmi3n.png" alt="스크럼 페이지 세부 모습"/>
 </div>
 </details>
 <details>
 <summary>스프린트 페이지 세부 모습</summary>
-<div markdown="1">       
+<div markdown="1">
     <img     src="https://hackmd.io/_uploads/S1QCW7j32.png" alt="스프린트 페이지 세부 모습"/>
 </div>
 </details>
-    
+
 ### 버그 리포트
 <details>
 <summary>페이지 전체 모습</summary>
-<div markdown="1">       
+<div markdown="1">
     <img     src="https://hackmd.io/_uploads/ryAtAzi3n.png" alt="전체 페이지"/>
 </div>
 </details>
@@ -599,100 +571,22 @@
 
 <details>
 <summary>페이지 전체 모습</summary>
-<div markdown="1">       
+<div markdown="1">
     <img     src="https://hackmd.io/_uploads/BkMa3Gs3h.png    " alt="전체 페이지"/>
 </div>
 </details>
 <details>
 <summary>세부 페이지 모습</summary>
-<div markdown="1">       
+<div markdown="1">
     <img     src="https://hackmd.io/_uploads/Hyfgpzs3n.png" alt="전체 페이지"/>
 </div>
 </details>
 
----
+--- -->
 
 ## 💻 구동 방법
 
-- 로컬 구동 기준으로 작성되었습니다.
-
-1. clone Project
-
-```
-git clone https://lab.ssafy.com/s09-webmobile1-sub2/AirLingo.git
-```
-
-2. change path to /frontend/airlingo
-
-```
-npm i --legacy-peer-deps
-```
-
-3. create .env file in /frontend/airlingo/
-
-```
-VITE_SERVER_URL={your_server_url}
-VITE_SOCKET_URL={your_socket_url}
-VITE_CHAT_SOCKET_URL={your_chat_socket_url}
-```
-
-4. input frontend run script
-
-```
-npm run dev
-```
-
-5. change path to /backend/airlingo/src/main/resources
-
-```
-application.yml
-
-cloud:
-  aws:
-    s3:
-      bucket: ${your-bucket-name}
-    credentials:
-      accessKey: ${your-access-key}
-      secretKey: ${your-secret-key}
-    region:
-      static: ap-northeast-2
-      auto: false
-    stack:
-      auto: false
-```
-
-```
-application-dev.yml
-
-spring:
-  jpa:
-    hibernate:
-      ddl-auto: create #create update none
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${your-db-url}
-    username: ${your-db-username}
-    password: ${your-db-password}
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: ${your-rabbitmq-username}
-    password: ${your-rqbbitmq-password}
-
-openviduUrl: ${your-openvidu-url}
-openviduSecret: ${your-openvidu-secret}
-```
-
-6. install docker,openvidu,redis,rabbitmq
-7. run openvidu
-
-```
-docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-dev:2.28.0
-```
-
-8. change path /matching/airlingo
-9. run docker-compose.yaml for rabbitmq
-10. run backend,matching program
+[포팅메뉴얼 참조](./포팅매뉴얼_A610.pdf)
 
 ---
 
@@ -700,10 +594,8 @@ docker run -p 4443:4443 --rm -e OPENVIDU_SECRET=MY_SECRET openvidu/openvidu-dev:
 
 ### UCC
 
-https://youtu.be/8numB_R7RLE
+https://youtu.be/4qbz0VknVCI
 
 ### 시연 영상
 
-https://www.youtube.com/watch?v=WcZEspXgMLA
-
-### PPT
+https://youtu.be/KMJX3GOS7eo
