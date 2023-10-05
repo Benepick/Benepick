@@ -21,7 +21,7 @@ function Home({ navigation }: HomeNavigationProps) {
         <View>
           <View style={styles.title}>
             <BText type="h2" color={colors.main}>
-              {userName} 님
+              {userName}님
             </BText>
             <BText type="h2"> 위치에서</BText>
           </View>

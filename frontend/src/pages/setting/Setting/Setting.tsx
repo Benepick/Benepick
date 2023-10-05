@@ -9,13 +9,14 @@ import AuthSetting from './Container/AuthSetting';
 import CardSetting from './Container/CardSetting';
 import AppSetting from './Container/AppSetting';
 import FlatButton from '@common/components/FlatButton';
-import { useAppDispatch } from '@store/hooks';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { clearToken, setAutoLogin } from '@store/slices/userSlice';
 import { reset } from '@store/slices/appSlice';
 import user from '@api/user';
 
 function Setting({ navigation }: SettingNavigationProps) {
   const dispatch = useAppDispatch();
+  const userName = useAppSelector((state) => state.user.userName);
 
   const logout = () => {
     Alert.alert('로그아웃', '정말로 로그아웃 하시겠습니까?', [
@@ -46,17 +47,21 @@ function Setting({ navigation }: SettingNavigationProps) {
       {
         text: '회원탈퇴',
         onPress: () => {
-          user
-            .withdrawal()
-            .then((response) => {
-              dispatch(clearToken());
-              dispatch(setAutoLogin(false));
-              dispatch(reset());
-              navigation.push('AuthStack');
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          if (userName !== '베네픽') {
+            user
+              .withdrawal()
+              .then((response) => {
+                dispatch(clearToken());
+                dispatch(setAutoLogin(false));
+                dispatch(reset());
+                navigation.push('AuthStack');
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          } else {
+            Alert.alert('체험 계정은 탈퇴가 불가합니다.');
+          }
         },
       },
     ]);

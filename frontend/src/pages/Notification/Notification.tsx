@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Button, StyleSheet } from 'react-native';
+import { Text, View, Button, StyleSheet, ScrollView } from 'react-native';
 import BText from '@common/components/BText';
 import { Spacing } from '@common/components/Spacing';
 import NotificationItem from './Container/NotificationItem';
@@ -15,15 +15,19 @@ function Notification({ navigation }: NotificationNavigationProps) {
   const dispatch = useAppDispatch();
   return (
     <WhitePage>
-      {notificationLogs.length !== 0 &&
-        notificationLogs.map((log, index) => (
-          <NotificationDate
-            date={log.date}
-            values={log.values}
-            navigation={navigation}
-            key={index}
-          />
-        ))}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View>
+          {notificationLogs.length !== 0 &&
+            notificationLogs.map((log, index) => (
+              <NotificationDate
+                date={log.date}
+                values={log.values}
+                navigation={navigation}
+                key={index}
+              />
+            ))}
+        </View>
+      </ScrollView>
       {notificationLogs.length === 0 && (
         <View style={styles.container}>
           <Spacing />

@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   scroll: {
     width: '100%',
     backgroundColor: colors.white,
-    maxHeight: '80%',
+    height: '75%',
     borderRadius: 10,
   },
   purchase: {
