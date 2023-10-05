@@ -48,7 +48,19 @@ function PhoneAuth({ navigation, route }: PhoneAuthNavigationProps) {
   };
 
   const moveToNext = () => {
-    navigation.push('SetPassword', { userData: userData });
+    user
+      .ci(userData)
+      .then((res) => {
+        if (res) {
+          navigation.push('SetPassword', { userData: userData });
+        } else {
+          Alert.alert('마이데이터에 존재하지 않는 회원입니다. 베네픽 체험하기를 이용해주세요');
+          navigation.push('Start');
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

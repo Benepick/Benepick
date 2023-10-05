@@ -8,21 +8,30 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
   View,
+  Image,
 } from 'react-native';
 
-function ChatInput({
-  inputProps,
-  touchableOpacityProps,
-}: {
+interface ChatInputProps {
   inputProps: TextInputProps;
   touchableOpacityProps: TouchableOpacityProps;
-}) {
+  isLoading: boolean; // 추가된 isLoading prop
+}
+
+function ChatInput({ inputProps, touchableOpacityProps, isLoading }: ChatInputProps) {
   return (
     <View style={styles.inputContainer}>
       <TextInput {...inputProps} style={styles.inputBox} />
-      <TouchableOpacity {...touchableOpacityProps} style={styles.button} activeOpacity={0.8}>
-        <SvgIcons name="Send" fill={colors.white} size={40} />
-      </TouchableOpacity>
+      {!isLoading && (
+        <TouchableOpacity {...touchableOpacityProps} style={styles.button} activeOpacity={0.8}>
+          <SvgIcons name="Send" fill={colors.white} size={40} />
+        </TouchableOpacity>
+      )}
+      {isLoading && (
+        <Image
+          source={require('@common/assets/images/DualBall.gif')}
+          style={{ justifyContent: 'center', alignItems: 'center', width: 50, height: 50 }}
+        />
+      )}
     </View>
   );
 }

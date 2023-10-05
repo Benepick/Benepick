@@ -3,7 +3,9 @@ export interface ChatLogProps {
   type: ChatMessageType;
   keyword?: string;
   message: string | { cardname: string; benefitId: string; benefit: string }[];
-  onCardClick?: (cardname: string, benefitId: string) => void;
+  onLocationClick?: (cardname: string, benefitId: string) => void;
+  onCardClick?: (cardname: string) => void;
+  isLoading?: boolean;
 }
 
 export interface Message {
@@ -23,4 +25,11 @@ export interface Benefit {
   cardname: string;
   benefit: string;
   benefitId: string;
+}
+
+export interface BenefitResult {
+  metadata: {
+    document_id: string;
+  };
+  text: string;
 }

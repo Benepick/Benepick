@@ -11,6 +11,7 @@ export default {
     http.post<CommonResponse>('api/user/password', { userSimplePassword }),
   cardCompany: () => http.get<CardCompanyGetResponse>('api/user/card-company'),
   withdrawal: () => http.delete<CommonResponse>('api/user'),
+  ci: (checkMyData: CiRequest) => http.post<CiResponse>('api/user/ci', checkMyData),
 };
 
 interface SignupResponse extends CommonResponse {
@@ -31,4 +32,15 @@ interface SignupRequest {
   userPhoneNumber: string;
   userGenderAndGenerationCode: string;
   userSimplePassword: string;
+}
+
+interface CiRequest {
+  userName: string;
+  userSocialNumber: string;
+  userPhoneNumber: string;
+  userGenderAndGenerationCode: string;
+}
+
+interface CiResponse extends CommonResponse {
+  data: boolean;
 }
