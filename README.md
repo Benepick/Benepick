@@ -17,7 +17,6 @@
   - [🖥 서비스 화면](#-서비스-화면)
   - [🏗️ 아키텍쳐](#️-아키텍쳐)
   - [🛠 기술 스택](#-기술-스택)
-    - [기술 스택](#기술-스택)
   - [📂 파일 구조](#-파일-구조)
   - [📝 설계 문서](#-설계-문서)
     - [ERD](#erd)
@@ -189,44 +188,29 @@
 
 ## 🛠 기술 스택
 
-### 기술 스택
+기술 스택
 
 <div align=center>
-    <img src="https://img.shields.io/badge/-GitLab-FCA121?style=flat-square&logo=gitlab&logoColor=white">
-    <img src="https://img.shields.io/badge/-Jira-0052CC?style=flat-square&logo=jira&logoColor=white">
-    <img src="https://img.shields.io/badge/-Notion-000000?style=flat-square&logo=notion&logoColor=white">
-    <img src="https://img.shields.io/badge/-Figma-F24E1E?style=flat-square&logo=figma&logoColor=white">
-    <img src="https://img.shields.io/badge/-IntelliJ_IDEA-000000?style=flat-square&logo=intellij-idea&logoColor=white">
-    <img src="https://img.shields.io/badge/-VSCode-007ACC?style=flat-square&logo=visual-studio-code&logoColor=white">
-<img src="https://img.shields.io/badge/-Mattermost-00AEEF?style=flat-square">
-    <img src="https://img.shields.io/badge/-Webex-00B140?style=flat-square">
-    <img src="https://img.shields.io/badge/-Postman-FF6C37?style=flat-square&logo=postman">
-    <img src="https://img.shields.io/badge/-MobaXterm-014E58?style=flat-square">
-    <img src="https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white">
-    <img src="https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=white">
-    <img src="https://img.shields.io/badge/-React_Router-CA4245?style=flat-square&logo=react-router&logoColor=white">
-    <img src="https://img.shields.io/badge/-Prop_Types-FFA500?style=flat-square">
-    <img src="https://img.shields.io/badge/-Redux-764ABC?style=flat-square&logo=redux&logoColor=white">
-<img src="https://img.shields.io/badge/-Redux_Toolkit-764ABC?style=flat-square&logo=redux&logoColor=white">
-<img src="https://img.shields.io/badge/-Redux_Persist-764ABC?style=flat-square&logo=redux&logoColor=white">
-    <img src="https://img.shields.io/badge/-Axios-0057B8?style=flat-square&logo=axios&logoColor=white">
-    <img src="https://img.shields.io/badge/-Emotion.js-DB7093?style=flat-square&logo=emotion&logoColor=white">
-    <img src="https://img.shields.io/badge/-Openvidu-4078C0?style=flat-square">
-     <img src="https://img.shields.io/badge/-YJS-000000?style=flat-square">
-    <img src="https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white">
-    <img src="https://img.shields.io/badge/-MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white">
-    <img src="https://img.shields.io/badge/-Redis-DC382D?style=flat-square&logo=redis&logoColor=white">
-    <img src="https://img.shields.io/badge/-Java-007396?style=flat-square&logo=java&logoColor=white">
-    <img src="https://img.shields.io/badge/-JPA-FF5722?style=flat-square">
-     <img src="https://img.shields.io/badge/-RabbitMQ-FF6600?style=flat-squar">
-    <img src="https://img.shields.io/badge/-WebSocket-00BFFF?style=flat-square">
-    <img src="https://img.shields.io/badge/-StompJS-008000?style=flat-square">
-    <img src="https://img.shields.io/badge/-AWS_EC2-232F3E?style=flat-square&logo=amazon-aws&logoColor=white">
-    <img src="https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white">
-    <img src="https://img.shields.io/badge/-NGINX-269539?style=flat-square&logo=nginx&logoColor=white">
-    <img src="https://img.shields.io/badge/-Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white">
-    <img src="https://img.shields.io/badge/-AWS_S3-569A31?style=flat-square&logo=amazon-s3&logoColor=white">
-    <img src="https://img.shields.io/badge/-Lambda-FF9900?style=flat-square">
+<!-- 백엔드 -->
+<img src="https://img.shields.io/badge/-Java-007396?style=flat-square&logo=java&logoColor=white">
+<img src="https://img.shields.io/badge/-SpringBoot-6DB33F?style=flat-square&logo=spring&logoColor=white">
+<img src="https://img.shields.io/badge/-JPA-FFCA28?style=flat-square&logo=java&logoColor=white">
+<!-- 데이터베이스 -->
+<img src="https://img.shields.io/badge/-MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white">
+<img src="https://img.shields.io/badge/-Redis-DC382D?style=flat-square&logo=redis&logoColor=white">
+<img src="https://img.shields.io/badge/-Pinecone-606060?style=flat-square"> 
+<!-- 프론트엔드 -->
+<img src="https://img.shields.io/badge/-React_Native-61DAFB?style=flat-square&logo=react&logoColor=white">
+<img src="https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/-React_Navigation-61DAFB?style=flat-square&logo=react&logoColor=white">
+<img src="https://img.shields.io/badge/-Redux-764ABC?style=flat-square&logo=redux&logoColor=white">
+<!-- 인프라 -->
+<img src="https://img.shields.io/badge/-Docker-2496ED?style=flat-square&logo=docker&logoColor=white">
+<img src="https://img.shields.io/badge/-Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white">
+<img src="https://img.shields.io/badge/-Prometheus-E6522C?style=flat-square&logo=prometheus&logoColor=white">
+<img src="https://img.shields.io/badge/-Grafana-F46800?style=flat-square&logo=grafana&logoColor=white">
+<img src="https://img.shields.io/badge/-nGrinder-8E24AA?style=flat-square"> 
+<img src="https://img.shields.io/badge/-nginx-009639?style=flat-square&logo=nginx&logoColor=white">
 </div>
 
 ---
