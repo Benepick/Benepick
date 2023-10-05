@@ -116,7 +116,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	}
 
 	 @Override
-	 @Cacheable(value = "userCardList", key = "@userServiceImpl.getUserFromRequest(#request).getUserId()")
+	 @Cacheable(value = "userCardList", key = "#request.getHeader('Authorization')")
 	 public List<UserCardResponseDto> getUserCards(HttpServletRequest request) {
 	 	User user = userService.getUserFromRequest(request);
 	 	List<UserCard> userCardList = userCardRepository.findByUser(user);
@@ -124,11 +124,7 @@ public class UserCardServiceImpl implements  UserCardService{
 
 	 	List<UserCardResponseDto> userCardResponseDtos = new ArrayList<>();
 	 	for (UserCard userCard : userCardList) {
-			int curPerform = 0;
-
-			for (UserPayment userPayment : userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardId(), LocalDate.now().getYear(), LocalDate.now().getMonthValue()) ) {
-				curPerform += userPayment.getUserPaymentAmount();
-			}
+			int curPerform = userCard.getUserCardCurrentPerformance();
 
 	 		List<UserCardCategory1> category1s = getUserCardCategory1(userCard); //cardService.getCardCategory1(card);
 			List<Integer> cardPerformLevelList = getCardBenefitsLevels(category1s.get(0));

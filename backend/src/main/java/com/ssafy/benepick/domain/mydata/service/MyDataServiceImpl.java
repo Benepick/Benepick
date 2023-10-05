@@ -231,7 +231,7 @@ public class MyDataServiceImpl implements MyDataService {
 							});
 
 						// 카드 현월 실적 누적
-						userCard.updateCardCurrentPerformance(userCard.getUserCardCurrentPerformance() + monthPerformance);
+						userCard.updateCardCurrentPerformance(monthPerformance);
 						userPaymentRepository.saveAll(userPaymentList);
 					});
 		});
