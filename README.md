@@ -188,8 +188,6 @@
 
 ## 🛠 기술 스택
 
-기술 스택
-
 <div align=center>
 <!-- 백엔드 -->
 <img src="https://img.shields.io/badge/-Java-007396?style=flat-square&logo=java&logoColor=white">
