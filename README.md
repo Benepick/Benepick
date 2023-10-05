@@ -62,7 +62,7 @@
 
 |                                                                                                     |                                                                                                 |
 | :-------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------: |
-| <img src="./readme-asset/image/profile/seongYong.gif" width="200px" height="200px" /><br>**김성용** | <img src="./readme-asset/image/profile/ikGun.gif" width="200px" height="200px" /><br>**진익근** |
+| <img src="./readme-asset/image/profile/seongYong.gif" width="200px" height="200px" /><br>**김성용** | <img src="./readme-asset/image/profile/ikgun.gif" width="200px" height="200px" /><br>**진익근** |
 
 ---
 
