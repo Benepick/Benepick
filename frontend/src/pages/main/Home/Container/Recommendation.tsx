@@ -67,19 +67,41 @@ function Recommendation() {
           <BText type="h3">보유하신 신용카드가 없어요</BText>
         </View>
       )}
-      {data && !loading && data.discountPercent === 0 && (
-        <View style={{ justifyContent: 'center', alignSelf: 'center', height: '100%' }}>
-          <Image
-            style={{ width: 200, height: 200, alignSelf: 'center' }}
-            source={require('@common/assets/images/whaleSorry.png')}
-          />
-          <BText type="bold">{data?.merchantName}에서 추천받을 수 있는 카드가 없어요</BText>
-        </View>
-      )}
-      {data && !loading && data.discountPercent !== 0 && (
+      {data && !loading && !data.recommend && (
         <View style={styles.col}>
           <View style={styles.title}>
-            <BText type="h3">{data.merchantName}에서 추천드려요</BText>
+            <BText type="h3">아쉽게도 {data?.merchantName}에</BText>
+            <IconButton
+              name="Refresh"
+              onPress={() => {
+                setLoading(true);
+                EventListener.getLocation(successCallback, errorCallback);
+              }}
+            />
+          </View>
+          <BText type="h3">혜택이 적용되는 카드가 없어요</BText>
+          <Spacing />
+          <BText type="h3">대신 아래 카드의 실적을 채워두는건 어때요?</BText>
+          <Spacing rem="2" />
+
+          <View style={styles.noneDescription}>
+            {data.cardImgUrl && <Image style={styles.image} source={{ uri: data.cardImgUrl }} />}
+            <Spacing dir="row" />
+            <View style={{ marginLeft: 10, justifyContent: 'center' }}>
+              <BText type="h3" color={colors.main}>
+                {data.cardCompanyName}
+              </BText>
+              <BText type="h3" color={colors.main}>
+                {data.cardName}
+              </BText>
+            </View>
+          </View>
+        </View>
+      )}
+      {data && !loading && data.recommend && (
+        <View style={styles.col}>
+          <View style={styles.title}>
+            <BText type="h2">{data.merchantName}</BText>
             <IconButton
               name="Refresh"
               onPress={() => {
@@ -91,6 +113,7 @@ function Recommendation() {
 
           <View style={styles.description}>
             {data.cardImgUrl && <Image style={styles.image} source={{ uri: data.cardImgUrl }} />}
+            <Spacing dir="row" />
             <View style={{ marginLeft: 10, width: '90%' }}>
               <BText type="h3">{data.cardCompanyName}</BText>
               <BText type="h2">{data.cardName}</BText>
@@ -112,7 +135,7 @@ function Recommendation() {
             <Spacing rem="0.25" />
             <View style={styles.benefit}>
               <BText type="bold">잔여혜택</BText>
-              <BText>{data.remainLimitBenefit}원</BText>
+              <BText>{data.remainLimitBenefit.toLocaleString()}원</BText>
             </View>
           </View>
         </View>
@@ -123,7 +146,7 @@ function Recommendation() {
 
 const styles = StyleSheet.create({
   container: {
-    height: '55%',
+    height: '50%',
   },
   col: {
     height: '100%',
@@ -142,10 +165,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-between',
   },
+  noneDescription: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '95%',
+    alignItems: 'center',
+    alignSelf: 'center',
+    backgroundColor: colors.main3,
+    padding: 25,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
   bottom: { width: '95%', alignSelf: 'center' },
   image: {
-    width: '30%',
+    width: '20%',
     aspectRatio: 1 / 1.58,
+    borderRadius: 3,
   },
   benefit: {
     display: 'flex',

@@ -91,14 +91,14 @@ function ConsumptionHistory() {
                 >
                   <View style={{ width: '10%' }}>
                     <SvgIcons
-                      name={data.categoryName}
+                      name={data.categoryName === '카페/간식' ? '카페' : data.categoryName}
                       fill={colorMap[data.categoryName] || colors.main}
                     />
                   </View>
                   <View style={{ flex: 1 }}>
                     <CategoryText
                       category={data.categoryName}
-                      value={`${data.amount} 원 ( ${data.amountRate}% )`}
+                      value={`${data.amount.toLocaleString()} 원 ( ${data.amountRate}% )`}
                     />
                   </View>
                 </View>

@@ -44,6 +44,8 @@ export type RootStackParamList = {
   CheckPassword: undefined;
   ChangePassword: undefined;
 
+  CheckPasswordToAutoLogin: undefined;
+
   // 알림창
 
   Notification: undefined;
@@ -148,6 +150,10 @@ export interface ChangePasswordNavigationProps {
 
 export interface NotificationNavigationProps {
   navigation: NativeStackNavigationProp<RootStackParamList, 'Notification'>;
+}
+
+export interface CheckPasswordToAutoLoginProps {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'CheckPasswordToAutoLogin'>;
 }
 
 // prop data

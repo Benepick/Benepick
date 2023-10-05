@@ -17,26 +17,30 @@ function Home({ navigation }: HomeNavigationProps) {
   return (
     <Page>
       <View style={styles.title}>
-        <BText type="h2" color={colors.main}>
-          {userName}님
-        </BText>
-        <BText type="h2"> 위치에서</BText>
+        <Spacing dir="row" rem="0.5" />
+        <View>
+          <View style={styles.title}>
+            <BText type="h2" color={colors.main}>
+              {userName} 님
+            </BText>
+            <BText type="h2"> 위치에서</BText>
+          </View>
+          <Spacing rem="0.5" dir="row" />
+          <BText type="h2">최적의 카드를 추천해드려요</BText>
+        </View>
       </View>
-      <View>
-        <Spacing rem="0.5" dir="row" />
-        <BText type="h2">사용할 카드를 추천해드려요</BText>
-      </View>
-      <Spacing rem="0.25" />
+      <Spacing rem="0.7" />
       <Recommendation />
       <Spacing />
       <View style={styles.title}>
-        <BText type="h2">이번달</BText>
+        <Spacing dir="row" rem="0.5" />
+        <BText type="h2">이번 달</BText>
         <BText type="h2" color={colors.main}>
           {' '}
           소비
         </BText>
       </View>
-      <Spacing rem="0.25" />
+      <Spacing rem="0.7" />
       <MonthlyConsumption />
     </Page>
   );
@@ -44,7 +48,6 @@ function Home({ navigation }: HomeNavigationProps) {
 
 const styles = StyleSheet.create({
   title: {
-    display: 'flex',
     flexDirection: 'row',
   },
 });

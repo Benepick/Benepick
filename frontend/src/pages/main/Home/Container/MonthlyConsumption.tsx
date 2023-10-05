@@ -25,6 +25,8 @@ function MonthlyConsumption() {
       });
   }, []);
 
+  console.log(data);
+
   return (
     <WhiteBox>
       <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
@@ -33,7 +35,7 @@ function MonthlyConsumption() {
           source={{
             uri: data?.imgUrl
               ? data.imgUrl
-              : 'https://vertical.pstatic.net/vertical-cardad/creatives/SS/1530/SS_1530_20221229-134605_hor.png',
+              : 'https://api.card-gorilla.com:8080/storage/card/422/card_img/20920/422card.png',
           }}
         />
         <View style={{ width: '75%', justifyContent: 'center' }}>

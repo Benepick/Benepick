@@ -37,12 +37,15 @@ function CreditCard({ navigation }: CreditCardNavigationProps) {
     <Page>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.title}>
-          <BText type="h2" color={colors.main}>
-            {userName}님
-          </BText>
+          <Spacing dir="row" rem="0.5" />
+          <View>
+            <BText type="h2" color={colors.main}>
+              {userName} 님
+            </BText>
+            <Spacing rem="0.25" />
+            <BText type="h2">카드 보여드릴게요</BText>
+          </View>
         </View>
-        <Spacing rem="0.25" />
-        <BText type="h2">카드 보여드릴게요</BText>
         <Spacing />
         {data?.map((value, index) => (
           <View key={index}>
@@ -84,7 +87,6 @@ function CreditCard({ navigation }: CreditCardNavigationProps) {
 
 const styles = StyleSheet.create({
   title: {
-    display: 'flex',
     flexDirection: 'row',
   },
 });

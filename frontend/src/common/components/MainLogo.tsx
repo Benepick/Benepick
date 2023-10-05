@@ -6,6 +6,8 @@ import myData from '@api/myData';
 import SvgIcons from '@common/assets/SvgIcons';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { setRenewalTimeStamp } from '@store/slices/userSlice';
+import IconButton from './IconButton';
+import { Spacing } from './Spacing';
 
 function MainLogo({ navigation }: any) {
   const renewalTimeStamp = useAppSelector((state) => state.user.renewalTimeStamp);
@@ -67,7 +69,12 @@ function MainLogo({ navigation }: any) {
   return (
     <TouchableHighlight onPress={getMydataRenew} underlayColor={'transparent'}>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <Image source={require('@common/assets/images/logo/navLogo.png')} />
+        <Spacing dir="row" />
+        <Image
+          source={require('@common/assets/images/logo/mainLogo.png')}
+          style={{ width: 30, height: 30 }}
+        />
+        <Spacing dir="row" rem="0.5" />
         {!renewalTimeStamp && (
           <Animated.View style={[styles.balloonContainer, { transform: [{ translateX }] }]}>
             <View style={styles.triangle} />

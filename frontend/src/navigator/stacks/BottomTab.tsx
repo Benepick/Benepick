@@ -28,9 +28,13 @@ const BottomTab = () => {
         headerLeft: () => <MainLogo navigation={navigation} />,
         headerRight: () => (
           <View style={{ display: 'flex', flexDirection: 'row' }}>
-            <AlarmButton onPress={() => navigation.push('Notification')} isAlarmed={false} />
+            <IconButton onPress={() => navigation.push('Notification')} name="AlarmOff" />
             <Spacing rem="0.5" dir="row" />
-            <IconButton onPress={() => navigation.push('SettingStack')} name="Menu" />
+            <IconButton
+              onPress={() => navigation.push('SettingStack')}
+              name="Menu"
+              color={colors.black}
+            />
             <Spacing rem="0.5" dir="row" />
           </View>
         ),

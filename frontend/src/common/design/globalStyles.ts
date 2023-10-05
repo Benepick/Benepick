@@ -3,10 +3,10 @@ import colors from './colors';
 
 export const globalStyles = StyleSheet.create({
   page: {
-    paddingHorizontal: '4%',
+    paddingHorizontal: '3%',
   },
   whitePage: {
-    paddingHorizontal: '4%',
+    paddingHorizontal: '3%',
     backgroundColor: colors.white,
     minHeight: '100%',
   },
@@ -27,7 +27,7 @@ export const globalStyles = StyleSheet.create({
   },
   h3: {
     fontSize: 18,
-    fontFamily: 'IBMPlexSansKR-Bold',
+    fontFamily: 'IBMPlexSansKR-SemiBold',
     includeFontPadding: false,
   },
   bold: {

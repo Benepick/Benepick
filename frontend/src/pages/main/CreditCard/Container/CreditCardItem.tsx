@@ -31,7 +31,7 @@ function CreditCardItem({
       >
         <View>
           <View style={styles.cardHeader}>
-            <Image style={styles.image} source={{ uri: cardImgUrl }} />
+            <Image style={styles.image} source={{ uri: cardImgUrl }} borderRadius={3} />
             <Spacing dir="row" />
             <View style={styles.cardTitle}>
               <BText type="h3">{cardName}</BText>
@@ -75,13 +75,13 @@ const styles = StyleSheet.create({
     aspectRatio: 1 / 1.58,
   },
   serialNumber: {
-    width: 70,
-    borderWidth: 1,
+    width: 55,
+    borderWidth: 1.5,
     borderColor: colors.placeholder,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 5,
-    borderRadius: 5,
+    borderRadius: 2,
     color: colors.placeholder,
   },
 });

@@ -18,16 +18,20 @@ function Consumption({ navigation }: ConsumptionNavigationProps) {
     <Page>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.title}>
-          <BText type="h2" color={colors.main}>
-            {userName}님
-          </BText>
-          <BText type="h2">의 이번달</BText>
+          <Spacing dir="row" rem="0.5" />
+          <View>
+            <View style={styles.title}>
+              <BText type="h2" color={colors.main}>
+                {userName} 님
+              </BText>
+              <BText type="h2">의 이번달</BText>
+            </View>
+            <View>
+              <Spacing rem="0.5" dir="row" />
+              <BText type="h2">소비내역이에요</BText>
+            </View>
+          </View>
         </View>
-        <View>
-          <Spacing rem="0.5" dir="row" />
-          <BText type="h2">소비내역이에요</BText>
-        </View>
-        <Spacing rem="0.25" />
         <Spacing />
         <MonthlyBenefit />
         <Spacing />
@@ -40,7 +44,6 @@ function Consumption({ navigation }: ConsumptionNavigationProps) {
 
 const styles = StyleSheet.create({
   title: {
-    display: 'flex',
     flexDirection: 'row',
   },
 });
