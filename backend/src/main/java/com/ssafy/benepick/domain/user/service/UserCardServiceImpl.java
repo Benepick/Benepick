@@ -131,7 +131,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	 		List<UserCardCategory1> category1s = getUserCardCategory1(userCard); //cardService.getCardCategory1(card);
 			List<Integer> cardPerformLevelList = getCardBenefitsLevels(category1s.get(0));
 	 		int currentLevel = 0, nextLevelAmount = 0;
-
+			log.info("현재 유저 카드 사용량 : " + curPerform);
 	 		for (int i = 0; i < cardPerformLevelList.size() - 1; i++) {
 	 			if (curPerform >= cardPerformLevelList.get(i) && curPerform < cardPerformLevelList.get(i+1)) {
 	 				currentLevel = i;
