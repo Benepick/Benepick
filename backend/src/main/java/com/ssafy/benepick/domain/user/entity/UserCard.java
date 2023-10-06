@@ -71,12 +71,12 @@ public class UserCard {
 	@OneToMany(mappedBy = "userCard", cascade = CascadeType.ALL , orphanRemoval = true)
 	private List<UserCardCategory1> userCardCategory1List;
 
-	public UserCardResponseDto toUserCardResponseDto (List<Integer> userCardPerformanceLevels, int userCardCurrentLevel, int nextLevelAmount){
+	public UserCardResponseDto toUserCardResponseDto (int curPerform, List<Integer> userCardPerformanceLevels, int userCardCurrentLevel, int nextLevelAmount){
 		return UserCardResponseDto.builder()
 				.cardId(userCardId)
 				.serialNumber(userCardSerialNumber)
 				.cardName(userCardName)
-				.currentPerformance(userCardCurrentPerformance)
+				.currentPerformance(curPerform)
 				.cardImgUrl(userCardImgUrl)
 				.cardCode(userCardCode)
 				.expirationDate(userCardExpirationDate)

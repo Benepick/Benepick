@@ -139,7 +139,7 @@ public class UserCardServiceImpl implements  UserCardService{
 	 				break;
 	 			}
 	 		}
-	 		UserCardResponseDto userCardResponseDto = userCard.toUserCardResponseDto(cardPerformLevelList, currentLevel, nextLevelAmount);
+	 		UserCardResponseDto userCardResponseDto = userCard.toUserCardResponseDto(curPerform, cardPerformLevelList, currentLevel, nextLevelAmount);
 	 		userCardResponseDtos.add(userCardResponseDto);
 	 	}
 	 	return userCardResponseDtos;
