@@ -120,12 +120,14 @@ public class UserCardServiceImpl implements  UserCardService{
 	 public List<UserCardResponseDto> getUserCards(HttpServletRequest request) {
 	 	User user = userService.getUserFromRequest(request);
 	 	List<UserCard> userCardList = userCardRepository.findByUser(user);
-
+		 LocalDate now = LocalDate.now();
 
 	 	List<UserCardResponseDto> userCardResponseDtos = new ArrayList<>();
 	 	for (UserCard userCard : userCardList) {
-			int curPerform = userCard.getUserCardCurrentPerformance();
-
+			int curPerform = 0;
+			for (UserPayment userPayment : userPaymentService.getUserPaymentListByUserCardAndDate(userCard.getUserCardId(), now.getYear(), now.getMonthValue()) ) {
+				curPerform += userPayment.getUserPaymentAmount();
+			}
 	 		List<UserCardCategory1> category1s = getUserCardCategory1(userCard); //cardService.getCardCategory1(card);
 			List<Integer> cardPerformLevelList = getCardBenefitsLevels(category1s.get(0));
 	 		int currentLevel = 0, nextLevelAmount = 0;
